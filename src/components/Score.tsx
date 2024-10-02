@@ -1,10 +1,10 @@
 import { FC, useState, useCallback, useMemo } from 'react'
 import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
-import { useAlphaTab } from './useAlphaTab'
+import { useAlphaTab } from '../model/useAlphaTab'
 import { PlayerControls } from './PlayerControls'
-import { getRandomTrack } from './getRandomTrack'
-import { toAlphaTex } from './toAlphaTex'
+import { getRandomTrack } from '../model/getRandomTrack'
+import { toAlphaTex } from '../model/toAlphaTex'
 
 export type ScoreProps = {
   progressionId: string

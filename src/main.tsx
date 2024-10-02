@@ -3,8 +3,8 @@ import { Global } from '@emotion/react'
 import { HashRouter } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 import { i18n } from './languages/i18n'
-import { globalStyles } from './globalStyles'
-import { Score } from './Score'
+import { globalStyles } from './components/globalStyles'
+import { Score } from './components/Score'
 
 createRoot(document.getElementById('root')!).render(
   <HashRouter>
