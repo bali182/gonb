@@ -1,5 +1,5 @@
 import { distance, Interval } from 'tonal'
-import { Bar, Item, Note, Rest, Track } from './model'
+import { AtBar, AtItem, AtNote, AtRest, Track } from './alphaTex'
 import { isNil } from './utils'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
@@ -22,17 +22,17 @@ function withBrush(content: string): string {
   return `${content} {bd 120}`
 }
 
-function getNote(note: Note): string {
+function getNote(note: AtNote): string {
   const string = 1
   const fret = Interval.semitones(distance('C0', `${note.name}${note.octave}`))
   return withLabel(`${fret}.${string}.${note.duration}`, note.label)
 }
 
-function getRest(rest: Rest): string {
+function getRest(rest: AtRest): string {
   return withLabel(`r.${rest.duration}`, rest.label)
 }
 
-function getItem(note: Item): string {
+function getItem(note: AtItem): string {
   switch (note.type) {
     case 'note':
       return getNote(note)
@@ -41,7 +41,7 @@ function getItem(note: Item): string {
   }
 }
 
-function getBar(bar: Bar): string {
+function getBar(bar: AtBar): string {
   return bar.items.map((note) => getItem(note)).join(' ')
 }
 

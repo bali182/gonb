@@ -1,4 +1,5 @@
-import { Bar, Duration, Item, Melody, Note, Rest, Track } from './model'
+import { AtBar, AtItem, AtNote, Track } from './alphaTex'
+import { Duration } from './common'
 
 // Predefined scales
 const C_MAJOR_SCALE = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
@@ -24,12 +25,12 @@ function getRandomDuration(): Duration {
 
 // Function to get the next note in a contour, adjusting for octave changes
 function getNextNoteInContour(
-  lastNote: Note,
+  lastNote: AtNote,
   direction: 'up' | 'down' | 'arch',
   scale: string[],
   minOctave: number,
   maxOctave: number,
-): Note {
+): AtNote {
   const noteIndex = scale.indexOf(lastNote.name)
   let newOctave = lastNote.octave
   let newNoteName: string | undefined = lastNote.name
@@ -71,33 +72,33 @@ function getNextNoteInContour(
 // Function to generate a bar following a specific contour pattern, considering octaves
 function generateBarWithContour(
   scale: string[],
-  lastNote: Note,
+  lastNote: AtNote,
   direction: 'up' | 'down' | 'arch',
   minOctave: number,
   maxOctave: number,
   allowRest = false,
-): Bar {
-  const items: Item[] = []
+): AtBar {
+  const items: AtItem[] = []
   let totalDuration = 0
   let currentNote = lastNote
 
-  while (totalDuration < Duration.WHOLE) {
-    if (allowRest && Math.random() < 0.2) {
-      const rest: Rest = { type: 'rest', duration: getRandomDuration() }
-      items.push(rest)
-      totalDuration += Duration.WHOLE / rest.duration
-    } else {
-      currentNote = getNextNoteInContour(
-        currentNote,
-        direction,
-        scale,
-        minOctave,
-        maxOctave,
-      )
-      items.push(currentNote)
-      totalDuration += Duration.WHOLE / currentNote.duration
-    }
-  }
+  // while (totalDuration < Duration.WHOLE) {
+  //   if (allowRest && Math.random() < 0.2) {
+  //     const rest: Rest = { type: 'rest', duration: getRandomDuration() }
+  //     items.push(rest)
+  //     totalDuration += Duration.WHOLE / rest.duration
+  //   } else {
+  //     currentNote = getNextNoteInContour(
+  //       currentNote,
+  //       direction,
+  //       scale,
+  //       minOctave,
+  //       maxOctave,
+  //     )
+  //     items.push(currentNote)
+  //     totalDuration += Duration.WHOLE / currentNote.duration
+  //   }
+  // }
 
   return { items }
 }
@@ -108,10 +109,10 @@ function getRandomMelody(
   numBars: number,
   minOctave: number,
   maxOctave: number,
-): Bar[] {
-  const bars: Bar[] = []
+): AtBar[] {
+  const bars: AtBar[] = []
   let state = MelodyState.INTRODUCTION
-  let currentNote: Note = {
+  let currentNote: AtNote = {
     type: 'note',
     name: getRandomElement(scale),
     octave: getRandomElement([minOctave, minOctave + 1]),
@@ -120,7 +121,7 @@ function getRandomMelody(
   let contour: 'up' | 'down' | 'arch' = 'up' // Start with an ascending contour
 
   for (let i = 0; i < numBars; i++) {
-    let newBar: Bar
+    let newBar: AtBar
 
     switch (state) {
       case MelodyState.INTRODUCTION:
