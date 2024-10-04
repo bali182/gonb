@@ -12,8 +12,14 @@ const playerControlsStyle = css`
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 160px;
-  width: 100%;
-  background-color: #ffffff15;
+  margin-left: 200px;
+  margin-right: 200px;
+  /* background-color: #141719; */
+
+  background-color: #555;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 
 const volumeContainerStyle = css`

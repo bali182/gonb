@@ -32,8 +32,7 @@ export const globalStyles = css`
 
   body {
     -webkit-font-smoothing: antialiased;
-    background-color: #000000;
-    /* background: linear-gradient(147deg, #000000 0%, #434343 74%); */
+    background-color: #ebebeb;
     height: 100vh;
     width: 100vw;
   }

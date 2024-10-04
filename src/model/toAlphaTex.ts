@@ -5,7 +5,11 @@ import { Duration } from './common'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
-function getMetaData(model: AtTrack): string[] {
+function getGlobalMetadata(model: AtTrack): string[] {
+  return [`\\title "${model.name}"`, `\\tempo ${120}`]
+}
+
+function getTrackMetadata(model: AtTrack): string[] {
   return [
     `\\track "${model.name}" "${model.shortName}"`,
     '\\staff{score}',
@@ -103,9 +107,12 @@ function getBars(model: AtTrack): string[] {
 }
 
 export function toAlphaTex(model: AtTrack): string {
-  const metadata = getMetaData(model).join(' ')
-  const lines = [metadata, getBars(model).join('\n|')]
-  const tex = lines.join('\n')
+  const tex = [
+    getGlobalMetadata(model).join(' '),
+    '.',
+    getTrackMetadata(model).join(' '),
+    getBars(model).join('\n|'),
+  ].join('\n')
   console.log(tex)
   return tex
 }

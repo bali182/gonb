@@ -14,9 +14,8 @@ export type ScoreProps = {
 const wrapStyle = css`
   //.at-wrap
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 120px);
   margin: 0 auto;
-  border: 1px solid rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -34,11 +33,14 @@ const viewportStyle = css`
   // .at-viewport
   overflow-y: auto;
   position: absolute;
+  left: 200px;
+  right: 200px;
+  padding: 40px;
   top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  padding: 20px;
+  bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 
 export const Score: FC = () => {
@@ -57,13 +59,13 @@ export const Score: FC = () => {
   const { isLooping, instrumentVolume, metronomeVolume } = useSelector(
     playerSlice.selectors.getPlayerConfig,
   )
-  
+
   // TODO figure out where to store this
   const bpm = 120
 
   const onPlayPause = () => api?.playPause()
   const onLoop = () => {}
-  const onStop = () => {}
+  const onStop = () => api?.stop()
   const onInstrumentVolumeChange = () => {}
   const onMetronomeVolumeChange = () => {}
   const onTempoChange = () => {}
