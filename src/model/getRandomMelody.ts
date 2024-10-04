@@ -1,18 +1,12 @@
 import { Note, Scale } from 'tonal'
-import { AtBar, AtItem, AtNote } from './alphaTex'
+import { AtBar, AtItem } from './alphaTex'
 import { Clef, KeySignature } from './common'
 import {
   randomHalfNotes,
   randomQuarterNotes,
   randomWholeNote,
 } from './melodies/randomNoVariation'
-import {
-  FragmentBar,
-  FragmentItem,
-  FragmentNote,
-  MelodyGeneratorInput,
-  MelodyType,
-} from './melodyFragment'
+import { FragmentBar, FragmentItem, MelodyType } from './melodyFragment'
 import { isNil, randomElement, randomIn as randomInRange } from './utils'
 
 function getFragments(type: MelodyType): FragmentBar[] {
@@ -175,18 +169,19 @@ function getLastNote(bar: AtBar): string {
   return bar.items.filter((item) => item.type === 'note').pop()!.note
 }
 
-export function getRandomMelody(config: MelodyGeneratorInput): AtBar[] {
-  const [lowestNote, highestNote] = getRange(config.clef)
-  const fragments = getFragments(config.type)
-  const scale = getScaleNotesInRange(
-    config.keySignature,
-    lowestNote,
-    highestNote,
-  )
+export function getRandomMelody(
+  type: MelodyType,
+  barCount: number,
+  keySignature: KeySignature,
+  clef: Clef,
+): AtBar[] {
+  const [lowestNote, highestNote] = getRange(clef)
+  const fragments = getFragments(type)
+  const scale = getScaleNotesInRange(keySignature, lowestNote, highestNote)
   let lastNote = randomElement(scale)!
   const bars: AtBar[] = []
 
-  for (let i = 0; i < config.bars; i += 1) {
+  for (let i = 0; i < barCount; i += 1) {
     const matchingFragments = fragments.filter((fragment) =>
       fitsInRange(scale, lastNote, fragment),
     )

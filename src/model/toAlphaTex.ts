@@ -1,10 +1,10 @@
 import { distance, Interval } from 'tonal'
-import { AtBar, AtItem, AtNote, AtRest, Track } from './alphaTex'
+import { AtBar, AtItem, AtNote, AtRest, AtTrack } from './alphaTex'
 import { isNil } from './utils'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
-function getMetaData(model: Track): string[] {
+function getMetaData(model: AtTrack): string[] {
   return [
     `\\track "${model.name}" "${model.shortName}"`,
     '\\staff{score}',
@@ -18,14 +18,15 @@ function withLabel(content: string, label: string | undefined): string {
   return parts.filter((part) => part !== undefined).join(' ')
 }
 
+// Chord brush
 function withBrush(content: string): string {
   return `${content} {bd 120}`
 }
 
-function getNote(note: AtNote): string {
+function getNote({ duration, note, label }: AtNote): string {
   const string = 1
-  const fret = Interval.semitones(distance('C0', `${note.name}${note.octave}`))
-  return withLabel(`${fret}.${string}.${note.duration}`, note.label)
+  const fret = Interval.semitones(distance('C0', note))
+  return withLabel(`${fret}.${string}.${duration}`, label)
 }
 
 function getRest(rest: AtRest): string {
@@ -45,7 +46,7 @@ function getBar(bar: AtBar): string {
   return bar.items.map((note) => getItem(note)).join(' ')
 }
 
-function getBars(model: Track): string[] {
+function getBars(model: AtTrack): string[] {
   if (model.bars.length === 0) {
     return []
   }
@@ -62,7 +63,7 @@ function getBars(model: Track): string[] {
   return bars
 }
 
-export function toAlphaTex(model: Track): string {
+export function toAlphaTex(model: AtTrack): string {
   const metadata = getMetaData(model).join(' ')
   const lines = [metadata, getBars(model).join('\n|')]
   const tex = lines.join('\n')

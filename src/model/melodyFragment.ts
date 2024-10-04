@@ -25,36 +25,3 @@ export type MelodyType =
   | 'HALF_NOTES'
   | 'QUARTER_NOTES'
   | 'MELODY'
-
-export type MelodyGeneratorInput = {
-  type: MelodyType
-  bars: number
-  keySignature: KeySignature
-  clef: Clef
-}
-
-export function bar(...items: FragmentItem[]): FragmentBar {
-  return {
-    items,
-  }
-}
-
-export function note(
-  duration: Duration,
-  steps: FragmentInterval,
-  shift?: number,
-): FragmentNote {
-  return {
-    type: 'note',
-    duration,
-    steps,
-    shift,
-  }
-}
-
-export function rest(duration: Duration): FragmentRest {
-  return {
-    type: 'rest',
-    duration,
-  }
-}

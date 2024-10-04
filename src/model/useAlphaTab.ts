@@ -13,8 +13,7 @@ export type UseAlphaTabConfig = {
   tex: string
   root: HTMLElement | undefined
   scrollArea: HTMLElement | undefined
-  bassVolume: number
-  chordsVolume: number
+  instrumentVolume: number
   metronomeVolume: number
   isLooping: boolean
   bpm: number
@@ -28,8 +27,7 @@ export function useAlphaTab({
   root,
   scrollArea,
   isLooping,
-  bassVolume,
-  chordsVolume,
+  instrumentVolume,
   metronomeVolume,
 }: UseAlphaTabConfig): UseAlphaTabResult {
   const [api, setApi] = useState<AlphaTabApi>()
@@ -54,8 +52,7 @@ export function useAlphaTab({
     }
   }, [api, bpm])
 
-  useTrackVolume(api, 0, bassVolume)
-  useTrackVolume(api, 1, chordsVolume)
+  useTrackVolume(api, 0, instrumentVolume)
   useMetronomeVolume(api, metronomeVolume)
 
   useEffect(() => {
@@ -71,8 +68,7 @@ export function useAlphaTab({
       _api.render()
       _api.isLooping = isLooping
       _api.metronomeVolume = metronomeVolume
-      setTrackVolume(_api, 0, bassVolume)
-      setTrackVolume(_api, 1, chordsVolume)
+      setTrackVolume(_api, 0, instrumentVolume)
 
       setApi(_api)
       return () => _api.destroy()

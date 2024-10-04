@@ -26,7 +26,7 @@ export type AtTimeSignature = {
   bottom: number
 }
 
-export type Track = {
+export type AtTrack = {
   instrument: AtInstrumentType
   name: string
   shortName: string

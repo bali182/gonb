@@ -1,5 +1,5 @@
 import { Duration } from '../common'
-import { bar, note } from '../melodyFragment'
+import { bar, note } from '../utils'
 
 export const randomWholeNote = bar(note(Duration.WHOLE, 'RANDOM'))
 

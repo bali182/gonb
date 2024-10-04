@@ -2,8 +2,7 @@ import { FC } from 'react'
 import { css } from '@emotion/css'
 import { VolumeSlider } from './VolumeSlider'
 import { PiMetronomeBold } from 'react-icons/pi'
-import { GiGuitarBassHead } from 'react-icons/gi'
-import { TbPiano } from 'react-icons/tb'
+import { GiGuitarHead } from 'react-icons/gi'
 import { LoopButton, PlayButton, StopButton } from './ScoreControls'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 
@@ -48,15 +47,13 @@ const logoStyle = css`
 export type PlayerControlsProps = {
   isLooping: boolean
   isPlaying: boolean
-  bassVolume: number
+  instrumentVolume: number
   metronomeVolume: number
-  chordsVolume: number
   bpm: number
   onPlayPause: () => void
   onLoop: () => void
   onStop: () => void
-  onBassVolumeChange: (bassVolume: number) => void
-  onChordsVolumeChange: (chordsVolume: number) => void
+  onInstrumentVolumeChange: (volume: number) => void
   onMetronomeVolumeChange: (metronomeVolume: number) => void
   onTempoChange: (bpm: number) => void
 }
@@ -64,14 +61,12 @@ export type PlayerControlsProps = {
 export const PlayerControls: FC<PlayerControlsProps> = ({
   isPlaying,
   isLooping,
-  bassVolume,
+  instrumentVolume,
   metronomeVolume,
-  chordsVolume,
   onPlayPause,
   onLoop,
   onStop,
-  onBassVolumeChange,
-  onChordsVolumeChange,
+  onInstrumentVolumeChange,
   onMetronomeVolumeChange,
 }) => {
   return (
@@ -83,14 +78,9 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
           onChange={onMetronomeVolumeChange}
         />
         <VolumeSlider
-          Icon={GiGuitarBassHead}
-          value={bassVolume}
-          onChange={onBassVolumeChange}
-        />
-        <VolumeSlider
-          Icon={TbPiano}
-          value={chordsVolume}
-          onChange={onChordsVolumeChange}
+          Icon={GiGuitarHead}
+          value={instrumentVolume}
+          onChange={onInstrumentVolumeChange}
         />
       </div>
       <div className={middleContainerStyle}>

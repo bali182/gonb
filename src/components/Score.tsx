@@ -3,8 +3,9 @@ import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
 import { useAlphaTab } from '../model/useAlphaTab'
 import { PlayerControls } from './PlayerControls'
-import { getRandomTrack } from '../model/getRandomTrack'
-import { toAlphaTex } from '../model/toAlphaTex'
+import { useSelector } from 'react-redux'
+import { alphaTexSelector } from '../state/selectors'
+import { playerSlice } from '../state/playerSlice'
 
 export type ScoreProps = {
   progressionId: string
@@ -52,28 +53,26 @@ export const Score: FC = () => {
     setRoot(node ?? undefined)
   }, [])
 
-  const tex = useMemo(() => toAlphaTex(getRandomTrack()), [])
+  const tex = useSelector(alphaTexSelector)
+  const { isLooping, instrumentVolume, metronomeVolume } = useSelector(
+    playerSlice.selectors.getPlayerConfig,
+  )
+  
+  // TODO figure out where to store this
+  const bpm = 120
 
   const onPlayPause = () => api?.playPause()
   const onLoop = () => {}
   const onStop = () => {}
-  const onBassVolumeChange = () => {}
-  const onChordsVolumeChange = () => {}
+  const onInstrumentVolumeChange = () => {}
   const onMetronomeVolumeChange = () => {}
   const onTempoChange = () => {}
 
-  const isLooping = false
-  const chordsVolume = 0
-  const bassVolume = 0.5
-  const metronomeVolume = 0
-  const bpm = 120
-
   const { api, isPlaying, isLoading } = useAlphaTab({
     tex,
-    bassVolume,
-    chordsVolume,
-    isLooping,
+    instrumentVolume,
     metronomeVolume,
+    isLooping,
     root,
     scrollArea,
     bpm,
@@ -91,15 +90,13 @@ export const Score: FC = () => {
         bpm={bpm}
         isPlaying={isPlaying}
         isLooping={isLooping}
-        bassVolume={bassVolume}
-        chordsVolume={chordsVolume}
+        instrumentVolume={instrumentVolume}
         metronomeVolume={metronomeVolume}
         onLoop={onLoop}
         onStop={onStop}
         onPlayPause={onPlayPause}
         onTempoChange={onTempoChange}
-        onBassVolumeChange={onBassVolumeChange}
-        onChordsVolumeChange={onChordsVolumeChange}
+        onInstrumentVolumeChange={onInstrumentVolumeChange}
         onMetronomeVolumeChange={onMetronomeVolumeChange}
       />
     </div>
