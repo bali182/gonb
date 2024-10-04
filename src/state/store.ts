@@ -6,7 +6,7 @@ import { generatorSlice } from './generatorSlice'
 import { displaySlice } from './displaySlice'
 import { melodySlice } from './melodySlice'
 
-const STATE_STORAGE_KEY = 'stick-app-data'
+const STATE_STORAGE_KEY = 'sheet-app-data'
 
 function saveState(state: AppState) {
   try {

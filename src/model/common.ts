@@ -33,5 +33,5 @@ export const enum KeySignature {
   Ab_MAJOR_F_MINOR_4_FLATS = 'Ab',
   Db_MAJOR_Bb_MINOR_5_FLATS = 'Db',
   Gb_MAJOR_Eb_MINOR_6_FLATS = 'Gb',
-  Cb_MAJOR_Ab_MINOR_7_FLATS = 'Gb',
+  Cb_MAJOR_Ab_MINOR_7_FLATS = 'Cb',
 }

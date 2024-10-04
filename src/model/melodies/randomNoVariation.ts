@@ -4,7 +4,7 @@ import { bar, note } from '../utils'
 export const randomWholeNote = bar(note(Duration.WHOLE, 'RANDOM'))
 
 export const randomHalfNotes = bar(
-  note(Duration.WHOLE, 'RANDOM'),
+  note(Duration.HALF, 'RANDOM'),
   note(Duration.HALF, 'RANDOM'),
 )
 

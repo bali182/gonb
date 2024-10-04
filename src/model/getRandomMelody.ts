@@ -37,14 +37,15 @@ const ScaleNameMap: Record<KeySignature, string> = {
   [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: 'Ab major',
   [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'Db major',
   [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'Gb major',
+  [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'Cb major',
 }
 
 function getRange(clef: Clef): [string, string] {
   switch (clef) {
     case Clef.BASS:
-      return ['E2', 'G4']
+      return ['E1', 'G3']
     case Clef.TREBLE:
-      return ['E6', 'E3']
+      return ['E2', 'E5']
   }
 }
 

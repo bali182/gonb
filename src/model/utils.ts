@@ -13,6 +13,8 @@ export function isNil<T>(
   return input === null || input === undefined
 }
 
+export function noop() {}
+
 export function isNotNil<T>(input: T | null | undefined): input is T {
   return input !== null || input !== undefined
 }

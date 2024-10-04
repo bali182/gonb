@@ -1,6 +1,7 @@
 import { distance, Interval } from 'tonal'
 import { AtBar, AtItem, AtNote, AtRest, AtTrack } from './alphaTex'
 import { isNil } from './utils'
+import { Duration } from './common'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
@@ -23,10 +24,48 @@ function withBrush(content: string): string {
   return `${content} {bd 120}`
 }
 
+function getDurationNumber(duration: Duration): number {
+  switch (duration) {
+    case Duration.WHOLE:
+      return 1
+    case Duration.HALF:
+    case Duration.DOTTED_HALF:
+      return 2
+    case Duration.QUARTER:
+    case Duration.DOTTED_QUARTER:
+      return 4
+    case Duration.EIGHT:
+    case Duration.DOTTED_EIGHT:
+      return 8
+    case Duration.SIXTEENTH:
+    case Duration.DOTTED_SIXTEENTH:
+      return 16
+  }
+}
+
+function getDurationDot(duration: Duration): string | undefined {
+  switch (duration) {
+    case Duration.DOTTED_HALF:
+    case Duration.DOTTED_QUARTER:
+    case Duration.DOTTED_EIGHT:
+    case Duration.DOTTED_SIXTEENTH:
+      return '{d}'
+    case Duration.WHOLE:
+    case Duration.HALF:
+    case Duration.QUARTER:
+    case Duration.EIGHT:
+    case Duration.SIXTEENTH:
+      return undefined
+  }
+}
+
 function getNote({ duration, note, label }: AtNote): string {
   const string = 1
   const fret = Interval.semitones(distance('C0', note))
-  return withLabel(`${fret}.${string}.${duration}`, label)
+  const durationMarkup = `${getDurationNumber(duration)}${
+    getDurationDot(duration) ?? ''
+  }`
+  return withLabel(`${fret}.${string}.${durationMarkup}`, label)
 }
 
 function getRest(rest: AtRest): string {
