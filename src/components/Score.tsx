@@ -3,9 +3,10 @@ import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
 import { useAlphaTab } from '../model/useAlphaTab'
 import { PlayerControls } from './PlayerControls'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { alphaTexSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
+import { AppDispatch } from '../state/store'
 
 export type ScoreProps = {
   progressionId: string
@@ -44,8 +45,11 @@ const viewportStyle = css`
 `
 
 export const Score: FC = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const [scrollArea, setScrollArea] = useState<HTMLElement>()
   const [root, setRoot] = useState<HTMLElement>()
+  const tex = useSelector(alphaTexSelector)
+  const playerConfig = useSelector(playerSlice.selectors.getPlayerConfig)
 
   const setScrollAreaCallback = useCallback((node: HTMLDivElement | null) => {
     setScrollArea(node ?? undefined)
@@ -55,29 +59,43 @@ export const Score: FC = () => {
     setRoot(node ?? undefined)
   }, [])
 
-  const tex = useSelector(alphaTexSelector)
-  const { isLooping, instrumentVolume, metronomeVolume } = useSelector(
-    playerSlice.selectors.getPlayerConfig,
-  )
-
   // TODO figure out where to store this
   const bpm = 120
 
   const onPlayPause = () => api?.playPause()
-  const onLoop = () => {}
   const onStop = () => api?.stop()
-  const onInstrumentVolumeChange = () => {}
-  const onMetronomeVolumeChange = () => {}
+
+  const onLoop = () =>
+    dispatch(
+      playerSlice.actions.setPlayerConfig({
+        ...playerConfig,
+        isLooping: !playerConfig.isLooping,
+      }),
+    )
+  const onInstrumentVolumeChange = (instrumentVolume: number) =>
+    dispatch(
+      playerSlice.actions.setPlayerConfig({
+        ...playerConfig,
+        instrumentVolume,
+      }),
+    )
+  const onMetronomeVolumeChange = (metronomeVolume: number) =>
+    dispatch(
+      playerSlice.actions.setPlayerConfig({
+        ...playerConfig,
+        metronomeVolume,
+      }),
+    )
   const onTempoChange = () => {}
 
   const { api, isPlaying, isLoading } = useAlphaTab({
     tex,
-    instrumentVolume,
-    metronomeVolume,
-    isLooping,
     root,
     scrollArea,
     bpm,
+    instrumentVolume: playerConfig.instrumentVolume,
+    metronomeVolume: playerConfig.metronomeVolume,
+    isLooping: playerConfig.isLooping,
   })
 
   return (
@@ -91,9 +109,9 @@ export const Score: FC = () => {
       <PlayerControls
         bpm={bpm}
         isPlaying={isPlaying}
-        isLooping={isLooping}
-        instrumentVolume={instrumentVolume}
-        metronomeVolume={metronomeVolume}
+        isLooping={playerConfig.isLooping}
+        instrumentVolume={playerConfig.instrumentVolume}
+        metronomeVolume={playerConfig.metronomeVolume}
         onLoop={onLoop}
         onStop={onStop}
         onPlayPause={onPlayPause}

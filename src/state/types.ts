@@ -17,6 +17,7 @@ export type GeneratorConfig = {
   barCount: number
   keySignature: KeySignature
   clef: Clef
+  timestamp: number
 }
 
 export type AppState = {

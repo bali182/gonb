@@ -71,6 +71,7 @@ export const PageMelody: FC<PageProps> = () => {
       generatorSlice.actions.setGeneratorConfig({
         ...generatorConfig,
         ...updates,
+        timestamp: new Date().getTime(),
       }),
     )
   }
@@ -88,7 +89,6 @@ export const PageMelody: FC<PageProps> = () => {
   }
 
   const onMelodyTypeChange = (type: string) => {
-    console.log(type, labelToMelodyType[type])
     updateGeneratorConfig({ type: labelToMelodyType[type] })
   }
 

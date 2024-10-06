@@ -2,7 +2,7 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 import { StickLogo } from './StickLogo'
 import { Button } from './Button'
-import { PiGearFill } from 'react-icons/pi'
+import { PiGearFill, PiFastForwardFill } from 'react-icons/pi'
 
 const toolbarStyle = css`
   display: flex;
@@ -31,7 +31,10 @@ export const Toolbar: FC<ToolbarProps> = ({ onRegenerate, onOpenSettings }) => {
     <div className={toolbarStyle}>
       <StickLogo />
       <div className={buttonsContainer}>
-        <Button onClick={onRegenerate}>Generate</Button>
+        <Button onClick={onRegenerate}>
+          <PiFastForwardFill />
+          Generate new
+        </Button>
         <Button onClick={onOpenSettings}>
           <PiGearFill />
           Settings

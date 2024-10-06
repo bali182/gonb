@@ -8,17 +8,18 @@ import {
 } from './melodies/randomNoVariation'
 import { FragmentBar, FragmentItem, MelodyType } from './melodyFragment'
 import { isNil, randomElement, randomIn as randomInRange } from './utils'
+import { melodies } from './melodies/melodies'
 
 function getFragments(type: MelodyType): FragmentBar[] {
   switch (type) {
     case 'WHOLE_NOTES':
-      return [randomWholeNote]
+      return randomWholeNote
     case 'HALF_NOTES':
-      return [randomHalfNotes]
+      return randomHalfNotes
     case 'QUARTER_NOTES':
-      return [randomQuarterNotes]
+      return randomQuarterNotes
     case 'MELODY':
-      return []
+      return melodies
   }
 }
 
@@ -79,6 +80,39 @@ function getScaleNotesInRange(
   return notes
 }
 
+function scaleToString(scale: string[]): string {
+  if (scale.length < 9) {
+    return scale.toString()
+  }
+  const first8Notes = scale.slice(0, 8)
+  const lastNote = getNoteAtIndex(scale, scale.length - 1)
+  return `[${first8Notes.join(', ')}, ... ${lastNote}]`
+}
+
+function getNoteIndex(note: string, scale: string[]): number {
+  const index = scale.indexOf(note)
+  if (index < 0) {
+    throw new Error(`${note} is not in scale ${scaleToString(scale)}`)
+  }
+  return index
+}
+
+function getNoteAtIndex(scale: string[], index: number): string {
+  if (index < 0) {
+    debugger
+    throw new Error(`Note index cannot be ${index}`)
+  }
+  if (index >= scale.length) {
+    debugger
+    throw new Error(`Note index cannot be >= ${scale.length} (was ${index})`)
+  }
+  const note = scale[index]
+  if (isNil(note)) {
+    throw new Error(`Note at index ${index} was ${note}`)
+  }
+  return note
+}
+
 function getFragmentNote(
   scale: string[],
   lowestNote: string,
@@ -89,8 +123,8 @@ function getFragmentNote(
   if (item.type === 'rest') {
     return { type: 'rest', duration: item.duration }
   }
-  const previousIndex = scale.indexOf(previousNote)
-  const { duration, steps, shift } = item
+  const previousIndex = getNoteIndex(previousNote, scale)
+  const { duration, steps } = item
   switch (steps) {
     // Random note in the scale
     case 'RANDOM_SCALE': {
@@ -98,7 +132,7 @@ function getFragmentNote(
         Math.max(0, previousIndex - 8),
         Math.min(scale.length - 1, previousIndex + 8),
       )
-      const note = scale[noteIndex]!
+      const note = getNoteAtIndex(scale, noteIndex)
       return { type: 'note', duration, note }
     }
     // Fully random note
@@ -116,7 +150,7 @@ function getFragmentNote(
     }
     default: {
       const index = previousIndex + steps
-      const note = scale[index]!
+      const note = getNoteAtIndex(scale, index)
       // TODO shift
       return { type: 'note', duration, note }
     }
@@ -128,16 +162,29 @@ function fitsInRange(
   previousNote: string,
   fragment: FragmentBar,
 ): boolean {
-  return fragment.items.every((item) => {
+  const hasRandomElement = fragment.items.some(
+    (item) =>
+      item.type === 'note' &&
+      (item.steps === 'RANDOM' || item.steps === 'RANDOM_SCALE'),
+  )
+  // Can't do much with random, let it pass.
+  if (hasRandomElement) {
+    return true
+  }
+  let index = getNoteIndex(previousNote, scale)
+  for (const item of fragment.items) {
     if (item.type === 'rest') {
-      return true
+      continue
     }
     if (item.steps === 'RANDOM' || item.steps === 'RANDOM_SCALE') {
-      return true
+      continue
     }
-    const noteIndex = scale.indexOf(previousNote) + item.steps
-    return noteIndex >= 0 && noteIndex < scale.length - 1
-  })
+    index += item.steps
+    if (index < 0 || index >= scale.length) {
+      return false
+    }
+  }
+  return index >= 0 && index < scale.length
 }
 
 function getMelodyBar(
@@ -167,9 +214,34 @@ function getMelodyBar(
 }
 
 function getLastNote(bar: AtBar): string {
-  return bar.items.filter((item) => item.type === 'note').pop()!.note
+  const notes = bar.items.filter((item) => item.type === 'note')
+  if (notes.length === 0) {
+    throw new Error(`No notes in bar: ${JSON.stringify(bar)}`)
+  }
+  const lastNote = notes[notes.length - 1]?.note
+  if (isNil(lastNote)) {
+    throw new Error(`Last note is missing: ${JSON.stringify(bar)}`)
+  }
+  return lastNote
 }
 
+function getNextStartingNote(lastNote: string, scale: string[]): string {
+  const index = getNoteIndex(lastNote, scale)
+  const randomNumber = Math.random()
+  if (randomNumber < 0.33 && index > 0) {
+    return getNoteAtIndex(scale, index - 1)
+  } else if (
+    randomNumber > 0.33 &&
+    randomNumber < 0.66 &&
+    index < scale.length - 1
+  ) {
+    return getNoteAtIndex(scale, index + 1)
+  } else {
+    return lastNote
+  }
+}
+
+// TODO csak lefele, csak felfele, kezdőhangok!
 export function getRandomMelody(
   type: MelodyType,
   barCount: number,
@@ -186,6 +258,15 @@ export function getRandomMelody(
     const matchingFragments = fragments.filter((fragment) =>
       fitsInRange(scale, lastNote, fragment),
     )
+
+    if (matchingFragments.length === 0) {
+      throw new Error(
+        `No matching melody fragments (note: ${lastNote}, scale: ${scaleToString(
+          scale,
+        )})`,
+      )
+    }
+
     const bar = getMelodyBar(
       scale,
       lowestNote,
@@ -193,7 +274,7 @@ export function getRandomMelody(
       lastNote,
       randomElement(matchingFragments)!,
     )
-    lastNote = getLastNote(bar)
+    lastNote = getNextStartingNote(getLastNote(bar), scale)
     bars.push(bar)
   }
 
