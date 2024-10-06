@@ -226,6 +226,9 @@ function getLastNote(bar: AtBar): string {
 }
 
 function getNextStartingNote(lastNote: string, scale: string[]): string {
+  if (!scale.includes(lastNote)) {
+    return randomElement(scale)!
+  }
   const index = getNoteIndex(lastNote, scale)
   const randomNumber = Math.random()
   if (randomNumber < 0.33 && index > 0) {
@@ -241,7 +244,6 @@ function getNextStartingNote(lastNote: string, scale: string[]): string {
   }
 }
 
-// TODO csak lefele, csak felfele, kezdőhangok!
 export function getRandomMelody(
   type: MelodyType,
   barCount: number,
@@ -261,9 +263,7 @@ export function getRandomMelody(
 
     if (matchingFragments.length === 0) {
       throw new Error(
-        `No matching melody fragments (note: ${lastNote}, scale: ${scaleToString(
-          scale,
-        )})`,
+        `No matching melody fragments (${lastNote},  ${scaleToString(scale)})`,
       )
     }
 
