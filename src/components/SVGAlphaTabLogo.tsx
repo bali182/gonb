@@ -23,7 +23,7 @@ const wrapperStyle = css`
   align-items: center;
   justify-content: center;
   opacity: 0.8;
-  height: 100%;
+  height: 75%;
   gap: 4px;
   cursor: pointer;
   transition: opacity 0.2s ease;

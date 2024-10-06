@@ -18,8 +18,8 @@ export type ToggleButtonProps = BasicButtonProps & {
 
 const playButtonStyle = css`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   background-color: #ffffff15;
   color: #ffffff;
   font-size: 50px;
@@ -39,8 +39,8 @@ const playButtonStyle = css`
 
 const secondaryButtonStyle = css`
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background-color: transparent;
   color: #ffffff;
   font-size: 25px;
