@@ -91,6 +91,7 @@ const closeIconStyle = css`
 const contentContainerStyle = css`
   width: 600px;
   height: 600px;
+  overflow: auto;
 `
 
 export const SettingsModal: FC<PageProps> = ({ onClose }) => {

@@ -12,6 +12,9 @@ export const initialState: AppState = {
     barCount: 4,
     keySignature: KeySignature.C_MAJOR_A_MINOR,
     clef: Clef.TREBLE,
+    semitones: false,
+    firstFret: 0,
+    lastFret: 4,
     timestamp: 0,
   },
   display: {

@@ -17,6 +17,10 @@ export type GeneratorConfig = {
   barCount: number
   keySignature: KeySignature
   clef: Clef
+  firstFret: number
+  lastFret: number
+  semitones: boolean
+  // Just for easier regeneration
   timestamp: number
 }
 

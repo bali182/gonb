@@ -113,6 +113,6 @@ export function toAlphaTex(model: AtTrack): string {
     getTrackMetadata(model).join(' '),
     getBars(model).join('\n|'),
   ].join('\n')
-  console.log(tex)
+  // console.log(tex)
   return tex
 }

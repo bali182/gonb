@@ -17,8 +17,7 @@ export const melodySlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(
       generatorSlice.actions.setGeneratorConfig,
-      (_state, { payload: { barCount, clef, keySignature, type } }) =>
-        getRandomMelody(type, barCount, keySignature, clef),
+      (_state, { payload }) => getRandomMelody(payload),
     )
 
     builder.addCase(

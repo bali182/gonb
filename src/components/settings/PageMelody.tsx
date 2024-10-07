@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { InputSection } from './InputSection'
 import { TextInput } from './TextInput'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +10,9 @@ import { generatorSlice } from '../../state/generatorSlice'
 import { GeneratorConfig } from '../../state/types'
 import { Clef, KeySignature } from '../../model/common'
 import { MelodyType } from '../../model/melodyFragment'
+import { RangePicker, RangePickerProps } from './RangePicker'
+import { RangeInput } from './RangeInput'
+import { Switch } from './Switch'
 
 const keySignatureToLabel: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C Major / A Minor',
@@ -63,7 +66,14 @@ export const PageMelody: FC<PageProps> = () => {
   const generatorConfig = useSelector(
     generatorSlice.selectors.getGeneratorConfig,
   )
-  const { barCount, clef, keySignature, type } = generatorConfig
+  const { barCount, clef, keySignature, type, firstFret, lastFret, semitones } =
+    generatorConfig
+
+  const range = useMemo(
+    (): [number, number] => [firstFret, lastFret],
+    [firstFret, lastFret],
+  )
+
   const { t } = useTranslation()
 
   function updateGeneratorConfig(updates: Partial<GeneratorConfig>): void {
@@ -90,6 +100,14 @@ export const PageMelody: FC<PageProps> = () => {
 
   const onMelodyTypeChange = (type: string) => {
     updateGeneratorConfig({ type: labelToMelodyType[type] })
+  }
+
+  const onRangeChange = ([firstFret, lastFret]: [number, number]) => {
+    updateGeneratorConfig({ firstFret, lastFret })
+  }
+
+  const onNonScaleNotesChange = (semitones: boolean) => {
+    updateGeneratorConfig({ semitones })
   }
 
   return (
@@ -125,6 +143,21 @@ export const PageMelody: FC<PageProps> = () => {
         onChange={onBarCountChange}
         value={barCount.toString()}
         data={{ type: 'number', min: 1, max: 40, step: 1 }}
+      />
+      <InputSection
+        name={t('Settings.Range')}
+        description={t('Settings.RangeDescription')}
+        Editor={RangeInput}
+        onChange={onRangeChange}
+        value={range}
+        data={{ min: 0, max: 13, step: 1 }}
+      />
+      <InputSection
+        name={t('Settings.NonScaleNotes')}
+        description={t('Settings.NonScaleNotesDescription')}
+        Editor={Switch}
+        onChange={onNonScaleNotesChange}
+        value={semitones}
       />
     </>
   )

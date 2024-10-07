@@ -1,4 +1,4 @@
-import { Note, Scale } from 'tonal'
+import { distance, Interval, Note, Scale, transpose } from 'tonal'
 import { AtBar, AtItem } from './alphaTex'
 import { Clef, KeySignature } from './common'
 import {
@@ -7,8 +7,14 @@ import {
   randomWholeNote,
 } from './melodies/randomNoVariation'
 import { FragmentBar, FragmentItem, MelodyType } from './melodyFragment'
-import { isNil, randomElement, randomIn as randomInRange } from './utils'
+import {
+  findMin,
+  isNil,
+  randomElement,
+  randomIn as randomInRange,
+} from './utils'
 import { melodies } from './melodies/melodies'
+import { GeneratorConfig } from '../state/types'
 
 function getFragments(type: MelodyType): FragmentBar[] {
   switch (type) {
@@ -41,12 +47,29 @@ const ScaleNameMap: Record<KeySignature, string> = {
   [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'Cb major',
 }
 
-function getRange(clef: Clef): [string, string] {
+function getRangeByFrets(
+  lowString: string,
+  highString: string,
+  firstFret: number,
+  lastFret: number,
+): [string, string] {
+  const lowNote = transpose(lowString, Interval.fromSemitones(firstFret))
+  const highNote = transpose(highString, Interval.fromSemitones(lastFret))
+  return [lowNote, highNote]
+}
+
+function getRange(
+  clef: Clef,
+  firstFret: number,
+  lastFret: number,
+): [string, string] {
   switch (clef) {
-    case Clef.BASS:
-      return ['E1', 'G3']
-    case Clef.TREBLE:
-      return ['E2', 'E5']
+    case Clef.BASS: {
+      return getRangeByFrets('E1', 'G2', firstFret, lastFret)
+    }
+    case Clef.TREBLE: {
+      return getRangeByFrets('E2', 'E4', firstFret, lastFret)
+    }
   }
 }
 
@@ -115,8 +138,8 @@ function getNoteAtIndex(scale: string[], index: number): string {
 
 function getFragmentNote(
   scale: string[],
-  lowestNote: string,
-  highestNote: string,
+  _lowestNote: string,
+  _highestNote: string,
   previousNote: string,
   item: FragmentItem,
 ): AtItem {
@@ -135,19 +158,6 @@ function getFragmentNote(
       const note = getNoteAtIndex(scale, noteIndex)
       return { type: 'note', duration, note }
     }
-    // Fully random note
-    case 'RANDOM': {
-      const previousMidi = Note.midi(previousNote)
-      const lowestMidi = Note.midi(lowestNote)
-      const highestMidi = Note.midi(highestNote)
-      if (isNil(previousMidi) || isNil(lowestMidi) || isNil(highestMidi)) {
-        throw new Error('Invalid note input')
-      }
-      const minMidi = Math.max(lowestMidi, previousMidi - 12)
-      const maxMidi = Math.min(highestMidi, previousMidi + 12)
-      const note = Note.fromMidi(randomInRange(minMidi, maxMidi))
-      return { type: 'note', duration, note }
-    }
     default: {
       const index = previousIndex + steps
       const note = getNoteAtIndex(scale, index)
@@ -163,9 +173,7 @@ function fitsInRange(
   fragment: FragmentBar,
 ): boolean {
   const hasRandomElement = fragment.items.some(
-    (item) =>
-      item.type === 'note' &&
-      (item.steps === 'RANDOM' || item.steps === 'RANDOM_SCALE'),
+    (item) => item.type === 'note' && item.steps === 'RANDOM_SCALE',
   )
   // Can't do much with random, let it pass.
   if (hasRandomElement) {
@@ -176,7 +184,7 @@ function fitsInRange(
     if (item.type === 'rest') {
       continue
     }
-    if (item.steps === 'RANDOM' || item.steps === 'RANDOM_SCALE') {
+    if (item.steps === 'RANDOM_SCALE') {
       continue
     }
     index += item.steps
@@ -226,10 +234,11 @@ function getLastNote(bar: AtBar): string {
 }
 
 function getNextStartingNote(lastNote: string, scale: string[]): string {
-  if (!scale.includes(lastNote)) {
-    return randomElement(scale)!
-  }
-  const index = getNoteIndex(lastNote, scale)
+  const closesScaleNote = findMin(scale, (note) =>
+    Math.abs(Interval.semitones(distance(lastNote, note))),
+  )
+
+  const index = getNoteIndex(closesScaleNote, scale)
   const randomNumber = Math.random()
   if (randomNumber < 0.33 && index > 0) {
     return getNoteAtIndex(scale, index - 1)
@@ -240,20 +249,17 @@ function getNextStartingNote(lastNote: string, scale: string[]): string {
   ) {
     return getNoteAtIndex(scale, index + 1)
   } else {
-    return lastNote
+    return closesScaleNote
   }
 }
 
-export function getRandomMelody(
-  type: MelodyType,
-  barCount: number,
-  keySignature: KeySignature,
-  clef: Clef,
-): AtBar[] {
-  const [lowestNote, highestNote] = getRange(clef)
+export function getRandomMelody(config: GeneratorConfig): AtBar[] {
+  const { clef, type, keySignature, barCount, firstFret, lastFret } = config
+  const [lowestNote, highestNote] = getRange(clef, firstFret, lastFret)
   const fragments = getFragments(type)
   const scale = getScaleNotesInRange(keySignature, lowestNote, highestNote)
   let lastNote = randomElement(scale)!
+  console.log({ lowestNote, highestNote, scale, lastNote })
   const bars: AtBar[] = []
 
   for (let i = 0; i < barCount; i += 1) {
@@ -274,7 +280,9 @@ export function getRandomMelody(
       lastNote,
       randomElement(matchingFragments)!,
     )
+
     lastNote = getNextStartingNote(getLastNote(bar), scale)
+
     bars.push(bar)
   }
 

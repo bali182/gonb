@@ -52,3 +52,23 @@ export function rest(duration: Duration): FragmentRest {
     duration,
   }
 }
+
+export function findMin<T>(arr: T[], transform: (item: T) => number): T {
+  if (arr.length === 0) {
+    throw new TypeError(`Can't find the minimum in an empty array!`)
+  }
+
+  let minValue = arr[0]
+  let minTransformed = transform(arr[0]!)
+
+  for (let i = 1; i < arr.length; i++) {
+    const transformedValue = transform(arr[i]!)
+    if (transformedValue < minTransformed) {
+      // Compare the transformed values
+      minValue = arr[i]
+      minTransformed = transformedValue
+    }
+  }
+
+  return minValue!
+}

@@ -1,6 +1,6 @@
 import { Clef, Duration, KeySignature } from './common'
 
-export type FragmentInterval = 'RANDOM_SCALE' | 'RANDOM' | number
+export type FragmentInterval = 'RANDOM_SCALE' | number
 
 export type FragmentItem = FragmentNote | FragmentRest
 
