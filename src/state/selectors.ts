@@ -6,15 +6,13 @@ import { melodySlice } from './melodySlice'
 import { createSelector } from '@reduxjs/toolkit'
 
 export const trackSelector = createSelector(
-  [
-    generatorSlice.selectors.getGeneratorConfig,
-    melodySlice.selectors.getMelody,
-  ],
-  ({ clef, keySignature }, bars): AtTrack => {
+  [generatorSlice.selectSlice, melodySlice.selectSlice],
+  ({ clef, keySignature, bpm }, bars): AtTrack => {
     return {
       clef,
       keySignature,
       bars,
+      bpm,
       instrument: clef === Clef.BASS ? 'AcousticBass' : 'AcousticGuitarSteel',
       name: 'A Random Melody',
       shortName: 'ex',

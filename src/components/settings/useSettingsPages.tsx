@@ -2,8 +2,9 @@ import { useTranslation } from 'react-i18next'
 import { SettingsPage } from './types'
 import { useMemo } from 'react'
 import { nanoid } from 'nanoid'
-import { PiMusicNotesSimple } from 'react-icons/pi'
-import { PageMelody as ProgressionPage } from './PageMelody'
+import { PiGearFill, PiMusicNotesSimple, PiMusicNotesSimpleFill } from 'react-icons/pi'
+import { PageBasics } from './PageBasics'
+import { PageDetails } from './PageDetails'
 
 export function useSettingsPages(): SettingsPage[] {
   const { t, i18n } = useTranslation()
@@ -11,16 +12,16 @@ export function useSettingsPages(): SettingsPage[] {
     return [
       {
         id: nanoid(),
-        name: t('Settings.Melody'),
-        Icon: PiMusicNotesSimple,
-        Component: ProgressionPage,
+        name: t('Settings.Basics'),
+        Icon: PiGearFill,
+        Component: PageBasics,
       },
-      // {
-      //   id: nanoid(),
-      //   name: t('Settings.Display'),
-      //   Icon: PiMusicNotesSimple,
-      //   Component: ProgressionPage,
-      // },
+      {
+        id: nanoid(),
+        name: t('Settings.Details'),
+        Icon: PiMusicNotesSimpleFill,
+        Component: PageDetails,
+      },
     ]
   }, [t, i18n.language])
   return pages

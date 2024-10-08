@@ -34,4 +34,5 @@ export type AtTrack = {
   keySignature: KeySignature
   timeSignature: AtTimeSignature
   bars: AtBar[]
+  bpm: number
 }

@@ -13,7 +13,4 @@ export const generatorSlice = createSlice({
       { payload }: PayloadAction<UpdateGeneratorConfigPayload>,
     ) => payload,
   },
-  selectors: {
-    getGeneratorConfig: (state) => state,
-  },
 })

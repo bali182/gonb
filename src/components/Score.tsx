@@ -1,4 +1,4 @@
-import { FC, useState, useCallback, useMemo } from 'react'
+import { FC, useState, useCallback } from 'react'
 import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
 import { useAlphaTab } from '../model/useAlphaTab'
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { alphaTexSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
 import { AppDispatch } from '../state/store'
+import { generatorSlice } from '../state/generatorSlice'
 
 export type ScoreProps = {
   progressionId: string
@@ -49,7 +50,8 @@ export const Score: FC = () => {
   const [scrollArea, setScrollArea] = useState<HTMLElement>()
   const [root, setRoot] = useState<HTMLElement>()
   const tex = useSelector(alphaTexSelector)
-  const playerConfig = useSelector(playerSlice.selectors.getPlayerConfig)
+  const playerConfig = useSelector(playerSlice.selectSlice)
+  const { bpm } = useSelector(generatorSlice.selectSlice)
 
   const setScrollAreaCallback = useCallback((node: HTMLDivElement | null) => {
     setScrollArea(node ?? undefined)
@@ -58,9 +60,6 @@ export const Score: FC = () => {
   const setRootCallback = useCallback((node: HTMLDivElement | null) => {
     setRoot(node ?? undefined)
   }, [])
-
-  // TODO figure out where to store this
-  const bpm = 120
 
   const onPlayPause = () => api?.playPause()
   const onStop = () => api?.stop()

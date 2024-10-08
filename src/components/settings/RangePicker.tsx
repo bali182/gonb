@@ -138,6 +138,7 @@ const control = css`
   justify-content: center;
   font-size: 0.8em;
   font-weight: bold;
+  user-select: none;
 `
 // https://benhoneywill.com/building-a-range-slider-component-in-react/
 export const RangePicker: FC<RangePickerProps> = ({

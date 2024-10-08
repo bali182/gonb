@@ -13,7 +13,4 @@ export const playerSlice = createSlice({
       { payload }: PayloadAction<UpdatePlayerConfigPayload>,
     ) => payload,
   },
-  selectors: {
-    getPlayerConfig: (state) => state,
-  },
 })

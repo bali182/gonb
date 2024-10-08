@@ -15,10 +15,9 @@ export const initialState: AppState = {
     semitones: false,
     firstFret: 0,
     lastFret: 4,
-    timestamp: 0,
-  },
-  display: {
     showNoteNames: false,
+    bpm: 120,
+    timestamp: 0,
   },
   melody: [],
 }

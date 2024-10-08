@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react'
+import { FC } from 'react'
 import { InputSection } from './InputSection'
 import { TextInput } from './TextInput'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,10 +9,6 @@ import { useTranslation } from 'react-i18next'
 import { generatorSlice } from '../../state/generatorSlice'
 import { GeneratorConfig } from '../../state/types'
 import { Clef, KeySignature } from '../../model/common'
-import { MelodyType } from '../../model/melodyFragment'
-import { RangePicker, RangePickerProps } from './RangePicker'
-import { RangeInput } from './RangeInput'
-import { Switch } from './Switch'
 
 const keySignatureToLabel: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C Major / A Minor',
@@ -38,41 +34,18 @@ const labelToKeySignature: Record<string, KeySignature> = Object.fromEntries(
   Object.entries(keySignatureToLabel).map((a) => a.reverse()),
 )
 
-const melodyTypeToLabel: Record<MelodyType, string> = {
-  WHOLE_NOTES: 'Steady whole notes',
-  HALF_NOTES: 'Steady half notes',
-  QUARTER_NOTES: 'Steady quarter notes',
-  MELODY: 'Realistic melody',
-}
-
-const labelToMelodyType: Record<string, MelodyType> = Object.fromEntries(
-  Object.entries(melodyTypeToLabel).map((a) => a.reverse()),
-)
-
 const keySignatureData = {
   values: Object.values(keySignatureToLabel),
-}
-
-const melodyTypeData = {
-  values: Object.values(melodyTypeToLabel),
 }
 
 const clefData = {
   values: [Clef.TREBLE, Clef.BASS],
 }
 
-export const PageMelody: FC<PageProps> = () => {
+export const PageBasics: FC<PageProps> = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const generatorConfig = useSelector(
-    generatorSlice.selectors.getGeneratorConfig,
-  )
-  const { barCount, clef, keySignature, type, firstFret, lastFret, semitones } =
-    generatorConfig
-
-  const range = useMemo(
-    (): [number, number] => [firstFret, lastFret],
-    [firstFret, lastFret],
-  )
+  const generatorConfig = useSelector(generatorSlice.selectSlice)
+  const { clef, keySignature, barCount, bpm } = generatorConfig
 
   const { t } = useTranslation()
 
@@ -86,10 +59,6 @@ export const PageMelody: FC<PageProps> = () => {
     )
   }
 
-  const onBarCountChange = (barCount: string) => {
-    updateGeneratorConfig({ barCount: parseInt(barCount) })
-  }
-
   const onClefChange = (clef: string) => {
     updateGeneratorConfig({ clef: clef as Clef })
   }
@@ -98,16 +67,12 @@ export const PageMelody: FC<PageProps> = () => {
     updateGeneratorConfig({ keySignature: labelToKeySignature[key] })
   }
 
-  const onMelodyTypeChange = (type: string) => {
-    updateGeneratorConfig({ type: labelToMelodyType[type] })
+  const onTempoChange = (tempo: string) => {
+    updateGeneratorConfig({ bpm: parseInt(tempo) })
   }
 
-  const onRangeChange = ([firstFret, lastFret]: [number, number]) => {
-    updateGeneratorConfig({ firstFret, lastFret })
-  }
-
-  const onNonScaleNotesChange = (semitones: boolean) => {
-    updateGeneratorConfig({ semitones })
+  const onBarCountChange = (barCount: string) => {
+    updateGeneratorConfig({ barCount: parseInt(barCount) })
   }
 
   return (
@@ -129,12 +94,12 @@ export const PageMelody: FC<PageProps> = () => {
         value={keySignatureToLabel[keySignature]}
       />
       <InputSection
-        name={t('Settings.MelodyType')}
-        description={t('Settings.MelodyTypeDescription')}
-        Editor={Dropdown}
-        data={melodyTypeData}
-        onChange={onMelodyTypeChange}
-        value={melodyTypeToLabel[type]}
+        name={t('Settings.Tempo')}
+        description={t('Settings.TempoDescription')}
+        Editor={TextInput}
+        data={{ type: 'number', min: 1, max: 400, step: 1 }}
+        onChange={onTempoChange}
+        value={bpm.toString()}
       />
       <InputSection
         name={t('Settings.BarCount')}
@@ -143,21 +108,6 @@ export const PageMelody: FC<PageProps> = () => {
         onChange={onBarCountChange}
         value={barCount.toString()}
         data={{ type: 'number', min: 1, max: 40, step: 1 }}
-      />
-      <InputSection
-        name={t('Settings.Range')}
-        description={t('Settings.RangeDescription')}
-        Editor={RangeInput}
-        onChange={onRangeChange}
-        value={range}
-        data={{ min: 0, max: 13, step: 1 }}
-      />
-      <InputSection
-        name={t('Settings.NonScaleNotes')}
-        description={t('Settings.NonScaleNotesDescription')}
-        Editor={Switch}
-        onChange={onNonScaleNotesChange}
-        value={semitones}
       />
     </>
   )

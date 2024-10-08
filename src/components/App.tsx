@@ -8,9 +8,7 @@ import { generatorSlice } from '../state/generatorSlice'
 
 export const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const generatorConfig = useSelector(
-    generatorSlice.selectors.getGeneratorConfig,
-  )
+  const generatorConfig = useSelector(generatorSlice.selectSlice)
 
   const [showSettings, setShowSettings] = useState(false)
 

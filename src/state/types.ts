@@ -1,4 +1,4 @@
-import { AtBar } from '../model/alphaTex'
+import { AtBar, AtTrack } from '../model/alphaTex'
 import { Clef, KeySignature } from '../model/common'
 import { MelodyType } from '../model/melodyFragment'
 
@@ -6,10 +6,6 @@ export type PlayerConfig = {
   metronomeVolume: number
   instrumentVolume: number
   isLooping: boolean
-}
-
-export type DisplayConfig = {
-  showNoteNames: boolean
 }
 
 export type GeneratorConfig = {
@@ -20,6 +16,8 @@ export type GeneratorConfig = {
   firstFret: number
   lastFret: number
   semitones: boolean
+  showNoteNames: boolean
+  bpm: number
   // Just for easier regeneration
   timestamp: number
 }
@@ -27,6 +25,5 @@ export type GeneratorConfig = {
 export type AppState = {
   player: PlayerConfig
   generator: GeneratorConfig
-  display: DisplayConfig
   melody: AtBar[]
 }

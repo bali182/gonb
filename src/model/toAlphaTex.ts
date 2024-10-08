@@ -6,7 +6,7 @@ import { Duration } from './common'
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
 function getGlobalMetadata(model: AtTrack): string[] {
-  return [`\\title "${model.name}"`, `\\tempo ${120}`]
+  return [`\\title "${model.name}"`, `\\tempo ${model.bpm}`]
 }
 
 function getTrackMetadata(model: AtTrack): string[] {
@@ -113,6 +113,8 @@ export function toAlphaTex(model: AtTrack): string {
     getTrackMetadata(model).join(' '),
     getBars(model).join('\n|'),
   ].join('\n')
+
   // console.log(tex)
+
   return tex
 }

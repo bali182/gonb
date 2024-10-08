@@ -1,5 +1,5 @@
 import { distance, Interval, Note, Scale, transpose } from 'tonal'
-import { AtBar, AtItem } from './alphaTex'
+import { AtBar, AtItem, AtNote } from './alphaTex'
 import { Clef, KeySignature } from './common'
 import {
   randomHalfNotes,
@@ -221,8 +221,24 @@ function getMelodyBar(
   return { items }
 }
 
+function shiftRandomlyBySemitones(bar: AtBar): AtBar {
+  const newItems = bar.items.map((item): AtItem => {
+    if (item.type === 'note' && Math.random() > 0.8) {
+      return {
+        ...item,
+        note: transpose(
+          item.note,
+          Interval.fromSemitones(randomElement([1, -1])!),
+        ),
+      }
+    }
+    return item
+  })
+  return { items: newItems }
+}
+
 function getLastNote(bar: AtBar): string {
-  const notes = bar.items.filter((item) => item.type === 'note')
+  const notes = bar.items.filter((item): item is AtNote => item.type === 'note')
   if (notes.length === 0) {
     throw new Error(`No notes in bar: ${JSON.stringify(bar)}`)
   }
@@ -253,14 +269,35 @@ function getNextStartingNote(lastNote: string, scale: string[]): string {
   }
 }
 
+// TODO this mutates
+function addNoteLabels(bars: AtBar[]): AtBar[] {
+  for (const bar of bars) {
+    for (const item of bar.items) {
+      if (item.type === 'note') {
+        item.label = Note.pitchClass(item.note)
+      }
+    }
+  }
+  return bars
+}
+
 export function getRandomMelody(config: GeneratorConfig): AtBar[] {
-  const { clef, type, keySignature, barCount, firstFret, lastFret } = config
+  const {
+    clef,
+    type,
+    keySignature,
+    barCount,
+    firstFret,
+    lastFret,
+    semitones,
+    showNoteNames,
+  } = config
   const [lowestNote, highestNote] = getRange(clef, firstFret, lastFret)
   const fragments = getFragments(type)
   const scale = getScaleNotesInRange(keySignature, lowestNote, highestNote)
-  let lastNote = randomElement(scale)!
-  console.log({ lowestNote, highestNote, scale, lastNote })
   const bars: AtBar[] = []
+
+  let lastNote = randomElement(scale)!
 
   for (let i = 0; i < barCount; i += 1) {
     const matchingFragments = fragments.filter((fragment) =>
@@ -283,8 +320,8 @@ export function getRandomMelody(config: GeneratorConfig): AtBar[] {
 
     lastNote = getNextStartingNote(getLastNote(bar), scale)
 
-    bars.push(bar)
+    bars.push(semitones ? shiftRandomlyBySemitones(bar) : bar)
   }
 
-  return bars
+  return showNoteNames ? addNoteLabels(bars) : bars
 }

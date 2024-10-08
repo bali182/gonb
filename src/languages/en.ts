@@ -6,7 +6,8 @@ export const en = {
   Settings: {
     Settings: 'Settings',
     Display: 'Display',
-    Melody: 'Melody',
+    Basics: 'Basics',
+    Details: 'Details',
     BarCount: 'Number of bars',
     BarCountDescription:
       'Number of bars (length of the random generated piece).',
@@ -23,5 +24,10 @@ export const en = {
     NonScaleNotes: 'Use non scale notes',
     NonScaleNotesDescription:
       'Use notes that are outside of your selected scale, to practice accidentals.',
+    Tempo: 'Tempo (in BPM)',
+    TempoDescription: 'The tempo of the generated melody.',
+    ShowNoteNames: 'Show note names',
+    ShowNoteNamesDescription:
+      'When turned on, shows the note names above the score.',
   },
 }

@@ -15,7 +15,7 @@ const backdropStyle = css`
   left: 0px;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 10001;
   backdrop-filter: blur(30px);
   background-color: #00000005;
   display: flex;

@@ -3,7 +3,6 @@ import { AppState } from './types'
 import { playerSlice } from './playerSlice'
 import { initialState } from './initialState'
 import { generatorSlice } from './generatorSlice'
-import { displaySlice } from './displaySlice'
 import { melodySlice } from './melodySlice'
 
 const STATE_STORAGE_KEY = 'sheet-app-data'
@@ -41,7 +40,6 @@ export const store = configureStore({
   reducer: {
     player: playerSlice.reducer,
     generator: generatorSlice.reducer,
-    display: displaySlice.reducer,
     melody: melodySlice.reducer,
   },
   middleware: (deafult) => deafult().concat(saveStateMiddleware),
