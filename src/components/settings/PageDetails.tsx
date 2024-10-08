@@ -10,21 +10,8 @@ import { MelodyType } from '../../model/melodyFragment'
 import { RangeInput } from './RangeInput'
 import { Switch } from './Switch'
 import { PageProps } from '../PagedModal'
-
-const melodyTypeToLabel: Record<MelodyType, string> = {
-  WHOLE_NOTES: 'Steady whole notes',
-  HALF_NOTES: 'Steady half notes',
-  QUARTER_NOTES: 'Steady quarter notes',
-  MELODY: 'Realistic melody',
-}
-
-const labelToMelodyType: Record<string, MelodyType> = Object.fromEntries(
-  Object.entries(melodyTypeToLabel).map((a) => a.reverse()),
-)
-
-const melodyTypeData = {
-  values: Object.values(melodyTypeToLabel),
-}
+import { useMelodyTypeTranslations } from './translatedContent'
+import { SelectItem } from './types'
 
 export const PageDetails: FC<PageProps> = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -39,6 +26,25 @@ export const PageDetails: FC<PageProps> = () => {
 
   const { t } = useTranslation()
 
+  const melodyTypeMap = useMelodyTypeTranslations()
+
+  const selectedMelodyType = useMemo(
+    (): SelectItem<string> => ({
+      label: melodyTypeMap.get(type)!,
+      value: type,
+    }),
+    [type, melodyTypeMap],
+  )
+
+  const melodyTypes = useMemo(
+    () => ({
+      values: Array.from(melodyTypeMap.entries()).map(
+        ([value, label]): SelectItem<string> => ({ value, label }),
+      ),
+    }),
+    [melodyTypeMap],
+  )
+
   function updateGeneratorConfig(updates: Partial<GeneratorConfig>): void {
     dispatch(
       generatorSlice.actions.setGeneratorConfig({
@@ -49,8 +55,8 @@ export const PageDetails: FC<PageProps> = () => {
     )
   }
 
-  const onMelodyTypeChange = (type: string) => {
-    updateGeneratorConfig({ type: labelToMelodyType[type] })
+  const onMelodyTypeChange = (type: SelectItem<string>) => {
+    updateGeneratorConfig({ type: type.value as MelodyType })
   }
 
   const onRangeChange = ([firstFret, lastFret]: [number, number]) => {
@@ -61,19 +67,15 @@ export const PageDetails: FC<PageProps> = () => {
     updateGeneratorConfig({ semitones })
   }
 
-  // const onShowNoteNamesChange = (showNoteNames: boolean) => {
-  //   updateGeneratorConfig({ showNoteNames })
-  // }
-
   return (
     <>
       <InputSection
         name={t('Settings.MelodyType')}
         description={t('Settings.MelodyTypeDescription')}
         Editor={Dropdown}
-        data={melodyTypeData}
+        data={melodyTypes}
         onChange={onMelodyTypeChange}
-        value={melodyTypeToLabel[type]}
+        value={selectedMelodyType}
       />
       <InputSection
         name={t('Settings.NonScaleNotes')}
@@ -82,13 +84,6 @@ export const PageDetails: FC<PageProps> = () => {
         onChange={onNonScaleNotesChange}
         value={semitones}
       />
-      {/* <InputSection
-        name={t('Settings.ShowNoteNames')}
-        description={t('Settings.ShowNoteNamesDescription')}
-        Editor={Switch}
-        onChange={onShowNoteNamesChange}
-        value={showNoteNames}
-      /> */}
       <InputSection
         name={t('Settings.Range')}
         description={t('Settings.RangeDescription')}

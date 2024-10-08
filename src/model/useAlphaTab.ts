@@ -38,7 +38,6 @@ export function useAlphaTab({
 
   useEffect(() => {
     if (!isNil(api)) {
-      console.log({ tex })
       api.tex(tex)
     }
   }, [api, tex])
@@ -62,7 +61,6 @@ export function useAlphaTab({
     if (!isNil(root) && !isNil(scrollArea)) {
       const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea, player))
 
-      console.log(_api)
       _api.renderStarted.on(() => setLoading(true))
       _api.renderFinished.on(() => setLoading(false))
       _api.playerStateChanged.on(({ state }) =>
@@ -78,7 +76,6 @@ export function useAlphaTab({
       }
       setTrackVolume(_api, 0, instrumentVolume)
 
-      console.log({ _api })
       setApi(_api)
       return () => _api.destroy()
     }
