@@ -85,6 +85,18 @@ export function chunk<T>(array: T[], chunkSize: number): T[][] {
   return output
 }
 
+export function findInIterable<T>(
+  iterable: Iterable<T>,
+  predicate: (item: T) => boolean,
+): T | undefined {
+  for (const item of iterable) {
+    if (predicate(item)) {
+      return item
+    }
+  }
+  return undefined
+}
+
 const ScaleNameMap: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C major',
   [KeySignature.G_MAJOR_E_MINOR_1_SHARP]: 'G major',

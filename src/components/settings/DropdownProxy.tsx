@@ -66,7 +66,7 @@ export function DropdownProxy<T>({
 const fontChangeProps = (provided: CSSObjectWithLabel): CSSObjectWithLabel => ({
   ...provided,
   fontSize: '1em',
-  color: '#ffffff',
+  color: '#000000',
 })
 
 export const defaultStyles: StylesConfig = {
@@ -74,7 +74,7 @@ export const defaultStyles: StylesConfig = {
   singleValue: fontChangeProps,
   menuList: (provided): CSSObjectWithLabel => ({
     ...fontChangeProps(provided),
-    backgroundColor: '#181818',
+    backgroundColor: '#00000010',
   }),
   placeholder: fontChangeProps,
   control: (provided): CSSObjectWithLabel => ({
@@ -83,23 +83,24 @@ export const defaultStyles: StylesConfig = {
     boxShadow: 'none',
     padding: '3px 6px',
     borderRadius: '6px',
-    backgroundColor: '#ffffff10',
+    backgroundColor: '#00000010',
     ':hover': {
-      backgroundColor: '#ffffff30',
+      backgroundColor: '#00000015',
     },
     ':focus': {
-      backgroundColor: '#ffffff50',
+      backgroundColor: '#00000020',
     },
   }),
   option: (provided, { isSelected, isFocused }) => ({
     ...provided,
+    color: '#000000',
     backgroundColor: isSelected
-      ? '#ffffff40'
+      ? '#00000015'
       : isFocused
-      ? '#ffffff30'
+      ? '#00000020'
       : 'transparent',
     ':active': {
-      backgroundColor: '#ffffff30',
+      backgroundColor: '#00000030',
     },
   }),
   menu: (provided): CSSObjectWithLabel => ({

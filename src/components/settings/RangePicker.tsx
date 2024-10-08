@@ -16,7 +16,7 @@ const wrapper = css`
   display: flex;
   align-items: center;
   margin: 10px;
-  height: 20px;
+  height: 24px;
 `
 
 const inputWrapper = css`
@@ -29,7 +29,7 @@ const inputWrapper = css`
 const controlWrapper = css`
   width: 100%;
   position: absolute;
-  height: 20px;
+  height: 24px;
 `
 
 const input = css`
@@ -69,7 +69,6 @@ const input = css`
     border-radius: 0px;
     border: 0 none;
     cursor: grab;
-    background-color: red;
   }
   &::-ms-thumb:active {
     cursor: grabbing;
@@ -83,7 +82,6 @@ const input = css`
     border-radius: 0px;
     border: 0 none;
     cursor: grab;
-    background-color: red;
   }
   &::-moz-range-thumb:active {
     cursor: grabbing;
@@ -98,7 +96,6 @@ const input = css`
     border: 0 none;
     cursor: -webkit-grab;
     cursor: grab;
-    background-color: red;
   }
   &::-webkit-slider-thumb:active {
     cursor: -webkit-grabbing;
@@ -113,21 +110,21 @@ const rail = css`
   transform: translateY(-50%);
   height: 6px;
   border-radius: 3px;
-  background: #ffffff30;
+  background: #00000030;
 `
 
 const innerRail = css`
   position: absolute;
   height: 100%;
-  background: #ffffff80;
+  background: #00000080;
 `
 
 const control = css`
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   position: absolute;
-  background: #eeeeee;
+  background: #ddd;
   top: 50%;
   margin-left: calc(16px / -2);
   transform: translate3d(0, -50%, 0);

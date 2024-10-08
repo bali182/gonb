@@ -1,7 +1,7 @@
 import { AlphaTabApi, json, synth } from '@coderline/alphatab'
 import { useEffect, useState } from 'react'
 import { alphaTabConfig } from './alphaTabConfig'
-import { isNil } from './utils'
+import { findInIterable, isNil, isNotNil } from './utils'
 
 export type UseAlphaTabResult = {
   api: AlphaTabApi | undefined

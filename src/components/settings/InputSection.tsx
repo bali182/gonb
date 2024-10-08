@@ -18,7 +18,7 @@ const sectionStyle = css`
 
 const labelStyle = css`
   font-size: 1em;
-  color: #ffffff;
+  color: #000000;
   margin-bottom: 2px;
   pointer-events: auto;
 `
@@ -26,7 +26,7 @@ const labelStyle = css`
 const descriptionStyle = css`
   font-size: 0.8em;
   margin-bottom: 10px;
-  color: #ffffffaa;
+  color: #000000aa;
 `
 
 export function InputSection<T, D = void>({

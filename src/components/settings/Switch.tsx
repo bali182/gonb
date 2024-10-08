@@ -19,7 +19,7 @@ const sliderStyle = css`
   bottom: 0;
   transition: 0.4s;
   border-radius: 26px;
-  background-color: #323232;
+  background-color: #777;
 
   &:before {
     position: absolute;

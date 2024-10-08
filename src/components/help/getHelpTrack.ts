@@ -30,8 +30,8 @@ export function getHelpTrack(
     clef,
     instrument: 'AcousticGuitarSteel',
     keySignature: KeySignature.C_MAJOR_A_MINOR,
-    name: 'Notes in Clef',
-    shortName: 'asd',
+    name: '',
+    shortName: '',
     timeSignature: { bottom: 4, top: 4 },
   }
 }

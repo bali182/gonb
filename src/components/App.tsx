@@ -12,10 +12,10 @@ export const App: FC = () => {
   const generatorConfig = useSelector(generatorSlice.selectSlice)
 
   const [showSettings, setShowSettings] = useState(false)
-  const [showHelp, setShowHelp] = useState(true)
+  const [showHelp, setShowHelp] = useState(false)
 
   const onSettingsClosed = () => setShowSettings(false)
-  const onSettingsOpened = () => setShowSettings(false)
+  const onSettingsOpened = () => setShowSettings(true)
 
   const onHelpClosed = () => setShowHelp(false)
   const onHelpOpened = () => setShowHelp(true)

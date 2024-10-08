@@ -15,8 +15,8 @@ type BaseHelpPageProps = {
 const pageStyle = css`
   width: 100%;
   height: 100%;
-  background-color: white;
   margin: 0 auto;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -43,7 +43,7 @@ const BaseHelpPage: FC<BaseHelpPageProps> = ({ track }) => {
         viewPortRight={0}
         viewPortTop={0}
         viewPortBottom={0}
-        padding={10}
+        padding={0}
         setRootCallback={setRoot}
         setScrollAreaCallback={setScrollArea}
       />

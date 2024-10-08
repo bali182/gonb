@@ -4,18 +4,18 @@ import { EditorProps } from './types'
 
 const inputStyle = css`
   border-radius: 6px;
-  background-color: #ffffff10;
+  background-color: #00000010;
   flex: 1;
-  color: #ffffff;
+  color: #000000;
   border: none;
   outline: none;
   padding: 10px 14px;
   font-size: 1em;
   &:hover {
-    background-color: #ffffff30;
+    background-color: #00000015;
   }
   &:focus {
-    background-color: #ffffff50;
+    background-color: #00000020;
   }
 `
 

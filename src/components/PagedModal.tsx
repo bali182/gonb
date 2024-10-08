@@ -28,7 +28,7 @@ export type PagedModalProps = {
 const menuStyle = css`
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
-  background-color: #ffffff10;
+  background-color: #f9f9f9;
   min-width: 200px;
 `
 
@@ -38,7 +38,7 @@ const menuHeaderStyle = css`
   align-items: center;
   font-size: 1.4em;
   font-weight: bold;
-  color: #ffffff;
+  color: #000000;
   gap: 10px;
   padding: 14px 18px;
 `
@@ -58,29 +58,30 @@ const menuContainerStyle = css`
 const menuItemStlye = css`
   display: flex;
   align-items: center;
-  color: #ffffffcc;
+  color: #000000cc;
   font-size: 1.2em;
   gap: 10px;
   padding: 10px 18px;
   cursor: pointer;
   &:hover {
-    color: #ffffff;
-    background-color: #ffffff10;
+    color: #000000;
+    background-color: #00000010;
   }
 `
 
 const activeMenuItemStyle = css`
-  background-color: #ffffff20;
-  color: #ffffff;
+  background-color: #00000020;
+  color: #000000;
   &:hover {
-    color: #ffffff;
-    background-color: #ffffff20;
+    color: #000000;
+    background-color: #00000020;
   }
 `
 
 const contentStyle = css`
   flex: 1;
   min-width: 400px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 
 const contentTitleStyle = css`
@@ -97,13 +98,13 @@ const contentHeaderStyle = css`
   align-items: center;
   font-size: 1.4em;
   font-weight: bold;
-  color: #ffffff;
+  color: #000000;
   padding: 14px;
 `
 
 const closeIconStyle = css`
   font-size: 1.4em;
-  color: #ffffff;
+  color: #000000;
   cursor: pointer;
 `
 
