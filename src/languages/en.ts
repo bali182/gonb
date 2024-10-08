@@ -1,11 +1,10 @@
 export const en = {
   Language: 'Language',
   Score: {
-    AlphaTabRenderedBy: 'Tabs & score rendered by:',
+    AlphaTabRenderedBy: 'Score rendered by:',
   },
   Settings: {
     Settings: 'Settings',
-    Display: 'Display',
     Basics: 'Basics',
     Details: 'Details',
     BarCount: 'Number of bars',

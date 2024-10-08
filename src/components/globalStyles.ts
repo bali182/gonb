@@ -101,31 +101,22 @@ export const globalStyles = css`
   }
 
   /** Alphatab stuff */
-  .at-footer {
-    flex: 0 0 auto;
-    background: #436d9d;
-    color: #fff;
-  }
-  /* Player */
   .at-cursor-bar {
     /* Defines the color of the bar background when a bar is played */
-    background: #ffffff30;
+    background: transparent;
   }
   .at-selection div {
     /* Defines the color of the selection background */
-    background: #ffffff20;
+    background: #00000020;
   }
   .at-cursor-beat {
     /* Defines the beat cursor */
-    background: red;
+    background: #cb1600bb;
     width: 3px;
   }
   .at-highlight * {
     /* Defines the color of the music symbols when played (svg) */
-    /* fill: #0078ff;
-    stroke: #0078ff; */
   }
-  // Hide big rendered by label, and display clickable logo elsewhere
   .at-surface > div:last-child {
     display: none !important;
   }

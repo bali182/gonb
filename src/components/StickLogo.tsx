@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import { RiMusicLine } from 'react-icons/ri'
+import { PiMusicNoteSimple } from 'react-icons/pi'
 
 const logoBlockStyle = css`
   display: flex;
@@ -47,7 +47,7 @@ const subTitleStyle = css`
 export const StickLogo: FC = () => {
   return (
     <span className={logoBlockStyle}>
-      <RiMusicLine className={titleIconStyle} />
+      <PiMusicNoteSimple className={titleIconStyle} />
       <span className={logoTextStyle}>
         <h1 className={titleStyle}>Sheet</h1>
         <h2 className={subTitleStyle}>learn sheet music.</h2>

@@ -14,14 +14,14 @@ const buttonStyle = css`
   font-size: 1.2em;
   border-radius: 20px;
   background-color: transparent;
-  background-color: #00000090;
+  background-color: #444;
   &:hover {
     color: #ffffff;
-    background-color: #00000070;
+    background-color: #333;
   }
   &:disabled {
-    background-color: transparent;
-    color: #00000050;
+    background-color: #555;
+    color: #222;
     cursor: not-allowed;
   }
 `

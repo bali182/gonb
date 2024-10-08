@@ -7,7 +7,7 @@ import { LoopButton, PlayButton, StopButton } from './ScoreControls'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 
 const playerControlsStyle = css`
-  padding: 0px 40px;
+  padding: 0px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
@@ -17,7 +17,7 @@ const playerControlsStyle = css`
   margin-right: 200px;
   /* background-color: #141719; */
 
-  background-color: #555;
+  background-color: #333;
   border-radius: 8px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `

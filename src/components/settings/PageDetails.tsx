@@ -30,8 +30,7 @@ export const PageDetails: FC<PageProps> = () => {
   const dispatch = useDispatch<AppDispatch>()
   const generatorConfig = useSelector(generatorSlice.selectSlice)
 
-  const { type, firstFret, lastFret, semitones, showNoteNames } =
-    generatorConfig
+  const { type, firstFret, lastFret, semitones } = generatorConfig
 
   const range = useMemo(
     (): [number, number] => [firstFret, lastFret],
@@ -62,9 +61,9 @@ export const PageDetails: FC<PageProps> = () => {
     updateGeneratorConfig({ semitones })
   }
 
-  const onShowNoteNamesChange = (showNoteNames: boolean) => {
-    updateGeneratorConfig({ showNoteNames })
-  }
+  // const onShowNoteNamesChange = (showNoteNames: boolean) => {
+  //   updateGeneratorConfig({ showNoteNames })
+  // }
 
   return (
     <>
@@ -83,13 +82,13 @@ export const PageDetails: FC<PageProps> = () => {
         onChange={onNonScaleNotesChange}
         value={semitones}
       />
-      <InputSection
+      {/* <InputSection
         name={t('Settings.ShowNoteNames')}
         description={t('Settings.ShowNoteNamesDescription')}
         Editor={Switch}
         onChange={onShowNoteNamesChange}
         value={showNoteNames}
-      />
+      /> */}
       <InputSection
         name={t('Settings.Range')}
         description={t('Settings.RangeDescription')}
