@@ -1,12 +1,15 @@
 import { distance, Interval } from 'tonal'
 import { AtBar, AtItem, AtNote, AtRest, AtTrack } from './alphaTex'
-import { isNil } from './utils'
+import { isNil, isNotNil } from './utils'
 import { Duration } from './common'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
 function getGlobalMetadata(model: AtTrack): string[] {
-  return [`\\title "${model.name}"`, `\\tempo ${model.bpm}`]
+  return [
+    `\\title "${model.name}"`,
+    isNil(model.bpm) ? undefined : `\\tempo ${model.bpm}`,
+  ].filter(isNotNil)
 }
 
 function getTrackMetadata(model: AtTrack): string[] {
@@ -20,7 +23,7 @@ function getTrackMetadata(model: AtTrack): string[] {
 
 function withLabel(content: string, label: string | undefined): string {
   const parts = [content, isNil(label) ? undefined : `{ch "${label}"}`]
-  return parts.filter((part) => part !== undefined).join(' ')
+  return parts.filter(isNotNil).join(' ')
 }
 
 // Chord brush

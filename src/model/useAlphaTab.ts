@@ -1,4 +1,4 @@
-import { AlphaTabApi, synth } from '@coderline/alphatab'
+import { AlphaTabApi, json, synth } from '@coderline/alphatab'
 import { useEffect, useState } from 'react'
 import { alphaTabConfig } from './alphaTabConfig'
 import { isNil } from './utils'
@@ -13,10 +13,11 @@ export type UseAlphaTabConfig = {
   tex: string
   root: HTMLElement | undefined
   scrollArea: HTMLElement | undefined
-  instrumentVolume: number
-  metronomeVolume: number
-  isLooping: boolean
-  bpm: number
+  instrumentVolume?: number
+  metronomeVolume?: number
+  isLooping?: boolean
+  bpm?: number
+  player?: Partial<json.PlayerSettingsJson>
 }
 
 const noop = () => {}
@@ -25,6 +26,7 @@ export function useAlphaTab({
   bpm,
   tex,
   root,
+  player,
   scrollArea,
   isLooping,
   instrumentVolume,
@@ -36,12 +38,13 @@ export function useAlphaTab({
 
   useEffect(() => {
     if (!isNil(api)) {
+      console.log({ tex })
       api.tex(tex)
     }
   }, [api, tex])
 
   useEffect(() => {
-    if (!isNil(api)) {
+    if (!isNil(api) && !isNil(isLooping)) {
       api.isLooping = isLooping
     }
   }, [api, isLooping])
@@ -57,8 +60,9 @@ export function useAlphaTab({
 
   useEffect(() => {
     if (!isNil(root) && !isNil(scrollArea)) {
-      const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea))
+      const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea, player))
 
+      console.log(_api)
       _api.renderStarted.on(() => setLoading(true))
       _api.renderFinished.on(() => setLoading(false))
       _api.playerStateChanged.on(({ state }) =>
@@ -66,10 +70,15 @@ export function useAlphaTab({
       )
 
       _api.render()
-      _api.isLooping = isLooping
-      _api.metronomeVolume = metronomeVolume
+      if (!isNil(isLooping)) {
+        _api.isLooping = isLooping
+      }
+      if (!isNil(metronomeVolume)) {
+        _api.metronomeVolume = metronomeVolume
+      }
       setTrackVolume(_api, 0, instrumentVolume)
 
+      console.log({ _api })
       setApi(_api)
       return () => _api.destroy()
     }
@@ -86,7 +95,7 @@ export function useAlphaTab({
 export function useTrackVolume(
   api: AlphaTabApi | undefined,
   trackIndex: number,
-  volume: number,
+  volume: number | undefined,
 ): void {
   useEffect(() => {
     setTrackVolume(api, trackIndex, volume)
@@ -95,10 +104,10 @@ export function useTrackVolume(
 
 export function useMetronomeVolume(
   api: AlphaTabApi | undefined,
-  volume: number,
+  volume: number | undefined,
 ): void {
   useEffect(() => {
-    if (isNil(api)) {
+    if (isNil(api) || isNil(volume)) {
       return
     }
     api.metronomeVolume = volume
@@ -108,9 +117,9 @@ export function useMetronomeVolume(
 export function setTrackVolume(
   api: AlphaTabApi | undefined,
   trackIndex: number,
-  volume: number,
+  volume: number | undefined,
 ): void {
-  if (isNil(api)) {
+  if (isNil(api) || isNil(volume)) {
     return
   }
   const track = api.score?.tracks[trackIndex]

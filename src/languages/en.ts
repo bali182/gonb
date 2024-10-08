@@ -3,6 +3,11 @@ export const en = {
   Score: {
     AlphaTabRenderedBy: 'Score rendered by:',
   },
+  Help: {
+    Help: 'Help',
+    TrebleClef: 'Treble Clef',
+    BassClef: 'Bass Clef',
+  },
   Settings: {
     Settings: 'Settings',
     Basics: 'Basics',
@@ -10,7 +15,6 @@ export const en = {
     BarCount: 'Number of bars',
     BarCountDescription:
       'Number of bars (length of the random generated piece).',
-
     Clef: 'Clef',
     ClefDescription: 'Clef you want to practice. Can be either bass or treble.',
     KeySignature: 'Key signature',

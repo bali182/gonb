@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next'
-import { SettingsPage } from './types'
 import { useMemo } from 'react'
 import { nanoid } from 'nanoid'
-import { PiGearFill, PiMusicNotesSimple, PiMusicNotesSimpleFill } from 'react-icons/pi'
+import { PiGearFill, PiMusicNotesSimpleFill } from 'react-icons/pi'
 import { PageBasics } from './PageBasics'
 import { PageDetails } from './PageDetails'
+import { ModalPage } from '../PagedModal'
 
-export function useSettingsPages(): SettingsPage[] {
+export function useSettingsPages(): ModalPage[] {
   const { t, i18n } = useTranslation()
-  const pages = useMemo((): SettingsPage[] => {
+  const pages = useMemo((): ModalPage[] => {
     return [
       {
         id: nanoid(),

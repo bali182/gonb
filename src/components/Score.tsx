@@ -8,10 +8,7 @@ import { alphaTexSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
 import { AppDispatch } from '../state/store'
 import { generatorSlice } from '../state/generatorSlice'
-
-export type ScoreProps = {
-  progressionId: string
-}
+import { ScoreView } from './ScoreView'
 
 const wrapStyle = css`
   //.at-wrap
@@ -22,27 +19,6 @@ const wrapStyle = css`
   flex-direction: column;
   overflow: hidden;
   position: relative;
-`
-
-const contentStyle = css`
-  // .at-content
-  position: relative;
-  overflow: hidden;
-  flex: 1 1 auto;
-`
-
-const viewportStyle = css`
-  // .at-viewport
-  overflow-y: auto;
-  position: absolute;
-  left: 200px;
-  right: 200px;
-  padding: 40px;
-  top: 0px;
-  bottom: 30px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 
 export const Score: FC = () => {
@@ -100,11 +76,14 @@ export const Score: FC = () => {
   return (
     <div className={wrapStyle}>
       <ScoreOverlay isVisible={isLoading} />
-      <div className={contentStyle}>
-        <div className={viewportStyle} ref={setScrollAreaCallback}>
-          <div className="at-main" ref={setRootCallback}></div>
-        </div>
-      </div>
+      <ScoreView
+        viewPortLeft={200}
+        viewPortRight={200}
+        viewPortBottom={30}
+        padding={30}
+        setRootCallback={setRootCallback}
+        setScrollAreaCallback={setScrollAreaCallback}
+      />
       <PlayerControls
         bpm={bpm}
         isPlaying={isPlaying}

@@ -3,13 +3,13 @@ import { InputSection } from './InputSection'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../state/store'
 import { Dropdown } from './Dropdown'
-import { PageProps } from './types'
 import { useTranslation } from 'react-i18next'
 import { generatorSlice } from '../../state/generatorSlice'
 import { GeneratorConfig } from '../../state/types'
 import { MelodyType } from '../../model/melodyFragment'
 import { RangeInput } from './RangeInput'
 import { Switch } from './Switch'
+import { PageProps } from '../PagedModal'
 
 const melodyTypeToLabel: Record<MelodyType, string> = {
   WHOLE_NOTES: 'Steady whole notes',

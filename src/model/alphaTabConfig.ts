@@ -1,4 +1,5 @@
 import { json } from '@coderline/alphatab'
+import { isNil, isNotNil } from './utils'
 
 const core: json.CoreSettingsJson = {
   tex: true,
@@ -20,7 +21,9 @@ const display: json.DisplaySettingsJson = {
   // },
 }
 
-const player = (scrollElement: HTMLElement): json.PlayerSettingsJson => ({
+export const player = (
+  scrollElement: HTMLElement,
+): json.PlayerSettingsJson => ({
   scrollElement,
   enableCursor: true,
   enableAnimatedBeatCursor: true,
@@ -28,6 +31,17 @@ const player = (scrollElement: HTMLElement): json.PlayerSettingsJson => ({
   enablePlayer: true,
   enableUserInteraction: true,
   soundFont: 'soundfont/sonivox.sf2',
+})
+
+export const noPlayer = (
+  scrollElement: HTMLElement,
+): json.PlayerSettingsJson => ({
+  scrollElement,
+  enableCursor: false,
+  enableAnimatedBeatCursor: false,
+  enableElementHighlighting: false,
+  enablePlayer: false,
+  enableUserInteraction: false,
 })
 
 // For now it's untyped
@@ -42,9 +56,10 @@ const notation: json.NotationSettingsJson = {
 
 export const alphaTabConfig = (
   scrollElement: HTMLElement,
+  overrides?: Partial<json.PlayerSettingsJson>,
 ): json.SettingsJson => ({
   core,
   display,
   notation,
-  player: player(scrollElement),
+  player: isNil(overrides) ? player(scrollElement) : overrides,
 })

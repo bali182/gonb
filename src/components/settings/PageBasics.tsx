@@ -4,11 +4,11 @@ import { TextInput } from './TextInput'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../state/store'
 import { Dropdown } from './Dropdown'
-import { PageProps } from './types'
 import { useTranslation } from 'react-i18next'
 import { generatorSlice } from '../../state/generatorSlice'
 import { GeneratorConfig } from '../../state/types'
 import { Clef, KeySignature } from '../../model/common'
+import { PageProps } from '../PagedModal'
 
 const keySignatureToLabel: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C Major / A Minor',
