@@ -5,6 +5,16 @@ export const hu: Messages = {
   Score: {
     AlphaTabRenderedBy: 'Kottát rajzolta:',
   },
+  Menu: {
+    GenerateNew: 'Generálj újat',
+    Settings: 'Beállítások',
+    Help: 'Segítség',
+  },
+  Help: {
+    Help: 'Segítség',
+    TrebleClef: 'Violin kulcs',
+    BassClef: 'Basszus kulcs',
+  },
   Settings: {
     Settings: 'Beállítások',
     Basics: 'Alap',

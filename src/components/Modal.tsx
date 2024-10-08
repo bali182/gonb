@@ -17,7 +17,7 @@ const backdropStyle = css`
   height: 100vh;
   z-index: 10001;
   backdrop-filter: blur(30px);
-  background-color: #00000005;
+  background-color: #00000099;
   display: flex;
   align-items: center;
   justify-content: center;

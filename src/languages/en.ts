@@ -3,6 +3,11 @@ export const en = {
   Score: {
     AlphaTabRenderedBy: 'Score rendered by:',
   },
+  Menu: {
+    GenerateNew: 'Generate new',
+    Settings: 'Settings',
+    Help: 'Help',
+  },
   Help: {
     Help: 'Help',
     TrebleClef: 'Treble Clef',

@@ -20,10 +20,10 @@ const wrapper = css`
 `
 
 const inputWrapper = css`
-  width: calc(100% + 16px);
-  margin: 0 calc(16px / -2);
+  width: calc(100% + 24px);
+  margin: 0 calc(24px / -2);
   position: absolute;
-  height: 16px;
+  height: 24px;
 `
 
 const controlWrapper = css`
@@ -64,8 +64,8 @@ const input = css`
   &::-ms-thumb {
     appearance: none;
     pointer-events: all;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     border-radius: 0px;
     border: 0 none;
     cursor: grab;
@@ -77,8 +77,8 @@ const input = css`
     -moz-appearance: none;
     appearance: none;
     pointer-events: all;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     border-radius: 0px;
     border: 0 none;
     cursor: grab;
@@ -90,8 +90,8 @@ const input = css`
     -webkit-appearance: none;
     appearance: none;
     pointer-events: all;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     border-radius: 0px;
     border: 0 none;
     cursor: -webkit-grab;
@@ -126,7 +126,7 @@ const control = css`
   position: absolute;
   background: #ddd;
   top: 50%;
-  margin-left: calc(16px / -2);
+  margin-left: calc(24px / -2);
   transform: translate3d(0, -50%, 0);
   z-index: 2;
   display: flex;

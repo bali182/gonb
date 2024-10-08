@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { StickLogo } from './StickLogo'
 import { Button } from './Button'
 import { PiGearFill, PiFastForwardFill, PiQuestion } from 'react-icons/pi'
+import { useTranslation } from 'react-i18next'
 
 const toolbarStyle = css`
   display: flex;
@@ -36,21 +37,22 @@ export const Toolbar: FC<ToolbarProps> = ({
   onOpenSettings,
   onOpenHelp,
 }) => {
+  const { t } = useTranslation()
   return (
     <div className={toolbarStyle}>
       <StickLogo />
       <div className={buttonsContainer}>
         <Button onClick={onRegenerate}>
           <PiFastForwardFill />
-          Generate new
+          {t('Menu.GenerateNew')}
         </Button>
         <Button onClick={onOpenSettings}>
           <PiGearFill />
-          Settings
+          {t('Menu.Settings')}
         </Button>
         <Button onClick={onOpenHelp} className={helpButtonStyle}>
           <PiQuestion />
-          Help
+          {t('Menu.Help')}
         </Button>
       </div>
     </div>
