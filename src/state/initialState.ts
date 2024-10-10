@@ -18,6 +18,7 @@ export const initialState: AppState = {
     showNoteNames: false,
     bpm: 120,
     timestamp: 0,
+    tuning: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'],
   },
   melody: [],
 }

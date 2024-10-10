@@ -52,6 +52,7 @@ export const en = {
     Settings: 'Settings',
     Basics: 'Basics',
     Details: 'Details',
+    Tuning: 'Tuning',
     BarCount: 'Number of bars',
     BarCountDescription:
       'Number of bars (length of the random generated piece).',
@@ -72,6 +73,10 @@ export const en = {
     ShowNoteNames: 'Show note names',
     ShowNoteNamesDescription:
       'When turned on, shows the note names above the score.',
+    TuningName: 'Tuning',
+    TuningDescription:
+      'Individual strings of the instruments you want to practice with',
+    TuningAddString: 'Add string',
   },
   Clefs,
   KeySignatures,

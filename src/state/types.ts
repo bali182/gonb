@@ -17,6 +17,7 @@ export type GeneratorConfig = {
   lastFret: number
   semitones: boolean
   showNoteNames: boolean
+  tuning: string[]
   bpm: number
   // Just for easier regeneration
   timestamp: number

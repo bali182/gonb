@@ -19,6 +19,21 @@ export const defaultStyles: StylesConfig = {
     ...fontChangeProps(provided),
     backgroundColor: '#00000010',
   }),
+  valueContainer: (provided): CSSObjectWithLabel => ({
+    ...provided,
+    paddingRight: '0px',
+    marginRight: '0px',
+  }),
+  indicatorsContainer: (provided): CSSObjectWithLabel => ({
+    ...provided,
+    paddingLeft: '0px',
+    marginLeft: '0px',
+  }),
+  dropdownIndicator: (provided): CSSObjectWithLabel => ({
+    ...provided,
+    paddingLeft: '0px',
+    marginLeft: '0px',
+  }),
   placeholder: fontChangeProps,
   control: (provided): CSSObjectWithLabel => ({
     ...provided,
@@ -85,10 +100,13 @@ export const MultiDropdown: FC<
   )
 }
 
-export const Dropdown: FC<
-  EditorProps<SelectItem<string>, { values: SelectItem<string>[] }>
-> = ({ id, value, data, onChange }) => {
-  const _onChange = (e: SelectItem<string>) => {
+export function Dropdown<T>({
+  id,
+  value,
+  data,
+  onChange,
+}: EditorProps<SelectItem<T>, { values: SelectItem<T>[] }>) {
+  const _onChange = (e: SelectItem<T>) => {
     onChange(e)
   }
 
