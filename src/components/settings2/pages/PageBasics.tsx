@@ -1,5 +1,11 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
+import { NotesGrid } from '../controls/NotesGrid/NotesGrid'
 
 export const PageBasics: FC = () => {
-  return <div></div>
+  const [notes, setNotes] = useState(() => ['C2', 'D2', 'E3', 'G4'])
+  return (
+    <div>
+      <NotesGrid value={notes} onChange={setNotes} />
+    </div>
+  )
 }
