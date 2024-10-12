@@ -5,8 +5,6 @@ import { PageDetails } from './PageDetails'
 import { ModalPage } from '../PagedModal'
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../model/useMemoizedTranslation'
-import { PageTuning } from './PageTuning'
-import { GiGuitarBassHead } from 'react-icons/gi'
 
 function getSettingsPages(t: TFunction): ModalPage[] {
   return [

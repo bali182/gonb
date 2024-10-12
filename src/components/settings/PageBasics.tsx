@@ -8,14 +8,13 @@ import { useTranslation } from 'react-i18next'
 import { generatorSlice } from '../../state/generatorSlice'
 import { GeneratorConfig } from '../../state/types'
 import { Clef, KeySignature } from '../../model/common'
-import { PageProps } from '../PagedModal'
 import {
   useClefTranslations,
   useKeySignatureTranslations,
 } from './translatedContent'
 import { SelectItem } from './types'
 
-export const PageBasics: FC<PageProps> = () => {
+export const PageBasics: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const generatorConfig = useSelector(generatorSlice.selectSlice)
   const { clef, keySignature, barCount, bpm } = generatorConfig

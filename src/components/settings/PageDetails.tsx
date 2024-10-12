@@ -9,11 +9,10 @@ import { GeneratorConfig } from '../../state/types'
 import { MelodyType } from '../../model/melodyFragment'
 import { RangeInput } from './RangeInput'
 import { Switch } from './Switch'
-import { PageProps } from '../PagedModal'
 import { useMelodyTypeTranslations } from './translatedContent'
 import { SelectItem } from './types'
 
-export const PageDetails: FC<PageProps> = () => {
+export const PageDetails: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const generatorConfig = useSelector(generatorSlice.selectSlice)
 

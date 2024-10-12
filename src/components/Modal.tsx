@@ -3,7 +3,7 @@ import { FC, MouseEvent, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 export type ModalProps = {
-  onBackdropClick: () => void
+  onBackdropClick?: () => void
   children: string | ReactNode
   modalClassName?: string
   backdropClassName?: string

@@ -2,9 +2,13 @@ import { FC, useState } from 'react'
 import { PiGearFill } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
 import { useSettingsPages } from './useSettingsPages'
-import { PagedModal, PageProps } from '../PagedModal'
+import { PagedModal } from '../PagedModal'
 
-export const SettingsModal: FC<PageProps> = ({ onClose }) => {
+export type SettingsModalProps = {
+  onClose: () => void
+}
+
+export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
   const pages = useSettingsPages()
   const [activePage, setActivePage] = useState<string>(pages[0]!.id)
   const { t } = useTranslation()
@@ -13,9 +17,10 @@ export const SettingsModal: FC<PageProps> = ({ onClose }) => {
       icon={PiGearFill}
       activePage={activePage}
       title={t('Settings.Settings')}
-      onClose={onClose}
       setActivePage={setActivePage}
       pages={pages}
+      onClose={onClose}
+      pageProps={undefined}
     />
   )
 }

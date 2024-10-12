@@ -1,26 +1,22 @@
 import { css, cx } from '@emotion/css'
-import { ComponentType, FC, useMemo, useState } from 'react'
-import { PiGearFill, PiX } from 'react-icons/pi'
+import { ComponentType, useMemo } from 'react'
+import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
-import { useTranslation } from 'react-i18next'
 import { IconType } from 'react-icons'
 
-export type PageProps = {
-  onClose: () => void
-}
-
-export type ModalPage = {
+export type ModalPage<T = any> = {
   id: string
   name: string
   Icon: IconType
-  Component: ComponentType<PageProps>
+  Component: ComponentType<T>
 }
 
-export type PagedModalProps = {
+export type PagedModalProps<T = any> = {
   activePage: string
   title: string
   icon: IconType
-  pages: ModalPage[]
+  pageProps: T
+  pages: ModalPage<T>[]
   onClose: () => void
   setActivePage: (pageId: string) => void
 }
@@ -114,14 +110,15 @@ const contentContainerStyle = css`
   overflow: auto;
 `
 
-export const PagedModal: FC<PagedModalProps> = ({
+export function PagedModal<T>({
   pages,
   title,
   icon: Icon,
   activePage: activePageId,
+  pageProps: pageData,
   onClose,
   setActivePage,
-}) => {
+}: PagedModalProps<T>) {
   const activePage = useMemo(
     () => pages.find((page) => page.id === activePageId)!,
     [pages, activePageId],
@@ -156,7 +153,7 @@ export const PagedModal: FC<PagedModalProps> = ({
           <PiX className={closeIconStyle} onClick={onClose} />
         </header>
         <div className={contentContainerStyle}>
-          {<activePage.Component onClose={onClose} />}
+          {<activePage.Component {...(pageData as any)} />}
         </div>
       </div>
     </Modal>
