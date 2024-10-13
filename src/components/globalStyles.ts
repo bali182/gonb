@@ -1,6 +1,13 @@
 import { css } from '@emotion/react'
 
 export const globalStyles = css`
+  @font-face {
+    font-family: 'Bravura';
+    src: url('public/font/Bravura.eot');
+    src: url('public/font/Bravura.woff') format('woff'),
+      url('public/font/Bravura.otf') format('opentype');
+  }
+
   #root {
     width: 100vw;
     height: 100vh;

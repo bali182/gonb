@@ -184,3 +184,21 @@ export function moveDown<T>(arr: T[], index: number): T[] {
   newArr[index + 1] = temp
   return newArr
 }
+
+export function arraysEqual<T>(a: T[], b: T[]): boolean {
+  if (a === b) {
+    return true
+  }
+  if (a == null || b == null) {
+    return false
+  }
+  if (a.length !== b.length) {
+    return false
+  }
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) {
+      return false
+    }
+  }
+  return true
+}

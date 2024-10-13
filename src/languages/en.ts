@@ -77,6 +77,24 @@ export const en = {
     TuningDescription:
       'Individual strings of the instruments you want to practice with',
     TuningAddString: 'Add string',
+
+    NotesPreset: 'Notes preset',
+    NotesPresetDescription:
+      'Select notes from the available presets describing the range of common instruments',
+
+    Notes: 'Notes',
+    NotesDescription:
+      'Select the individual notes of your instruments range, if the presets are not suitable',
+  },
+  NotePresets: {
+    SixStringGuitar: '6 String Guitar',
+    SevenStringGuitar: '7 String Guitar',
+    FourStringBass: '4 String Bass',
+    FiveStringBass: '5 String Bass',
+    SixStringGuitarUnfretted: '6 String Guitar (unfretted)',
+    SevenStringGuitarUnfretted: '7 String Guitar (unfretted)',
+    FourStringBassUnfretted: '4 String Bass (unfretted)',
+    FiveStringBassUnfretted: '5 String Bass (unfretted)',
   },
   Clefs,
   KeySignatures,
