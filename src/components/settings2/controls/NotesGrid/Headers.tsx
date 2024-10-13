@@ -8,7 +8,7 @@ import {
   fillSeparatorStyle,
   thStyle,
   topLeftNoteStyle,
-} from './commonStyles'
+} from './notesGridStyles'
 
 export type NoteHeaderProps = {
   note: string

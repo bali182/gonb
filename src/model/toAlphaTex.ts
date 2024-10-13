@@ -41,7 +41,7 @@ function getDurationNumber(duration: Duration): number {
     case Duration.QUARTER:
     case Duration.DOTTED_QUARTER:
       return 4
-    case Duration.EIGHT:
+    case Duration.EIGHTH:
     case Duration.DOTTED_EIGHT:
       return 8
     case Duration.SIXTEENTH:
@@ -60,7 +60,7 @@ function getDurationDot(duration: Duration): string | undefined {
     case Duration.WHOLE:
     case Duration.HALF:
     case Duration.QUARTER:
-    case Duration.EIGHT:
+    case Duration.EIGHTH:
     case Duration.SIXTEENTH:
       return undefined
   }

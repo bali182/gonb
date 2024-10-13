@@ -8,7 +8,7 @@ import {
   tdStyle,
   topLeftNoteStyle,
   fillSeparatorStyle,
-} from './commonStyles'
+} from './notesGridStyles'
 
 export type CellProps = {
   note: string

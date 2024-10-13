@@ -12,7 +12,7 @@ import {
 } from './notesGridUtils'
 import { Cell } from './Cell'
 import { NoteHeader, OctaveHeader } from './Headers'
-import { tableStyle } from './commonStyles'
+import { tableStyle } from './notesGridStyles'
 
 export type NotesGridProps = {
   value: string[]
@@ -45,6 +45,7 @@ export const NotesGrid: FC<NotesGridProps> = ({ onChange, value }) => {
             const isColumnSelected = rowSelection[note]!
             return (
               <NoteHeader
+                key={`note-header-${note}`}
                 isSelected={isColumnSelected}
                 note={note}
                 onClick={onRowHeaderClick}

@@ -4,9 +4,16 @@ import { PageBasics } from './pages/PageBasics'
 import { ModalPage } from '../PagedModal'
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../model/useMemoizedTranslation'
+import { PageNoteLengths } from './pages/PageNoteLengths'
 
 function getSettingsPages(t: TFunction): ModalPage[] {
   return [
+    {
+      id: nanoid(),
+      name: t('Settings.Tempo'),
+      Icon: PiGearFill,
+      Component: PageNoteLengths,
+    },
     {
       id: nanoid(),
       name: t('Settings.Basics'),
