@@ -53,6 +53,8 @@ function getRange(
     case Clef.TREBLE: {
       return getRangeByFrets('E2', 'E4', firstFret, lastFret)
     }
+    default:
+      throw new Error('Unexpected clef!')
   }
 }
 

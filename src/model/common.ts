@@ -14,6 +14,8 @@ export const enum Duration {
 export const enum Clef {
   BASS = 'Bass',
   TREBLE = 'Treble',
+  SOPRANO = 'Soprano',
+  PERCUSSION = 'Percussion',
 }
 
 export const enum KeySignature {
