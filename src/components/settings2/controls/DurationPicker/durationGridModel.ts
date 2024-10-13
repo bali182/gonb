@@ -22,9 +22,9 @@ import {
   RestSixteenth,
   RestWhole,
 } from './Notes'
-import { NoteLengthItem } from './types'
+import { ConstDurationItem } from './types'
 
-export const NOTE_LENGTHS: NoteLengthItem[] = [
+export const NOTE_DURATIONS: ConstDurationItem[] = [
   {
     Component: NoteWhole,
     type: 'NOTE',
@@ -52,7 +52,7 @@ export const NOTE_LENGTHS: NoteLengthItem[] = [
   },
 ]
 
-export const REST_LENGTHS: NoteLengthItem[] = [
+export const REST_DURATIONS: ConstDurationItem[] = [
   {
     Component: RestWhole,
     type: 'REST',
@@ -80,7 +80,7 @@ export const REST_LENGTHS: NoteLengthItem[] = [
   },
 ]
 
-export const DOTTED_NOTE_LENGTHS: NoteLengthItem[] = [
+export const DOTTED_NOTE_DURATIONS: ConstDurationItem[] = [
   {
     Component: NoteDottedWhole,
     type: 'NOTE',
@@ -108,7 +108,7 @@ export const DOTTED_NOTE_LENGTHS: NoteLengthItem[] = [
   },
 ]
 
-export const DOTTED_REST_LENGTHS: NoteLengthItem[] = [
+export const DOTTED_REST_DURATIONS: ConstDurationItem[] = [
   {
     Component: RestDottedWhole,
     type: 'REST',
@@ -136,9 +136,9 @@ export const DOTTED_REST_LENGTHS: NoteLengthItem[] = [
   },
 ]
 
-export const NOTE_LENGTH_ROWS: NoteLengthItem[][] = NOTE_LENGTHS.map((_, i) => [
-  NOTE_LENGTHS[i]!,
-  DOTTED_NOTE_LENGTHS[i]!,
-  REST_LENGTHS[i]!,
-  DOTTED_REST_LENGTHS[i]!,
+export const DURATION_ROWS: ConstDurationItem[][] = NOTE_DURATIONS.map((_, i) => [
+  NOTE_DURATIONS[i]!,
+  DOTTED_NOTE_DURATIONS[i]!,
+  REST_DURATIONS[i]!,
+  DOTTED_REST_DURATIONS[i]!,
 ])

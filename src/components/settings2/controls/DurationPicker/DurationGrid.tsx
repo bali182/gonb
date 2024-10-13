@@ -4,72 +4,65 @@ import {
   tableStyle,
   tdStyle,
   thStyle,
-} from './notesLengthGridStyles'
-import { useDurationHeaders, useNoteAndRestHeaders } from './headers'
-import {
-  DurationHeader,
-  NoteAndRestHeader,
-  SelectableNoteLengthItem,
-} from './types'
+} from './durationGridStyles'
+import { useDurationHeaders, useTypeHeaders } from './durationGridHeaders'
+import { DurationHeader, TypeHeader, DurationItem } from './types'
 import { Duration } from '../../../../model/common'
 import {
   getDurationHeaderSelection,
-  getDurationsOfType,
-  getNoteAndRestHeaderSelection,
-  getSelectableNoteLengths,
+  getDurations,
+  getTypeHeaderSelection,
+  getDurationGridData,
   updateDurationHeader,
   updateItem,
-  updateNoteAndRestHeader,
-} from './noteLengthUtils'
+  updateTypeHeader,
+} from './durationGridUtils'
 import { cx } from '@emotion/css'
 
-export type NoteLengthGridProps = {
+export type DurationGridProps = {
   rests: Duration[]
   notes: Duration[]
   onChange: (notes: Duration[], rests: Duration[]) => void
 }
 
-export const NoteLengthGrid: FC<NoteLengthGridProps> = ({
+export const DurationGrid: FC<DurationGridProps> = ({
   notes,
   rests,
   onChange,
 }) => {
   const durationHeaders = useDurationHeaders()
-  const noteAndRestHeaders = useNoteAndRestHeaders()
+  const typeHeaders = useTypeHeaders()
 
-  const data = useMemo(
-    () => getSelectableNoteLengths(notes, rests),
-    [notes, rests],
-  )
+  const data = useMemo(() => getDurationGridData(notes, rests), [notes, rests])
 
   const durationSelection = useMemo(
     () => getDurationHeaderSelection(data, durationHeaders),
     [data, durationHeaders],
   )
 
-  const noteAndRestSelection = useMemo(
-    () => getNoteAndRestHeaderSelection(data, noteAndRestHeaders),
-    [data, noteAndRestHeaders],
+  const typeSelection = useMemo(
+    () => getTypeHeaderSelection(data, typeHeaders),
+    [data, typeHeaders],
   )
 
-  const onNoteLengthSelected = (item: SelectableNoteLengthItem) => {
+  const onNoteLengthSelected = (item: DurationItem) => {
     const updatedData = updateItem(data, item)
     onChange(
-      getDurationsOfType(updatedData, 'NOTE'),
-      getDurationsOfType(updatedData, 'REST'),
+      getDurations(updatedData, 'NOTE'),
+      getDurations(updatedData, 'REST'),
     )
   }
 
-  const onNoteOrRestHeaderSelected = (header: NoteAndRestHeader) => {
-    const updatedData = updateNoteAndRestHeader(
+  const onTypeHeaderSelected = (header: TypeHeader) => {
+    const updatedData = updateTypeHeader(
       data,
       header,
-      noteAndRestSelection.get(header)!,
+      typeSelection.get(header)!,
     )
 
     onChange(
-      getDurationsOfType(updatedData, 'NOTE'),
-      getDurationsOfType(updatedData, 'REST'),
+      getDurations(updatedData, 'NOTE'),
+      getDurations(updatedData, 'REST'),
     )
   }
 
@@ -80,8 +73,8 @@ export const NoteLengthGrid: FC<NoteLengthGridProps> = ({
       durationSelection.get(header)!,
     )
     onChange(
-      getDurationsOfType(updatedData, 'NOTE'),
-      getDurationsOfType(updatedData, 'REST'),
+      getDurations(updatedData, 'NOTE'),
+      getDurations(updatedData, 'REST'),
     )
   }
 
@@ -90,12 +83,12 @@ export const NoteLengthGrid: FC<NoteLengthGridProps> = ({
       <thead>
         <tr>
           <th />
-          {noteAndRestHeaders.map((header) => {
+          {typeHeaders.map((header) => {
             const className = cx(
               thStyle,
-              noteAndRestSelection.get(header) ? selectedStyle : undefined,
+              typeSelection.get(header) ? selectedStyle : undefined,
             )
-            const onClick = () => onNoteOrRestHeaderSelected(header)
+            const onClick = () => onTypeHeaderSelected(header)
             return (
               <th onClick={onClick} className={className} key={header.label}>
                 {header.label}

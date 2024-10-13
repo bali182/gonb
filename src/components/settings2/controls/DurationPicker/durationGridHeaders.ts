@@ -1,9 +1,9 @@
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../../../model/useMemoizedTranslation'
-import { DurationHeader, NoteAndRestHeader } from './types'
+import { DurationHeader, TypeHeader } from './types'
 import { Duration } from '../../../../model/common'
 
-function getNoteAndRestHeaders(t: TFunction): NoteAndRestHeader[] {
+function getTypeHeaders(t: TFunction): TypeHeader[] {
   return [
     { label: t('NoteAndRestHeaders.Notes'), type: 'NOTE', dotted: false },
     { label: t('NoteAndRestHeaders.DottedNotes'), type: 'NOTE', dotted: true },
@@ -12,8 +12,8 @@ function getNoteAndRestHeaders(t: TFunction): NoteAndRestHeader[] {
   ]
 }
 
-export function useNoteAndRestHeaders(): NoteAndRestHeader[] {
-  return useMemoizedTranslation(getNoteAndRestHeaders)
+export function useTypeHeaders(): TypeHeader[] {
+  return useMemoizedTranslation(getTypeHeaders)
 }
 
 function getDurationHeaders(t: TFunction): DurationHeader[] {

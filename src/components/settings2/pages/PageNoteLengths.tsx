@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
-import { NoteLengthGrid } from '../controls/NoteLengthPicker/NoteLengthGrid'
+import { DurationGrid } from '../controls/DurationPicker/DurationGrid'
 import { Duration } from '../../../model/common'
 
 export const PageNoteLengths: FC = () => {
@@ -25,7 +25,7 @@ export const PageNoteLengths: FC = () => {
       <Section>
         <Label>{t('Settings.NotesPreset')}</Label>
         <Description>{t('Settings.NotesPresetDescription')}</Description>
-        <NoteLengthGrid
+        <DurationGrid
           notes={noteDurations}
           rests={restDurations}
           onChange={onChange}

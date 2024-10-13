@@ -1,11 +1,11 @@
 import { ComponentType } from 'react'
 import { Duration } from '../../../../model/common'
 
-export type NoteOrRest = 'REST' | 'NOTE'
+export type DurationType = 'REST' | 'NOTE'
 
-export type NoteAndRestHeader = {
+export type TypeHeader = {
   label: string
-  type: NoteOrRest
+  type: DurationType
   dotted: boolean
 }
 
@@ -14,10 +14,10 @@ export type DurationHeader = {
   durations: Duration[]
 }
 
-export type NoteLengthItem = {
+export type ConstDurationItem = {
   Component: ComponentType
-  type: NoteOrRest
+  type: DurationType
   duration: Duration
 }
 
-export type SelectableNoteLengthItem = NoteLengthItem & { isSelected: boolean }
+export type DurationItem = ConstDurationItem & { isSelected: boolean }

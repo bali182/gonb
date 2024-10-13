@@ -1,18 +1,13 @@
 import { Duration } from '../../../../model/common'
-import { NOTE_LENGTH_ROWS } from './noteLengthsGridModel'
-import {
-  DurationHeader,
-  NoteAndRestHeader,
-  NoteOrRest,
-  SelectableNoteLengthItem,
-} from './types'
+import { DURATION_ROWS } from './durationGridModel'
+import { DurationHeader, TypeHeader, DurationType, DurationItem } from './types'
 
-export function getSelectableNoteLengths(
+export function getDurationGridData(
   notes: Duration[],
   rests: Duration[],
-): SelectableNoteLengthItem[][] {
-  return NOTE_LENGTH_ROWS.map((row): SelectableNoteLengthItem[] => {
-    return row.map((item): SelectableNoteLengthItem => {
+): DurationItem[][] {
+  return DURATION_ROWS.map((row): DurationItem[] => {
+    return row.map((item): DurationItem => {
       const isSelected =
         item.type === 'NOTE'
           ? notes.includes(item.duration)
@@ -25,9 +20,9 @@ export function getSelectableNoteLengths(
   })
 }
 
-export function getDurationsOfType(
-  data: SelectableNoteLengthItem[][],
-  type: NoteOrRest,
+export function getDurations(
+  data: DurationItem[][],
+  type: DurationType,
 ): Duration[] {
   const durations: Duration[] = []
   for (const row of data) {
@@ -41,15 +36,15 @@ export function getDurationsOfType(
 }
 
 export function updateItem(
-  data: SelectableNoteLengthItem[][],
-  toUpdate: SelectableNoteLengthItem,
-): SelectableNoteLengthItem[][] {
-  const output: SelectableNoteLengthItem[][] = []
+  data: DurationItem[][],
+  toUpdate: DurationItem,
+): DurationItem[][] {
+  const output: DurationItem[][] = []
   for (const row of data) {
-    const updatedRow: SelectableNoteLengthItem[] = []
+    const updatedRow: DurationItem[] = []
     for (const item of row) {
       if (item.type === toUpdate.type && item.duration === toUpdate.duration) {
-        const updatedItem: SelectableNoteLengthItem = {
+        const updatedItem: DurationItem = {
           ...toUpdate,
           isSelected: !toUpdate.isSelected,
         }
@@ -76,11 +71,11 @@ function isDotted(duration: Duration) {
   }
 }
 
-export function getNoteAndRestHeaderSelection(
-  data: SelectableNoteLengthItem[][],
-  headers: NoteAndRestHeader[],
-): Map<NoteAndRestHeader, boolean> {
-  const selection = new Map<NoteAndRestHeader, boolean>()
+export function getTypeHeaderSelection(
+  data: DurationItem[][],
+  headers: TypeHeader[],
+): Map<TypeHeader, boolean> {
+  const selection = new Map<TypeHeader, boolean>()
   const flatItems = data.flatMap((row) => row)
   for (const header of headers) {
     const relevantItems = flatItems.filter(
@@ -96,7 +91,7 @@ export function getNoteAndRestHeaderSelection(
 }
 
 export function getDurationHeaderSelection(
-  data: SelectableNoteLengthItem[][],
+  data: DurationItem[][],
   headers: DurationHeader[],
 ): Map<DurationHeader, boolean> {
   const selection = new Map<DurationHeader, boolean>()
@@ -114,13 +109,13 @@ export function getDurationHeaderSelection(
 }
 
 export function updateDurationHeader(
-  data: SelectableNoteLengthItem[][],
+  data: DurationItem[][],
   header: DurationHeader,
   isSelected: boolean,
-): SelectableNoteLengthItem[][] {
-  const output: SelectableNoteLengthItem[][] = []
+): DurationItem[][] {
+  const output: DurationItem[][] = []
   for (const row of data) {
-    const updatedRow: SelectableNoteLengthItem[] = []
+    const updatedRow: DurationItem[] = []
     for (const item of row) {
       if (header.durations.includes(item.duration)) {
         updatedRow.push({ ...item, isSelected: !isSelected })
@@ -133,14 +128,14 @@ export function updateDurationHeader(
   return output
 }
 
-export function updateNoteAndRestHeader(
-  data: SelectableNoteLengthItem[][],
-  header: NoteAndRestHeader,
+export function updateTypeHeader(
+  data: DurationItem[][],
+  header: TypeHeader,
   isSelected: boolean,
-): SelectableNoteLengthItem[][] {
-  const output: SelectableNoteLengthItem[][] = []
+): DurationItem[][] {
+  const output: DurationItem[][] = []
   for (const row of data) {
-    const updatedRow: SelectableNoteLengthItem[] = []
+    const updatedRow: DurationItem[] = []
     for (const item of row) {
       if (
         item.type === header.type &&
