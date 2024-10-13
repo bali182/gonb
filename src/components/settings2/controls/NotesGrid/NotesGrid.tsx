@@ -1,4 +1,3 @@
-import { css, cx } from '@emotion/css'
 import { FC, useMemo } from 'react'
 import {
   asColumnSelection,
@@ -13,18 +12,7 @@ import {
 } from './notesGridUtils'
 import { Cell } from './Cell'
 import { NoteHeader, OctaveHeader } from './Headers'
-
-const tableStyle = css`
-  border-spacing: 0;
-  border-collapse: collapse;
-  overflow: hidden;
-  table-layout: fixed;
-  width: 100%;
-`
-
-const selectedStyle = css`
-  background-color: #00000030;
-`
+import { tableStyle } from './commonStyles'
 
 export type NotesGridProps = {
   value: string[]
@@ -53,29 +41,29 @@ export const NotesGrid: FC<NotesGridProps> = ({ onChange, value }) => {
       <thead>
         <tr>
           <th />
-          {OCTAVES.map((octave) => {
-            const isColumnSelected = columnSelection[octave]!
+          {NOTES.map((note) => {
+            const isColumnSelected = rowSelection[note]!
             return (
-              <OctaveHeader
+              <NoteHeader
                 isSelected={isColumnSelected}
-                octave={octave}
-                onClick={onColumnHeaderClick}
+                note={note}
+                onClick={onRowHeaderClick}
               />
             )
           })}
         </tr>
       </thead>
       <tbody>
-        {NOTES.map((note) => {
-          const isRowSelected = rowSelection[note]!
+        {OCTAVES.map((octave) => {
+          const isRowSelected = columnSelection[octave]!
           return (
-            <tr key={`note-row-${note}`}>
-              <NoteHeader
-                note={note}
+            <tr key={`note-row-${octave}`}>
+              <OctaveHeader
+                octave={octave}
                 isSelected={isRowSelected}
-                onClick={onRowHeaderClick}
+                onClick={onColumnHeaderClick}
               />
-              {OCTAVES.map((octave) => {
+              {NOTES.map((note) => {
                 const isNoteSelected = data[note]![octave]!
                 return (
                   <Cell
