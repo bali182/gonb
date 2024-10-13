@@ -1,24 +1,37 @@
 import { nanoid } from 'nanoid'
-import { PiGearFill } from 'react-icons/pi'
-import { PageBasics } from './pages/PageBasics'
+import {
+  PiGearBold,
+  PiGearFill,
+  PiMetronomeBold,
+  PiMusicNote,
+  PiMusicNoteBold,
+} from 'react-icons/pi'
+import { PageNotes } from './pages/PageNotes'
 import { ModalPage } from '../PagedModal'
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../model/useMemoizedTranslation'
-import { PageNoteLengths } from './pages/PageNoteLengths'
+import { PageRhythms } from './pages/PageRhythms'
+import { PageBasics } from './pages/PageBasics'
 
 function getSettingsPages(t: TFunction): ModalPage[] {
   return [
     {
       id: nanoid(),
-      name: t('Settings.Tempo'),
-      Icon: PiGearFill,
-      Component: PageNoteLengths,
+      name: t('Settings.BasicsPage'),
+      Icon: PiGearBold,
+      Component: PageBasics,
     },
     {
       id: nanoid(),
-      name: t('Settings.Basics'),
-      Icon: PiGearFill,
-      Component: PageBasics,
+      name: t('Settings.RhythmsPage'),
+      Icon: PiMetronomeBold,
+      Component: PageRhythms,
+    },
+    {
+      id: nanoid(),
+      name: t('Settings.NotesPage'),
+      Icon: PiMusicNoteBold,
+      Component: PageNotes,
     },
   ]
 }

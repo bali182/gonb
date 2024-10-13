@@ -5,6 +5,8 @@ import { Messages } from './types'
 const Clefs: Record<Clef, string> = {
   [Clef.BASS]: 'Basszus kulcs',
   [Clef.TREBLE]: 'Violin kulcs',
+  [Clef.SOPRANO]: '???',
+  [Clef.PERCUSSION]: '???',
 }
 
 const KeySignatures: Record<KeySignature, string> = {

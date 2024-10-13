@@ -4,6 +4,8 @@ import { MelodyType } from '../model/melodyFragment'
 const Clefs: Record<Clef, string> = {
   [Clef.BASS]: 'Bass clef',
   [Clef.TREBLE]: 'Treble clef',
+  [Clef.SOPRANO]: 'Soprano clef',
+  [Clef.PERCUSSION]: 'Percussion clef',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -53,6 +55,11 @@ export const en = {
     Basics: 'Basics',
     Details: 'Details',
     Tuning: 'Tuning',
+
+    BasicsPage: 'Basic Settings',
+    NotesPage: 'Notes',
+    RhythmsPage: 'Rhythms',
+
     BarCount: 'Number of bars',
     BarCountDescription:
       'Number of bars (length of the random generated piece).',
@@ -85,6 +92,10 @@ export const en = {
     Notes: 'Notes',
     NotesDescription:
       'Select the individual notes of your instruments range, if the presets are not suitable',
+
+    RhythmDurations: 'Rhythm durations',
+    RhythmDurationsDescription:
+      'Select the individual note and rest durations you want to practice',
   },
   NotePresets: {
     SixStringGuitar: '6 String Guitar',

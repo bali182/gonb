@@ -3,9 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { DurationGrid } from '../controls/DurationPicker/DurationGrid'
 import { Duration } from '../../../model/common'
-import { ClefPicker } from '../controls/ClefPicker/ClefPicker'
 
-export const PageNoteLengths: FC = () => {
+export const PageRhythms: FC = () => {
   const { t } = useTranslation()
 
   const [noteDurations, setNoteDurations] = useState<Duration[]>([
@@ -24,18 +23,13 @@ export const PageNoteLengths: FC = () => {
   return (
     <>
       <Section>
-        <Label>{t('Settings.NotesPreset')}</Label>
-        <Description>{t('Settings.NotesPresetDescription')}</Description>
+        <Label>{t('Settings.RhythmDurations')}</Label>
+        <Description>{t('Settings.RhythmDurationsDescription')}</Description>
         <DurationGrid
           notes={noteDurations}
           rests={restDurations}
           onChange={onChange}
         />
-      </Section>
-      <Section>
-        <Label>{t('Settings.NotesPreset')}</Label>
-        <Description>{t('Settings.NotesPresetDescription')}</Description>
-        <ClefPicker />
       </Section>
     </>
   )
