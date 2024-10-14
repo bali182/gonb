@@ -11,22 +11,20 @@ const Clefs: Record<Clef, string> = {
 
 const KeySignatures: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C Dúr / A Moll',
-  [KeySignature.G_MAJOR_E_MINOR_1_SHARP]: 'G Dúr / E Moll (#)',
-  [KeySignature.D_MAJOR_B_MINOR_2_SHARPS]: 'D Dúr / B Moll (##)',
-  [KeySignature.A_MAJOR_F_SHARP_MINOR_3_SHARPS]: 'A Dúr / F# Moll (###)',
-  [KeySignature.E_MAJOR_C_SHARP_MINOR_4_SHARPS]: 'E Dúr / C# Moll (####)',
-  [KeySignature.B_MAJOR_G_SHARP_MINOR_5_SHARPS]: 'B Dúr / G# Moll (#####)',
-  [KeySignature.F_SHARP_MAJOR_D_SHARP_MINOR_6_SHARPS]:
-    'F# Dúr / D# Moll (######)',
-  [KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS]:
-    'C# Dúr / A# Moll (#######)',
-  [KeySignature.F_MAJOR_D_MINOR_1_FLAT]: 'F Dúr / D Moll (b)',
-  [KeySignature.Bb_MAJOR_G_MINOR_2_FLATS]: 'Bb Dúr / G Moll (bb)',
-  [KeySignature.Eb_MAJOR_C_MINOR_2_FLATS]: 'Eb Dúr / C Moll (bbb)',
-  [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: 'Ab Dúr / F Moll (bbbb)',
-  [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'Db Dúr / F Moll (bbbbb)',
-  [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'Gb Dúr / Eb Moll (bbbbbb)',
-  [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'Cb Dúr / Ab Moll (bbbbbbb)',
+  [KeySignature.G_MAJOR_E_MINOR_1_SHARP]: 'G Dúr / E Moll',
+  [KeySignature.D_MAJOR_B_MINOR_2_SHARPS]: 'D Dúr / B Moll',
+  [KeySignature.A_MAJOR_F_SHARP_MINOR_3_SHARPS]: 'A Dúr / F♯ Moll',
+  [KeySignature.E_MAJOR_C_SHARP_MINOR_4_SHARPS]: 'E Dúr / C♯ Moll',
+  [KeySignature.B_MAJOR_G_SHARP_MINOR_5_SHARPS]: 'B Dúr / G♯ Moll',
+  [KeySignature.F_SHARP_MAJOR_D_SHARP_MINOR_6_SHARPS]: 'F♯ Dúr / D♯ Moll',
+  [KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS]: 'C♯ Dúr / A♯ Moll',
+  [KeySignature.F_MAJOR_D_MINOR_1_FLAT]: 'F Dúr / D Moll',
+  [KeySignature.Bb_MAJOR_G_MINOR_2_FLATS]: 'B♭ Dúr / G Moll',
+  [KeySignature.Eb_MAJOR_C_MINOR_3_FLATS]: 'E♭ Dúr / C Moll',
+  [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: 'A♭ Dúr / F Moll',
+  [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'D♭ Dúr / F Moll',
+  [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'G♭ Dúr / E♭ Moll',
+  [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'C♭ Dúr / A♭ Moll',
 }
 
 const MelodyTypes: Record<MelodyType, string> = {
@@ -70,7 +68,7 @@ export const hu: Messages = {
       'Bundok tartománya amiben gyakorolni akarsz (gitár vagy basszus).',
     NonScaleNotes: 'Skálán kívüli hangok',
     NonScaleNotesDescription:
-      'Skálán kívül eső hangok használata (random #-ek és b-k gyakorlására).',
+      'Skálán kívül eső hangok használata (random ♯-ek és ♭-k gyakorlására).',
     Tempo: 'Tempó (BPM-ben)',
     TempoDescription: 'A generált dallam sebessége.',
     ShowNoteNames: 'Hangok nevei',

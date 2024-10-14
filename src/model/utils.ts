@@ -108,7 +108,7 @@ const ScaleNameMap: Record<KeySignature, string> = {
   [KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS]: 'C# major',
   [KeySignature.F_MAJOR_D_MINOR_1_FLAT]: 'F major',
   [KeySignature.Bb_MAJOR_G_MINOR_2_FLATS]: 'Bb major',
-  [KeySignature.Eb_MAJOR_C_MINOR_2_FLATS]: 'Eb major',
+  [KeySignature.Eb_MAJOR_C_MINOR_3_FLATS]: 'Eb major',
   [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: 'Ab major',
   [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'Db major',
   [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'Gb major',

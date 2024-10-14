@@ -15,7 +15,7 @@ function getKeySignatures(t: TFunction): SelectItem<KeySignature>[] {
     [KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS]: false,
     [KeySignature.F_MAJOR_D_MINOR_1_FLAT]: false,
     [KeySignature.Bb_MAJOR_G_MINOR_2_FLATS]: false,
-    [KeySignature.Eb_MAJOR_C_MINOR_2_FLATS]: false,
+    [KeySignature.Eb_MAJOR_C_MINOR_3_FLATS]: false,
     [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: false,
     [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: false,
     [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: false,

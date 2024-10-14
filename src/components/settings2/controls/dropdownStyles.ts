@@ -12,7 +12,10 @@ const fontChangeProps = (provided: CSSObjectWithLabel): CSSObjectWithLabel => ({
 
 export const defaultStyles: StylesConfig<any, any, any> = {
   input: fontChangeProps,
-  singleValue: fontChangeProps,
+  singleValue: (provided): CSSObjectWithLabel => ({
+    ...fontChangeProps(provided),
+    overflow: 'visible',
+  }),
   menuList: (provided): CSSObjectWithLabel => ({
     ...fontChangeProps(provided),
     backgroundColor: '#00000010',

@@ -26,7 +26,7 @@ function getKeySignatureTranslations(t: TFunction): Map<KeySignature, string> {
     KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS,
     KeySignature.F_MAJOR_D_MINOR_1_FLAT,
     KeySignature.Bb_MAJOR_G_MINOR_2_FLATS,
-    KeySignature.Eb_MAJOR_C_MINOR_2_FLATS,
+    KeySignature.Eb_MAJOR_C_MINOR_3_FLATS,
     KeySignature.Ab_MAJOR_F_MINOR_4_FLATS,
     KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS,
     KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS,
