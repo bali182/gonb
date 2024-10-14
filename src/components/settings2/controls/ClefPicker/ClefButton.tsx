@@ -1,47 +1,11 @@
 import { FC } from 'react'
-import { Clef } from '../../../../model/common'
 import { css, cx } from '@emotion/css'
+import { ClefModel } from './types'
 
 export type ClefButtonProps = {
-  clef: Clef
-  // isSelected: boolean
-  // onClick: () => void
-}
-
-const Icons: Record<Clef, string> = {
-  [Clef.BASS]: String.fromCodePoint(0xe062),
-  [Clef.TREBLE]: String.fromCodePoint(0xe050),
-  [Clef.SOPRANO]: String.fromCodePoint(0xe05c),
-  [Clef.PERCUSSION]: String.fromCodePoint(0xe069),
-}
-
-const Names: Record<Clef, string> = {
-  [Clef.BASS]: 'Bass',
-  [Clef.TREBLE]: 'Treble',
-  [Clef.SOPRANO]: 'Soprano',
-  [Clef.PERCUSSION]: 'Percussion',
-}
-
-const AlternateNames: Record<Clef, string> = {
-  [Clef.BASS]: 'F clef',
-  [Clef.TREBLE]: 'G clef',
-  [Clef.SOPRANO]: 'C clef',
-  [Clef.PERCUSSION]: 'Perc. clef',
-}
-
-const IocnStyles: Record<Clef, string> = {
-  [Clef.BASS]: css`
-    top: 8px;
-  `,
-  [Clef.TREBLE]: css`
-    top: 16px;
-  `,
-  [Clef.SOPRANO]: css`
-    top: 11px;
-  `,
-  [Clef.PERCUSSION]: css`
-    top: 12px;
-  `,
+  model: ClefModel
+  isSelected: boolean
+  onClick: () => void
 }
 
 const buttonStyle = css`
@@ -55,11 +19,17 @@ const buttonStyle = css`
   border-radius: 6px;
   color: #000000;
   background-color: #00000010;
+  overflow: hidden;
   &:hover {
     background-color: #00000015;
   }
   &:focus {
     background-color: #00000020;
+  }
+  &:disabled {
+    color: #00000070;
+    background-color: #00000010;
+    cursor: not-allowed;
   }
 `
 
@@ -68,6 +38,7 @@ const clefIcon = css`
   position: relative;
   font-size: 25px;
   line-height: 25px;
+  pointer-events: none;
 `
 
 const nameWrapperStyle = css`
@@ -77,27 +48,46 @@ const nameWrapperStyle = css`
 `
 
 const nameStyle = css`
-  font-weight: bold;
   font-size: 1em;
 `
 
 const alternateNameStyle = css`
-  color: #00000099;
-  font-size: 0.9em;
+  opacity: 0.8;
+  font-size: 0.8em;
+`
+
+const selectedStyle = css`
+  background-color: #000000aa;
+  color: #ffffff;
+
+  &:hover {
+    background-color: #000000aa;
+  }
+  &:focus {
+    background-color: #000000aa;
+  }
 `
 
 export const ClefButton: FC<ClefButtonProps> = ({
-  clef,
-  // isSelected,
-  // onClick,
+  model,
+  isSelected,
+  onClick,
 }) => {
-  const fullClefStyle = cx(clefIcon, IocnStyles[clef])
+  const fullClefStyle = cx(clefIcon, model.style)
+  const fullButtonStyle = cx(
+    buttonStyle,
+    isSelected ? selectedStyle : undefined,
+  )
   return (
-    <button className={buttonStyle}>
-      <span className={fullClefStyle}>{Icons[clef]}</span>
+    <button
+      className={fullButtonStyle}
+      disabled={!model.isEnabled}
+      onClick={onClick}
+    >
+      <span className={fullClefStyle}>{model.icon}</span>
       <div className={nameWrapperStyle}>
-        <span className={nameStyle}>{Names[clef]}</span>
-        <span className={alternateNameStyle}>{AlternateNames[clef]}</span>
+        <span className={nameStyle}>{model.name}</span>
+        <span className={alternateNameStyle}>{model.alternateName}</span>
       </div>
     </button>
   )

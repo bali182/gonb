@@ -12,7 +12,7 @@ export const PageBasics: FC = () => {
       <Section>
         <Label>{t('Settings.Clef')}</Label>
         <Description>{t('Settings.ClefDescription')}</Description>
-        <ClefPicker />
+        <ClefPicker clef={clef} onChange={setClef} />
       </Section>
     </>
   )

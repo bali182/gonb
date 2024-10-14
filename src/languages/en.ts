@@ -8,6 +8,20 @@ const Clefs: Record<Clef, string> = {
   [Clef.PERCUSSION]: 'Percussion clef',
 }
 
+const ClefsPrimary: Record<Clef, string> = {
+  [Clef.BASS]: 'Bass',
+  [Clef.TREBLE]: 'Treble',
+  [Clef.SOPRANO]: 'Soprano',
+  [Clef.PERCUSSION]: 'Percussion',
+}
+
+const ClefsAlternate: Record<Clef, string> = {
+  [Clef.BASS]: 'F clef',
+  [Clef.TREBLE]: 'G clef',
+  [Clef.SOPRANO]: 'C clef',
+  [Clef.PERCUSSION]: 'Perc. clef',
+}
+
 const KeySignatures: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C Major / A Minor',
   [KeySignature.G_MAJOR_E_MINOR_1_SHARP]: 'G Major / E Minor (#)',
@@ -121,6 +135,8 @@ export const en = {
     Sixteenth: 'Sixteenth notes',
   },
   Clefs,
+  ClefsPrimary,
+  ClefsAlternate,
   KeySignatures,
   MelodyTypes,
 }
