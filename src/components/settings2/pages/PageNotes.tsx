@@ -12,7 +12,7 @@ export const PageNotes: FC = () => {
       <Section>
         <Label>{t('Settings.NotesPreset')}</Label>
         <Description>{t('Settings.NotesPresetDescription')}</Description>
-        <NotePresetPicker value={notes} onChange={setNotes} id="presets" />
+        <NotePresetPicker value={notes} onChange={setNotes} />
       </Section>
       <Section>
         <Label>{t('Settings.Notes')}</Label>

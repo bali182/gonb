@@ -10,11 +10,11 @@ const wrapperStyle = css`
   gap: 10px;
 `
 export type ClefPickerProps = {
-  clef: Clef
+  value: Clef
   onChange: (clef: Clef) => void
 }
 
-export const ClefPicker: FC<ClefPickerProps> = ({ clef, onChange }) => {
+export const ClefPicker: FC<ClefPickerProps> = ({ value, onChange }) => {
   const clefs = useClefModel()
 
   return (
@@ -23,7 +23,7 @@ export const ClefPicker: FC<ClefPickerProps> = ({ clef, onChange }) => {
         <ClefButton
           key={model.clef}
           model={model}
-          isSelected={model.clef === clef}
+          isSelected={model.clef === value}
           onClick={() => onChange(model.clef)}
         />
       ))}

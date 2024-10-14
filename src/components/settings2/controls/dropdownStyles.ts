@@ -10,7 +10,7 @@ const fontChangeProps = (provided: CSSObjectWithLabel): CSSObjectWithLabel => ({
   color: '#000000',
 })
 
-export const defaultStyles: StylesConfig = {
+export const defaultStyles: StylesConfig<any, any, any> = {
   input: fontChangeProps,
   singleValue: fontChangeProps,
   menuList: (provided): CSSObjectWithLabel => ({

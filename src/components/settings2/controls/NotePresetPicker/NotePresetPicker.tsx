@@ -1,12 +1,16 @@
 import { FC, useMemo } from 'react'
 import Select from 'react-select'
-import { EditorProps, SelectItem } from '../../types'
+import { SelectItem } from '../../types'
 import { defaultComponents, defaultStyles } from '../dropdownStyles'
 import { useNotePresets } from './useNotePresets'
-import { arraysEqual } from '../../../../model/utils'
+import { arraysEqual, isNil } from '../../../../model/utils'
 
-export const NotePresetPicker: FC<EditorProps<string[], void>> = ({
-  id,
+export type NotePresetPicker = {
+  value: string[]
+  onChange: (value: string[]) => void
+}
+
+export const NotePresetPicker: FC<NotePresetPicker> = ({
   value,
   onChange: _onChange,
 }) => {
@@ -18,16 +22,20 @@ export const NotePresetPicker: FC<EditorProps<string[], void>> = ({
     [value, presets],
   )
 
-  const onChange = (item: SelectItem<string[]>) => _onChange(item.value)
+  const onChange = (item: SelectItem<string[]> | null) => {
+    if (!isNil(item)) {
+      _onChange(item.value)
+    }
+  }
 
   return (
-    <Select
-      inputId={id}
+    <Select<SelectItem<string[]>>
+      inputId="note-preset-picker"
       value={selectedPreset}
       options={presets}
       styles={defaultStyles}
       components={defaultComponents}
-      onChange={onChange as any}
+      onChange={onChange}
     />
   )
 }

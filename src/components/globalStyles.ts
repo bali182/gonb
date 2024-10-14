@@ -3,9 +3,9 @@ import { css } from '@emotion/react'
 export const globalStyles = css`
   @font-face {
     font-family: 'Bravura';
-    src: url('public/font/Bravura.eot');
-    src: url('public/font/Bravura.woff') format('woff'),
-      url('public/font/Bravura.otf') format('opentype');
+    src: url('font/Bravura.eot');
+    src: url('font/Bravura.woff') format('woff'),
+      url('font/Bravura.otf') format('opentype');
   }
 
   #root {

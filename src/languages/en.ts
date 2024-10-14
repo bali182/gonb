@@ -24,22 +24,20 @@ const ClefsAlternate: Record<Clef, string> = {
 
 const KeySignatures: Record<KeySignature, string> = {
   [KeySignature.C_MAJOR_A_MINOR]: 'C Major / A Minor',
-  [KeySignature.G_MAJOR_E_MINOR_1_SHARP]: 'G Major / E Minor (#)',
-  [KeySignature.D_MAJOR_B_MINOR_2_SHARPS]: 'D Major / B Minor (##)',
-  [KeySignature.A_MAJOR_F_SHARP_MINOR_3_SHARPS]: 'A Major / F# Minor (###)',
-  [KeySignature.E_MAJOR_C_SHARP_MINOR_4_SHARPS]: 'E Major / C# Minor (####)',
-  [KeySignature.B_MAJOR_G_SHARP_MINOR_5_SHARPS]: 'B Major / G# Minor (#####)',
-  [KeySignature.F_SHARP_MAJOR_D_SHARP_MINOR_6_SHARPS]:
-    'F# Major / D# Minor (######)',
-  [KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS]:
-    'C# Major / A# Minor (#######)',
-  [KeySignature.F_MAJOR_D_MINOR_1_FLAT]: 'F Major / D Minor (b)',
-  [KeySignature.Bb_MAJOR_G_MINOR_2_FLATS]: 'Bb Major / G Minor (bb)',
-  [KeySignature.Eb_MAJOR_C_MINOR_2_FLATS]: 'Eb Major / C Minor (bbb)',
-  [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: 'Ab Major / F Minor (bbbb)',
-  [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'Db Major / F Minor (bbbbb)',
-  [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'Gb Major / Eb Minor (bbbbbb)',
-  [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'Cb Major / Ab Minor (bbbbbbb)',
+  [KeySignature.G_MAJOR_E_MINOR_1_SHARP]: 'G Major / E Minor',
+  [KeySignature.D_MAJOR_B_MINOR_2_SHARPS]: 'D Major / B Minor',
+  [KeySignature.A_MAJOR_F_SHARP_MINOR_3_SHARPS]: 'A Major / F# Minor',
+  [KeySignature.E_MAJOR_C_SHARP_MINOR_4_SHARPS]: 'E Major / C# Minor',
+  [KeySignature.B_MAJOR_G_SHARP_MINOR_5_SHARPS]: 'B Major / G# Minor',
+  [KeySignature.F_SHARP_MAJOR_D_SHARP_MINOR_6_SHARPS]: 'F# Major / D# Minor',
+  [KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS]: 'C# Major / A# Minor',
+  [KeySignature.F_MAJOR_D_MINOR_1_FLAT]: 'F Major / D Minor',
+  [KeySignature.Bb_MAJOR_G_MINOR_2_FLATS]: 'Bb Major / G Minor',
+  [KeySignature.Eb_MAJOR_C_MINOR_2_FLATS]: 'Eb Major / C Minor',
+  [KeySignature.Ab_MAJOR_F_MINOR_4_FLATS]: 'Ab Major / F Minor',
+  [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'Db Major / F Minor',
+  [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'Gb Major / Eb Minor',
+  [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'Cb Major / Ab Minor',
 }
 
 const MelodyTypes: Record<MelodyType, string> = {
