@@ -22,13 +22,13 @@ export const tableStyle = css`
 `
 
 export const thStyle = css`
-  font-weight: bold;
   text-align: center;
   padding: 6px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   height: 38px;
+  font-weight: 400;
   font-size: 0.9em;
   border: 1px solid #00000050;
   &:hover {
