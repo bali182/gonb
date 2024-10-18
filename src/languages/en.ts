@@ -72,6 +72,8 @@ export const en = {
     NotesPage: 'Notes',
     RhythmsPage: 'Rhythms',
 
+    Save: 'Save',
+
     BarCount: 'Number of bars',
     BarCountDescription:
       'Number of bars (length of the random generated piece).',

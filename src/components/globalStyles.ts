@@ -79,7 +79,7 @@ export const globalStyles = css`
   }
 
   // Custom scrollbar
-  * {
+  /* * {
     --sb-track-color: #ffffff20;
     --sb-thumb-color: #ffffff60;
     --sb-size: 8px;
@@ -105,7 +105,7 @@ export const globalStyles = css`
     * {
       scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
     }
-  }
+  } */
 
   /** Alphatab stuff */
   .at-cursor-bar {

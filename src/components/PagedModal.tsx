@@ -1,8 +1,11 @@
 import { css, cx } from '@emotion/css'
 import { ComponentType, useMemo } from 'react'
-import { PiX } from 'react-icons/pi'
+import { PiFloppyDiskBold, PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
 import { IconType } from 'react-icons'
+import { Button } from './Button'
+import { noop } from '../model/utils'
+import { useTranslation } from 'react-i18next'
 
 export type ModalPage<T = any> = {
   id: string
@@ -15,8 +18,10 @@ export type PagedModalProps<T = any> = {
   activePage: string
   title: string
   icon: IconType
+  closeOnBackdropClick?: boolean
   pageProps: T
   pages: ModalPage<T>[]
+  onSave: () => void
   onClose: () => void
   setActivePage: (pageId: string) => void
 }
@@ -74,6 +79,7 @@ const activeMenuItemStyle = css`
 `
 
 const contentStyle = css`
+  position: relative;
   flex: 1;
   min-width: 400px;
   background-color: #ffffff;
@@ -109,9 +115,33 @@ const closeIconStyle = css`
 `
 
 const contentContainerStyle = css`
-  width: 600px;
-  height: 600px;
   overflow: auto;
+  width: 600px;
+  height: 540px;
+  padding-bottom: 20px;
+`
+
+const contentBottomGradient = css`
+  position: absolute;
+  pointer-events: none;
+  bottom: 65px;
+  left: 0px;
+  right: 20px;
+  height: 16px;
+  background: linear-gradient(0deg, #ffffffff 0%, #ffffff00 100%);
+`
+
+const buttonContainerStyle = css`
+  height: 65px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  pointer-events: all;
+  padding: 14px;
+  gap: 10px;
+  width: 100%;
+  border-bottom-right-radius: 14px;
 `
 
 export function PagedModal<T>({
@@ -120,15 +150,20 @@ export function PagedModal<T>({
   icon: Icon,
   activePage: activePageId,
   pageProps: pageData,
+  closeOnBackdropClick,
   onClose,
+  onSave,
   setActivePage,
 }: PagedModalProps<T>) {
+  const { t } = useTranslation()
+
   const activePage = useMemo(
     () => pages.find((page) => page.id === activePageId)!,
     [pages, activePageId],
   )
+
   return (
-    <Modal onBackdropClick={onClose}>
+    <Modal onBackdropClick={closeOnBackdropClick ? onClose : noop}>
       <div className={menuStyle}>
         <header className={menuHeaderStyle}>
           <Icon className={headerIconStyle} /> {title}
@@ -158,6 +193,12 @@ export function PagedModal<T>({
         </header>
         <div className={contentContainerStyle}>
           {<activePage.Component {...(pageData as any)} />}
+        </div>
+        <div className={contentBottomGradient} />
+        <div className={buttonContainerStyle}>
+          <Button onClick={onSave}>
+            <PiFloppyDiskBold /> {t('Settings.Save')}
+          </Button>
         </div>
       </div>
     </Modal>
