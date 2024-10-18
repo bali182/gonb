@@ -1,11 +1,12 @@
 import { FC, useMemo, useState } from 'react'
 import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
-import { useSettingsPages } from './useSettingsPages'
-import { PagedModal } from '../PagedModal'
-import { FullConfig, SettingsPageProps } from './types'
+import { useSettingsButtons, useSettingsPages } from './settingsModalData'
+import { PagedModal, PagedModalButton } from '../PagedModal'
+import { SettingsPageProps } from './types'
 import { Clef, Duration, KeySignature } from '../../model/common'
 import { SIX_STRING_GUITAR } from './controls/NotePresetPicker/presets'
+import { GeneratorConfig2 } from '../../state/types'
 
 export type SettingsModalProps = {
   onClose: () => void
@@ -13,9 +14,11 @@ export type SettingsModalProps = {
 
 export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
   const pages = useSettingsPages()
+  const buttons = useSettingsButtons()
   const [activePage, setActivePage] = useState<string>(pages[0]!.id)
   const { t } = useTranslation()
-  const [value, setValue] = useState<FullConfig>(() => ({
+
+  const [value, setValue] = useState<GeneratorConfig2>(() => ({
     bars: 4,
     bpm: 60,
     clef: Clef.TREBLE,
@@ -35,20 +38,25 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
   )
 
   // TODO write to store, in state for now
-  const onSave = () => {
-    console.log(value)
+  const onSave = (button: PagedModalButton) => {
+    if (button.id === 'save') {
+      console.log('Saving', value)
+    } else {
+      console.log('Testing', value)
+    }
   }
 
   return (
     <PagedModal<SettingsPageProps>
-      onSave={onSave}
       icon={PiGearBold}
-      activePage={activePage}
       title={t('Settings.Settings')}
-      setActivePage={setActivePage}
       pages={pages}
-      onClose={onClose}
+      activePage={activePage}
       pageProps={pageProps}
+      setActivePage={setActivePage}
+      buttons={buttons}
+      onClick={onSave}
+      onClose={onClose}
     />
   )
 }

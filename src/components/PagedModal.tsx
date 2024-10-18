@@ -14,6 +14,12 @@ export type ModalPage<T = any> = {
   Component: ComponentType<T>
 }
 
+export type PagedModalButton = {
+  id: string
+  label: string
+  icon: IconType
+}
+
 export type PagedModalProps<T = any> = {
   activePage: string
   title: string
@@ -21,7 +27,8 @@ export type PagedModalProps<T = any> = {
   closeOnBackdropClick?: boolean
   pageProps: T
   pages: ModalPage<T>[]
-  onSave: () => void
+  buttons: PagedModalButton[]
+  onClick: (button: PagedModalButton, props: T) => void
   onClose: () => void
   setActivePage: (pageId: string) => void
 }
@@ -151,8 +158,9 @@ export function PagedModal<T>({
   activePage: activePageId,
   pageProps: pageData,
   closeOnBackdropClick,
+  buttons,
+  onClick,
   onClose,
-  onSave,
   setActivePage,
 }: PagedModalProps<T>) {
   const { t } = useTranslation()
@@ -196,9 +204,11 @@ export function PagedModal<T>({
         </div>
         <div className={contentBottomGradient} />
         <div className={buttonContainerStyle}>
-          <Button onClick={onSave}>
-            <PiFloppyDiskBold /> {t('Settings.Save')}
-          </Button>
+          {buttons.map((button) => (
+            <Button key={button.id} onClick={() => onClick(button, pageData)}>
+              <button.icon /> {button.label}
+            </Button>
+          ))}
         </div>
       </div>
     </Modal>
