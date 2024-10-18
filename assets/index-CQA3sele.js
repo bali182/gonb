@@ -587,7 +587,7 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new br("Request Tim
   justify-content: center;
   user-select: none;
 `,v5=j`
-  background-color: #ffffff;
+  background-color: #efefef;
   border-radius: 14px;
   user-select: text;
   display: flex;
@@ -599,7 +599,6 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new br("Request Tim
 `,_5=document.getElementById("modal"),k5=({onBackdropClick:i,modalClassName:e,backdropClassName:t,children:s})=>{const r=n=>{n.preventDefault(),n.stopPropagation()};return lg.createPortal(x.jsx("div",{className:Ci(w5,t),onClick:i,children:x.jsx("div",{onClick:r,className:Ci(v5,e),children:s})}),_5)},x5=j`
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
-  background-color: #f9f9f9;
   min-width: 200px;
 `,B5=j`
   display: flex;
@@ -640,7 +639,12 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new br("Request Tim
 `,E5=j`
   flex: 1;
   min-width: 400px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #ffffff;
+  box-shadow: rgba(100, 100, 111, 0.4) 0px 2px 29px 0px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+  /* margin: 10px 10px 10px 0px; */
+  /* border-radius: 10px; */
 `,M5=j`
   display: flex;
   flex-direction: row;
