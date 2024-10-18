@@ -24,7 +24,6 @@ export type PagedModalProps<T = any> = {
 const menuStyle = css`
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
-  background-color: #f9f9f9;
   min-width: 200px;
 `
 
@@ -77,7 +76,12 @@ const activeMenuItemStyle = css`
 const contentStyle = css`
   flex: 1;
   min-width: 400px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #ffffff;
+  box-shadow: rgba(100, 100, 111, 0.4) 0px 2px 29px 0px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+  /* margin: 10px 10px 10px 0px; */
+  /* border-radius: 10px; */
 `
 
 const contentTitleStyle = css`

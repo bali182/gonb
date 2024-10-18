@@ -25,7 +25,7 @@ const backdropStyle = css`
 `
 
 const modalStyle = css`
-  background-color: #ffffff;
+  background-color: #efefef;
   border-radius: 14px;
   user-select: text;
   display: flex;
