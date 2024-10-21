@@ -1,11 +1,10 @@
 import { css, cx } from '@emotion/css'
 import { ComponentType, useMemo } from 'react'
-import { PiFloppyDiskBold, PiX } from 'react-icons/pi'
+import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
 import { IconType } from 'react-icons'
 import { Button } from './Button'
-import { noop } from '../model/utils'
-import { useTranslation } from 'react-i18next'
+import { isNil, noop } from '../model/utils'
 
 export type ModalPage<T = any> = {
   id: string
@@ -27,8 +26,8 @@ export type PagedModalProps<T = any> = {
   closeOnBackdropClick?: boolean
   pageProps: T
   pages: ModalPage<T>[]
-  buttons: PagedModalButton[]
-  onClick: (button: PagedModalButton, props: T) => void
+  buttons?: PagedModalButton[]
+  onClick?: (button: PagedModalButton, props: T) => void
   onClose: () => void
   setActivePage: (pageId: string) => void
 }
@@ -158,13 +157,11 @@ export function PagedModal<T>({
   activePage: activePageId,
   pageProps: pageData,
   closeOnBackdropClick,
-  buttons,
+  buttons = [],
   onClick,
   onClose,
   setActivePage,
 }: PagedModalProps<T>) {
-  const { t } = useTranslation()
-
   const activePage = useMemo(
     () => pages.find((page) => page.id === activePageId)!,
     [pages, activePageId],
@@ -202,15 +199,35 @@ export function PagedModal<T>({
         <div className={contentContainerStyle}>
           {<activePage.Component {...(pageData as any)} />}
         </div>
-        <div className={contentBottomGradient} />
-        <div className={buttonContainerStyle}>
-          {buttons.map((button) => (
-            <Button key={button.id} onClick={() => onClick(button, pageData)}>
-              <button.icon /> {button.label}
-            </Button>
-          ))}
-        </div>
+        {isNil(buttons) || buttons.length === 0 ? null : (
+          <>
+            <div className={contentBottomGradient} />
+            <ButtonsBar
+              buttons={buttons}
+              data={pageData}
+              onClick={onClick ?? noop}
+            />
+          </>
+        )}
       </div>
     </Modal>
+  )
+}
+
+type ButtonsBarProps<T> = {
+  buttons: PagedModalButton[]
+  data: T
+  onClick: (button: PagedModalButton, data: T) => void
+}
+
+function ButtonsBar<T>({ buttons, data, onClick }: ButtonsBarProps<T>) {
+  return (
+    <div className={buttonContainerStyle}>
+      {buttons.map((button) => (
+        <Button key={button.id} onClick={() => onClick(button, data)}>
+          <button.icon /> {button.label}
+        </Button>
+      ))}
+    </div>
   )
 }
