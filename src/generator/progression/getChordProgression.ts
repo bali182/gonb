@@ -1,87 +1,62 @@
-import { Chord, Key, Note } from 'tonal'
+import { isNil, randomElement } from '../../model/utils'
 import { GeneratorConfig2 } from '../../state/types'
-import {
-  TonalJsHarmonicFunction,
-  ProgressionChord,
-  ChordsHarmonicFunction,
-} from './types'
+import { getChordFunctionSequence } from './getChordFunctionSequence'
+import { getDiatonicChords } from './getDiatonicChords'
+import { getPossibleTemplates } from './getPossibleTemplates'
+import { getSecondaryDominants } from './getSecondaryDominants'
+import { ChordsHarmonicFunction, ProgressionChord } from './types'
 
-function asHarmonicFunction(
-  fn: TonalJsHarmonicFunction,
-): ChordsHarmonicFunction {
-  switch (fn) {
-    case 'T':
-      return 'Tonic'
-    case 'SD':
-      return 'SubDominant'
-    case 'D':
-      return 'Dominant'
-  }
-}
-
-function getChord(
-  name: string,
-  fn: ChordsHarmonicFunction,
-  melodyNotes: Set<string>,
-): ProgressionChord {
-  const chord = Chord.get(name)
-  return {
-    name: name,
-    notes: chord.notes,
-    melodyNotes: chord.notes.flatMap((note) => {
-      if (melodyNotes.has(note)) {
-        return [note]
-      }
-      const enharmonic = Note.enharmonic(note)
-      if (melodyNotes.has(enharmonic)) {
-        return [enharmonic]
-      }
-      return []
-    }),
-    harmonicFunction: fn,
-  }
-}
-
-function getMelodyNotes(config: GeneratorConfig2): Set<string> {
-  return new Set(config.notes.map((note) => Note.pitchClass(note)))
-}
-
-function getDiatonicChords(config: GeneratorConfig2): ProgressionChord[] {
-  const key = Key.majorKey(config.keySignature)
-  const allMelodyNotes = getMelodyNotes(config)
-  const harmonicFns = key.chordsHarmonicFunction as TonalJsHarmonicFunction[]
-  return key.triads
-    .map((triad, i) =>
-      getChord(triad, asHarmonicFunction(harmonicFns[i]!), allMelodyNotes),
-    )
-    .filter((chord) => chord.melodyNotes.length > 0)
-}
-
-function getSecondaryDominants(
-  config: GeneratorConfig2,
+function groupByFunction(
   chords: ProgressionChord[],
-): Map<ProgressionChord, ProgressionChord> {
-  const secondaryDominants = new Map<ProgressionChord, ProgressionChord>()
-  const melodyNotes = getMelodyNotes(config)
-  for (const chord of chords) {
-    if (chord.name.includes('dim')) {
-      continue
-    }
-    const secondaryDominant = getChord(
-      chord.notes[2]!,
-      'SecondaryDominant',
-      melodyNotes,
+): Map<ChordsHarmonicFunction, ProgressionChord[]> {
+  const map = new Map<ChordsHarmonicFunction, ProgressionChord[]>()
+  const functions: ChordsHarmonicFunction[] = [
+    'Tonic',
+    'SubDominant',
+    'Dominant',
+  ]
+  for (const fn of functions) {
+    map.set(
+      fn,
+      chords.filter((c) => c.harmonicFunction === fn),
     )
-    if (secondaryDominant.melodyNotes.length > 0) {
-      secondaryDominants.set(chord, secondaryDominant)
-    }
   }
-  return secondaryDominants
+
+  return map
 }
 
 export function getChordProgression(config: GeneratorConfig2) {
   const chords = getDiatonicChords(config)
   const secondaryDominants = getSecondaryDominants(config, chords)
+  const templates = getPossibleTemplates(config, chords, secondaryDominants)
+  const sequence = getChordFunctionSequence(config, templates)
+  const byFunction = groupByFunction(chords)
 
-  console.log({ chords, secondaryDominants })
+  const progression: ProgressionChord[] = []
+  for (let i = 0; i < sequence.length; i += 1) {
+    const fn = sequence[i]!
+    if (fn === 'SecondaryDominant') {
+      const next = sequence[i + 1]
+      if (isNil(next)) {
+        throw new Error('Secondary dominant cannot be the last chord')
+      }
+      if (next === 'SecondaryDominant') {
+        throw new Error('Consequitive secondary dominants are not supported')
+      }
+      const hasSd = chords.filter((chord) => secondaryDominants.has(chord))
+      const nextChord = randomElement(hasSd)
+      if (isNil(nextChord)) {
+        throw new Error(`No secondary dominant for chord function "${next}"`)
+      }
+      const sd = secondaryDominants.get(nextChord)!
+      progression.push(sd, nextChord)
+      i += 1
+    } else {
+      const selection = byFunction.get(fn)!
+      progression.push(randomElement(selection)!)
+    }
+  }
+
+  console.log(progression)
+  return progression
 }

@@ -5,7 +5,6 @@ import { useSettingsButtons, useSettingsPages } from './settingsModalData'
 import { PagedModal, PagedModalButton } from '../PagedModal'
 import { SettingsPageProps } from './types'
 import { Clef, Duration, KeySignature } from '../../model/common'
-import { SIX_STRING_GUITAR } from './controls/NotePresetPicker/presets'
 import { GeneratorConfig2 } from '../../state/types'
 import { getChordProgression } from '../../generator/progression/getChordProgression'
 
@@ -26,7 +25,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     keySignature: KeySignature.C_MAJOR_A_MINOR,
     noteDurations: [Duration.QUARTER],
     restDurations: [Duration.QUARTER],
-    notes: SIX_STRING_GUITAR,
+    notes: [], //SIX_STRING_GUITAR,
   }))
 
   const pageProps = useMemo(

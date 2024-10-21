@@ -3,7 +3,7 @@ const alwaysTrue = () => true
 export class NonRepeatingRandom<T> {
   private lastIndex: number | undefined = undefined
 
-  constructor(private readonly array: T[]) {}
+  constructor(public readonly array: ReadonlyArray<T>) {}
 
   public next(predicate: (input: T) => boolean = alwaysTrue): T {
     const filteredArray =
