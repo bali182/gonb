@@ -7,6 +7,7 @@ import { SettingsPageProps } from './types'
 import { Clef, Duration, KeySignature } from '../../model/common'
 import { SIX_STRING_GUITAR } from './controls/NotePresetPicker/presets'
 import { GeneratorConfig2 } from '../../state/types'
+import { getChordProgression } from '../../generator/progression/getChordProgression'
 
 export type SettingsModalProps = {
   onClose: () => void
@@ -42,7 +43,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     if (button.id === 'save') {
       console.log('Saving', value)
     } else {
-      console.log('Testing', value)
+      getChordProgression(value)
     }
   }
 
