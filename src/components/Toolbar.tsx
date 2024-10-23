@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import { StickLogo } from './StickLogo'
+import { SheetLogo } from './SheetLogo'
 import { Button } from './Button'
 import {
   PiGearFill,
@@ -47,7 +47,7 @@ export const Toolbar: FC<ToolbarProps> = ({
   const { t } = useTranslation()
   return (
     <div className={toolbarStyle}>
-      <StickLogo />
+      <SheetLogo />
       <div className={buttonsContainer}>
         <Button onClick={onRegenerate}>
           <PiFastForwardFill />
