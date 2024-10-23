@@ -139,4 +139,12 @@ export const en = {
   ClefsAlternate,
   KeySignatures,
   MelodyTypes,
+  Validation: {
+    PercussionClef: 'This clef is not yet supported.',
+    ZeroBars: 'There must be at least one bar.',
+    WrongBpm: 'Tempo must be between 10 and 400 bpm.',
+    EmptyNotes: 'Select at least 1 note.',
+    EmptyRhytms: 'Select at least 1 rhytm type for notes.',
+    ImpossibleBars: `Can't complete a bar with the rhytms selected.`,
+  },
 }

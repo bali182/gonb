@@ -33,6 +33,7 @@ function withBrush(content: string): string {
 
 function getDurationNumber(duration: Duration): number {
   switch (duration) {
+    case Duration.DOTTED_WHOLE:
     case Duration.WHOLE:
       return 1
     case Duration.HALF:
@@ -52,6 +53,7 @@ function getDurationNumber(duration: Duration): number {
 
 function getDurationDot(duration: Duration): string | undefined {
   switch (duration) {
+    case Duration.DOTTED_WHOLE:
     case Duration.DOTTED_HALF:
     case Duration.DOTTED_QUARTER:
     case Duration.DOTTED_EIGHT:

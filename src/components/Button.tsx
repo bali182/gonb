@@ -20,8 +20,8 @@ const buttonStyle = css`
     background-color: #333;
   }
   &:disabled {
-    background-color: #555;
-    color: #222;
+    background-color: #888;
+    color: #ddd;
     cursor: not-allowed;
   }
 `
@@ -29,12 +29,22 @@ const buttonStyle = css`
 export type ButtonProps = PropsWithChildren & {
   onClick: () => void
   className?: string
+  disabled?: boolean
 }
 
-export const Button: FC<ButtonProps> = ({ className, children, onClick }) => {
+export const Button: FC<ButtonProps> = ({
+  className,
+  disabled,
+  children,
+  onClick,
+}) => {
   return (
-    <div className={cx(buttonStyle, className)} onClick={onClick}>
+    <button
+      className={cx(buttonStyle, className)}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
-    </div>
+    </button>
   )
 }

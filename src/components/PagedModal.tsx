@@ -9,13 +9,15 @@ import { isNil, noop } from '../model/utils'
 export type ModalPage<T = any> = {
   id: string
   name: string
-  Icon: IconType
+  Icon: ComponentType
+  Badge?: ComponentType
   Component: ComponentType<T>
 }
 
 export type PagedModalButton = {
   id: string
   label: string
+  enabled: boolean
   icon: IconType
 }
 
@@ -63,6 +65,7 @@ const menuContainerStyle = css`
 
 const menuItemStlye = css`
   display: flex;
+  flex-direction: row;
   align-items: center;
   color: #000000cc;
   font-size: 1.2em;
@@ -82,6 +85,10 @@ const activeMenuItemStyle = css`
     color: #000000;
     background-color: #00000020;
   }
+`
+
+const menuItemNameStyle = css`
+  flex: 1;
 `
 
 const contentStyle = css`
@@ -175,7 +182,7 @@ export function PagedModal<T>({
         </header>
         <div className={menuContainerStyle}>
           {pages.map((e) => {
-            const { id, name, Icon } = e
+            const { id, name, Icon, Badge } = e
             const className = cx(
               menuItemStlye,
               id === activePageId ? activeMenuItemStyle : null,
@@ -183,7 +190,9 @@ export function PagedModal<T>({
             const onClick = () => setActivePage(e.id)
             return (
               <div key={id} className={className} onClick={onClick}>
-                <Icon /> {name}
+                <Icon />
+                <span className={menuItemNameStyle}>{name}</span>
+                {Badge && <Badge />}
               </div>
             )
           })}
@@ -224,7 +233,11 @@ function ButtonsBar<T>({ buttons, data, onClick }: ButtonsBarProps<T>) {
   return (
     <div className={buttonContainerStyle}>
       {buttons.map((button) => (
-        <Button key={button.id} onClick={() => onClick(button, data)}>
+        <Button
+          key={button.id}
+          onClick={() => onClick(button, data)}
+          disabled={!button.enabled}
+        >
           <button.icon /> {button.label}
         </Button>
       ))}

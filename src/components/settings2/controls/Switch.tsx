@@ -1,6 +1,5 @@
 import { css, cx } from '@emotion/css'
 import { FC, InputHTMLAttributes } from 'react'
-import { EditorProps } from '../types'
 import { noop } from '../../../model/utils'
 
 const switchStyle = css`
@@ -53,11 +52,13 @@ const inputStyle = css`
   z-index: 2; /* Ensure the input is on top of the slider */
 `
 
-export const Switch: FC<EditorProps<boolean, InputHTMLAttributes<any>>> = ({
-  id,
-  value,
-  onChange,
-}) => {
+export type SwitchProps = {
+  id: string
+  value: boolean
+  onChange: (value: boolean) => void
+}
+
+export const Switch: FC<SwitchProps> = ({ id, value, onChange }) => {
   const handleChange = () => {
     onChange(!value)
   }

@@ -1,21 +1,20 @@
 import { FC, useMemo, useState } from 'react'
 import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
-import { useSettingsButtons, useSettingsPages } from './settingsModalData'
 import { PagedModal, PagedModalButton } from '../PagedModal'
 import { SettingsPageProps } from './types'
 import { Clef, Duration, KeySignature } from '../../model/common'
 import { GeneratorConfig2 } from '../../state/types'
 import { getChordProgression } from '../../generator/progression/getChordProgression'
+import { useValidationIssues } from './useValidationIssues'
+import { useSettingsPages } from './useSettingsPages'
+import { useSettingsButtons } from './useSettingsButtons'
 
 export type SettingsModalProps = {
   onClose: () => void
 }
 
 export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
-  const pages = useSettingsPages()
-  const buttons = useSettingsButtons()
-  const [activePage, setActivePage] = useState<string>(pages[0]!.id)
   const { t } = useTranslation()
 
   const [value, setValue] = useState<GeneratorConfig2>(() => ({
@@ -28,11 +27,17 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     notes: [], //SIX_STRING_GUITAR,
   }))
 
+  const issues = useValidationIssues(value)
+  const buttons = useSettingsButtons(issues)
+  const pages = useSettingsPages(issues)
+  const [activePage, setActivePage] = useState<string>(pages[0]!.id)
+
   const pageProps = useMemo(
     (): SettingsPageProps => ({
       onChange: setValue,
       onClose: onClose,
       value,
+      issues,
     }),
     [value, setValue, onClose],
   )
