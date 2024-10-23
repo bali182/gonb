@@ -55,3 +55,12 @@ export const selectedStyle = css`
     background-color: #000000cc !important;
   }
 `
+
+export const disabledStyle = css`
+  background-color: #00000020 !important;
+  color: #999 !important;
+  cursor: not-allowed;
+  &:hover {
+    background-color: #00000020 !important;
+  }
+`

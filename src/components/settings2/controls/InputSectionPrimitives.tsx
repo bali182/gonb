@@ -1,7 +1,8 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
 import { Issue } from '../types'
 import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi'
+import { isNil } from '../../../model/utils'
 
 const sectionStyle = css`
   display: flex;
@@ -25,67 +26,35 @@ export const Label: FC<PropsWithChildren> = ({ children }) => {
   return <div className={labelStyle}>{children}</div>
 }
 
-const issueLabelStyle = css`
-  font-size: 0.8em;
-  margin-bottom: 2px;
-  pointer-events: auto;
-  &:nth-last-child(2) {
-    margin-bottom: 14px;
-  }
-`
-
-type IssueLabelProps = {
-  issue: Issue
-}
-
-const WARNING_COLOR = '#ec942c'
-const ERROR_COLOR = '#cc3300'
-
-export const IssueLabel: FC<IssueLabelProps> = ({ issue }) => {
-  return (
-    <div
-      className={issueLabelStyle}
-      style={{ color: issue.type === 'error' ? ERROR_COLOR : WARNING_COLOR }}
-    >
-      {issue.label}
-    </div>
-  )
-}
-
 const descriptionStyle = css`
   font-size: 0.8em;
   color: #000000aa;
-  margin-bottom: 2px;
-  &:nth-last-child(2) {
-    margin-bottom: 14px;
-  }
+  margin-bottom: 14px;
 `
 
-export const Description: FC<PropsWithChildren> = ({ children }) => {
-  return <div className={descriptionStyle}>{children}</div>
+const warningStyle = css`
+  font-weight: bold;
+  color: #ec942c;
+`
+
+const errorStyle = css`
+  font-weight: bold;
+  color: #cc3300;
+`
+
+type DescriptionProps = PropsWithChildren & {
+  issue?: Issue
 }
 
-export const ExampleWithError: FC = () => {
-  return (
-    <Section>
-      <Label>Hello</Label>
-      <Description>Description of hello</Description>
-      <IssueLabel issue={{ type: 'error', label: 'Hello is not good' }} />
-      <input />
-    </Section>
-  )
+export const Description: FC<DescriptionProps> = ({ children, issue }) => {
+  const style = cx({
+    [descriptionStyle]: true,
+    [warningStyle]: issue?.type === 'warning',
+    [errorStyle]: issue?.type === 'error',
+  })
+
+  return <div className={style}>{isNil(issue) ? children : issue.label}</div>
 }
 
-export const ExampleWithNoError: FC = () => {
-  return (
-    <Section>
-      <Label>Hello</Label>
-      <Description>Description of hello</Description>
-      <IssueLabel issue={{ type: 'error', label: 'Hello is not good' }} />
-      <input />
-    </Section>
-  )
-}
-
-export const WarningIcon: FC = () => <PiWarningBold color={WARNING_COLOR} />
-export const ErrorIcon: FC = () => <PiWarningCircleBold color={ERROR_COLOR} />
+export const WarningIcon: FC = () => <PiWarningBold color="#ec942c" />
+export const ErrorIcon: FC = () => <PiWarningCircleBold color="#cc3300" />

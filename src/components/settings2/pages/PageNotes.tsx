@@ -2,12 +2,7 @@ import { FC } from 'react'
 import { NotesGrid } from '../controls/NotesGrid/NotesGrid'
 import { NotePresetPicker } from '../controls/NotePresetPicker/NotePresetPicker'
 import { useTranslation } from 'react-i18next'
-import {
-  Section,
-  Description,
-  Label,
-  IssueLabel,
-} from '../controls/InputSectionPrimitives'
+import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { SettingsPageProps } from '../types'
 
 export const PageNotes: FC<SettingsPageProps> = ({
@@ -27,8 +22,9 @@ export const PageNotes: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.Notes')}</Label>
-        <Description>{t('Settings.NotesDescription')}</Description>
-        {issues.notes && <IssueLabel issue={issues.notes} />}
+        <Description issue={issues.notes}>
+          {t('Settings.NotesDescription')}
+        </Description>
         <NotesGrid value={value.notes} onChange={setNotes} />
       </Section>
     </>

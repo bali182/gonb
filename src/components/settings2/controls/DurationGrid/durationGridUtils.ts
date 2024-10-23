@@ -73,10 +73,13 @@ function isDotted(duration: Duration) {
 
 export function getTypeHeaderSelection(
   data: DurationItem[][],
+  disabled: Duration[],
   headers: TypeHeader[],
 ): Map<TypeHeader, boolean> {
   const selection = new Map<TypeHeader, boolean>()
-  const flatItems = data.flatMap((row) => row)
+  const flatItems = data
+    .flatMap((row) => row)
+    .filter((item) => !disabled.includes(item.duration))
   for (const header of headers) {
     const relevantItems = flatItems.filter(
       (item) =>
@@ -92,10 +95,13 @@ export function getTypeHeaderSelection(
 
 export function getDurationHeaderSelection(
   data: DurationItem[][],
+  disabled: Duration[],
   headers: DurationHeader[],
 ): Map<DurationHeader, boolean> {
   const selection = new Map<DurationHeader, boolean>()
-  const flatItems = data.flatMap((row) => row)
+  const flatItems = data
+    .flatMap((row) => row)
+    .filter((item) => !disabled.includes(item.duration))
   for (const header of headers) {
     const relevantItems = flatItems.filter((item) =>
       header.durations.includes(item.duration),
@@ -111,13 +117,16 @@ export function getDurationHeaderSelection(
 export function updateDurationHeader(
   data: DurationItem[][],
   header: DurationHeader,
+  disabled: Duration[],
   isSelected: boolean,
 ): DurationItem[][] {
   const output: DurationItem[][] = []
   for (const row of data) {
     const updatedRow: DurationItem[] = []
     for (const item of row) {
-      if (header.durations.includes(item.duration)) {
+      if (disabled.includes(item.duration)) {
+        updatedRow.push({ ...item, isSelected: false })
+      } else if (header.durations.includes(item.duration)) {
         updatedRow.push({ ...item, isSelected: !isSelected })
       } else {
         updatedRow.push(item)
@@ -131,13 +140,16 @@ export function updateDurationHeader(
 export function updateTypeHeader(
   data: DurationItem[][],
   header: TypeHeader,
+  disabled: Duration[],
   isSelected: boolean,
 ): DurationItem[][] {
   const output: DurationItem[][] = []
   for (const row of data) {
     const updatedRow: DurationItem[] = []
     for (const item of row) {
-      if (
+      if (disabled.includes(item.duration)) {
+        updatedRow.push({ ...item, isSelected: false })
+      } else if (
         item.type === header.type &&
         header.dotted === isDotted(item.duration)
       ) {

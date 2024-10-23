@@ -1,4 +1,4 @@
-import { Clef, KeySignature } from '../model/common'
+import { Clef, Duration, KeySignature } from '../model/common'
 import { MelodyType } from '../model/melodyFragment'
 
 const Clefs: Record<Clef, string> = {
@@ -20,6 +20,19 @@ const ClefsAlternate: Record<Clef, string> = {
   [Clef.TREBLE]: 'G clef',
   [Clef.SOPRANO]: 'C clef',
   [Clef.PERCUSSION]: 'Perc. clef',
+}
+
+const Durations: Record<Duration, string> = {
+  [Duration.WHOLE]: 'whole note',
+  [Duration.DOTTED_WHOLE]: 'dotted whole note',
+  [Duration.HALF]: 'half note',
+  [Duration.DOTTED_HALF]: 'dotted half note',
+  [Duration.QUARTER]: 'quarter note',
+  [Duration.DOTTED_QUARTER]: 'dotted quarter note',
+  [Duration.EIGHTH]: 'eighth note',
+  [Duration.DOTTED_EIGHT]: 'dotted eighth note',
+  [Duration.SIXTEENTH]: 'sixteenth note',
+  [Duration.DOTTED_SIXTEENTH]: 'dotted sixteenth note',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -139,12 +152,13 @@ export const en = {
   ClefsAlternate,
   KeySignatures,
   MelodyTypes,
+  Durations,
   Validation: {
     PercussionClef: 'This clef is not yet supported.',
     ZeroBars: 'There must be at least one bar.',
     WrongBpm: 'Tempo must be between 10 and 400 bpm.',
     EmptyNotes: 'Select at least 1 note.',
     EmptyRhytms: 'Select at least 1 rhytm type for notes.',
-    ImpossibleBars: `Can't complete a bar with the rhytms selected.`,
+    DottedRhytms: `When {{dotted}} is selected, {{required}} must be selected as well.`,
   },
 }

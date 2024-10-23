@@ -1,11 +1,6 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Section,
-  Description,
-  Label,
-  IssueLabel,
-} from '../controls/InputSectionPrimitives'
+import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { DurationGrid } from '../controls/DurationGrid/DurationGrid'
 import { Duration } from '../../../model/common'
 import { SettingsPageProps } from '../types'
@@ -31,8 +26,9 @@ export const PageRhythms: FC<SettingsPageProps> = ({
     <>
       <Section>
         <Label>{t('Settings.RhythmDurations')}</Label>
-        <Description>{t('Settings.RhythmDurationsDescription')}</Description>
-        {issue && <IssueLabel issue={issue} />}
+        <Description issue={issue}>
+          {t('Settings.RhythmDurationsDescription')}
+        </Description>
         <DurationGrid
           notes={value.noteDurations}
           rests={value.restDurations}

@@ -1,5 +1,6 @@
 import { FC, useMemo } from 'react'
 import {
+  disabledStyle,
   selectedStyle,
   tableStyle,
   tdStyle,
@@ -18,6 +19,9 @@ import {
   updateTypeHeader,
 } from './durationGridUtils'
 import { cx } from '@emotion/css'
+import { noop } from '../../../../model/utils'
+
+const Disabled: Duration[] = [Duration.DOTTED_WHOLE, Duration.DOTTED_SIXTEENTH]
 
 export type DurationGridProps = {
   rests: Duration[]
@@ -36,12 +40,12 @@ export const DurationGrid: FC<DurationGridProps> = ({
   const data = useMemo(() => getDurationGridData(notes, rests), [notes, rests])
 
   const durationSelection = useMemo(
-    () => getDurationHeaderSelection(data, durationHeaders),
+    () => getDurationHeaderSelection(data, Disabled, durationHeaders),
     [data, durationHeaders],
   )
 
   const typeSelection = useMemo(
-    () => getTypeHeaderSelection(data, typeHeaders),
+    () => getTypeHeaderSelection(data, Disabled, typeHeaders),
     [data, typeHeaders],
   )
 
@@ -57,6 +61,7 @@ export const DurationGrid: FC<DurationGridProps> = ({
     const updatedData = updateTypeHeader(
       data,
       header,
+      Disabled,
       typeSelection.get(header)!,
     )
 
@@ -70,6 +75,7 @@ export const DurationGrid: FC<DurationGridProps> = ({
     const updatedData = updateDurationHeader(
       data,
       header,
+      Disabled,
       durationSelection.get(header)!,
     )
     onChange(
@@ -110,11 +116,15 @@ export const DurationGrid: FC<DurationGridProps> = ({
                 {header.label}
               </th>
               {row.map((item) => {
-                const className = cx(
-                  tdStyle,
-                  item.isSelected ? selectedStyle : undefined,
-                )
-                const onClick = () => onNoteLengthSelected(item)
+                const isDisabled = Disabled.includes(item.duration)
+                const className = cx({
+                  [tdStyle]: true,
+                  [selectedStyle]: item.isSelected,
+                  [disabledStyle]: isDisabled,
+                })
+                const onClick = isDisabled
+                  ? noop
+                  : () => onNoteLengthSelected(item)
                 const key = `${item.type}-${item.duration}`
                 return (
                   <td className={className} onClick={onClick} key={key}>

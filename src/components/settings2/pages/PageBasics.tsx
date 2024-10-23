@@ -1,11 +1,6 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Section,
-  Description,
-  Label,
-  IssueLabel,
-} from '../controls/InputSectionPrimitives'
+import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { Clef, KeySignature } from '../../../model/common'
 import { ClefPicker } from '../controls/ClefPicker/ClefPicker'
 import { KeySignaturePicker } from '../controls/KeySignaturePicker/KeySignaturePicker'
@@ -29,14 +24,16 @@ export const PageBasics: FC<SettingsPageProps> = ({
     <>
       <Section>
         <Label>{t('Settings.Clef')}</Label>
-        <Description>{t('Settings.ClefDescription')}</Description>
-        {issues.clef && <IssueLabel issue={issues.clef} />}
+        <Description issue={issues.clef}>
+          {t('Settings.ClefDescription')}
+        </Description>
         <ClefPicker value={value.clef} onChange={setClef} />
       </Section>
       <Section>
         <Label>{t('Settings.KeySignature')}</Label>
-        <Description>{t('Settings.KeySignatureDescription')}</Description>
-        {issues.keySignature && <IssueLabel issue={issues.keySignature} />}
+        <Description issue={issues.keySignature}>
+          {t('Settings.KeySignatureDescription')}
+        </Description>
         <KeySignaturePicker
           value={value.keySignature}
           onChange={setKeySignature}
@@ -44,8 +41,9 @@ export const PageBasics: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.Tempo')}</Label>
-        <Description>{t('Settings.TempoDescription')}</Description>
-        {issues.bpm && <IssueLabel issue={issues.bpm} />}
+        <Description issue={issues.bpm}>
+          {t('Settings.TempoDescription')}
+        </Description>
         <NumberInput
           value={value.bpm}
           onChange={setBpm}
@@ -56,8 +54,9 @@ export const PageBasics: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.BarCount')}</Label>
-        <Description>{t('Settings.BarCountDescription')}</Description>
-        {issues.bars && <IssueLabel issue={issues.bars} />}
+        <Description issue={issues.bars}>
+          {t('Settings.BarCountDescription')}
+        </Description>
         <NumberInput
           value={value.bars}
           onChange={setBars}

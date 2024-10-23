@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 import { useMemoizedTranslation1 } from '../../model/useMemoizedTranslation'
 import { GeneratorConfig2 } from '../../state/types'
 import { ConfigIssues, Issue } from './types'
-import { Clef } from '../../model/common'
+import { Clef, Duration } from '../../model/common'
 
 function validateBars(
   t: TFunction,
@@ -41,6 +41,12 @@ function validateKeySignature(
   return undefined
 }
 
+const DottedPairs: [Duration, Duration][] = [
+  [Duration.DOTTED_HALF, Duration.QUARTER],
+  [Duration.DOTTED_QUARTER, Duration.EIGHTH],
+  [Duration.DOTTED_EIGHT, Duration.SIXTEENTH],
+]
+
 function validateNoteDurations(
   t: TFunction,
   config: GeneratorConfig2,
@@ -48,13 +54,43 @@ function validateNoteDurations(
   if (config.noteDurations.length === 0) {
     return { type: 'error', label: t('Validation.EmptyRhytms') }
   }
+  for (const [dotted, required] of DottedPairs) {
+    if (
+      config.noteDurations.includes(dotted) &&
+      !config.noteDurations.includes(required) &&
+      !config.restDurations.includes(required)
+    ) {
+      return {
+        type: 'error',
+        label: t('Validation.DottedRhytms', {
+          dotted: t(`Durations.${dotted}`),
+          required: t(`Durations.${required}`),
+        }),
+      }
+    }
+  }
   return undefined
 }
 
 function validateRestDurations(
-  _t: TFunction,
-  _config: GeneratorConfig2,
+  t: TFunction,
+  config: GeneratorConfig2,
 ): Issue | undefined {
+  for (const [dotted, required] of DottedPairs) {
+    if (
+      config.restDurations.includes(dotted) &&
+      !config.noteDurations.includes(required) &&
+      !config.restDurations.includes(required)
+    ) {
+      return {
+        type: 'error',
+        label: t('Validation.DottedRhytms', {
+          dotted: t(`Durations.${dotted}`),
+          required: t(`Durations.${required}`),
+        }),
+      }
+    }
+  }
   return undefined
 }
 
