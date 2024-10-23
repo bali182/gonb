@@ -5,10 +5,11 @@ import { PagedModal, PagedModalButton } from '../PagedModal'
 import { SettingsPageProps } from './types'
 import { Clef, Duration, KeySignature } from '../../model/common'
 import { GeneratorConfig2 } from '../../state/types'
-import { getChordProgression } from '../../generator/progression/getChordProgression'
 import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
 import { useSettingsButtons } from './useSettingsButtons'
+import { FOUR_STRING_BASS_UNFRETTED } from './controls/NotePresetPicker/presets'
+import { getRandomContent } from '../../generator/getRandomContent'
 
 export type SettingsModalProps = {
   onClose: () => void
@@ -24,7 +25,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     keySignature: KeySignature.C_MAJOR_A_MINOR,
     noteDurations: [Duration.QUARTER],
     restDurations: [Duration.QUARTER],
-    notes: [], //SIX_STRING_GUITAR,
+    notes: FOUR_STRING_BASS_UNFRETTED,
   }))
 
   const issues = useValidationIssues(value)
@@ -47,7 +48,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     if (button.id === 'save') {
       console.log('Saving', value)
     } else {
-      getChordProgression(value)
+      getRandomContent(value)
     }
   }
 

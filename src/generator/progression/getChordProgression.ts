@@ -57,6 +57,5 @@ export function getChordProgression(config: GeneratorConfig2) {
     }
   }
 
-  console.log(progression)
   return progression
 }
