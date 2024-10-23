@@ -19,20 +19,25 @@ export function asHarmonicFunction(
   }
 }
 
+function midiComparator(noteA: string, noteB: string): number {
+  const midiA = Note.midi(noteA) ?? Infinity
+  const midiB = Note.midi(noteB) ?? Infinity
+  return midiA - midiB
+}
+
 export function getChordMelodyNotes(
   chordNotes: string[],
-  melodyNotes: Set<string>,
+  melodyNotes: string[],
 ): string[] {
-  return chordNotes.flatMap((note) => {
-    if (melodyNotes.has(note)) {
-      return [note]
-    }
-    const enharmonic = Note.enharmonic(note)
-    if (melodyNotes.has(enharmonic)) {
-      return [enharmonic]
-    }
-    return []
-  })
+  return chordNotes
+    .flatMap((chordNote) =>
+      melodyNotes.filter((melodyNote) => {
+        const pitchClass = Note.pitchClass(melodyNote)
+        const enharmonicPitchClass = Note.enharmonic(pitchClass)
+        return chordNote === pitchClass || chordNote === enharmonicPitchClass
+      }),
+    )
+    .sort(midiComparator)
 }
 
 export function getMelodyNotesInRange(config: GeneratorConfig2): Set<string> {
@@ -43,7 +48,7 @@ export function getChord(
   triadName: string,
   seventhName: string,
   fn: ChordsHarmonicFunction,
-  melodyNotes: Set<string>,
+  melodyNotes: string[],
 ): ProgressionChord {
   const seventh = Chord.get(seventhName)
   const triad = Chord.get(triadName)

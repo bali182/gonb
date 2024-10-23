@@ -7,7 +7,6 @@ export function getSecondaryDominants(
   chords: ProgressionChord[],
 ): SecondaryDominants {
   const secondaryDominants = new Map<ProgressionChord, ProgressionChord>()
-  const melodyNotes = getMelodyNotesInRange(config)
   for (const chord of chords) {
     if (chord.triadName.includes('dim')) {
       continue
@@ -25,7 +24,7 @@ export function getSecondaryDominants(
       triadName,
       seventhName,
       'SecondaryDominant',
-      melodyNotes,
+      config.notes,
     )
     if (secondaryDominant.triadMelodyNotes.length > 0) {
       secondaryDominants.set(chord, secondaryDominant)
