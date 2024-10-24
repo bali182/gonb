@@ -31,6 +31,5 @@ export const alphaTexSelector = createSelector([trackSelector], (track) => {
     tempo: track.bpm ?? 120,
     tracks: [track],
   })
-  console.log(alphaTex)
   return alphaTex
 })

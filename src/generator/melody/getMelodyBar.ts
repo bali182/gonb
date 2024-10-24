@@ -1,8 +1,9 @@
-import { distance, Interval } from 'tonal'
+import { semitones } from '@tonaljs/interval'
 import { AtBar, AtItem, AtNote } from '../../alphaTex/alphaTex'
 import { isNil, randomElement } from '../../model/utils'
 import { GeneratorConfig2 } from '../../state/types'
 import { MelodyBarInput } from './types'
+import { distance } from '@tonaljs/note'
 
 const CHORD_TONE_PERCENTAGE = 0.5
 const CLOSEST_PERCENTAGE = 0.8
@@ -10,8 +11,8 @@ const CLOSEST_PERCENTAGE = 0.8
 const distanceComparator =
   (note: string) =>
   (a: string, b: string): number => {
-    const aDist = Math.abs(Interval.semitones(distance(note, a)))
-    const bDist = Math.abs(Interval.semitones(distance(note, b)))
+    const aDist = Math.abs(semitones(distance(note, a)))
+    const bDist = Math.abs(semitones(distance(note, b)))
     return aDist - bDist
   }
 

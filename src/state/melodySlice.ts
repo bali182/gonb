@@ -3,7 +3,6 @@ import { initialState } from './initialState'
 import { AtBar } from '../alphaTex/alphaTex'
 import { generatorSlice } from './generatorSlice'
 import { getRandomMelody } from '../model/getRandomMelody'
-import { Note } from 'tonal'
 
 export type SetMelodyPayload = AtBar[]
 

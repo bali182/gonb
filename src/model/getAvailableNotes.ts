@@ -1,4 +1,5 @@
-import { Interval, transpose } from 'tonal'
+import { fromSemitones } from '@tonaljs/interval'
+import { transpose } from '@tonaljs/note'
 
 // TODO rework generation system, to allow for non complete scales
 export function getAvailableNotes(
@@ -10,7 +11,7 @@ export function getAvailableNotes(
 
   for (const instString of tuning) {
     for (let i = firstFret; i < lastFret; i += 1) {
-      const note = transpose(instString, Interval.fromSemitones(i))
+      const note = transpose(instString, fromSemitones(i))
       availableNotes.add(note)
     }
   }

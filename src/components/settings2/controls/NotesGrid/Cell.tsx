@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
-import { Note } from 'tonal'
 import { beautifyNote } from './notesGridUtils'
 import {
   bottomRightNoteStyle,
@@ -9,6 +8,7 @@ import {
   topLeftNoteStyle,
   fillSeparatorStyle,
 } from './notesGridStyles'
+import { enharmonic } from '@tonaljs/note'
 
 export type CellProps = {
   note: string
@@ -24,11 +24,11 @@ export const Cell: FC<CellProps> = ({
   onClick: _onClick,
 }) => {
   const tdFullStyle = cx(tdStyle, isSelected ? selectedStyle : undefined)
-  const enharmonic = Note.enharmonic(note)
+  const ehNote = enharmonic(note)
   const onClick = () => {
     _onClick(note, octave)
   }
-  if (enharmonic === note) {
+  if (ehNote === note) {
     return (
       <td className={tdFullStyle} onClick={onClick}>
         {beautifyNote(note)}
@@ -44,7 +44,7 @@ export const Cell: FC<CellProps> = ({
         {octave}
       </span>
       <span className={bottomRightNoteStyle}>
-        {beautifyNote(enharmonic)}
+        {beautifyNote(ehNote)}
         {octave}
       </span>
     </td>

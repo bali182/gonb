@@ -23,6 +23,7 @@ export function getBarRhythm(config: GeneratorConfig2): RhythmItem[] {
   const { noteDurations, restDurations } = config
   const items: RhythmItem[] = []
   let length = new Fraction(0, 1)
+  let index = 0
   while (length.compare(BAR_LENGTH) != 0) {
     const notes = getAvailableDurations(noteDurations, length, BAR_LENGTH)
     const rests = getAvailableDurations(restDurations, length, BAR_LENGTH)
@@ -37,7 +38,7 @@ export function getBarRhythm(config: GeneratorConfig2): RhythmItem[] {
     let array: Duration[] = []
 
     if (notes.length > 0 && rests.length > 0) {
-      type = Math.random() < NOTE_CHANCE ? 'note' : 'rest'
+      type = index === 0 || Math.random() < NOTE_CHANCE ? 'note' : 'rest'
       array = type === 'note' ? notes : rests
     }
     if (notes.length > 0 && rests.length === 0) {
@@ -52,6 +53,7 @@ export function getBarRhythm(config: GeneratorConfig2): RhythmItem[] {
     const value = randomElement(array)!
     items.push({ duration: value, type })
     length = length.add(asFraction(value))
+    index += 1
   }
 
   return items

@@ -9,11 +9,13 @@ export type TonalJsHarmonicFunction = 'T' | 'SD' | 'D'
 export type ProgressionChord = {
   triadName: string
   seventhName: string
+  harmonicFunction: ChordsHarmonicFunction
   triad: string[]
   seventh: string[]
+  scale: string[]
   triadMelodyNotes: string[]
   seventhMelodyNotes: string[]
-  harmonicFunction: ChordsHarmonicFunction
+  scaleMelodyNotes: string[]
 }
 
 export type SecondaryDominants = Map<ProgressionChord, ProgressionChord>

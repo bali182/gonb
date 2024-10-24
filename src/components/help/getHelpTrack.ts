@@ -1,8 +1,8 @@
-import { Note } from 'tonal'
 import { AtBar, AtNote, AtSong } from '../../alphaTex/alphaTex'
 import { Clef, Duration, KeySignature } from '../../model/common'
 import { chunk, getScaleNotesInRange } from '../../model/utils'
 import { DEFAULT_TUNING } from '../../alphaTex/constants'
+import { pitchClass } from '@tonaljs/note'
 
 export function getHelpTrack(
   lowNote: string,
@@ -21,7 +21,7 @@ export function getHelpTrack(
         duration: Duration.QUARTER,
         note,
         type: 'note',
-        label: Note.pitchClass(note),
+        label: pitchClass(note),
       }),
     )
     return { items: atNotes }

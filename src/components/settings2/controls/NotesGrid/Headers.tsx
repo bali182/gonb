@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
-import { Note } from 'tonal'
 import { beautifyNote } from './notesGridUtils'
 import {
   bottomRightNoteStyle,
@@ -9,6 +8,7 @@ import {
   thStyle,
   topLeftNoteStyle,
 } from './notesGridStyles'
+import { enharmonic } from '@tonaljs/note'
 
 export type NoteHeaderProps = {
   note: string
@@ -22,10 +22,10 @@ export const NoteHeader: FC<NoteHeaderProps> = ({
   onClick: _onClick,
 }) => {
   const tdFullStyle = cx(thStyle, isSelected ? selectedStyle : undefined)
-  const enharmonic = Note.enharmonic(note)
+  const ehNote = enharmonic(note)
   const onClick = () => _onClick(note)
 
-  if (enharmonic === note) {
+  if (ehNote === note) {
     return (
       <th className={tdFullStyle} onClick={onClick}>
         {beautifyNote(note)}
@@ -36,7 +36,7 @@ export const NoteHeader: FC<NoteHeaderProps> = ({
     <th className={tdFullStyle} onClick={onClick}>
       <div className={fillSeparatorStyle} />
       <span className={topLeftNoteStyle}>{beautifyNote(note)}</span>
-      <span className={bottomRightNoteStyle}>{beautifyNote(enharmonic)}</span>
+      <span className={bottomRightNoteStyle}>{beautifyNote(ehNote)}</span>
     </th>
   )
 }

@@ -1,11 +1,11 @@
-import { Range } from 'tonal'
+import { chromatic } from '@tonaljs/range'
 
-export const SIX_STRING_GUITAR = Range.chromatic(['E2', 'E5'], { sharps: true })
-export const SEVEN_STRING_GUITAR = Range.chromatic(['B1', 'E5'], {
+export const SIX_STRING_GUITAR = chromatic(['E2', 'E5'], { sharps: true })
+export const SEVEN_STRING_GUITAR = chromatic(['B1', 'E5'], {
   sharps: true,
 })
-export const FOUR_STRING_BASS = Range.chromatic(['E1', 'G3'], { sharps: true })
-export const FIVE_STRING_BASS = Range.chromatic(['B0', 'G3'], { sharps: true })
+export const FOUR_STRING_BASS = chromatic(['E1', 'G3'], { sharps: true })
+export const FIVE_STRING_BASS = chromatic(['B0', 'G3'], { sharps: true })
 
 export const SIX_STRING_GUITAR_UNFRETTED = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']
 export const SEVEN_STRING_GUITAR_UNFRETTED = [

@@ -1,4 +1,5 @@
-import { Note, Scale } from 'tonal'
+import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
+import { get as getScale } from '@tonaljs/scale'
 import { Duration, KeySignature } from './common'
 import {
   FragmentBar,
@@ -121,21 +122,21 @@ export function getScaleNotesInRange(
   highNote: string,
 ): string[] {
   const scaleName = ScaleNameMap[keySignature]
-  const scaleNotes = Scale.get(scaleName).notes
-  const lowMidi = Note.midi(lowNote)
-  const highMidi = Note.midi(highNote)
+  const scaleNotes = getScale(scaleName).notes
+  const lowMidi = midi(lowNote)
+  const highMidi = midi(highNote)
   if (isNil(lowMidi) || isNil(highMidi)) {
     throw new Error('Invalid low or high note')
   }
   const notes: string[] = []
   for (let midi = lowMidi; midi <= highMidi; midi++) {
-    const noteName = Note.fromMidi(midi)
-    const pitchClass = Note.pitchClass(noteName)
+    const noteName = fromMidi(midi)
+    const notePitchClass = pitchClass(noteName)
 
-    const ehNoteName = Note.enharmonic(noteName)
-    const ehPitchClass = Note.pitchClass(ehNoteName)
+    const ehNoteName = enharmonic(noteName)
+    const ehPitchClass = pitchClass(ehNoteName)
 
-    if (scaleNotes.includes(pitchClass)) {
+    if (scaleNotes.includes(notePitchClass)) {
       notes.push(noteName)
     }
     if (ehNoteName !== noteName && scaleNotes.includes(ehPitchClass)) {

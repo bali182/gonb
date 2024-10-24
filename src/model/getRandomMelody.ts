@@ -1,4 +1,3 @@
-import { distance, Interval, Note, transpose } from 'tonal'
 import { AtBar, AtItem, AtNote } from '../alphaTex/alphaTex'
 import { Clef } from './common'
 import {
@@ -16,6 +15,8 @@ import {
 } from './utils'
 import { melodies } from './melodies/melodies'
 import { GeneratorConfig } from '../state/types'
+import { distance, pitchClass, transpose } from '@tonaljs/note'
+import { fromSemitones, semitones } from '@tonaljs/interval'
 
 function getFragments(type: MelodyType): FragmentBar[] {
   switch (type) {
@@ -36,8 +37,8 @@ function getRangeByFrets(
   firstFret: number,
   lastFret: number,
 ): [string, string] {
-  const lowNote = transpose(lowString, Interval.fromSemitones(firstFret))
-  const highNote = transpose(highString, Interval.fromSemitones(lastFret))
+  const lowNote = transpose(lowString, fromSemitones(firstFret))
+  const highNote = transpose(highString, fromSemitones(lastFret))
   return [lowNote, highNote]
 }
 
@@ -181,10 +182,7 @@ function shiftRandomlyBySemitones(bar: AtBar): AtBar {
     if (item.type === 'note' && Math.random() > 0.8) {
       return {
         ...item,
-        note: transpose(
-          item.note,
-          Interval.fromSemitones(randomElement([1, -1])!),
-        ),
+        note: transpose(item.note, fromSemitones(randomElement([1, -1])!)),
       }
     }
     return item
@@ -206,7 +204,7 @@ function getLastNote(bar: AtBar): string {
 
 function getNextStartingNote(lastNote: string, scale: string[]): string {
   const closesScaleNote = findMin(scale, (note) =>
-    Math.abs(Interval.semitones(distance(lastNote, note))),
+    Math.abs(semitones(distance(lastNote, note))),
   )
 
   const index = getNoteIndex(closesScaleNote, scale)
@@ -229,7 +227,7 @@ function addNoteLabels(bars: AtBar[]): AtBar[] {
   for (const bar of bars) {
     for (const item of bar.items) {
       if (item.type === 'note') {
-        item.label = Note.pitchClass(item.note)
+        item.label = pitchClass(item.note)
       }
     }
   }

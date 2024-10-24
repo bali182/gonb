@@ -1,11 +1,13 @@
+import { majorKey } from '@tonaljs/key'
 import { GeneratorConfig2 } from '../../state/types'
 import { ProgressionChord, SecondaryDominants } from './types'
-import { getChord, getMelodyNotesInRange } from './utils'
+import { getChord } from './utils'
 
 export function getSecondaryDominants(
   config: GeneratorConfig2,
   chords: ProgressionChord[],
 ): SecondaryDominants {
+  const key = majorKey(config.keySignature)
   const secondaryDominants = new Map<ProgressionChord, ProgressionChord>()
   for (const chord of chords) {
     if (chord.triadName.includes('dim')) {
@@ -21,6 +23,7 @@ export function getSecondaryDominants(
       continue
     }
     const secondaryDominant = getChord(
+      key,
       triadName,
       seventhName,
       'SecondaryDominant',

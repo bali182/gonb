@@ -1,6 +1,7 @@
-import { distance, Interval, Note } from 'tonal'
+import { semitones } from '@tonaljs/interval'
 import { Duration } from '../model/common'
 import { AtFrettedNote } from './alphaTex'
+import { distance, pitchClass } from '@tonaljs/note'
 
 export function hasDot(duration: Duration): boolean {
   switch (duration) {
@@ -39,14 +40,12 @@ export function asNumber(duration: Duration): number {
   }
 }
 
-function findString(pitchClass: string, tuning: string[]): [string, number] {
+function findString(note: string, tuning: string[]): [string, number] {
   let index = 0
   let smallestDistance = Infinity
   for (let i = 0; i < tuning.length; i += 1) {
-    const note = tuning[i]!
-    const dist = Math.abs(
-      Interval.semitones(distance(Note.pitchClass(note), pitchClass)),
-    )
+    const tuningNote = tuning[i]!
+    const dist = Math.abs(semitones(distance(pitchClass(tuningNote), note)))
     if (dist < smallestDistance) {
       smallestDistance = dist
       index = i
@@ -56,8 +55,8 @@ function findString(pitchClass: string, tuning: string[]): [string, number] {
 }
 
 export function asFrettedNote(note: string, tuning: string[]): AtFrettedNote {
-  const notePitchClass = Note.pitchClass(note)
+  const notePitchClass = pitchClass(note)
   const [stringNote, stringIndex] = findString(notePitchClass, tuning)
-  const fret = Interval.semitones(distance(stringNote, note))
+  const fret = semitones(distance(stringNote, note))
   return { string: stringIndex + 1, fret }
 }

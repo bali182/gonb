@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next'
 import { generatorSlice } from '../../state/generatorSlice'
 import { Dropdown } from './Dropdown'
 import { SelectItem } from './types'
-import { Note } from 'tonal'
+import { octave, pitchClass } from '@tonaljs/note'
 
 const DEFAULT_4_STRING_BASS_TUNING = ['G2', 'D2', 'A1', 'E1']
 const DEFAULT_5_STRING_BASS_TUNING = ['G2', 'D2', 'A1', 'E1', 'B0']
@@ -149,11 +149,11 @@ export const PageTuning: FC = () => {
   const tuningRepr = useMemo(
     (): StringTuning[] =>
       tuning.map((pitchedNote) => {
-        const note = Note.pitchClass(pitchedNote)!
-        const octave = Note.octave(pitchedNote)!
+        const note = pitchClass(pitchedNote)!
+        const noteOctave = octave(pitchedNote)!
         return {
           note: { label: note, value: note },
-          octave: { label: octave.toString(), value: octave },
+          octave: { label: noteOctave.toString(), value: noteOctave },
         }
       }),
     [tuning],

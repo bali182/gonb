@@ -1,4 +1,4 @@
-import { Note } from 'tonal'
+import { enharmonic } from '@tonaljs/note'
 
 export type NotesGridData = Record<string, boolean[]>
 
@@ -25,7 +25,7 @@ export function asNotesGridData(value: string[]): NotesGridData {
     const octaves: boolean[] = []
     for (const octave of OCTAVES) {
       const note = `${noteName}${octave}`
-      const enharmonicNote = Note.enharmonic(note)
+      const enharmonicNote = enharmonic(note)
       octaves[octave] = value.includes(note) || value.includes(enharmonicNote)
     }
     data[noteName] = octaves

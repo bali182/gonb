@@ -1,10 +1,12 @@
-import { Chord, Note } from 'tonal'
+import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
+import { get as getTonalChord } from '@tonaljs/chord'
 import { GeneratorConfig2 } from '../../state/types'
 import {
   TonalJsHarmonicFunction,
   ProgressionChord,
   ChordsHarmonicFunction,
 } from './types'
+import { MajorKey } from '@tonaljs/key'
 
 export function asHarmonicFunction(
   fn: TonalJsHarmonicFunction,
@@ -20,38 +22,39 @@ export function asHarmonicFunction(
 }
 
 function midiComparator(noteA: string, noteB: string): number {
-  const midiA = Note.midi(noteA) ?? Infinity
-  const midiB = Note.midi(noteB) ?? Infinity
+  const midiA = midi(noteA) ?? Infinity
+  const midiB = midi(noteB) ?? Infinity
   return midiA - midiB
 }
 
 export function getChordMelodyNotes(
-  chordNotes: string[],
+  chordNotes: readonly string[],
   melodyNotes: string[],
 ): string[] {
   return chordNotes
     .flatMap((chordNote) =>
       melodyNotes.filter((melodyNote) => {
-        const pitchClass = Note.pitchClass(melodyNote)
-        const enharmonicPitchClass = Note.enharmonic(pitchClass)
-        return chordNote === pitchClass || chordNote === enharmonicPitchClass
+        const mnPitchClass = pitchClass(melodyNote)
+        const mnEnharmonic = enharmonic(mnPitchClass)
+        return chordNote === mnPitchClass || chordNote === mnEnharmonic
       }),
     )
     .sort(midiComparator)
 }
 
 export function getMelodyNotesInRange(config: GeneratorConfig2): Set<string> {
-  return new Set(config.notes.map((note) => Note.pitchClass(note)))
+  return new Set(config.notes.map((note) => pitchClass(note)))
 }
 
 export function getChord(
+  key: MajorKey,
   triadName: string,
   seventhName: string,
   fn: ChordsHarmonicFunction,
   melodyNotes: string[],
 ): ProgressionChord {
-  const seventh = Chord.get(seventhName)
-  const triad = Chord.get(triadName)
+  const seventh = getTonalChord(seventhName)
+  const triad = getTonalChord(triadName)
   return {
     seventhName: seventhName,
     triadName: triadName,
@@ -60,6 +63,8 @@ export function getChord(
     triadMelodyNotes: getChordMelodyNotes(triad.notes, melodyNotes),
     seventhMelodyNotes: getChordMelodyNotes(seventh.notes, melodyNotes),
     harmonicFunction: fn,
+    scale: key.scale as string[],
+    scaleMelodyNotes: getChordMelodyNotes(key.scale, melodyNotes),
   }
 }
 
@@ -68,7 +73,7 @@ export function getClosestChordVoicing(
   chord: string[],
 ): string[] {
   const referenceMidi: (number | undefined)[] = reference.map(
-    (note) => Note.midi(note)!,
+    (note) => midi(note)!,
   )
   const referenceAbsMidi: (number | undefined)[] = referenceMidi.map(
     (midi) => midi! % 12,
@@ -78,7 +83,7 @@ export function getClosestChordVoicing(
   // First find the shared notes and put them in the correct position
   for (let i = 0; i < chord.length; i += 1) {
     const note = chord[i]!
-    const noteMidi = Note.midi(note)!
+    const noteMidi = midi(note)!
     const noteAbsMidi = noteMidi % 12
     const matchingNoteIndex = referenceAbsMidi.indexOf(noteAbsMidi)
     if (matchingNoteIndex >= 0) {
@@ -90,5 +95,5 @@ export function getClosestChordVoicing(
 
   // TODO find the rest
   // ...
-  return result.map((midi) => Note.fromMidi(midi))
+  return result.map((midi) => fromMidi(midi))
 }
