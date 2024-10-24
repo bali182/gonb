@@ -1,4 +1,4 @@
-import { AtBar } from '../model/alphaTex'
+import { AtBar } from '../alphaTex/alphaTex'
 import { Clef, Duration, KeySignature } from '../model/common'
 import { MelodyType } from '../model/melodyFragment'
 

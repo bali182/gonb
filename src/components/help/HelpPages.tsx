@@ -1,15 +1,15 @@
 import { FC, useMemo, useState } from 'react'
 import { useAlphaTab } from '../../model/useAlphaTab'
 import { ScoreView } from '../ScoreView'
-import { AtTrack } from '../../model/alphaTex'
-import { toAlphaTex } from '../../model/toAlphaTex'
+import { AtSong } from '../../alphaTex/alphaTex'
+import { toAlphaTex } from '../../alphaTex/toAlphaTex'
 import { getHelpTrack } from './getHelpTrack'
 import { Clef } from '../../model/common'
 import { css } from '@emotion/css'
 import { noPlayer } from '../../model/alphaTabConfig'
 
 type BaseHelpPageProps = {
-  track: AtTrack
+  track: AtSong
 }
 
 const pageStyle = css`
@@ -27,7 +27,7 @@ const BaseHelpPage: FC<BaseHelpPageProps> = ({ track }) => {
   const [scrollArea, setScrollArea] = useState<HTMLElement>()
   const [root, setRoot] = useState<HTMLElement>()
 
-  const tex = toAlphaTex(track) //useMemo(() => toAlphaTex(track), [track])
+  const tex = useMemo(() => toAlphaTex(track), [track])
 
   useAlphaTab({
     tex,

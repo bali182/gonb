@@ -1,9 +1,10 @@
-import { AtTrack } from '../model/alphaTex'
+import { AtTrack } from '../alphaTex/alphaTex'
 import { Clef } from '../model/common'
-import { toAlphaTex } from '../model/toAlphaTex'
+import { toAlphaTex } from '../alphaTex/toAlphaTex'
 import { generatorSlice } from './generatorSlice'
 import { melodySlice } from './melodySlice'
 import { createSelector } from '@reduxjs/toolkit'
+import { DEFAULT_TUNING } from '../alphaTex/constants'
 
 export const trackSelector = createSelector(
   [generatorSlice.selectSlice, melodySlice.selectSlice],
@@ -13,14 +14,23 @@ export const trackSelector = createSelector(
       keySignature,
       bars,
       bpm,
+      staff: 'score',
       instrument: clef === Clef.BASS ? 'AcousticBass' : 'AcousticGuitarSteel',
       name: 'A Random Melody',
       shortName: 'ex',
       timeSignature: { bottom: 4, top: 4 },
+      tuning: DEFAULT_TUNING,
     }
   },
 )
 
 export const alphaTexSelector = createSelector([trackSelector], (track) => {
-  return toAlphaTex(track)
+  const alphaTex = toAlphaTex({
+    title: `A Random Melody`,
+    music: 'Balázs Édes',
+    tempo: track.bpm ?? 120,
+    tracks: [track],
+  })
+  console.log(alphaTex)
+  return alphaTex
 })

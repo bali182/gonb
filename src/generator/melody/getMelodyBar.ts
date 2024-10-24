@@ -1,5 +1,5 @@
-import { distance, Interval, Note } from 'tonal'
-import { AtBar, AtItem, AtNote } from '../../model/alphaTex'
+import { distance, Interval } from 'tonal'
+import { AtBar, AtItem, AtNote } from '../../alphaTex/alphaTex'
 import { isNil, randomElement } from '../../model/utils'
 import { GeneratorConfig2 } from '../../state/types'
 import { MelodyBarInput } from './types'

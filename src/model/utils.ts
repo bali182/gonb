@@ -17,7 +17,7 @@ export function isNil<T>(
 export function noop() {}
 
 export function isNotNil<T>(input: T | null | undefined): input is T {
-  return input !== null || input !== undefined
+  return input !== null && input !== undefined
 }
 
 export function randomElement<T>(array: T[]): T | undefined {

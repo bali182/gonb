@@ -1,4 +1,4 @@
-import { AtBar } from '../../model/alphaTex'
+import { AtBar } from '../../alphaTex/alphaTex'
 import { GeneratorConfig2 } from '../../state/types'
 import { getMelodyBar } from './getMelodyBar'
 import { MelodyBarInput } from './types'

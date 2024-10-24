@@ -16,12 +16,12 @@ function getButtons(t: TFunction, issues: ConfigIssues): PagedModalButton[] {
       icon: PiTestTubeBold,
       enabled: errors.length === 0,
     },
-    // {
-    //   id: 'save',
-    //   label: t('Settings.Save'),
-    //   icon: PiFloppyDiskBold,
-    //   enabled: errors.length === 0,
-    // },
+    {
+      id: 'save',
+      label: t('Settings.Save'),
+      icon: PiFloppyDiskBold,
+      enabled: errors.length === 0,
+    },
   ]
 }
 

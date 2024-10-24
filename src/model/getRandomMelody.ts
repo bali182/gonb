@@ -1,6 +1,6 @@
-import { distance, Interval, Note, Scale, transpose } from 'tonal'
-import { AtBar, AtItem, AtNote } from './alphaTex'
-import { Clef, KeySignature } from './common'
+import { distance, Interval, Note, transpose } from 'tonal'
+import { AtBar, AtItem, AtNote } from '../alphaTex/alphaTex'
+import { Clef } from './common'
 import {
   randomHalfNotes,
   randomQuarterNotes,

@@ -1,8 +1,10 @@
-import { Clef, Duration, KeySignature } from './common'
+import { Clef, Duration, KeySignature } from '../model/common'
 
 export type AtInstrumentType = 'AcousticBass' | 'AcousticGuitarSteel'
 
-export type AtItem = AtNote | AtRest
+export type AtItem = AtNote | AtRest | AtChord
+
+export type Staff = 'score' | 'tabs' | 'both'
 
 export type AtNote = {
   type: 'note'
@@ -11,8 +13,20 @@ export type AtNote = {
   label?: string
 }
 
+export type AtFrettedNote = {
+  string: number
+  fret: number
+}
+
 export type AtRest = {
   type: 'rest'
+  duration: Duration
+  label?: string
+}
+
+export type AtChord = {
+  type: 'chord'
+  notes: string[]
   duration: Duration
   label?: string
 }
@@ -33,6 +47,20 @@ export type AtTrack = {
   clef: Clef
   keySignature: KeySignature
   timeSignature: AtTimeSignature
+  tuning: string[]
   bars: AtBar[]
+  staff?: Staff
   bpm?: number
+}
+
+export type AtSong = {
+  title?: string
+  subtitle?: string
+  artist?: string
+  album?: string
+  words?: string
+  music?: string
+  copyright?: string
+  tempo: number
+  tracks: AtTrack[]
 }
