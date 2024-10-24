@@ -13,7 +13,7 @@ import {
   randomIn as randomInRange,
 } from '../common/utils'
 import { melodies } from './melodies/melodies'
-import { GeneratorConfig } from '../state/types'
+import { GeneratorConfig, LegacyGeneratorConfig } from '../state/types'
 import { distance, pitchClass, transpose } from '@tonaljs/note'
 import { fromSemitones, semitones } from '@tonaljs/interval'
 import { Clef } from '../common/clef'
@@ -234,7 +234,7 @@ function addNoteLabels(bars: AtBar[]): AtBar[] {
   return bars
 }
 
-export function getRandomMelody(config: GeneratorConfig): AtBar[] {
+export function getRandomMelody(config: LegacyGeneratorConfig): AtBar[] {
   const {
     clef,
     type,

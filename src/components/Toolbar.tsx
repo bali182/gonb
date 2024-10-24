@@ -2,12 +2,7 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 import { SheetLogo } from './SheetLogo'
 import { Button } from './Button'
-import {
-  PiGearFill,
-  PiFastForwardFill,
-  PiQuestion,
-  PiBaby,
-} from 'react-icons/pi'
+import { PiGearFill, PiFastForwardFill, PiQuestion } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
 
 const toolbarStyle = css`
@@ -34,14 +29,12 @@ const helpButtonStyle = css`
 type ToolbarProps = {
   onRegenerate: () => void
   onOpenSettings: () => void
-  onOpenSettings2: () => void
   onOpenHelp: () => void
 }
 
 export const Toolbar: FC<ToolbarProps> = ({
   onRegenerate,
   onOpenSettings,
-  onOpenSettings2,
   onOpenHelp,
 }) => {
   const { t } = useTranslation()
@@ -60,9 +53,6 @@ export const Toolbar: FC<ToolbarProps> = ({
         <Button onClick={onOpenHelp} className={helpButtonStyle}>
           <PiQuestion />
           {t('Menu.Help')}
-        </Button>
-        <Button onClick={onOpenSettings2}>
-          <PiBaby />
         </Button>
       </div>
     </div>

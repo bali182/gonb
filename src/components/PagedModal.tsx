@@ -37,7 +37,7 @@ export type PagedModalProps<T = any> = {
 const menuStyle = css`
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
-  min-width: 230px;
+  min-width: 245px;
 `
 
 const menuHeaderStyle = css`

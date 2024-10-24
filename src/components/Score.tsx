@@ -4,7 +4,7 @@ import { ScoreOverlay } from './ScoreOverlay'
 import { useAlphaTab } from '../alphaTex/useAlphaTab'
 import { PlayerControls } from './PlayerControls'
 import { useDispatch, useSelector } from 'react-redux'
-import { alphaTexSelector } from '../state/selectors'
+import { alphaTexSelector, songSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
 import { AppDispatch } from '../state/store'
 import { generatorSlice } from '../state/generatorSlice'
@@ -62,6 +62,8 @@ export const Score: FC = () => {
       }),
     )
   const onTempoChange = () => {}
+
+  console.log(tex)
 
   const { api, isPlaying, isLoading } = useAlphaTab({
     tex,

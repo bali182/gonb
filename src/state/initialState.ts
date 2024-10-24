@@ -1,5 +1,7 @@
 import { Clef } from '../common/clef'
+import { Duration } from '../common/duration'
 import { KeySignature } from '../common/keySignature'
+import { SIX_STRING_GUITAR } from '../components/settings/controls/NotePresetPicker/presets'
 import { AppState } from './types'
 
 export const initialState: AppState = {
@@ -9,17 +11,13 @@ export const initialState: AppState = {
     instrumentVolume: 0.5,
   },
   generator: {
-    type: 'WHOLE_NOTES',
-    barCount: 4,
-    keySignature: KeySignature.C_MAJOR_A_MINOR,
+    bars: 4,
+    bpm: 60,
     clef: Clef.TREBLE,
-    semitones: false,
-    firstFret: 0,
-    lastFret: 4,
-    showNoteNames: false,
-    bpm: 120,
-    timestamp: 0,
-    tuning: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'],
+    keySignature: KeySignature.C_MAJOR_A_MINOR,
+    noteDurations: [Duration.QUARTER],
+    restDurations: [Duration.QUARTER],
+    notes: SIX_STRING_GUITAR,
+    timeStamp: 0,
   },
-  melody: [],
 }

@@ -10,7 +10,7 @@ export type PlayerConfig = {
   isLooping: boolean
 }
 
-export type GeneratorConfig2 = {
+export type GeneratorConfig = {
   bars: number
   bpm: number
   clef: Clef
@@ -22,7 +22,7 @@ export type GeneratorConfig2 = {
   timeStamp: number
 }
 
-export type GeneratorConfig = {
+export type LegacyGeneratorConfig = {
   type: MelodyType
   barCount: number
   keySignature: KeySignature
@@ -40,5 +40,4 @@ export type GeneratorConfig = {
 export type AppState = {
   player: PlayerConfig
   generator: GeneratorConfig
-  melody: AtBar[]
 }

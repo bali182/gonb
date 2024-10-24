@@ -1,9 +1,9 @@
 import { Duration } from '../../common/duration'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { getBarRhythm } from './getBarRhythm'
 import { RhythmItem } from './types'
 
-export function getRhythm(config: GeneratorConfig2): RhythmItem[][] {
+export function getRhythm(config: GeneratorConfig): RhythmItem[][] {
   const durations: RhythmItem[][] = []
   const hasWholeNote = config.notes.includes(Duration.WHOLE)
   const randomDurations = hasWholeNote ? config.bars - 1 : config.bars

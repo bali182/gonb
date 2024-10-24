@@ -1,10 +1,10 @@
 import { AtBar } from '../../alphaTex/alphaTex'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { getMelodyBar } from './getMelodyBar'
 import { MelodyBarInput } from './types'
 
 export function getMelody(
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
   input: MelodyBarInput[],
 ): AtBar[] {
   const bars: AtBar[] = []

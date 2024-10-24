@@ -1,10 +1,10 @@
 import { majorKey } from '@tonaljs/key'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { ProgressionChord, TonalJsHarmonicFunction } from './types'
 import { asHarmonicFunction, getChord } from './utils'
 
 export function getDiatonicChords(
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): ProgressionChord[] {
   const key = majorKey(config.keySignature)
   const harmonicFns = key.chordsHarmonicFunction as TonalJsHarmonicFunction[]

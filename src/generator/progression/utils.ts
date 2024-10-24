@@ -1,6 +1,6 @@
 import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
 import { get as getTonalChord } from '@tonaljs/chord'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import {
   TonalJsHarmonicFunction,
   ProgressionChord,
@@ -42,7 +42,7 @@ export function getChordMelodyNotes(
     .sort(midiComparator)
 }
 
-export function getMelodyNotesInRange(config: GeneratorConfig2): Set<string> {
+export function getMelodyNotesInRange(config: GeneratorConfig): Set<string> {
   return new Set(config.notes.map((note) => pitchClass(note)))
 }
 

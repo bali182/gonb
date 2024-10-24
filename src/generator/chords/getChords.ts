@@ -1,10 +1,10 @@
 import { AtBar, AtChord } from '../../alphaTex/alphaTex'
 import { Duration } from '../../common/duration'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { ProgressionChord } from '../progression/types'
 
 export function getChords(
-  _config: GeneratorConfig2,
+  _config: GeneratorConfig,
   progression: ProgressionChord[],
 ): AtBar[] {
   return progression.map((chord) => {

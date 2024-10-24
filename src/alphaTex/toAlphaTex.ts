@@ -9,6 +9,7 @@ import {
 } from './alphaTex'
 import { isNil, isNotNil } from '../common/utils'
 import { asFrettedNote, asNumber, hasDot } from './utils'
+import { Duration } from '../common/duration'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
@@ -47,14 +48,18 @@ function withBrush(content: string): string {
   return `${content} {bd 120}`
 }
 
+function getDuration(duration: Duration): string {
+  return `${asNumber(duration)}${hasDot(duration) ? '{d}' : ''}`
+}
+
 function getNote({ duration, note, label }: AtNote, tuning: string[]): string {
   const { fret, string } = asFrettedNote(note, tuning)
-  const atDuration = `${asNumber(duration)}${hasDot(duration) ? '{d}' : ''}`
+  const atDuration = getDuration(duration)
   return withLabel(`${fret}.${string}.${atDuration}`, label)
 }
 
 function getRest({ duration, label }: AtRest): string {
-  return withLabel(`r.${duration}`, label)
+  return withLabel(`r.${getDuration(duration)}`, label)
 }
 
 function getChord(chord: AtChord, tuning: string[]): string {
@@ -62,9 +67,8 @@ function getChord(chord: AtChord, tuning: string[]): string {
     const { fret, string } = asFrettedNote(note, tuning)
     return `${fret}.${string}`
   })
-  return withBrush(
-    withLabel(`(${notes.join(' ')}).${chord.duration}`, chord.label),
-  )
+  const duration = getDuration(chord.duration)
+  return withBrush(withLabel(`(${notes.join(' ')}).${duration}`, chord.label))
 }
 
 function getItem(item: AtItem, tuning: string[]): string {

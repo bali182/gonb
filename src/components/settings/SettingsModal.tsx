@@ -1,26 +1,71 @@
-import { FC, useState } from 'react'
-import { PiGearFill } from 'react-icons/pi'
+import { FC, useMemo, useState } from 'react'
+import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
+import { PagedModal, PagedModalButton } from '../PagedModal'
+import { SettingsPageProps } from './types'
+import { KeySignature } from '../../common/keySignature'
+import { Duration } from '../../common/duration'
+import { Clef } from '../../common/clef'
+import { GeneratorConfig } from '../../state/types'
+import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
-import { PagedModal } from '../PagedModal'
+import { useSettingsButtons } from './useSettingsButtons'
+import { FOUR_STRING_BASS_UNFRETTED } from './controls/NotePresetPicker/presets'
+import { getSong } from '../../generator/getSong'
 
 export type SettingsModalProps = {
   onClose: () => void
 }
 
 export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
-  const pages = useSettingsPages()
-  const [activePage, setActivePage] = useState<string>(pages[0]!.id)
   const { t } = useTranslation()
+
+  const [value, setValue] = useState<GeneratorConfig>(() => ({
+    bars: 4,
+    bpm: 60,
+    clef: Clef.TREBLE,
+    keySignature: KeySignature.C_MAJOR_A_MINOR,
+    noteDurations: [Duration.QUARTER],
+    restDurations: [Duration.QUARTER],
+    notes: FOUR_STRING_BASS_UNFRETTED,
+    timeStamp: Date.now(),
+  }))
+
+  const issues = useValidationIssues(value)
+  const buttons = useSettingsButtons(issues)
+  const pages = useSettingsPages(issues)
+  const [activePage, setActivePage] = useState<string>(pages[0]!.id)
+
+  const pageProps = useMemo(
+    (): SettingsPageProps => ({
+      onChange: setValue,
+      onClose: onClose,
+      value,
+      issues,
+    }),
+    [value, setValue, onClose],
+  )
+
+  // TODO write to store, in state for now
+  const onSave = (button: PagedModalButton) => {
+    if (button.id === 'save') {
+      console.log('Saving', value)
+    } else {
+      getSong(value)
+    }
+  }
+
   return (
-    <PagedModal
-      icon={PiGearFill}
-      activePage={activePage}
+    <PagedModal<SettingsPageProps>
+      icon={PiGearBold}
       title={t('Settings.Settings')}
-      onClose={onClose}
-      setActivePage={setActivePage}
       pages={pages}
-      pageProps={undefined}
+      activePage={activePage}
+      pageProps={pageProps}
+      setActivePage={setActivePage}
+      buttons={buttons}
+      onClick={onSave}
+      onClose={onClose}
     />
   )
 }

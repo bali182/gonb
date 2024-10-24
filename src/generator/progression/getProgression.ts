@@ -1,5 +1,5 @@
 import { isNil, randomElement } from '../../common/utils'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { getChordFunctionSequence } from './getChordFunctionSequence'
 import { getDiatonicChords } from './getDiatonicChords'
 import { getPossibleTemplates } from './getPossibleTemplates'
@@ -25,7 +25,7 @@ function groupByFunction(
   return map
 }
 
-export function getProgression(config: GeneratorConfig2) {
+export function getProgression(config: GeneratorConfig) {
   const chords = getDiatonicChords(config)
   const secondaryDominants = getSecondaryDominants(config, chords)
   const templates = getPossibleTemplates(config, chords, secondaryDominants)

@@ -1,7 +1,7 @@
 import { semitones } from '@tonaljs/interval'
 import { AtBar, AtItem, AtNote } from '../../alphaTex/alphaTex'
 import { isNil, randomElement } from '../../common/utils'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { MelodyBarInput } from './types'
 import { distance } from '@tonaljs/note'
 
@@ -40,7 +40,7 @@ function findLastNote(a: AtItem[]): AtNote {
 }
 
 export function getMelodyBar(
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
   input: MelodyBarInput[],
   bars: AtBar[],
   index: number,

@@ -1,10 +1,10 @@
 import { majorKey } from '@tonaljs/key'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { ProgressionChord, SecondaryDominants } from './types'
 import { getChord } from './utils'
 
 export function getSecondaryDominants(
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
   chords: ProgressionChord[],
 ): SecondaryDominants {
   const key = majorKey(config.keySignature)

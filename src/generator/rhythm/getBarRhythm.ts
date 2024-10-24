@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { RhythmItem } from './types'
 import { asFraction } from './asFraction'
 import { lte } from './utils'
@@ -19,7 +19,7 @@ function getAvailableDurations(
   )
 }
 
-export function getBarRhythm(config: GeneratorConfig2): RhythmItem[] {
+export function getBarRhythm(config: GeneratorConfig): RhythmItem[] {
   const { noteDurations, restDurations } = config
   const items: RhythmItem[] = []
   let length = new Fraction(0, 1)

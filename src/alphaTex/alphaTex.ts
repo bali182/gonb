@@ -2,7 +2,10 @@ import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
 import { KeySignature } from '../common/keySignature'
 
-export type AtInstrumentType = 'AcousticBass' | 'AcousticGuitarSteel'
+export type AtInstrumentType =
+  | 'AcousticBass'
+  | 'AcousticGuitarSteel'
+  | 'AcousticGrandPiano'
 
 export type AtItem = AtNote | AtRest | AtChord
 
@@ -52,7 +55,6 @@ export type AtTrack = {
   tuning: string[]
   bars: AtBar[]
   staff?: Staff
-  bpm?: number
 }
 
 export type AtSong = {

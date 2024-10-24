@@ -1,5 +1,5 @@
 import { isNil, isNotNil } from '../../common/utils'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { deafultTemplates } from './templates'
 import {
   ChordsHarmonicFunction,
@@ -8,7 +8,7 @@ import {
 } from './types'
 
 export function getPossibleTemplates(
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
   chords: ProgressionChord[],
   secondaryDominants: SecondaryDominants,
   templates: ChordsHarmonicFunction[][] = deafultTemplates,

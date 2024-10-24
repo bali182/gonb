@@ -1,5 +1,5 @@
 import { isNil, randomElement } from '../../common/utils'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { ChordsHarmonicFunction } from './types'
 
 function groupTemplatesByLength(
@@ -17,7 +17,7 @@ function groupTemplatesByLength(
 }
 
 export function getChordFunctionSequence(
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
   templates: ChordsHarmonicFunction[][],
 ): ChordsHarmonicFunction[] {
   if (config.bars === 0) {

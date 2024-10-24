@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
-import { GeneratorConfig2 } from '../../state/types'
+import { GeneratorConfig } from '../../state/types'
 import { ConfigIssues, Issue } from './types'
 import { Clef } from '../../common/clef'
 import { Duration } from '../../common/duration'
 
 function validateBars(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): Issue | undefined {
   if (config.bars <= 0) {
     return { type: 'error', label: t('Validation.ZeroBars') }
@@ -17,7 +17,7 @@ function validateBars(
 
 function validateBpm(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): Issue | undefined {
   if (config.bpm < 10 || config.bpm > 400) {
     return { type: 'error', label: t('Validation.WrongBpm') }
@@ -27,7 +27,7 @@ function validateBpm(
 
 function validateClef(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): Issue | undefined {
   if (config.clef === Clef.PERCUSSION) {
     return { type: 'error', label: t('Validation.PercussionClef') }
@@ -37,7 +37,7 @@ function validateClef(
 
 function validateKeySignature(
   _t: TFunction,
-  _config: GeneratorConfig2,
+  _config: GeneratorConfig,
 ): Issue | undefined {
   return undefined
 }
@@ -50,7 +50,7 @@ const DottedPairs: [Duration, Duration][] = [
 
 function validateNoteDurations(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): Issue | undefined {
   if (config.noteDurations.length === 0) {
     return { type: 'error', label: t('Validation.EmptyRhytms') }
@@ -75,7 +75,7 @@ function validateNoteDurations(
 
 function validateRestDurations(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): Issue | undefined {
   for (const [dotted, required] of DottedPairs) {
     if (
@@ -97,7 +97,7 @@ function validateRestDurations(
 
 function validateNotes(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): Issue | undefined {
   if (config.notes.length === 0) {
     return { type: 'error', label: t('Validation.EmptyNotes') }
@@ -107,7 +107,7 @@ function validateNotes(
 
 function validateConfiguration(
   t: TFunction,
-  config: GeneratorConfig2,
+  config: GeneratorConfig,
 ): ConfigIssues {
   return {
     bars: validateBars(t, config),
@@ -120,6 +120,6 @@ function validateConfiguration(
   }
 }
 
-export function useValidationIssues(config: GeneratorConfig2): ConfigIssues {
+export function useValidationIssues(config: GeneratorConfig): ConfigIssues {
   return useMemoizedTranslation1(validateConfiguration, config)
 }
