@@ -1,17 +1,14 @@
-import { FC, useMemo, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
 import { PagedModal, PagedModalButton } from '../PagedModal'
 import { SettingsPageProps } from './types'
-import { KeySignature } from '../../common/keySignature'
-import { Duration } from '../../common/duration'
-import { Clef } from '../../common/clef'
-import { GeneratorConfig } from '../../state/types'
 import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
 import { useSettingsButtons } from './useSettingsButtons'
-import { FOUR_STRING_BASS_UNFRETTED } from './controls/NotePresetPicker/presets'
-import { getSong } from '../../generator/getSong'
+import { useDispatch, useSelector } from 'react-redux'
+import { generatorSlice } from '../../state/generatorSlice'
+import { AppDispatch } from '../../state/store'
 
 export type SettingsModalProps = {
   onClose: () => void
@@ -19,39 +16,37 @@ export type SettingsModalProps = {
 
 export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
   const { t } = useTranslation()
+  const dispatch = useDispatch<AppDispatch>()
 
-  const [value, setValue] = useState<GeneratorConfig>(() => ({
-    bars: 4,
-    bpm: 60,
-    clef: Clef.TREBLE,
-    keySignature: KeySignature.C_MAJOR_A_MINOR,
-    noteDurations: [Duration.QUARTER],
-    restDurations: [Duration.QUARTER],
-    notes: FOUR_STRING_BASS_UNFRETTED,
-    timeStamp: Date.now(),
-  }))
+  const configInState = useSelector(generatorSlice.selectSlice)
+  const [config, setConfig] = useState(() => configInState)
 
-  const issues = useValidationIssues(value)
+  const issues = useValidationIssues(config)
   const buttons = useSettingsButtons(issues)
   const pages = useSettingsPages(issues)
   const [activePage, setActivePage] = useState<string>(pages[0]!.id)
 
+  useEffect(() => setConfig(configInState), [configInState])
+
   const pageProps = useMemo(
     (): SettingsPageProps => ({
-      onChange: setValue,
+      onChange: setConfig,
       onClose: onClose,
-      value,
+      value: config,
       issues,
     }),
-    [value, setValue, onClose],
+    [setConfig, onClose, config, issues],
   )
 
-  // TODO write to store, in state for now
   const onSave = (button: PagedModalButton) => {
     if (button.id === 'save') {
-      console.log('Saving', value)
-    } else {
-      getSong(value)
+      dispatch(
+        generatorSlice.actions.setGeneratorConfig({
+          ...config,
+          timeStamp: Date.now(),
+        }),
+      )
+      onClose()
     }
   }
 
