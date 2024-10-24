@@ -2,10 +2,10 @@ import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { DurationGrid } from '../controls/DurationGrid/DurationGrid'
-import { Duration } from '../../../common/common'
 import { SettingsPageProps } from '../types'
 import { isNotNil } from '../../../common/utils'
 import { issueComparator } from '../utils'
+import { Duration } from '../../../common/duration'
 
 export const PageRhythms: FC<SettingsPageProps> = ({
   value,

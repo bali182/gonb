@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { ClefButton } from './ClefButton'
-import { Clef } from '../../../../common/common'
 import { css } from '@emotion/css'
 import { useClefModel } from './useClefModel'
+import { Clef } from '../../../../common/clef'
 
 const wrapperStyle = css`
   display: flex;

@@ -1,23 +1,3 @@
-export const enum Duration {
-  WHOLE = 'WHOLE',
-  DOTTED_WHOLE = 'DOTTED_WHOLE',
-  HALF = 'HALF',
-  DOTTED_HALF = 'DOTTED_HALF',
-  QUARTER = 'QUARTER',
-  DOTTED_QUARTER = 'DOTTED_QUARTER',
-  EIGHTH = 'EIGHTH',
-  DOTTED_EIGHT = 'DOTTED_EIGHT',
-  SIXTEENTH = 'SIXTEENTH',
-  DOTTED_SIXTEENTH = 'DOTTED_SIXTEENTH',
-}
-
-export const enum Clef {
-  BASS = 'Bass',
-  TREBLE = 'Treble',
-  SOPRANO = 'Soprano',
-  PERCUSSION = 'Percussion',
-}
-
 export const enum KeySignature {
   // No sharps or flats
   C_MAJOR_A_MINOR = 'C',

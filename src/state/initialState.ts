@@ -1,4 +1,5 @@
-import { Clef, KeySignature } from '../common/common'
+import { Clef } from '../common/clef'
+import { KeySignature } from '../common/keySignature'
 import { AppState } from './types'
 
 export const initialState: AppState = {

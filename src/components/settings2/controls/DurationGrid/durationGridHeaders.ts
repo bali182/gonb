@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
 import { DurationHeader, TypeHeader } from './types'
-import { Duration } from '../../../../common/common'
+import { Duration } from '../../../../common/duration'
 
 function getTypeHeaders(t: TFunction): TypeHeader[] {
   return [

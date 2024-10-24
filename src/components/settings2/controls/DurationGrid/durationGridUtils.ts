@@ -1,4 +1,4 @@
-import { Duration } from '../../../../common/common'
+import { Duration } from '../../../../common/duration'
 import { DURATION_ROWS } from './durationGridModel'
 import { DurationHeader, TypeHeader, DurationType, DurationItem } from './types'
 

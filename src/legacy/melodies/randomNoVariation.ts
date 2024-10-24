@@ -1,4 +1,4 @@
-import { Duration } from '../../common/common'
+import { Duration } from '../../common/duration'
 import { bar, note } from './factories'
 
 export const randomWholeNote = [bar(note(Duration.WHOLE, 'RANDOM_SCALE'))]

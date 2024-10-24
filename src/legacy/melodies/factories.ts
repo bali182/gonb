@@ -1,4 +1,4 @@
-import { Duration } from '../../common/common'
+import { Duration } from '../../common/duration'
 import {
   FragmentBar,
   FragmentInterval,

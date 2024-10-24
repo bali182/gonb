@@ -1,4 +1,6 @@
-import { Clef, Duration, KeySignature } from '../common/common'
+import { Clef } from '../common/clef'
+import { Duration } from '../common/duration'
+import { KeySignature } from '../common/keySignature'
 import { MelodyType } from '../legacy/melodies/types'
 
 const Clefs: Record<Clef, string> = {

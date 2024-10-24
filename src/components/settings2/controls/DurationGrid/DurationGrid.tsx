@@ -8,7 +8,6 @@ import {
 } from './durationGridStyles'
 import { useDurationHeaders, useTypeHeaders } from './durationGridHeaders'
 import { DurationHeader, TypeHeader, DurationItem } from './types'
-import { Duration } from '../../../../common/common'
 import {
   getDurationHeaderSelection,
   getDurations,
@@ -20,6 +19,7 @@ import {
 } from './durationGridUtils'
 import { cx } from '@emotion/css'
 import { noop } from '../../../../common/utils'
+import { Duration } from '../../../../common/duration'
 
 const Disabled: Duration[] = [Duration.DOTTED_WHOLE, Duration.DOTTED_SIXTEENTH]
 

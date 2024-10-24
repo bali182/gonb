@@ -7,7 +7,7 @@ import Select, {
 } from 'react-select'
 import { SelectItem } from '../../types'
 import { defaultStyles } from '../dropdownStyles'
-import { KeySignature } from '../../../../common/common'
+import { KeySignature } from '../../../../common/keySignature'
 import { useKeySignatures } from './useKeySignatures'
 import { isNil } from '../../../../common/utils'
 import { Accidentals } from './Accidentals'

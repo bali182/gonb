@@ -1,10 +1,10 @@
 import { AtTrack } from '../alphaTex/alphaTex'
-import { Clef } from '../common/common'
 import { toAlphaTex } from '../alphaTex/toAlphaTex'
 import { generatorSlice } from './generatorSlice'
 import { melodySlice } from './melodySlice'
 import { createSelector } from '@reduxjs/toolkit'
 import { DEFAULT_TUNING } from '../alphaTex/constants'
+import { Clef } from '../common/clef'
 
 export const trackSelector = createSelector(
   [generatorSlice.selectSlice, melodySlice.selectSlice],

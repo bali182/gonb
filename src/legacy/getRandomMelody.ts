@@ -1,5 +1,4 @@
 import { AtBar, AtItem, AtNote } from '../alphaTex/alphaTex'
-import { Clef } from '../common/common'
 import {
   randomHalfNotes,
   randomQuarterNotes,
@@ -17,6 +16,7 @@ import { melodies } from './melodies/melodies'
 import { GeneratorConfig } from '../state/types'
 import { distance, pitchClass, transpose } from '@tonaljs/note'
 import { fromSemitones, semitones } from '@tonaljs/interval'
+import { Clef } from '../common/clef'
 
 function getFragments(type: MelodyType): FragmentBar[] {
   switch (type) {

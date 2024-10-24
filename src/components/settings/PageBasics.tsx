@@ -7,7 +7,8 @@ import { Dropdown } from './Dropdown'
 import { useTranslation } from 'react-i18next'
 import { generatorSlice } from '../../state/generatorSlice'
 import { GeneratorConfig } from '../../state/types'
-import { Clef, KeySignature } from '../../common/common'
+import { KeySignature } from '../../common/keySignature'
+import { Clef } from '../../common/clef'
 import {
   useClefTranslations,
   useKeySignatureTranslations,

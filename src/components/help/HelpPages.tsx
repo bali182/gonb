@@ -4,9 +4,9 @@ import { ScoreView } from '../ScoreView'
 import { AtSong } from '../../alphaTex/alphaTex'
 import { toAlphaTex } from '../../alphaTex/toAlphaTex'
 import { getHelpTrack } from './getHelpTrack'
-import { Clef } from '../../common/common'
 import { css } from '@emotion/css'
 import { noPlayer } from '../../alphaTex/alphaTabConfig'
+import { Clef } from '../../common/clef'
 
 type BaseHelpPageProps = {
   track: AtSong

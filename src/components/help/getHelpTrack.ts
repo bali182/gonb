@@ -1,5 +1,7 @@
 import { AtBar, AtNote, AtSong } from '../../alphaTex/alphaTex'
-import { Clef, Duration, KeySignature } from '../../common/common'
+import { KeySignature } from '../../common/keySignature'
+import { Clef } from '../../common/clef'
+import { Duration } from '../../common/duration'
 import { chunk, getScaleNotesInRange } from '../../common/utils'
 import { DEFAULT_TUNING } from '../../alphaTex/constants'
 import { pitchClass } from '@tonaljs/note'

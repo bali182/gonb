@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next'
-import { Clef, KeySignature } from '../../common/common'
+import { KeySignature } from '../../common/keySignature'
+import { Clef } from '../../common/clef'
 import { useMemoizedTranslation } from '../../common/useMemoizedTranslation'
 import { MelodyType } from '../../legacy/melodies/types'
 

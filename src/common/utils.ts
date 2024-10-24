@@ -1,6 +1,6 @@
 import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
 import { get as getScale } from '@tonaljs/scale'
-import { Duration, KeySignature } from './common'
+import { KeySignature } from './keySignature'
 
 export function isNil<T>(
   input: T | null | undefined,

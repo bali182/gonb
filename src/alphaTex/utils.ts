@@ -1,7 +1,7 @@
 import { semitones } from '@tonaljs/interval'
-import { Duration } from '../common/common'
 import { AtFrettedNote } from './alphaTex'
 import { distance, pitchClass } from '@tonaljs/note'
+import { Duration } from '../common/duration'
 
 export function hasDot(duration: Duration): boolean {
   switch (duration) {

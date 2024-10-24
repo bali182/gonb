@@ -1,5 +1,4 @@
-import { ComponentType } from 'react'
-import { Duration } from '../../../../common/common'
+import { Duration } from '../../../../common/duration'
 import {
   NoteDottedEighth,
   NoteDottedHalf,
@@ -136,9 +135,11 @@ export const DOTTED_REST_DURATIONS: ConstDurationItem[] = [
   },
 ]
 
-export const DURATION_ROWS: ConstDurationItem[][] = NOTE_DURATIONS.map((_, i) => [
-  NOTE_DURATIONS[i]!,
-  DOTTED_NOTE_DURATIONS[i]!,
-  REST_DURATIONS[i]!,
-  DOTTED_REST_DURATIONS[i]!,
-])
+export const DURATION_ROWS: ConstDurationItem[][] = NOTE_DURATIONS.map(
+  (_, i) => [
+    NOTE_DURATIONS[i]!,
+    DOTTED_NOTE_DURATIONS[i]!,
+    REST_DURATIONS[i]!,
+    DOTTED_REST_DURATIONS[i]!,
+  ],
+)

@@ -1,5 +1,5 @@
 import { TFunction } from 'i18next'
-import { KeySignature } from '../../../../common/common'
+import { KeySignature } from '../../../../common/keySignature'
 import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
 import { SelectItem } from '../../types'
 

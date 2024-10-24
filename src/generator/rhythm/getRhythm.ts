@@ -1,4 +1,4 @@
-import { Duration } from '../../common/common'
+import { Duration } from '../../common/duration'
 import { GeneratorConfig2 } from '../../state/types'
 import { getBarRhythm } from './getBarRhythm'
 import { RhythmItem } from './types'

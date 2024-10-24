@@ -1,5 +1,5 @@
 import { ComponentType } from 'react'
-import { Duration } from '../../../../common/common'
+import { Duration } from '../../../../common/duration'
 
 export type DurationType = 'REST' | 'NOTE'
 

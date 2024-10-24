@@ -1,4 +1,4 @@
-import { Clef, Duration, KeySignature } from '../../common/common'
+import { Duration } from '../../common/duration'
 
 export type FragmentInterval = 'RANDOM_SCALE' | number
 
