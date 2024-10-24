@@ -170,3 +170,29 @@ export function arraysEqual<T>(a: T[], b: T[]): boolean {
   }
   return true
 }
+
+export type WeightedItem<T> = {
+  value: T
+  weight: number
+}
+
+export function getRandomWeightedElement<T>(elements: WeightedItem<T>[]): T {
+  // Calculate the total weight
+  const totalWeight = elements.reduce((sum, element) => sum + element.weight, 0)
+
+  // Generate a random number between 0 and totalWeight
+  const random = Math.random() * totalWeight
+
+  // Iterate through the array to find the random element
+  let cumulativeWeight = 0
+  for (const { value, weight } of elements) {
+    cumulativeWeight += weight
+    if (random < cumulativeWeight) {
+      return value
+    }
+  }
+
+  // Fallback return statement, this should never be reached
+  // because the random number is always less than totalWeight
+  throw new Error('Should never reach here if input is valid')
+}

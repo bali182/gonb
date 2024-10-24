@@ -5,7 +5,7 @@ import { RhythmItem } from './types'
 
 export function getRhythm(config: GeneratorConfig): RhythmItem[][] {
   const durations: RhythmItem[][] = []
-  const hasWholeNote = config.notes.includes(Duration.WHOLE)
+  const hasWholeNote = config.noteDurations.includes(Duration.WHOLE)
   const randomDurations = hasWholeNote ? config.bars - 1 : config.bars
   for (let i = 0; i < randomDurations; i += 1) {
     durations.push(getBarRhythm(config))
