@@ -1,12 +1,39 @@
-import { Clef, KeySignature } from '../model/common'
+import { Clef, Duration, KeySignature } from '../model/common'
 import { MelodyType } from '../model/melodyFragment'
 import { Messages } from './types'
 
 const Clefs: Record<Clef, string> = {
-  [Clef.BASS]: 'Basszus kulcs',
-  [Clef.TREBLE]: 'Violin kulcs',
-  [Clef.SOPRANO]: '???',
-  [Clef.PERCUSSION]: '???',
+  [Clef.BASS]: 'Basszuskulcs',
+  [Clef.TREBLE]: 'Violinkulcs',
+  [Clef.SOPRANO]: 'Szopránkulcs',
+  [Clef.PERCUSSION]: 'Ütőkulcs',
+}
+
+const ClefsPrimary: Record<Clef, string> = {
+  [Clef.BASS]: 'Basszus',
+  [Clef.TREBLE]: 'Violin',
+  [Clef.SOPRANO]: 'Szoprán',
+  [Clef.PERCUSSION]: 'Ütő',
+}
+
+const ClefsAlternate: Record<Clef, string> = {
+  [Clef.BASS]: 'F kulcs',
+  [Clef.TREBLE]: 'G kulcs',
+  [Clef.SOPRANO]: 'C kulcs',
+  [Clef.PERCUSSION]: 'Ütőkulcs',
+}
+
+const Durations: Record<Duration, string> = {
+  [Duration.WHOLE]: 'egész hang',
+  [Duration.DOTTED_WHOLE]: 'pontozott egész hang',
+  [Duration.HALF]: 'fél hang',
+  [Duration.DOTTED_HALF]: 'pontozott fél hang',
+  [Duration.QUARTER]: 'negyed hang',
+  [Duration.DOTTED_QUARTER]: 'pontozott negyed hang',
+  [Duration.EIGHTH]: 'nyolcad hang',
+  [Duration.DOTTED_EIGHT]: 'pontozott nyolcad hang',
+  [Duration.SIXTEENTH]: 'tizenhatod hang',
+  [Duration.DOTTED_SIXTEENTH]: 'pontozott tizenhatod hang',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -57,15 +84,14 @@ export const hu: Messages = {
     BarCountDescription: 'Generált ütemek száma (a generált dallam hossza).',
 
     Clef: 'Kulcs',
-    ClefDescription:
-      'Zenei kulcs amiben gyakorolni akarsz (basszus vagy violin).',
-    KeySignature: 'Hangnem',
-    KeySignatureDescription: 'A hangnem amiben gyakorolni akarsz',
+    ClefDescription: 'Zenei kulcs amiben gyakorolni szeretnél.',
+    KeySignature: 'Előjegyzés',
+    KeySignatureDescription: 'Az előjegyzés amivel gyakorolni szeretnél.',
     MelodyType: 'Dallam típusa',
-    MelodyTypeDescription: 'Dallam típusa amit gyakorolni akarsz.',
+    MelodyTypeDescription: 'Dallam típusa amit gyakorolni szeretnél.',
     Range: 'Tartomány',
     RangeDescription:
-      'Bundok tartománya amiben gyakorolni akarsz (gitár vagy basszus).',
+      'Bundok tartománya amiben gyakorolni szeretnél (gitár vagy basszus).',
     NonScaleNotes: 'Skálán kívüli hangok',
     NonScaleNotesDescription:
       'Skálán kívül eső hangok használata (random ♯-ek és ♭-k gyakorlására).',
@@ -77,8 +103,55 @@ export const hu: Messages = {
     TuningName: 'Hangolás',
     TuningDescription: 'A hangszered hangolása',
     TuningAddString: 'Húr hozzáadása',
+
+    BasicsPage: 'Alapbeállítások',
+    NotesPage: 'Hangok',
+    RhythmsPage: 'Ritmusok',
+    Save: 'Mentés',
+    NotesPreset: 'Hang profilok',
+    NotesPresetDescription: 'Előre beállított hang profilok',
+    Notes: 'Hangok',
+    NotesDescription:
+      'Válaszd ki a hangokat amikkel gyakorolni szeretnél (vagy válassz egy profilt)',
+    RhythmDurations: 'Ritmusok',
+    RhythmDurationsDescription: 'Ritmusok amiket gyakrolni szeretnél',
   },
   Clefs,
   KeySignatures,
   MelodyTypes,
+
+  NotePresets: {
+    SixStringGuitar: '6 Húros Gitár',
+    SevenStringGuitar: '7 Húros Gitár',
+    FourStringBass: '4 Húros Basszusgitár',
+    FiveStringBass: '5 Húros Basszusgitár',
+    SixStringGuitarUnfretted: '6 Húros Gitár (csak húrok)',
+    SevenStringGuitarUnfretted: '7 Húros Gitár (csak húrok)',
+    FourStringBassUnfretted: '4 Húros Basszusgitár (csak húrok)',
+    FiveStringBassUnfretted: '5 Húros Basszusgitár (csak húrok)',
+  },
+  NoteAndRestHeaders: {
+    Notes: 'Hangok',
+    DottedNotes: 'Pontozott hangok',
+    Rests: 'Szünetek',
+    DottedRests: 'Pontozott szünetek',
+  },
+  DurationHeaders: {
+    Whole: 'Egész hangok',
+    Half: 'Fél hangok',
+    Quarter: 'Negyed hangok',
+    Eighth: 'Nyolcad hangok',
+    Sixteenth: 'Tizenhatod hangok',
+  },
+  ClefsPrimary,
+  ClefsAlternate,
+  Durations,
+  Validation: {
+    PercussionClef: 'Ez a kulcs még nem működik.',
+    ZeroBars: 'Legalább 1 ütem szükséges.',
+    WrongBpm: 'A tempó 10 és 400 bpm között kell hogy legyen.',
+    EmptyNotes: 'Válassz legalább 1 hangot.',
+    EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
+    DottedRhytms: `Amikor a {{dotted}} ki van választva, a {{required}} kiválasztása kötelező.`,
+  },
 }
