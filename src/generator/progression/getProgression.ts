@@ -25,7 +25,7 @@ function groupByFunction(
   return map
 }
 
-export function getChordProgression(config: GeneratorConfig2) {
+export function getProgression(config: GeneratorConfig2) {
   const chords = getDiatonicChords(config)
   const secondaryDominants = getSecondaryDominants(config, chords)
   const templates = getPossibleTemplates(config, chords, secondaryDominants)

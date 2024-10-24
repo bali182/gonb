@@ -9,7 +9,7 @@ import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
 import { useSettingsButtons } from './useSettingsButtons'
 import { FOUR_STRING_BASS_UNFRETTED } from './controls/NotePresetPicker/presets'
-import { getRandomContent } from '../../generator/getRandomContent'
+import { getSong } from '../../generator/getSong'
 
 export type SettingsModalProps = {
   onClose: () => void
@@ -48,7 +48,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     if (button.id === 'save') {
       console.log('Saving', value)
     } else {
-      getRandomContent(value)
+      getSong(value)
     }
   }
 
