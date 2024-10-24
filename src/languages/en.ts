@@ -1,5 +1,5 @@
 import { Clef, Duration, KeySignature } from '../common/common'
-import { MelodyType } from '../model/melodies/types'
+import { MelodyType } from '../legacy/melodies/types'
 
 const Clefs: Record<Clef, string> = {
   [Clef.BASS]: 'Bass clef',

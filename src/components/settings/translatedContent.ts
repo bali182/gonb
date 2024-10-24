@@ -1,7 +1,7 @@
 import { TFunction } from 'i18next'
 import { Clef, KeySignature } from '../../common/common'
 import { useMemoizedTranslation } from '../../common/useMemoizedTranslation'
-import { MelodyType } from '../../model/melodies/types'
+import { MelodyType } from '../../legacy/melodies/types'
 
 function getClefTranslations(t: TFunction): Map<Clef, string> {
   const clefs = [Clef.TREBLE, Clef.BASS]

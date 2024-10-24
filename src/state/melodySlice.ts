@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { initialState } from './initialState'
 import { AtBar } from '../alphaTex/alphaTex'
 import { generatorSlice } from './generatorSlice'
-import { getRandomMelody } from '../model/getRandomMelody'
+import { getRandomMelody } from '../legacy/getRandomMelody'
 
 export type SetMelodyPayload = AtBar[]
 
