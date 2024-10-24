@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js'
-import { Duration } from '../../model/common'
+import { Duration } from '../../common/common'
 
 export function asFraction(duration: Duration, amount: number = 1): Fraction {
   switch (duration) {

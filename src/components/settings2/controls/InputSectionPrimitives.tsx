@@ -2,7 +2,7 @@ import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
 import { Issue } from '../types'
 import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi'
-import { isNil } from '../../../model/utils'
+import { isNil } from '../../../common/utils'
 
 const sectionStyle = css`
   display: flex;

@@ -1,4 +1,4 @@
-import { Clef } from '../../../../model/common'
+import { Clef } from '../../../../common/common'
 
 export type ClefModel = {
   clef: Clef

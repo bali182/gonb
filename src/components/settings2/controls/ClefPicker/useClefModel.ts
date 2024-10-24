@@ -1,8 +1,8 @@
 import { TFunction } from 'i18next'
 import { ClefModel } from './types'
-import { Clef } from '../../../../model/common'
+import { Clef } from '../../../../common/common'
 import { css } from '@emotion/css'
-import { useMemoizedTranslation } from '../../../../model/useMemoizedTranslation'
+import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
 
 function getClefModel(t: TFunction): ClefModel[] {
   return [

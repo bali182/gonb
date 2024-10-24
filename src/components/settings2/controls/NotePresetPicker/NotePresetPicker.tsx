@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { SelectItem } from '../../types'
 import { defaultComponents, defaultStyles } from '../dropdownStyles'
 import { useNotePresets } from './useNotePresets'
-import { arraysEqual, isNil } from '../../../../model/utils'
+import { arraysEqual, isNil } from '../../../../common/utils'
 
 export type NotePresetPicker = {
   value: string[]

@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 import { SelectItem } from '../../types'
-import { useMemoizedTranslation } from '../../../../model/useMemoizedTranslation'
+import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
 import {
   FIVE_STRING_BASS,
   FIVE_STRING_BASS_UNFRETTED,

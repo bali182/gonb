@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react'
-import { KeySignature } from '../../../../model/common'
+import { KeySignature } from '../../../../common/common'
 import {
   getAccidental,
   getAccidentalAmount,

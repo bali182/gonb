@@ -3,7 +3,7 @@ import { GiFClef, GiGClef } from 'react-icons/gi'
 import { ModalPage } from '../PagedModal'
 import { BassClefHelpPage, TrebleClefHelpPage } from './HelpPages'
 import { TFunction } from 'i18next'
-import { useMemoizedTranslation } from '../../model/useMemoizedTranslation'
+import { useMemoizedTranslation } from '../../common/useMemoizedTranslation'
 
 function getHelpPages(t: TFunction): ModalPage[] {
   return [

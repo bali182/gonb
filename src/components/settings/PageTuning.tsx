@@ -2,7 +2,7 @@ import { css } from '@emotion/css'
 import { FC, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../state/store'
-import { lerp, moveDown, moveUp, removeByIndex } from '../../model/utils'
+import { lerp, moveDown, moveUp, removeByIndex } from '../../common/utils'
 import {
   PiArrowDownBold,
   PiArrowUpBold,

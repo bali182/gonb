@@ -1,4 +1,4 @@
-import { isNil, isNotNil } from '../../model/utils'
+import { isNil, isNotNil } from '../../common/utils'
 import { GeneratorConfig2 } from '../../state/types'
 import { deafultTemplates } from './templates'
 import {

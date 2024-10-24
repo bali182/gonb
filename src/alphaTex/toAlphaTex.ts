@@ -7,7 +7,7 @@ import {
   AtSong,
   AtTrack,
 } from './alphaTex'
-import { isNil, isNotNil } from '../model/utils'
+import { isNil, isNotNil } from '../common/utils'
 import { asFrettedNote, asNumber, hasDot } from './utils'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction

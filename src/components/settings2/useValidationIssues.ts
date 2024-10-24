@@ -1,8 +1,8 @@
 import { TFunction } from 'i18next'
-import { useMemoizedTranslation1 } from '../../model/useMemoizedTranslation'
+import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
 import { GeneratorConfig2 } from '../../state/types'
 import { ConfigIssues, Issue } from './types'
-import { Clef, Duration } from '../../model/common'
+import { Clef, Duration } from '../../common/common'
 
 function validateBars(
   t: TFunction,

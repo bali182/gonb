@@ -1,4 +1,4 @@
-import { KeySignature } from '../../../../model/common'
+import { KeySignature } from '../../../../common/common'
 import { Accidental } from './types'
 
 export function getAccidental(

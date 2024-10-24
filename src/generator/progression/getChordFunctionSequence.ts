@@ -1,4 +1,4 @@
-import { isNil, randomElement } from '../../model/utils'
+import { isNil, randomElement } from '../../common/utils'
 import { GeneratorConfig2 } from '../../state/types'
 import { ChordsHarmonicFunction } from './types'
 

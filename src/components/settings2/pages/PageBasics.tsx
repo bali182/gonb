@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
-import { Clef, KeySignature } from '../../../model/common'
+import { Clef, KeySignature } from '../../../common/common'
 import { ClefPicker } from '../controls/ClefPicker/ClefPicker'
 import { KeySignaturePicker } from '../controls/KeySignaturePicker/KeySignaturePicker'
 import { NumberInput } from '../controls/Input/NumberInput'

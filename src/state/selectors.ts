@@ -1,5 +1,5 @@
 import { AtTrack } from '../alphaTex/alphaTex'
-import { Clef } from '../model/common'
+import { Clef } from '../common/common'
 import { toAlphaTex } from '../alphaTex/toAlphaTex'
 import { generatorSlice } from './generatorSlice'
 import { melodySlice } from './melodySlice'

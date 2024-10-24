@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { ClefButton } from './ClefButton'
-import { Clef } from '../../../../model/common'
+import { Clef } from '../../../../common/common'
 import { css } from '@emotion/css'
 import { useClefModel } from './useClefModel'
 

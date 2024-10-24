@@ -1,4 +1,4 @@
-import { Clef, Duration, KeySignature } from '../model/common'
+import { Clef, Duration, KeySignature } from '../common/common'
 
 export type AtInstrumentType = 'AcousticBass' | 'AcousticGuitarSteel'
 

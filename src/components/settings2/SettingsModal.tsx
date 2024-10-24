@@ -3,7 +3,7 @@ import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
 import { PagedModal, PagedModalButton } from '../PagedModal'
 import { SettingsPageProps } from './types'
-import { Clef, Duration, KeySignature } from '../../model/common'
+import { Clef, Duration, KeySignature } from '../../common/common'
 import { GeneratorConfig2 } from '../../state/types'
 import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
@@ -26,6 +26,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     noteDurations: [Duration.QUARTER],
     restDurations: [Duration.QUARTER],
     notes: FOUR_STRING_BASS_UNFRETTED,
+    timeStamp: Date.now(),
   }))
 
   const issues = useValidationIssues(value)

@@ -1,18 +1,18 @@
 import { AtBar, AtItem, AtNote } from '../alphaTex/alphaTex'
-import { Clef } from './common'
+import { Clef } from '../common/common'
 import {
   randomHalfNotes,
   randomQuarterNotes,
   randomWholeNote,
 } from './melodies/randomNoVariation'
-import { FragmentBar, FragmentItem, MelodyType } from './melodyFragment'
+import { FragmentBar, FragmentItem, MelodyType } from './melodies/types'
 import {
   findMin,
   getScaleNotesInRange,
   isNil,
   randomElement,
   randomIn as randomInRange,
-} from './utils'
+} from '../common/utils'
 import { melodies } from './melodies/melodies'
 import { GeneratorConfig } from '../state/types'
 import { distance, pitchClass, transpose } from '@tonaljs/note'

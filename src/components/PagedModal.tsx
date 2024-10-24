@@ -4,7 +4,7 @@ import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
 import { IconType } from 'react-icons'
 import { Button } from './Button'
-import { isNil, noop } from '../model/utils'
+import { isNil, noop } from '../common/utils'
 
 export type ModalPage<T = any> = {
   id: string

@@ -1,7 +1,7 @@
 import { FC, useState, useCallback } from 'react'
 import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
-import { useAlphaTab } from '../model/useAlphaTab'
+import { useAlphaTab } from '../alphaTex/useAlphaTab'
 import { PlayerControls } from './PlayerControls'
 import { useDispatch, useSelector } from 'react-redux'
 import { alphaTexSelector } from '../state/selectors'

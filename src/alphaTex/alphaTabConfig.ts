@@ -1,5 +1,5 @@
 import { json } from '@coderline/alphatab'
-import { isNil, isNotNil } from './utils'
+import { isNil, isNotNil } from '../common/utils'
 
 const core: json.CoreSettingsJson = {
   tex: true,

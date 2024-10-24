@@ -1,5 +1,5 @@
 import { semitones } from '@tonaljs/interval'
-import { Duration } from '../model/common'
+import { Duration } from '../common/common'
 import { AtFrettedNote } from './alphaTex'
 import { distance, pitchClass } from '@tonaljs/note'
 

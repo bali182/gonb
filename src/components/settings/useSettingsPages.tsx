@@ -4,7 +4,7 @@ import { PageBasics } from './PageBasics'
 import { PageDetails } from './PageDetails'
 import { ModalPage } from '../PagedModal'
 import { TFunction } from 'i18next'
-import { useMemoizedTranslation } from '../../model/useMemoizedTranslation'
+import { useMemoizedTranslation } from '../../common/useMemoizedTranslation'
 
 function getSettingsPages(t: TFunction): ModalPage[] {
   return [

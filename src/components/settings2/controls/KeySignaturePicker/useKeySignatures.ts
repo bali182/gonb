@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
-import { KeySignature } from '../../../../model/common'
-import { useMemoizedTranslation } from '../../../../model/useMemoizedTranslation'
+import { KeySignature } from '../../../../common/common'
+import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
 import { SelectItem } from '../../types'
 
 function getKeySignatures(t: TFunction): SelectItem<KeySignature>[] {

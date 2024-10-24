@@ -1,6 +1,6 @@
 import { semitones } from '@tonaljs/interval'
 import { AtBar, AtItem, AtNote } from '../../alphaTex/alphaTex'
-import { isNil, randomElement } from '../../model/utils'
+import { isNil, randomElement } from '../../common/utils'
 import { GeneratorConfig2 } from '../../state/types'
 import { MelodyBarInput } from './types'
 import { distance } from '@tonaljs/note'

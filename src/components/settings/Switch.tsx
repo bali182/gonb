@@ -1,7 +1,7 @@
 import { css, cx } from '@emotion/css'
 import { FC, InputHTMLAttributes } from 'react'
 import { EditorProps } from './types'
-import { noop } from '../../model/utils'
+import { noop } from '../../common/utils'
 
 const switchStyle = css`
   position: relative;

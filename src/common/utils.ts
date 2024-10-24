@@ -1,13 +1,6 @@
 import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
 import { get as getScale } from '@tonaljs/scale'
 import { Duration, KeySignature } from './common'
-import {
-  FragmentBar,
-  FragmentInterval,
-  FragmentItem,
-  FragmentNote,
-  FragmentRest,
-} from './melodyFragment'
 
 export function isNil<T>(
   input: T | null | undefined,
@@ -27,32 +20,6 @@ export function randomElement<T>(array: T[]): T | undefined {
 
 export function randomIn(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
-export function bar(...items: FragmentItem[]): FragmentBar {
-  return {
-    items,
-  }
-}
-
-export function note(
-  duration: Duration,
-  steps: FragmentInterval,
-  shift?: number,
-): FragmentNote {
-  return {
-    type: 'note',
-    duration,
-    steps,
-    shift,
-  }
-}
-
-export function rest(duration: Duration): FragmentRest {
-  return {
-    type: 'rest',
-    duration,
-  }
 }
 
 export function findMin<T>(arr: T[], transform: (item: T) => number): T {

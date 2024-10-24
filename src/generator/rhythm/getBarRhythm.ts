@@ -1,10 +1,10 @@
 import Fraction from 'fraction.js'
 import { GeneratorConfig2 } from '../../state/types'
 import { RhythmItem } from './types'
-import { Duration } from '../../model/common'
+import { Duration } from '../../common/common'
 import { asFraction } from './asFraction'
 import { lte } from './utils'
-import { randomElement } from '../../model/utils'
+import { randomElement } from '../../common/utils'
 
 const BAR_LENGTH = new Fraction(1, 1)
 const NOTE_CHANCE = 0.9

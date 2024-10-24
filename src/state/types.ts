@@ -1,6 +1,6 @@
 import { AtBar } from '../alphaTex/alphaTex'
-import { Clef, Duration, KeySignature } from '../model/common'
-import { MelodyType } from '../model/melodyFragment'
+import { Clef, Duration, KeySignature } from '../common/common'
+import { MelodyType } from '../model/melodies/types'
 
 export type PlayerConfig = {
   metronomeVolume: number
@@ -16,6 +16,8 @@ export type GeneratorConfig2 = {
   notes: string[]
   noteDurations: Duration[]
   restDurations: Duration[]
+  // Just for easier regeneration
+  timeStamp: number
 }
 
 export type GeneratorConfig = {

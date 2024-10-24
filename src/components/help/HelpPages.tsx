@@ -1,12 +1,12 @@
 import { FC, useMemo, useState } from 'react'
-import { useAlphaTab } from '../../model/useAlphaTab'
+import { useAlphaTab } from '../../alphaTex/useAlphaTab'
 import { ScoreView } from '../ScoreView'
 import { AtSong } from '../../alphaTex/alphaTex'
 import { toAlphaTex } from '../../alphaTex/toAlphaTex'
 import { getHelpTrack } from './getHelpTrack'
-import { Clef } from '../../model/common'
+import { Clef } from '../../common/common'
 import { css } from '@emotion/css'
-import { noPlayer } from '../../model/alphaTabConfig'
+import { noPlayer } from '../../alphaTex/alphaTabConfig'
 
 type BaseHelpPageProps = {
   track: AtSong

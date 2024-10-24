@@ -1,7 +1,7 @@
 import { PiFloppyDiskBold, PiTestTubeBold } from 'react-icons/pi'
 import { PagedModalButton } from '../PagedModal'
 import { TFunction } from 'i18next'
-import { useMemoizedTranslation1 } from '../../model/useMemoizedTranslation'
+import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
 import { ConfigIssues } from './types'
 
 function getButtons(t: TFunction, issues: ConfigIssues): PagedModalButton[] {
