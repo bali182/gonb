@@ -55,7 +55,6 @@ export type PlayerControlsProps = {
   isPlaying: boolean
   instrumentVolume: number
   metronomeVolume: number
-  bpm: number
   onPlayPause: () => void
   onLoop: () => void
   onStop: () => void

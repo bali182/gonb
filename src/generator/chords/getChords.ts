@@ -11,7 +11,7 @@ export function getChords(
     const atChord: AtChord = {
       type: 'chord',
       duration: Duration.WHOLE,
-      notes: chord.triad.map((note) => `${note}5`),
+      notes: chord.triad.map((note) => `${note}4`),
       label: `${chord.triadName}`,
     }
     return { items: [atChord] }

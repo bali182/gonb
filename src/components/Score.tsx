@@ -4,10 +4,9 @@ import { ScoreOverlay } from './ScoreOverlay'
 import { useAlphaTab } from '../alphaTex/useAlphaTab'
 import { PlayerControls } from './PlayerControls'
 import { useDispatch, useSelector } from 'react-redux'
-import { alphaTexSelector, songSelector } from '../state/selectors'
+import { alphaTexSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
 import { AppDispatch } from '../state/store'
-import { generatorSlice } from '../state/generatorSlice'
 import { ScoreView } from './ScoreView'
 
 const wrapStyle = css`
@@ -27,7 +26,6 @@ export const Score: FC = () => {
   const [root, setRoot] = useState<HTMLElement>()
   const tex = useSelector(alphaTexSelector)
   const playerConfig = useSelector(playerSlice.selectSlice)
-  const { bpm } = useSelector(generatorSlice.selectSlice)
 
   const setScrollAreaCallback = useCallback((node: HTMLDivElement | null) => {
     setScrollArea(node ?? undefined)
@@ -63,13 +61,10 @@ export const Score: FC = () => {
     )
   const onTempoChange = () => {}
 
-  console.log(tex)
-
   const { api, isPlaying, isLoading } = useAlphaTab({
     tex,
     root,
     scrollArea,
-    bpm,
     instrumentVolume: playerConfig.instrumentVolume,
     metronomeVolume: playerConfig.metronomeVolume,
     isLooping: playerConfig.isLooping,
@@ -87,7 +82,6 @@ export const Score: FC = () => {
         setScrollAreaCallback={setScrollAreaCallback}
       />
       <PlayerControls
-        bpm={bpm}
         isPlaying={isPlaying}
         isLooping={playerConfig.isLooping}
         instrumentVolume={playerConfig.instrumentVolume}

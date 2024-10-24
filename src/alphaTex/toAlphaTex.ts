@@ -44,6 +44,7 @@ function withLabel(content: string, label: string | undefined): string {
   return parts.filter(isNotNil).join(' ')
 }
 
+// TODO Brush doesn't seem to work
 function withBrush(content: string): string {
   return `${content} {bd 120}`
 }
@@ -68,7 +69,7 @@ function getChord(chord: AtChord, tuning: string[]): string {
     return `${fret}.${string}`
   })
   const duration = getDuration(chord.duration)
-  return withBrush(withLabel(`(${notes.join(' ')}).${duration}`, chord.label))
+  return withLabel(`(${notes.join(' ')}).${duration}`, chord.label)
 }
 
 function getItem(item: AtItem, tuning: string[]): string {
@@ -105,7 +106,7 @@ function getBars(model: AtTrack): string[] {
 
 function getTrack(model: AtTrack): string {
   const metadata = getTrackMetadata(model).join(' ')
-  const lines = [metadata, getBars(model).join('\n|')]
+  const lines = [metadata, getBars(model).join(' | ')]
   return lines.join('\n')
 }
 
@@ -113,7 +114,7 @@ export function toAlphaTex(model: AtSong): string {
   const lines: string[] = [
     getSongMetaData(model).join(' '),
     '.',
-    ...model.tracks.map((track) => getTrack(track)),
+    ...model.tracks.map((track) => `${getTrack(track)}`),
   ]
   return lines.join('\n')
 }

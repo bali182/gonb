@@ -1,7 +1,7 @@
 import { AlphaTabApi, json, synth } from '@coderline/alphatab'
 import { useEffect, useState } from 'react'
 import { alphaTabConfig } from './alphaTabConfig'
-import { findInIterable, isNil, isNotNil } from '../common/utils'
+import { isNil } from '../common/utils'
 
 export type UseAlphaTabResult = {
   api: AlphaTabApi | undefined
@@ -16,14 +16,12 @@ export type UseAlphaTabConfig = {
   instrumentVolume?: number
   metronomeVolume?: number
   isLooping?: boolean
-  bpm?: number
   player?: Partial<json.PlayerSettingsJson>
 }
 
 const noop = () => {}
 
 export function useAlphaTab({
-  bpm,
   tex,
   root,
   player,
@@ -38,7 +36,7 @@ export function useAlphaTab({
 
   useEffect(() => {
     if (!isNil(api)) {
-      api.tex(tex)
+      api.tex(tex, [0])
     }
   }, [api, tex])
 
@@ -47,12 +45,6 @@ export function useAlphaTab({
       api.isLooping = isLooping
     }
   }, [api, isLooping])
-
-  useEffect(() => {
-    if (!isNil(api) && !isNil(api.score)) {
-      // TODO change tempo
-    }
-  }, [api, bpm])
 
   useTrackVolume(api, 0, instrumentVolume)
   useMetronomeVolume(api, metronomeVolume)

@@ -37,7 +37,7 @@ export function getSong(config: GeneratorConfig): AtSong {
     name: 'chords',
     shortName: 'c',
     clef: Clef.TREBLE,
-    instrument: 'AcousticGrandPiano',
+    instrument: 'AcousticGuitarSteel',
     keySignature: config.keySignature,
     timeSignature: {
       top: 4,
