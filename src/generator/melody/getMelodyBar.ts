@@ -109,6 +109,11 @@ export function getMelodyBar(
     )
   }
 
+  if (items.length > 0) {
+    const item = items[0]!
+    item.label = current.chord.triadName
+  }
+
   return { items }
 }
 

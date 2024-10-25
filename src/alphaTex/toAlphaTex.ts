@@ -39,28 +39,31 @@ function getTrackMetadata(track: AtTrack): string[] {
   return pieces.filter(isNotNil)
 }
 
-function withLabel(content: string, label: string | undefined): string {
-  const parts = [content, isNil(label) ? undefined : `{ch "${label}"}`]
-  return parts.filter(isNotNil).join(' ')
-}
-
-// TODO Brush doesn't seem to work
-function withBrush(content: string): string {
-  return `${content} {bd 120}`
-}
-
-function getDuration(duration: Duration): string {
-  return `${asNumber(duration)}${hasDot(duration) ? '{d}' : ''}`
+function getEffects(effects: (string | undefined)[]): string | undefined {
+  const nonNull = effects.filter(isNotNil)
+  if (nonNull.length === 0) {
+    return undefined
+  }
+  return ` {${effects.join(' ')}}`
 }
 
 function getNote({ duration, note, label }: AtNote, tuning: string[]): string {
   const { fret, string } = asFrettedNote(note, tuning)
-  const atDuration = getDuration(duration)
-  return withLabel(`${fret}.${string}.${atDuration}`, label)
+  const atDuration = asNumber(duration)
+  const effects = getEffects([
+    hasDot(duration) ? 'd' : undefined,
+    isNil(label) ? undefined : `ch ${label}`,
+  ])
+
+  return `${fret}.${string}.${atDuration}${isNil(effects) ? '' : effects}`
 }
 
 function getRest({ duration, label }: AtRest): string {
-  return withLabel(`r.${getDuration(duration)}`, label)
+  const effects = getEffects([
+    hasDot(duration) ? 'd' : undefined,
+    isNil(label) ? undefined : `ch ${label}`,
+  ])
+  return `r.${asNumber(duration)}${isNil(effects) ? '' : effects}`
 }
 
 function getChord(chord: AtChord, tuning: string[]): string {
@@ -68,8 +71,13 @@ function getChord(chord: AtChord, tuning: string[]): string {
     const { fret, string } = asFrettedNote(note, tuning)
     return `${fret}.${string}`
   })
-  const duration = getDuration(chord.duration)
-  return withLabel(`(${notes.join(' ')}).${duration}`, chord.label)
+  const effects = getEffects([
+    hasDot(chord.duration) ? 'd' : undefined,
+    isNil(chord.label) ? undefined : `ch ${chord.label}`,
+    // `bd 50`,
+  ])
+  const duration = asNumber(chord.duration)
+  return `(${notes.join(' ')}).${duration}${isNil(effects) ? '' : effects}`
 }
 
 function getItem(item: AtItem, tuning: string[]): string {
