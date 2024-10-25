@@ -1,8 +1,11 @@
 import { FC } from 'react'
 import { css } from '@emotion/css'
 import { VolumeSlider } from './VolumeSlider'
-import { PiMetronomeBold } from 'react-icons/pi'
-import { GiGuitarHead } from 'react-icons/gi'
+import {
+  PiMetronomeBold,
+  PiMusicNoteBold,
+  PiMusicNotesBold,
+} from 'react-icons/pi'
 import { LoopButton, PlayButton, StopButton } from './ScoreControls'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 
@@ -11,7 +14,7 @@ const playerControlsStyle = css`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  height: 100px;
+  height: 140px;
   margin-bottom: 20px;
   margin-left: 200px;
   margin-right: 200px;
@@ -54,13 +57,14 @@ export type PlayerControlsProps = {
   isLooping: boolean
   isPlaying: boolean
   instrumentVolume: number
+  chordsVolume: number
   metronomeVolume: number
   onPlayPause: () => void
   onLoop: () => void
   onStop: () => void
   onInstrumentVolumeChange: (volume: number) => void
+  onChordsVolumeChange: (volume: number) => void
   onMetronomeVolumeChange: (metronomeVolume: number) => void
-  onTempoChange: (bpm: number) => void
 }
 
 export const PlayerControls: FC<PlayerControlsProps> = ({
@@ -68,11 +72,13 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
   isLooping,
   instrumentVolume,
   metronomeVolume,
+  chordsVolume,
   onPlayPause,
   onLoop,
   onStop,
   onInstrumentVolumeChange,
   onMetronomeVolumeChange,
+  onChordsVolumeChange,
 }) => {
   return (
     <div className={playerControlsStyle}>
@@ -83,9 +89,14 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
           onChange={onMetronomeVolumeChange}
         />
         <VolumeSlider
-          Icon={GiGuitarHead}
+          Icon={PiMusicNoteBold}
           value={instrumentVolume}
           onChange={onInstrumentVolumeChange}
+        />
+        <VolumeSlider
+          Icon={PiMusicNotesBold}
+          value={chordsVolume}
+          onChange={onChordsVolumeChange}
         />
       </div>
       <div className={middleContainerStyle}>

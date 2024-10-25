@@ -14,6 +14,7 @@ export type UseAlphaTabConfig = {
   root: HTMLElement | undefined
   scrollArea: HTMLElement | undefined
   instrumentVolume?: number
+  chordsVolume?: number
   metronomeVolume?: number
   isLooping?: boolean
   player?: Partial<json.PlayerSettingsJson>
@@ -28,6 +29,7 @@ export function useAlphaTab({
   scrollArea,
   isLooping,
   instrumentVolume,
+  chordsVolume,
   metronomeVolume,
 }: UseAlphaTabConfig): UseAlphaTabResult {
   const [api, setApi] = useState<AlphaTabApi>()
@@ -47,6 +49,7 @@ export function useAlphaTab({
   }, [api, isLooping])
 
   useTrackVolume(api, 0, instrumentVolume)
+  useTrackVolume(api, 1, chordsVolume)
   useMetronomeVolume(api, metronomeVolume)
 
   useEffect(() => {
@@ -54,7 +57,11 @@ export function useAlphaTab({
       const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea, player))
 
       _api.renderStarted.on(() => setLoading(true))
-      _api.renderFinished.on(() => setLoading(false))
+      _api.renderFinished.on(() => {
+        setLoading(false)
+        setTrackVolume(_api, 0, instrumentVolume)
+        setTrackVolume(_api, 1, chordsVolume)
+      })
       _api.playerStateChanged.on(({ state }) =>
         setPlaying(state === synth.PlayerState.Playing),
       )
@@ -66,7 +73,6 @@ export function useAlphaTab({
       if (!isNil(metronomeVolume)) {
         _api.metronomeVolume = metronomeVolume
       }
-      setTrackVolume(_api, 0, instrumentVolume)
 
       setApi(_api)
       return () => _api.destroy()
@@ -108,12 +114,15 @@ export function setTrackVolume(
   trackIndex: number,
   volume: number | undefined,
 ): void {
-  if (isNil(api) || isNil(volume)) {
-    return
-  }
-  const track = api.score?.tracks[trackIndex]
-  if (isNil(track)) {
-    return
-  }
-  api.changeTrackVolume([track], volume)
+  // Seems to be necessary, otherwise volume might not be set
+  setTimeout(() => {
+    if (isNil(api) || isNil(volume)) {
+      return
+    }
+    const track = api.score?.tracks[trackIndex]
+    if (isNil(track)) {
+      return
+    }
+    api.changeTrackVolume([track], volume)
+  }, 5)
 }

@@ -7,6 +7,7 @@ import { MelodyType } from '../legacy/melodies/types'
 export type PlayerConfig = {
   metronomeVolume: number
   instrumentVolume: number
+  chordsVolume: number
   isLooping: boolean
 }
 

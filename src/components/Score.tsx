@@ -59,7 +59,13 @@ export const Score: FC = () => {
         metronomeVolume,
       }),
     )
-  const onTempoChange = () => {}
+  const onChordsVolumeChange = (chordsVolume: number) =>
+    dispatch(
+      playerSlice.actions.setPlayerConfig({
+        ...playerConfig,
+        chordsVolume,
+      }),
+    )
 
   const { api, isPlaying, isLoading } = useAlphaTab({
     tex,
@@ -67,6 +73,7 @@ export const Score: FC = () => {
     scrollArea,
     instrumentVolume: playerConfig.instrumentVolume,
     metronomeVolume: playerConfig.metronomeVolume,
+    chordsVolume: playerConfig.chordsVolume,
     isLooping: playerConfig.isLooping,
   })
 
@@ -86,11 +93,12 @@ export const Score: FC = () => {
         isLooping={playerConfig.isLooping}
         instrumentVolume={playerConfig.instrumentVolume}
         metronomeVolume={playerConfig.metronomeVolume}
+        chordsVolume={playerConfig.chordsVolume}
         onLoop={onLoop}
         onStop={onStop}
         onPlayPause={onPlayPause}
-        onTempoChange={onTempoChange}
         onInstrumentVolumeChange={onInstrumentVolumeChange}
+        onChordsVolumeChange={onChordsVolumeChange}
         onMetronomeVolumeChange={onMetronomeVolumeChange}
       />
     </div>

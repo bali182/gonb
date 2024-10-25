@@ -9,6 +9,7 @@ export const initialState: AppState = {
     isLooping: false,
     metronomeVolume: 0.5,
     instrumentVolume: 0.5,
+    chordsVolume: 0.2,
   },
   generator: {
     bars: 4,
