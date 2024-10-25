@@ -1,12 +1,12 @@
 import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
-import { get as getTonalChord } from '@tonaljs/chord'
+import { Chord, get as getTonalChord } from '@tonaljs/chord'
 import { GeneratorConfig } from '../../state/types'
 import {
   TonalJsHarmonicFunction,
   ProgressionChord,
   ChordsHarmonicFunction,
 } from './types'
-import { MajorKey } from '@tonaljs/key'
+import { isNil } from '../../common/utils'
 
 export function asHarmonicFunction(
   fn: TonalJsHarmonicFunction,
@@ -21,6 +21,12 @@ export function asHarmonicFunction(
   }
 }
 
+function matchesPitchClass(reference: string, pitchedNote: string): boolean {
+  const pc = pitchClass(pitchedNote)
+  const eh = enharmonic(pc)
+  return pc === reference || eh === reference
+}
+
 function midiComparator(noteA: string, noteB: string): number {
   const midiA = midi(noteA) ?? Infinity
   const midiB = midi(noteB) ?? Infinity
@@ -33,11 +39,9 @@ export function getChordMelodyNotes(
 ): string[] {
   return chordNotes
     .flatMap((chordNote) =>
-      melodyNotes.filter((melodyNote) => {
-        const mnPitchClass = pitchClass(melodyNote)
-        const mnEnharmonic = enharmonic(mnPitchClass)
-        return chordNote === mnPitchClass || chordNote === mnEnharmonic
-      }),
+      melodyNotes.filter((melodyNote) =>
+        matchesPitchClass(chordNote, melodyNote),
+      ),
     )
     .sort(midiComparator)
 }
@@ -46,8 +50,39 @@ export function getMelodyNotesInRange(config: GeneratorConfig): Set<string> {
   return new Set(config.notes.map((note) => pitchClass(note)))
 }
 
+function getBestBassNote(
+  chord: Chord,
+  melodyNotes: string[],
+): string | undefined {
+  if (melodyNotes.length === 0) {
+    return undefined
+  }
+  const rootNote = chord.tonic ?? chord.notes[0]!
+  // Check if the root is present in the melody notes, get the lowest if present
+  const root = melodyNotes.find((note) => matchesPitchClass(rootNote, note))
+  if (!isNil(root)) {
+    return root
+  }
+
+  // Do the same for the fifth
+  const fifthIndex = chord.intervals.findIndex(
+    (interval) => interval === '5P' || interval === '5A' || interval === '5d',
+  )
+  const fifthOfChord = chord.notes[fifthIndex]
+  if (!isNil(fifthOfChord)) {
+    const fifth = melodyNotes.find((note) =>
+      matchesPitchClass(fifthOfChord, note),
+    )
+    if (!isNil(fifth)) {
+      return fifth
+    }
+  }
+  // As a fallback, return any other melody note.
+  return melodyNotes[0]!
+}
+
 export function getChord(
-  key: MajorKey,
+  scale: string[],
   triadName: string,
   seventhName: string,
   fn: ChordsHarmonicFunction,
@@ -55,16 +90,19 @@ export function getChord(
 ): ProgressionChord {
   const seventh = getTonalChord(seventhName)
   const triad = getTonalChord(triadName)
+  const triadMelodyNotes = getChordMelodyNotes(triad.notes, melodyNotes)
+  const bassMelodyNote = getBestBassNote(triad, triadMelodyNotes)
   return {
     seventhName: seventhName,
     triadName: triadName,
     seventh: seventh.notes,
     triad: triad.notes,
-    triadMelodyNotes: getChordMelodyNotes(triad.notes, melodyNotes),
-    seventhMelodyNotes: getChordMelodyNotes(seventh.notes, melodyNotes),
     harmonicFunction: fn,
-    scale: key.scale as string[],
-    scaleMelodyNotes: getChordMelodyNotes(key.scale, melodyNotes),
+    scale: scale,
+    bassMelodyNote: bassMelodyNote,
+    triadMelodyNotes: triadMelodyNotes,
+    seventhMelodyNotes: getChordMelodyNotes(seventh.notes, melodyNotes),
+    scaleMelodyNotes: getChordMelodyNotes(scale, melodyNotes),
   }
 }
 

@@ -22,7 +22,8 @@ export function getSong(config: GeneratorConfig): AtSong {
     shortName: 'm',
     bars: melody,
     clef: config.clef,
-    instrument: 'AcousticGrandPiano',
+    instrument:
+      config.clef === Clef.BASS ? 'AcousticBass' : 'AcousticGuitarSteel',
     keySignature: config.keySignature,
     timeSignature: {
       top: 4,

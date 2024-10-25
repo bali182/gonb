@@ -3,15 +3,13 @@ import { GeneratorConfig } from '../../state/types'
 import { ProgressionChord, TonalJsHarmonicFunction } from './types'
 import { asHarmonicFunction, getChord } from './utils'
 
-export function getDiatonicChords(
-  config: GeneratorConfig,
-): ProgressionChord[] {
+export function getDiatonicChords(config: GeneratorConfig): ProgressionChord[] {
   const key = majorKey(config.keySignature)
   const harmonicFns = key.chordsHarmonicFunction as TonalJsHarmonicFunction[]
   return key.triads
     .map((triad, i) =>
       getChord(
-        key,
+        key.scale as string[],
         triad,
         key.chords[i]!,
         asHarmonicFunction(harmonicFns[i]!),

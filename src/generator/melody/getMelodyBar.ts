@@ -1,12 +1,31 @@
 import { semitones } from '@tonaljs/interval'
 import { AtBar, AtItem, AtNote } from '../../alphaTex/alphaTex'
-import { isNil, randomElement } from '../../common/utils'
+import {
+  getRandomWeightedElement,
+  isNil,
+  randomElement,
+  WeightedItem,
+} from '../../common/utils'
 import { GeneratorConfig } from '../../state/types'
 import { MelodyBarInput } from './types'
 import { distance } from '@tonaljs/note'
+import { RhythmItem } from '../rhythm/types'
+import { ProgressionChord } from '../progression/types'
+import { Clef } from '../../common/clef'
 
-const CHORD_TONE_PERCENTAGE = 0.5
-const CLOSEST_PERCENTAGE = 0.8
+type MelodyNoteType = 'chord-tone' | 'chord-scale' | 'random'
+type MelodyNoteDistanceType = 'closest' | 'close' | 'random'
+
+const MIDDLE_NOTE_TYPES: WeightedItem<MelodyNoteType>[] = [
+  { value: 'chord-tone', weight: 50 },
+  { value: 'chord-scale', weight: 100 },
+  { value: 'random', weight: 1 },
+]
+
+const MIDDLE_NOTE_DISTANCES: WeightedItem<MelodyNoteDistanceType>[] = [
+  { value: 'closest', weight: 100 },
+  { value: 'close', weight: 50 },
+]
 
 const distanceComparator =
   (note: string) =>
@@ -16,14 +35,14 @@ const distanceComparator =
     return aDist - bDist
   }
 
-function findClosest(note: string, notes: string[]): string {
+function listClosest(note: string, notes: string[]): string[] {
   const withoutNote = notes.filter((n) => n !== note)
   // Only one note, nothing to do
   if (withoutNote.length === 0) {
-    return note
+    return [note]
   }
-  const [closest] = withoutNote.sort(distanceComparator(note))
-  return isNil(closest) ? note : closest
+  const closest = withoutNote.sort(distanceComparator(note))
+  return closest.length === 0 ? [note] : closest
 }
 
 function findLast<T>(items: T[], predicate: (item: T) => boolean): T {
@@ -67,47 +86,119 @@ export function getMelodyBar(
 
     // Very first note, start it on a chord tone
     if (isFirstNoteOfChord && isFirstBar) {
-      items.push({
-        type: 'note',
-        duration: rhythm.duration,
-        note: randomElement(current.chord.triadMelodyNotes)!,
-      })
+      items.push(getFirstNoteOfFirstBar(rhythm, current, config))
       continue
     }
 
     // First note in second, third, etc bar, find the closest chord tone
     // to the previous bars last note, so the transition is smooth.
     if (isFirstNoteOfChord && !isFirstBar) {
-      const lastNoteOfPreviousBar = findLastNote(previous?.items ?? [])
-      const note = findClosest(
-        lastNoteOfPreviousBar.note,
-        current.chord.triadMelodyNotes,
-      )
-      items.push({ type: 'note', duration: rhythm.duration, note })
+      items.push(getFirstNoteInNonFirstBar(rhythm, current, previous, config))
       continue
     }
 
     // Last note of the bar, let's find note close to a chord tone
     // of the next chord.
     if (isLastNoteOfChord && !isLastBar) {
-      const randomNextChordTone = randomElement(next.chord.triadMelodyNotes)!
-      const closest = findClosest(randomNextChordTone, config.notes)
-      items.push({ type: 'note', duration: rhythm.duration, note: closest })
+      items.push(getLastNoteOfBar(rhythm, next, config))
       continue
     }
 
-    const useChordTone = Math.random() < CHORD_TONE_PERCENTAGE
-    const useClosest = Math.random() < CLOSEST_PERCENTAGE
-    const lastNoteItem = findLastNote(items)
-    const lastNote = lastNoteItem.note
-
-    const array = useChordTone ? current.chord.seventhMelodyNotes : config.notes
-    const note = useClosest
-      ? findClosest(lastNote, array)
-      : randomElement(array)!
-
-    items.push({ type: 'note', duration: rhythm.duration, note })
+    items.push(
+      getMiddleNoteOfBar(rhythm, current, config, findLastNote(items).note),
+    )
   }
 
   return { items }
+}
+
+function getFirstNoteOfFirstBar(
+  rhythm: RhythmItem,
+  current: MelodyBarInput,
+  config: GeneratorConfig,
+): AtItem {
+  const note =
+    config.clef === Clef.BASS
+      ? current.chord.bassMelodyNote!
+      : randomElement(current.chord.triadMelodyNotes)!
+  return { type: 'note', duration: rhythm.duration, note }
+}
+
+function getFirstNoteInNonFirstBar(
+  rhythm: RhythmItem,
+  current: MelodyBarInput,
+  previous: AtBar | undefined,
+  config: GeneratorConfig,
+): AtNote {
+  const lastNoteOfPreviousBar = findLastNote(previous?.items ?? [])
+  const note =
+    config.clef === Clef.BASS
+      ? current.chord.bassMelodyNote!
+      : listClosest(
+          lastNoteOfPreviousBar.note,
+          current.chord.triadMelodyNotes,
+        )[0]!
+  return { type: 'note', duration: rhythm.duration, note }
+}
+
+function getPossibleMelodyNotes(
+  type: MelodyNoteType,
+  chord: ProgressionChord,
+  config: GeneratorConfig,
+): string[] {
+  switch (type) {
+    case 'chord-tone':
+      return chord.seventhMelodyNotes
+    case 'chord-scale':
+      return chord.scaleMelodyNotes
+    case 'random':
+      return config.notes
+  }
+}
+
+function getMelodyNotesByDistance(
+  reference: string,
+  type: MelodyNoteDistanceType,
+  notes: string[],
+): string[] {
+  switch (type) {
+    case 'closest':
+      return [listClosest(reference, notes)[0]!]
+    case 'close':
+      // TODO check if this is enough granularity
+      return listClosest(reference, notes).slice(0, 3)
+    case 'random':
+      return notes
+  }
+}
+
+function getMiddleNoteOfBar(
+  rhythm: RhythmItem,
+  current: MelodyBarInput,
+  config: GeneratorConfig,
+  lastNote: string,
+): AtNote {
+  const noteType = getRandomWeightedElement(MIDDLE_NOTE_TYPES)
+  const distanceType = getRandomWeightedElement(MIDDLE_NOTE_DISTANCES)
+  const options = getPossibleMelodyNotes(noteType, current.chord, config)
+  const narrowedOptions = getMelodyNotesByDistance(
+    lastNote,
+    distanceType,
+    options,
+  )
+  const note = randomElement(narrowedOptions)!
+  return { type: 'note', duration: rhythm.duration, note }
+}
+
+function getLastNoteOfBar(
+  rhythm: RhythmItem,
+  next: MelodyBarInput,
+  config: GeneratorConfig,
+): AtNote {
+  const randomNextChordTone =
+    config.clef === Clef.BASS
+      ? next.chord.bassMelodyNote!
+      : randomElement(next.chord.triadMelodyNotes)!
+  const closest = listClosest(randomNextChordTone, config.notes)[0]!
+  return { type: 'note', duration: rhythm.duration, note: closest }
 }
