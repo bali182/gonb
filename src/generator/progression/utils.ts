@@ -6,7 +6,7 @@ import {
   ProgressionChord,
   ChordsHarmonicFunction,
 } from './types'
-import { isNil } from '../../common/utils'
+import { isNil, midiComparator } from '../../common/utils'
 
 export function asHarmonicFunction(
   fn: TonalJsHarmonicFunction,
@@ -25,12 +25,6 @@ function matchesPitchClass(reference: string, pitchedNote: string): boolean {
   const pc = pitchClass(pitchedNote)
   const eh = enharmonic(pc)
   return pc === reference || eh === reference
-}
-
-function midiComparator(noteA: string, noteB: string): number {
-  const midiA = midi(noteA) ?? Infinity
-  const midiB = midi(noteB) ?? Infinity
-  return midiA - midiB
 }
 
 export function getChordMelodyNotes(

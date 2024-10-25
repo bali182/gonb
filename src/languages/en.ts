@@ -86,6 +86,7 @@ export const en = {
     BasicsPage: 'Basic Settings',
     NotesPage: 'Notes',
     RhythmsPage: 'Rhythms',
+    SharePage: 'Share',
 
     Save: 'Save',
 
@@ -125,6 +126,13 @@ export const en = {
     RhythmDurations: 'Rhythm durations',
     RhythmDurationsDescription:
       'Select the individual note and rest durations you want to practice',
+
+    ShareableLink: 'Shareable link',
+    ShareableLinkDescription:
+      'Grab a shareable link for your configuration! This contains no tracking data!',
+    ClickToCopy: 'Click to copy URL to the clipboard!',
+    CopySuccess: 'Successfully copied to the clipboard!',
+    CopyFailure: 'Failed to copy to the clipboard!',
   },
   NotePresets: {
     SixStringGuitar: '6 String Guitar',

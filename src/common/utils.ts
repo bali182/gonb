@@ -196,3 +196,9 @@ export function getRandomWeightedElement<T>(elements: WeightedItem<T>[]): T {
   // because the random number is always less than totalWeight
   throw new Error('Should never reach here if input is valid')
 }
+
+export function midiComparator(noteA: string, noteB: string): number {
+  const midiA = midi(noteA) ?? Infinity
+  const midiB = midi(noteB) ?? Infinity
+  return midiA - midiB
+}
