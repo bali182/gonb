@@ -133,8 +133,10 @@ export const en = {
     ClickToCopy: 'Click to copy URL to the clipboard!',
     CopySuccess: 'Successfully copied to the clipboard!',
     CopyFailure: 'Failed to copy to the clipboard!',
+    ScaleOnly: 'Scale only',
   },
   NotePresets: {
+    Custom: 'Custom notes',
     SixStringGuitar: '6 String Guitar',
     SevenStringGuitar: '7 String Guitar',
     FourStringBass: '4 String Bass',

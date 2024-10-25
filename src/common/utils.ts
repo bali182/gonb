@@ -202,3 +202,12 @@ export function midiComparator(noteA: string, noteB: string): number {
   const midiB = midi(noteB) ?? Infinity
   return midiA - midiB
 }
+
+export function matchesPitchClass(
+  reference: string,
+  pitchedNote: string,
+): boolean {
+  const pc = pitchClass(pitchedNote)
+  const eh = enharmonic(pc)
+  return pc === reference || eh === reference
+}

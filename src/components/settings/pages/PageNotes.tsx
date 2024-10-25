@@ -18,7 +18,11 @@ export const PageNotes: FC<SettingsPageProps> = ({
       <Section>
         <Label>{t('Settings.NotesPreset')}</Label>
         <Description>{t('Settings.NotesPresetDescription')}</Description>
-        <NotePresetPicker value={value.notes} onChange={setNotes} />
+        <NotePresetPicker
+          value={value.notes}
+          keySignature={value.keySignature}
+          onChange={setNotes}
+        />
       </Section>
       <Section>
         <Label>{t('Settings.Notes')}</Label>
