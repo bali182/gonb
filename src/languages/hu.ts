@@ -66,6 +66,7 @@ const MelodyTypes: Record<MelodyType, string> = {
 export const hu: Messages = {
   Language: 'Nyelv',
   Score: {
+    MelodyIn: `Egy dallam {{key}}-ben`,
     AlphaTabRenderedBy: 'Kottát rajzolta:',
   },
   Menu: {

@@ -1,6 +1,7 @@
 import { AtSong, AtTrack } from '../alphaTex/alphaTex'
 import { DEFAULT_TUNING } from '../alphaTex/constants'
 import { Clef } from '../common/clef'
+import { i18n } from '../languages/i18n'
 import { GeneratorConfig } from '../state/types'
 import { getChords } from './chords/getChords'
 import { getMelody } from './melody/getMelody'
@@ -49,7 +50,7 @@ export function getSong(config: GeneratorConfig): AtSong {
   }
 
   return {
-    title: `Melody in ${config.keySignature}`,
+    title: i18n.t('Score.MelodyIn', { key: config.keySignature }),
     music: 'Édes Balázs',
     tempo: config.bpm,
     tracks: [melodyTrack, chordsTrack],

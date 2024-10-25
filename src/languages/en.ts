@@ -65,6 +65,7 @@ const MelodyTypes: Record<MelodyType, string> = {
 export const en = {
   Language: 'Language',
   Score: {
+    MelodyIn: `A Melody in {{key}}`,
     AlphaTabRenderedBy: 'Score rendered by:',
   },
   Menu: {
