@@ -12,7 +12,10 @@ const toolbarStyle = css`
   justify-content: space-between;
   height: 120px;
   width: 100%;
-  padding: 20px 200px;
+  padding: 20px 20px;
+  @media (min-width: 1080px) {
+    padding: 20px 200px;
+  }
 `
 
 const buttonsContainer = css`
@@ -20,10 +23,23 @@ const buttonsContainer = css`
   flex-direction: row;
   align-items: center;
   gap: 8px;
+  overflow: hidden;
 `
 
-const helpButtonStyle = css`
-  margin-left: 20px;
+const toolBarButtonStyle = css`
+  overflow: hidden;
+  flex: 0 1 auto;
+`
+
+const toolBarButtonLabelStyle = css`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  flex: 0 1 auto;
+`
+
+const toolBarButtonIconStyle = css`
+  flex-shrink: 0;
 `
 
 type ToolbarProps = {
@@ -42,17 +58,19 @@ export const Toolbar: FC<ToolbarProps> = ({
     <div className={toolbarStyle}>
       <SheetLogo />
       <div className={buttonsContainer}>
-        <Button onClick={onRegenerate}>
-          <PiFastForwardBold />
-          {t('Menu.GenerateNew')}
+        <Button onClick={onRegenerate} className={toolBarButtonStyle}>
+          <PiFastForwardBold className={toolBarButtonIconStyle} />
+          <span className={toolBarButtonLabelStyle}>
+            {t('Menu.GenerateNew')}
+          </span>
         </Button>
-        <Button onClick={onOpenSettings}>
-          <PiGearBold />
-          {t('Menu.Settings')}
+        <Button onClick={onOpenSettings} className={toolBarButtonStyle}>
+          <PiGearBold className={toolBarButtonIconStyle} />
+          <span className={toolBarButtonLabelStyle}> {t('Menu.Settings')}</span>
         </Button>
-        <Button onClick={onOpenHelp} className={helpButtonStyle}>
-          <PiQuestionBold />
-          {t('Menu.Help')}
+        <Button onClick={onOpenHelp} className={toolBarButtonStyle}>
+          <PiQuestionBold className={toolBarButtonIconStyle} />
+          <span className={toolBarButtonLabelStyle}> {t('Menu.Help')}</span>
         </Button>
       </div>
     </div>

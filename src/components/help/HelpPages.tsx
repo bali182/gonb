@@ -23,6 +23,14 @@ const pageStyle = css`
   position: relative;
 `
 
+const viewPortStyle = css`
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  padding: 0px;
+`
+
 const BaseHelpPage: FC<BaseHelpPageProps> = ({ track }) => {
   const [scrollArea, setScrollArea] = useState<HTMLElement>()
   const [root, setRoot] = useState<HTMLElement>()
@@ -39,11 +47,7 @@ const BaseHelpPage: FC<BaseHelpPageProps> = ({ track }) => {
   return (
     <div id="help-page" className={pageStyle}>
       <ScoreView
-        viewPortLeft={0}
-        viewPortRight={0}
-        viewPortTop={0}
-        viewPortBottom={0}
-        padding={0}
+        viewPortStyle={viewPortStyle}
         setRootCallback={setRoot}
         setScrollAreaCallback={setScrollArea}
       />

@@ -21,6 +21,20 @@ const wrapStyle = css`
   position: relative;
 `
 
+const viewPortStyle = css`
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  padding: 20px;
+
+  @media (min-width: 1080px) {
+    left: 200px;
+    right: 200px;
+    bottom: 30px;
+    padding: 30px;
+  }
+`
+
 export const Score: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [scrollArea, setScrollArea] = useState<HTMLElement>()
@@ -84,10 +98,7 @@ export const Score: FC = () => {
     <div className={wrapStyle}>
       <ScoreOverlay isVisible={isLoading} />
       <ScoreView
-        viewPortLeft={200}
-        viewPortRight={200}
-        viewPortBottom={30}
-        padding={30}
+        viewPortStyle={viewPortStyle}
         setRootCallback={setRootCallback}
         setScrollAreaCallback={setScrollAreaCallback}
       />

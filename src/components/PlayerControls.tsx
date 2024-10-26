@@ -15,14 +15,18 @@ const playerControlsStyle = css`
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   height: 140px;
-  margin-bottom: 20px;
-  margin-left: 200px;
-  margin-right: 200px;
-  /* background-color: #141719; */
-
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0%;
   background-color: #333;
-  border-radius: 8px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  @media (min-width: 1080px) {
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
 `
 
 const volumeContainerStyle = css`

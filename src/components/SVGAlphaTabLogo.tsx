@@ -13,8 +13,12 @@ const noteStyle = css`
 `
 
 const renderedByStyle = css`
+  visibility: hidden;
   font-size: 0.85em;
   color: #ffffff99;
+  @media (min-width: 1080px) {
+    visibility: visible;
+  }
 `
 
 const wrapperStyle = css`

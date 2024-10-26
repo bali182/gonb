@@ -1,14 +1,10 @@
 import { FC } from 'react'
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 
 export type ScoreViewProps = {
-  viewPortLeft?: number
-  viewPortRight?: number
-  viewPortTop?: number
-  viewPortBottom?: number
-  padding?: number
   setRootCallback: (root: HTMLDivElement) => void
   setScrollAreaCallback: (area: HTMLDivElement) => void
+  viewPortStyle?: string
 }
 
 const contentStyle = css`
@@ -18,7 +14,7 @@ const contentStyle = css`
   flex: 1 1 auto;
 `
 
-const viewportStyle = css`
+const baseViewportStyle = css`
   // .at-viewport
   overflow-y: auto;
   position: absolute;
@@ -32,23 +28,12 @@ const viewportStyle = css`
 export const ScoreView: FC<ScoreViewProps> = ({
   setRootCallback,
   setScrollAreaCallback,
-  viewPortLeft,
-  viewPortRight,
-  viewPortBottom,
-  viewPortTop,
-  padding,
+  viewPortStyle,
 }) => {
   return (
     <div className={contentStyle}>
       <div
-        className={viewportStyle}
-        style={{
-          left: viewPortLeft,
-          right: viewPortRight,
-          top: viewPortTop,
-          bottom: viewPortBottom,
-          padding,
-        }}
+        className={cx(baseViewportStyle, viewPortStyle)}
         ref={setScrollAreaCallback}
       >
         <div ref={setRootCallback}></div>

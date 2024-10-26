@@ -14,9 +14,9 @@ const C_MAJOR_GUITAR = SIX_STRING_GUITAR.filter((note) =>
 export const initialState: AppState = {
   player: {
     isLooping: false,
-    metronomeVolume: 0.5,
+    metronomeVolume: 0.25,
     instrumentVolume: 0.5,
-    chordsVolume: 0.2,
+    chordsVolume: 0.25,
   },
   generator: {
     bars: 4,
