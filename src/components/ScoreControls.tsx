@@ -1,9 +1,9 @@
 import { css, cx } from '@emotion/css'
 import { DOMAttributes, FC } from 'react'
 import {
-  PiPauseBold,
-  PiPlayBold,
-  PiStopBold,
+  PiPauseFill,
+  PiPlayFill,
+  PiStopFill,
   PiRepeatBold,
 } from 'react-icons/pi'
 
@@ -72,7 +72,7 @@ export const PlayButton: FC<ToggleButtonProps> = ({
 }) => {
   return (
     <button className={playButtonStyle} onClick={onClick} {...rest}>
-      {isToggled ? <PiPauseBold /> : <PiPlayBold />}
+      {isToggled ? <PiPauseFill /> : <PiPlayFill />}
     </button>
   )
 }
@@ -96,7 +96,7 @@ export const LoopButton: FC<ToggleButtonProps> = ({
 export const StopButton: FC<BasicButtonProps> = ({ onClick, ...rest }) => {
   return (
     <button className={secondaryButtonStyle} onClick={onClick} {...rest}>
-      <PiStopBold />
+      <PiStopFill />
     </button>
   )
 }
