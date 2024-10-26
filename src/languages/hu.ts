@@ -162,6 +162,8 @@ export const hu: Messages = {
     ZeroBars: 'Legalább 1 ütem szükséges.',
     WrongBpm: 'A tempó 10 és 400 bpm között kell hogy legyen.',
     EmptyNotes: 'Válassz legalább 1 hangot.',
+    NoScaleNotes:
+      'Válassz legalább 1 hangot a {{scale}} dúr skálából ({{scaleNotes}} hangok egyikét).',
     EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
     DottedRhytms: `Amikor a {{dotted}} ki van választva, a {{required}} kiválasztása kötelező.`,
   },

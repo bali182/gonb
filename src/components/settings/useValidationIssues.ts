@@ -4,6 +4,8 @@ import { GeneratorConfig } from '../../state/types'
 import { ConfigIssues, Issue } from './types'
 import { Clef } from '../../common/clef'
 import { Duration } from '../../common/duration'
+import { get } from '@tonaljs/scale'
+import { matchesPitchClass } from '../../common/utils'
 
 function validateBars(
   t: TFunction,
@@ -15,10 +17,7 @@ function validateBars(
   return undefined
 }
 
-function validateBpm(
-  t: TFunction,
-  config: GeneratorConfig,
-): Issue | undefined {
+function validateBpm(t: TFunction, config: GeneratorConfig): Issue | undefined {
   if (config.bpm < 10 || config.bpm > 400) {
     return { type: 'error', label: t('Validation.WrongBpm') }
   }
@@ -101,6 +100,19 @@ function validateNotes(
 ): Issue | undefined {
   if (config.notes.length === 0) {
     return { type: 'error', label: t('Validation.EmptyNotes') }
+  }
+  const scale = get(`${config.keySignature} major`).notes
+  const hasScaleNote = config.notes.some((n) =>
+    scale.some((s) => matchesPitchClass(s, n)),
+  )
+  if (!hasScaleNote) {
+    return {
+      type: 'error',
+      label: t('Validation.NoScaleNotes', {
+        scale: config.keySignature,
+        scaleNotes: scale.join(', '),
+      }),
+    }
   }
   return undefined
 }

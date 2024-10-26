@@ -171,6 +171,8 @@ export const en = {
     ZeroBars: 'There must be at least one bar.',
     WrongBpm: 'Tempo must be between 10 and 400 bpm.',
     EmptyNotes: 'Select at least 1 note.',
+    NoScaleNotes:
+      'Select at least 1 note of {{scale}} major (one of {{scaleNotes}}).',
     EmptyRhytms: 'Select at least 1 rhytm type for notes.',
     DottedRhytms: `When {{dotted}} is selected, {{required}} must be selected as well.`,
   },
