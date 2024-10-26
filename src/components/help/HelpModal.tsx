@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { PiGearFill } from 'react-icons/pi'
+import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
 import { useHelpPages } from './useHelpPages'
 import { PagedModal } from '../PagedModal'
@@ -14,7 +14,7 @@ export const HelpModal: FC<HelpModalProps> = ({ onClose }) => {
   const { t } = useTranslation()
   return (
     <PagedModal
-      icon={PiGearFill}
+      icon={PiGearBold}
       activePage={activePage}
       title={t('Help.Help')}
       onClose={onClose}

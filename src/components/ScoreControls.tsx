@@ -1,12 +1,11 @@
 import { css, cx } from '@emotion/css'
 import { DOMAttributes, FC } from 'react'
 import {
-  RiPauseLargeFill,
-  RiPlayLargeFill,
-  RiPrinterFill,
-  RiStopLargeFill,
-} from 'react-icons/ri'
-import { RxLoop } from 'react-icons/rx'
+  PiPauseBold,
+  PiPlayBold,
+  PiStopBold,
+  PiRepeatBold,
+} from 'react-icons/pi'
 
 export type BasicButtonProps = DOMAttributes<HTMLButtonElement> & {
   onClick: () => void
@@ -73,7 +72,7 @@ export const PlayButton: FC<ToggleButtonProps> = ({
 }) => {
   return (
     <button className={playButtonStyle} onClick={onClick} {...rest}>
-      {isToggled ? <RiPauseLargeFill /> : <RiPlayLargeFill />}
+      {isToggled ? <PiPauseBold /> : <PiPlayBold />}
     </button>
   )
 }
@@ -89,7 +88,7 @@ export const LoopButton: FC<ToggleButtonProps> = ({
   )
   return (
     <button className={className} onClick={onClick} {...rest}>
-      <RxLoop />
+      <PiRepeatBold />
     </button>
   )
 }
@@ -97,15 +96,7 @@ export const LoopButton: FC<ToggleButtonProps> = ({
 export const StopButton: FC<BasicButtonProps> = ({ onClick, ...rest }) => {
   return (
     <button className={secondaryButtonStyle} onClick={onClick} {...rest}>
-      <RiStopLargeFill />
-    </button>
-  )
-}
-
-export const PrintButton: FC<BasicButtonProps> = ({ onClick, ...rest }) => {
-  return (
-    <button className={secondaryButtonStyle} onClick={onClick} {...rest}>
-      <RiPrinterFill />
+      <PiStopBold />
     </button>
   )
 }

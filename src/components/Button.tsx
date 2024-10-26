@@ -8,7 +8,7 @@ const buttonStyle = css`
   justify-content: center;
   border: none;
   color: #ffffff;
-  padding: 5px 12px;
+  padding: 5px 14px 5px 12px;
   gap: 6px;
   cursor: pointer;
   font-size: 1.2em;

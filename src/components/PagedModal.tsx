@@ -1,8 +1,8 @@
 import { css, cx } from '@emotion/css'
 import { ComponentType, useMemo } from 'react'
+import { IconType } from 'react-icons'
 import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
-import { IconType } from 'react-icons'
 import { Button } from './Button'
 import { isNil, noop } from '../common/utils'
 
