@@ -80,13 +80,11 @@ export const en = {
   },
   Settings: {
     Settings: 'Settings',
-    Basics: 'Basics',
-    Details: 'Details',
-    Tuning: 'Tuning',
 
     BasicsPage: 'Basic Settings',
     NotesPage: 'Notes',
     RhythmsPage: 'Rhythms',
+    ChordsPage: 'Chords',
     SharePage: 'Share',
 
     Save: 'Save',
@@ -135,6 +133,13 @@ export const en = {
     CopySuccess: 'Successfully copied to the clipboard!',
     CopyFailure: 'Failed to copy to the clipboard!',
     ScaleOnly: 'Scale only',
+
+    ShowChords: 'Show accompaniment',
+    ShowChordsDescription:
+      'Shows chords played under the main melody part in a separate staff',
+    SeventhChords: 'Use extended chords',
+    SeventhChordsDescription:
+      'Uses extended chords for the accompaniment instead of triads',
   },
   NotePresets: {
     Custom: 'Custom notes',

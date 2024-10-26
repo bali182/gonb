@@ -81,11 +81,9 @@ export const hu: Messages = {
   },
   Settings: {
     Settings: 'Beállítások',
-    Basics: 'Alap',
-    Details: 'Egyéb',
+
     BarCount: 'Ütemek száma',
     BarCountDescription: 'Generált ütemek száma (a generált dallam hossza).',
-
     Clef: 'Kulcs',
     ClefDescription: 'Zenei kulcs amiben gyakorolni szeretnél.',
     KeySignature: 'Előjegyzés',
@@ -102,7 +100,6 @@ export const hu: Messages = {
     TempoDescription: 'A generált dallam sebessége.',
     ShowNoteNames: 'Hangok nevei',
     ShowNoteNamesDescription: 'Mutassa a hangok nevét.',
-    Tuning: 'Hangolás',
     TuningName: 'Hangolás',
     TuningDescription: 'A hangszered hangolása',
     TuningAddString: 'Húr hozzáadása',
@@ -110,21 +107,30 @@ export const hu: Messages = {
     BasicsPage: 'Alapbeállítások',
     NotesPage: 'Hangok',
     RhythmsPage: 'Ritmusok',
+    ChordsPage: 'Akkordok',
+    SharePage: 'Megosztás',
+
     Save: 'Mentés',
     NotesPreset: 'Hang profilok',
-    NotesPresetDescription: 'Előre beállított hang profilok',
+    NotesPresetDescription: 'Válassz előre beállított hang profilok közül!',
     Notes: 'Hangok',
     NotesDescription:
-      'Válaszd ki a hangokat amikkel gyakorolni szeretnél (vagy válassz egy profilt)',
+      'Válaszd ki a hangokat amikkel gyakorolni szeretnél (vagy válassz egy profilt).',
     RhythmDurations: 'Ritmusok',
-    RhythmDurationsDescription: 'Ritmusok amiket gyakrolni szeretnél',
-    SharePage: 'Megosztás',
+    RhythmDurationsDescription: 'Ritmusok amiket gyakrolni szeretnél.',
     ShareableLink: 'Megosztható link',
     ShareableLinkDescription: 'Ezen a linken megoszthatod a beállításaidat.',
     ClickToCopy: 'Kattints a link vágólapra másolásához!',
     CopySuccess: 'Link sikeresen a vágólapra másolva!',
     CopyFailure: 'Vágólapra másolás sikertelen.',
     ScaleOnly: 'Skálahangok',
+
+    ShowChords: 'Mutasd a kíséretet',
+    ShowChordsDescription:
+      'Mutatja a fő dallam alatt játszott akkordokat egy külön szólamon.',
+    SeventhChords: 'Használj dúsított akkordokat',
+    SeventhChordsDescription:
+      'Dúsabb akkordhangzásokat használ a hármashangzatok helyett.',
   },
   Clefs,
   KeySignatures,

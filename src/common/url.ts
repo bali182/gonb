@@ -3,7 +3,7 @@ import { GeneratorConfig } from '../state/types'
 import { isNil, midiComparator } from './utils'
 import LZString from 'lz-string'
 
-type UrlFriendlyConfigType = Omit<GeneratorConfig, 'notes'> & {
+type UrlFriendlyConfigType = Omit<GeneratorConfig, 'notes' | 'timeStamp'> & {
   notes: Record<string, number[]>
 }
 
@@ -33,8 +33,9 @@ function hydrateNotes(notes: Record<string, number[]>): string[] {
 }
 
 function dehydrateGeneratorConfig(c: GeneratorConfig): UrlFriendlyConfigType {
+  const { notes, timeStamp, ...rest } = c
   const friendlyNotes = dehydrateNotes(c.notes)
-  return { ...c, notes: friendlyNotes }
+  return { ...rest, notes: friendlyNotes }
 }
 
 function hydrateGeneratorConfig(c: UrlFriendlyConfigType): GeneratorConfig {
@@ -42,6 +43,7 @@ function hydrateGeneratorConfig(c: UrlFriendlyConfigType): GeneratorConfig {
   return {
     ...c,
     notes: hydratedNotes,
+    timeStamp: Date.now(),
   }
 }
 

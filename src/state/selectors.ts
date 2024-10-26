@@ -9,6 +9,11 @@ export const songSelector = createSelector(
   (config): AtSong => getSong(config),
 )
 
-export const alphaTexSelector = createSelector([songSelector], (song): string =>
-  toAlphaTex(song),
+export const alphaTexSelector = createSelector(
+  [songSelector],
+  (song): string => {
+    const tex = toAlphaTex(song)
+    // console.log(tex)
+    return tex
+  },
 )

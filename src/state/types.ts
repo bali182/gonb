@@ -16,6 +16,8 @@ export type GeneratorConfig = {
   bpm: number
   clef: Clef
   keySignature: KeySignature
+  showChordsStaff: boolean
+  useSeventhChords: boolean
   notes: string[]
   noteDurations: Duration[]
   restDurations: Duration[]

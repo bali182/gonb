@@ -17,14 +17,14 @@ type MelodyNoteType = 'chord-tone' | 'chord-scale' | 'random'
 type MelodyNoteDistanceType = 'closest' | 'close' | 'random'
 
 const MIDDLE_NOTE_TYPES: WeightedItem<MelodyNoteType>[] = [
-  { value: 'chord-tone', weight: 50 },
-  { value: 'chord-scale', weight: 100 },
-  { value: 'random', weight: 1 },
+  { value: 'chord-tone', weight: 5 },
+  { value: 'chord-scale', weight: 10 },
+  { value: 'random', weight: 2 },
 ]
 
 const MIDDLE_NOTE_DISTANCES: WeightedItem<MelodyNoteDistanceType>[] = [
-  { value: 'closest', weight: 100 },
-  { value: 'close', weight: 50 },
+  { value: 'closest', weight: 1 },
+  { value: 'close', weight: 2 },
 ]
 
 const LAST_NOTE_TYPES: WeightedItem<MelodyNoteType>[] = [
@@ -124,7 +124,11 @@ export function getMelodyBar(
 
   if (items.length > 0) {
     const item = items[0]!
-    item.label = current.chord.triadName
+    const chordName = config.useSeventhChords
+      ? current.chord.seventhName
+      : current.chord.triadName
+
+    item.label = `${chordName}`
   }
 
   return { items }
@@ -187,7 +191,7 @@ function getMelodyNotesByDistance(
     }
     case 'close': {
       // TODO check if this is enough granularity
-      return listClosest(reference, notes).slice(0, 3)
+      return listClosest(reference, notes).slice(0, 4)
     }
     case 'random': {
       return notes
@@ -226,7 +230,6 @@ function getPossibleLastNotes(
       return current.chord.scaleMelodyNotes
     }
     case 'random': {
-      console.log('random notes')
       return config.notes
     }
   }

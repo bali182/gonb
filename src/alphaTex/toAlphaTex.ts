@@ -52,7 +52,7 @@ function getNote({ duration, note, label }: AtNote, tuning: string[]): string {
   const atDuration = asNumber(duration)
   const effects = getEffects([
     hasDot(duration) ? 'd' : undefined,
-    isNil(label) ? undefined : `ch ${label}`,
+    isNil(label) ? undefined : `ch "${label}"`,
   ])
 
   return `${fret}.${string}.${atDuration}${isNil(effects) ? '' : effects}`
@@ -61,7 +61,7 @@ function getNote({ duration, note, label }: AtNote, tuning: string[]): string {
 function getRest({ duration, label }: AtRest): string {
   const effects = getEffects([
     hasDot(duration) ? 'd' : undefined,
-    isNil(label) ? undefined : `ch ${label}`,
+    isNil(label) ? undefined : `ch "${label}"`,
   ])
   return `r.${asNumber(duration)}${isNil(effects) ? '' : effects}`
 }
@@ -73,7 +73,7 @@ function getChord(chord: AtChord, tuning: string[]): string {
   })
   const effects = getEffects([
     hasDot(chord.duration) ? 'd' : undefined,
-    isNil(chord.label) ? undefined : `ch ${chord.label}`,
+    isNil(chord.label) ? undefined : `ch "${chord.label}"`,
     // `bd 50`,
   ])
   const duration = asNumber(chord.duration)

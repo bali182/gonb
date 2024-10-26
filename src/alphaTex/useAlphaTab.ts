@@ -16,6 +16,7 @@ export type UseAlphaTabConfig = {
   instrumentVolume?: number
   chordsVolume?: number
   metronomeVolume?: number
+  showChordsStaff?: boolean
   isLooping?: boolean
   player?: Partial<json.PlayerSettingsJson>
 }
@@ -30,6 +31,7 @@ export function useAlphaTab({
   isLooping,
   instrumentVolume,
   chordsVolume,
+  showChordsStaff,
   metronomeVolume,
 }: UseAlphaTabConfig): UseAlphaTabResult {
   const [api, setApi] = useState<AlphaTabApi>()
@@ -38,7 +40,7 @@ export function useAlphaTab({
 
   useEffect(() => {
     if (!isNil(api)) {
-      api.tex(tex, [0])
+      api.tex(tex, showChordsStaff ? [0, 1] : [0])
     }
   }, [api, tex])
 

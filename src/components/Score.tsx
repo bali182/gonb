@@ -8,6 +8,7 @@ import { alphaTexSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
 import { AppDispatch } from '../state/store'
 import { ScoreView } from './ScoreView'
+import { generatorSlice } from '../state/generatorSlice'
 
 const wrapStyle = css`
   //.at-wrap
@@ -24,6 +25,7 @@ export const Score: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [scrollArea, setScrollArea] = useState<HTMLElement>()
   const [root, setRoot] = useState<HTMLElement>()
+  const generatorConfig = useSelector(generatorSlice.selectSlice)
   const tex = useSelector(alphaTexSelector)
   const playerConfig = useSelector(playerSlice.selectSlice)
 
@@ -75,6 +77,7 @@ export const Score: FC = () => {
     metronomeVolume: playerConfig.metronomeVolume,
     chordsVolume: playerConfig.chordsVolume,
     isLooping: playerConfig.isLooping,
+    showChordsStaff: generatorConfig.showChordsStaff,
   })
 
   return (

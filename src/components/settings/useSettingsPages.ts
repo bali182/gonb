@@ -2,6 +2,7 @@ import {
   PiGearBold,
   PiMetronomeBold,
   PiMusicNoteBold,
+  PiMusicNotesBold,
   PiShareBold,
 } from 'react-icons/pi'
 import { PageNotes } from './pages/PageNotes'
@@ -16,6 +17,7 @@ import { issueComparator } from './utils'
 import { ErrorIcon, WarningIcon } from './controls/InputSectionPrimitives'
 import { ComponentType } from 'react'
 import { PageShare } from './pages/PageShare'
+import { PageChords } from './pages/PageChords'
 
 function getBadge(...issues: (Issue | undefined)[]): ComponentType | undefined {
   const sorted = issues.filter(isNotNil).sort(issueComparator)
@@ -53,6 +55,13 @@ function getSettingsPages(t: TFunction, issues: ConfigIssues): ModalPage[] {
       Icon: PiMusicNoteBold,
       Badge: getBadge(issues.notes),
       Component: PageNotes,
+    },
+    {
+      id: 'chords',
+      name: t('Settings.ChordsPage'),
+      Icon: PiMusicNotesBold,
+      Badge: undefined,
+      Component: PageChords,
     },
     {
       id: 'share',
