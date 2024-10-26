@@ -15,6 +15,9 @@ const backdropStyle = css`
   left: 0px;
   width: 100vw;
   height: 100vh;
+  @supports (height: 100dvh) {
+    height: min(100vh, 100dvh);
+  }
   z-index: 10001;
   backdrop-filter: blur(30px);
   background-color: #00000099;

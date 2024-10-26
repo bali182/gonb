@@ -11,17 +11,12 @@ export const globalStyles = css`
   #root {
     width: 100vw;
     height: 100vh;
+    @supports (height: 100dvh) {
+      height: min(100vh, 100dvh);
+    }
   }
   #modal {
     /* No styling for now */
-  }
-  #tooltip {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
   }
 
   *,
@@ -42,6 +37,9 @@ export const globalStyles = css`
     background-color: #ebebeb;
     height: 100vh;
     width: 100vw;
+    @supports (height: 100dvh) {
+      height: min(100vh, 100dvh);
+    }
   }
 
   img,

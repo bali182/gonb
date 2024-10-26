@@ -19,6 +19,9 @@ const wrapStyle = css`
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  @supports (height: 100dvh) {
+    height: calc(min(100vh, 100dvh) - 120px);
+  }
 `
 
 const viewPortStyle = css`
