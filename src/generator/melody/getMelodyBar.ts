@@ -27,6 +27,11 @@ const MIDDLE_NOTE_DISTANCES: WeightedItem<MelodyNoteDistanceType>[] = [
   { value: 'close', weight: 50 },
 ]
 
+const LAST_NOTE_TYPES: WeightedItem<MelodyNoteType>[] = [
+  { value: 'chord-scale', weight: 1 },
+  { value: 'random', weight: 1 },
+]
+
 const distanceComparator =
   (note: string) =>
   (a: string, b: string): number => {
@@ -100,7 +105,15 @@ export function getMelodyBar(
     // Last note of the bar, let's find note close to a chord tone
     // of the next chord.
     if (isLastNoteOfChord && !isLastBar) {
-      items.push(getLastNoteOfBar(rhythm, next, config))
+      items.push(
+        getLastNoteOfBar(
+          rhythm,
+          current,
+          next,
+          config,
+          findLastNote(items).note,
+        ),
+      )
       continue
     }
 
@@ -122,10 +135,11 @@ function getFirstNoteOfFirstBar(
   current: MelodyBarInput,
   config: GeneratorConfig,
 ): AtItem {
-  const note =
+  const array =
     config.clef === Clef.BASS
-      ? current.chord.bassMelodyNote!
-      : randomElement(current.chord.triadMelodyNotes)!
+      ? current.chord.bassMelodyNotes
+      : current.chord.triadMelodyNotes
+  const note = randomElement(array)!
   return { type: 'note', duration: rhythm.duration, note }
 }
 
@@ -135,14 +149,12 @@ function getFirstNoteInNonFirstBar(
   previous: AtBar | undefined,
   config: GeneratorConfig,
 ): AtNote {
-  const lastNoteOfPreviousBar = findLastNote(previous?.items ?? [])
-  const note =
+  const lastNoteOfPrevBar = findLastNote(previous?.items ?? []).note
+  const array =
     config.clef === Clef.BASS
-      ? current.chord.bassMelodyNote!
-      : listClosest(
-          lastNoteOfPreviousBar.note,
-          current.chord.triadMelodyNotes,
-        )[0]!
+      ? current.chord.bassMelodyNotes
+      : current.chord.triadMelodyNotes
+  const note = listClosest(lastNoteOfPrevBar, array)[0]!
   return { type: 'note', duration: rhythm.duration, note }
 }
 
@@ -152,12 +164,15 @@ function getPossibleMelodyNotes(
   config: GeneratorConfig,
 ): string[] {
   switch (type) {
-    case 'chord-tone':
+    case 'chord-tone': {
       return chord.seventhMelodyNotes
-    case 'chord-scale':
+    }
+    case 'chord-scale': {
       return chord.scaleMelodyNotes
-    case 'random':
+    }
+    case 'random': {
       return config.notes
+    }
   }
 }
 
@@ -167,13 +182,16 @@ function getMelodyNotesByDistance(
   notes: string[],
 ): string[] {
   switch (type) {
-    case 'closest':
+    case 'closest': {
       return [listClosest(reference, notes)[0]!]
-    case 'close':
+    }
+    case 'close': {
       // TODO check if this is enough granularity
       return listClosest(reference, notes).slice(0, 3)
-    case 'random':
+    }
+    case 'random': {
       return notes
+    }
   }
 }
 
@@ -195,15 +213,80 @@ function getMiddleNoteOfBar(
   return { type: 'note', duration: rhythm.duration, note }
 }
 
+function getPossibleLastNotes(
+  type: MelodyNoteType,
+  current: MelodyBarInput,
+  config: GeneratorConfig,
+): string[] {
+  switch (type) {
+    case 'chord-tone': {
+      throw new Error('Chord tone is invalid for this application.')
+    }
+    case 'chord-scale': {
+      return current.chord.scaleMelodyNotes
+    }
+    case 'random': {
+      console.log('random notes')
+      return config.notes
+    }
+  }
+}
+
+type NoteInBetween = {
+  note: string
+  distanceToNext: number
+  distanceToPrevious: number
+}
+
+function getBestLastNote(
+  lastNote: string,
+  current: string[],
+  next: string[],
+): string {
+  const result: NoteInBetween[] = []
+  for (const c of current) {
+    let bestDistToNext = Infinity
+    const distanceToPrevious = Math.abs(semitones(distance(lastNote, c)))
+    for (let n of next) {
+      const distanceToNext = Math.abs(semitones(distance(n, c)))
+      if (distanceToNext < bestDistToNext) {
+        bestDistToNext = distanceToNext
+      }
+    }
+    result.push({ note: c, distanceToNext: bestDistToNext, distanceToPrevious })
+  }
+
+  const sorted = result.sort((a, b) => {
+    let aValue =
+      a.distanceToNext === 0 || a.distanceToPrevious === 0
+        ? Infinity
+        : a.distanceToNext + a.distanceToPrevious
+    let bValue =
+      b.distanceToNext === 0 || b.distanceToPrevious === 0
+        ? Infinity
+        : b.distanceToNext + b.distanceToPrevious
+    return aValue - bValue
+  })
+
+  if (sorted.length === 0) {
+    throw new Error(`Unexpected empty array`)
+  }
+  return sorted[0]!.note
+}
+
 function getLastNoteOfBar(
   rhythm: RhythmItem,
+  current: MelodyBarInput,
   next: MelodyBarInput,
   config: GeneratorConfig,
+  lastNote: string,
 ): AtNote {
-  const randomNextChordTone =
+  const type = getRandomWeightedElement(LAST_NOTE_TYPES)!
+  const possibilities = getPossibleLastNotes(type, current, config)
+  const nextPossibilities =
     config.clef === Clef.BASS
-      ? next.chord.bassMelodyNote!
-      : randomElement(next.chord.triadMelodyNotes)!
-  const closest = listClosest(randomNextChordTone, config.notes)[0]!
-  return { type: 'note', duration: rhythm.duration, note: closest }
+      ? next.chord.bassMelodyNotes
+      : next.chord.triadMelodyNotes
+  const note = getBestLastNote(lastNote, possibilities, nextPossibilities)
+  return { type: 'note', duration: rhythm.duration, note }
 }

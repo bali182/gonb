@@ -38,18 +38,15 @@ export function getMelodyNotesInRange(config: GeneratorConfig): Set<string> {
   return new Set(config.notes.map((note) => pitchClass(note)))
 }
 
-function getBestBassNote(
-  chord: Chord,
-  melodyNotes: string[],
-): string | undefined {
+function getBestBassNotes(chord: Chord, melodyNotes: string[]): string[] {
   if (melodyNotes.length === 0) {
-    return undefined
+    return []
   }
   const rootNote = chord.tonic ?? chord.notes[0]!
   // Check if the root is present in the melody notes, get the lowest if present
-  const root = melodyNotes.find((note) => matchesPitchClass(rootNote, note))
-  if (!isNil(root)) {
-    return root
+  const roots = melodyNotes.filter((note) => matchesPitchClass(rootNote, note))
+  if (roots.length > 0) {
+    return roots
   }
 
   // Do the same for the fifth
@@ -58,15 +55,15 @@ function getBestBassNote(
   )
   const fifthOfChord = chord.notes[fifthIndex]
   if (!isNil(fifthOfChord)) {
-    const fifth = melodyNotes.find((note) =>
+    const fifths = melodyNotes.filter((note) =>
       matchesPitchClass(fifthOfChord, note),
     )
-    if (!isNil(fifth)) {
-      return fifth
+    if (fifths.length > 0) {
+      return fifths
     }
   }
   // As a fallback, return any other melody note.
-  return melodyNotes[0]!
+  return melodyNotes
 }
 
 export function getChord(
@@ -79,7 +76,7 @@ export function getChord(
   const seventh = getTonalChord(seventhName)
   const triad = getTonalChord(triadName)
   const triadMelodyNotes = getChordMelodyNotes(triad.notes, melodyNotes)
-  const bassMelodyNote = getBestBassNote(triad, triadMelodyNotes)
+  const bassMelodyNotes = getBestBassNotes(triad, triadMelodyNotes)
   return {
     seventhName: seventhName,
     triadName: triadName,
@@ -87,7 +84,7 @@ export function getChord(
     triad: triad.notes,
     harmonicFunction: fn,
     scale: scale,
-    bassMelodyNote: bassMelodyNote,
+    bassMelodyNotes: bassMelodyNotes,
     triadMelodyNotes: triadMelodyNotes,
     seventhMelodyNotes: getChordMelodyNotes(seventh.notes, melodyNotes),
     scaleMelodyNotes: getChordMelodyNotes(scale, melodyNotes),

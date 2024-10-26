@@ -16,7 +16,7 @@ export type ProgressionChord = {
   triadMelodyNotes: string[]
   seventhMelodyNotes: string[]
   scaleMelodyNotes: string[]
-  bassMelodyNote: string | undefined
+  bassMelodyNotes: string[]
 }
 
 export type SecondaryDominants = Map<ProgressionChord, ProgressionChord>
