@@ -82,17 +82,12 @@ Error generating stack: `+n.message+`
   #root {
     width: 100vw;
     height: 100vh;
+    @supports (height: 100dvh) {
+      height: min(100vh, 100dvh);
+    }
   }
   #modal {
     /* No styling for now */
-  }
-  #tooltip {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
   }
 
   *,
@@ -113,6 +108,9 @@ Error generating stack: `+n.message+`
     background-color: #ebebeb;
     height: 100vh;
     width: 100vw;
+    @supports (height: 100dvh) {
+      height: min(100vh, 100dvh);
+    }
   }
 
   img,
@@ -502,6 +500,9 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new kr("Request Tim
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  @supports (height: 100dvh) {
+    height: calc(min(100vh, 100dvh) - 120px);
+  }
 `,eD=U`
   left: 20px;
   right: 20px;
@@ -617,6 +618,9 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new kr("Request Tim
   left: 0px;
   width: 100vw;
   height: 100vh;
+  @supports (height: 100dvh) {
+    height: min(100vh, 100dvh);
+  }
   z-index: 10001;
   backdrop-filter: blur(30px);
   background-color: #00000099;
