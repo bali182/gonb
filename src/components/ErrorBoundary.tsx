@@ -1,13 +1,13 @@
 import { css } from '@emotion/css'
-import { Component, PropsWithChildren, ReactElement } from 'react'
+import { Component, ReactElement } from 'react'
 import { Translation } from 'react-i18next'
 import { isNil } from '../common/utils'
 import { Button } from './Button'
-import { AppState } from '../state/types'
 import { AppDispatch } from '../state/store'
 import { connect } from 'react-redux'
 import { generatorSlice } from '../state/generatorSlice'
 import { initialState } from '../state/initialState'
+import { PiArrowClockwiseBold } from 'react-icons/pi'
 
 type ErrorBoundaryState = {
   error: Error | undefined
@@ -99,6 +99,7 @@ class _ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
               {error.stack ?? error.message}
             </pre>
             <Button onClick={this.reset.bind(this)}>
+              <PiArrowClockwiseBold />
               <Translation>{(t) => t('ErrorBoundary.Reset')}</Translation>
             </Button>
           </div>

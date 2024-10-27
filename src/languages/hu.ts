@@ -173,4 +173,10 @@ export const hu: Messages = {
     EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
     DottedRhytms: `Amikor a {{dotted}} ki van választva, a {{required}} kiválasztása kötelező.`,
   },
+  ErrorBoundary: {
+    Title: 'Hiba történt!',
+    Explanation:
+      'Vagy régiek a mentett adataid, vagy programhibát találtál. Ha úgy gondolod hogy ez programhiba, kérlek jelentsd (az alábbiakat csatolva):',
+    Reset: 'Alkalmazás alaphelyzetbe állítása',
+  },
 }
