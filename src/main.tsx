@@ -6,14 +6,14 @@ import { i18n } from './languages/i18n'
 import { globalStyles } from './components/globalStyles'
 import { Provider } from 'react-redux'
 import { store } from './state/store'
-import { App } from './components/App'
+import { AppWithErrorBoundary } from './components/AppWithErrorBoundary'
 
 createRoot(document.getElementById('root')!).render(
   <Provider store={store}>
     <HashRouter>
       <Global styles={globalStyles} />
       <I18nextProvider i18n={i18n}>
-        <App />
+        <AppWithErrorBoundary />
       </I18nextProvider>
     </HashRouter>
   </Provider>,

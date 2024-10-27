@@ -1,6 +1,7 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
 import { KeySignature } from '../common/keySignature'
+import { ErrorBoundary } from '../components/ErrorBoundary'
 import { MelodyType } from '../legacy/melodies/types'
 
 const Clefs: Record<Clef, string> = {
@@ -180,5 +181,12 @@ export const en = {
       'Select at least 1 note of {{scale}} major (one of {{scaleNotes}}).',
     EmptyRhytms: 'Select at least 1 rhytm type for notes.',
     DottedRhytms: `When {{dotted}} is selected, {{required}} must be selected as well.`,
+  },
+  ErrorBoundary: {
+    Title: 'An unexpected error happened!',
+    Explanation:
+      'This may occur if your locally saved configuration is out of date, or you have found a bug! If you think it is a bug please report it (include the message below).',
+
+    Reset: 'Reset App',
   },
 }
