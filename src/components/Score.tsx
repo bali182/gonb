@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from 'react'
+import { FC, useState, useCallback, useEffect } from 'react'
 import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
 import { useAlphaTab } from '../alphaTex/useAlphaTab'
@@ -85,6 +85,19 @@ export const Score: FC = () => {
         chordsVolume,
       }),
     )
+
+  useEffect(() => {
+    const keyListener = (e: KeyboardEvent) => {
+      if (e.code === 'Space') {
+        return onPlayPause()
+      }
+      if (e.code === 'KeyR') {
+        return onLoop()
+      }
+    }
+    document.addEventListener('keypress', keyListener)
+    return () => document.removeEventListener('keypress', keyListener)
+  })
 
   const { api, isPlaying, isLoading } = useAlphaTab({
     tex,
