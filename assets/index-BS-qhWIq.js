@@ -653,7 +653,7 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new xr("Request Tim
   top: 0px;
   bottom: 0px;
   padding: 0px;
-`,g_=({track:i})=>{const[e,t]=C.useState(),[s,r]=C.useState(),n=C.useMemo(()=>d_(i),[i]);return n_({tex:n,root:s,scrollArea:e,player:kO(e)}),_.jsx("div",{id:"help-page",className:xD,children:_.jsx(f_,{viewPortStyle:BD,setRootCallback:r,setScrollAreaCallback:t})})},TD=p_("E2","E5",Ue.TREBLE),ND=p_("E1","G3",Ue.BASS),PD=()=>_.jsx(g_,{track:TD}),CD=()=>_.jsx(g_,{track:ND});function _o(i){const{t:e,i18n:t}=ss();return C.useMemo(()=>i(e),[e,t.language,i])}function Wm(i,e){const{t,i18n:s}=ss();return C.useMemo(()=>i(t,e),[t,e,s.language,i])}function ED(i){return[{id:db(),name:i("Help.TrebleClef"),Icon:_D,Component:PD},{id:db(),name:i("Help.BassClef"),Icon:kD,Component:CD}]}function MD(){return _o(ED)}const LD=z`
+`,g_=({track:i})=>{const[e,t]=C.useState(),[s,r]=C.useState(),n=C.useMemo(()=>d_(i),[i]);return n_({tex:n,root:s,scrollArea:e,player:kO(e)}),_.jsx("div",{id:"help-page",className:xD,children:_.jsx(f_,{viewPortStyle:BD,setRootCallback:r,setScrollAreaCallback:t})})},TD=p_("E2","E5",Ue.TREBLE),ND=p_("B0","G3",Ue.BASS),PD=()=>_.jsx(g_,{track:TD}),CD=()=>_.jsx(g_,{track:ND});function _o(i){const{t:e,i18n:t}=ss();return C.useMemo(()=>i(e),[e,t.language,i])}function Wm(i,e){const{t,i18n:s}=ss();return C.useMemo(()=>i(t,e),[t,e,s.language,i])}function ED(i){return[{id:db(),name:i("Help.TrebleClef"),Icon:_D,Component:PD},{id:db(),name:i("Help.BassClef"),Icon:kD,Component:CD}]}function MD(){return _o(ED)}const LD=z`
   position: absolute;
   top: 0px;
   left: 0px;
