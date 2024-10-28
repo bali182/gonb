@@ -17,7 +17,7 @@ export function getChords(
       type: 'chord',
       duration: Duration.WHOLE,
       notes: chordNotes.map((note) => `${note}4`),
-      label: `${chordName}`,
+      label: config.showChordSymbols ? chordName : undefined,
     }
 
     return { items: [atChord] }

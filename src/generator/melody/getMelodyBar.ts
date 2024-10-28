@@ -122,7 +122,7 @@ export function getMelodyBar(
     )
   }
 
-  if (items.length > 0) {
+  if (items.length > 0 && config.showChordSymbols) {
     const item = items[0]!
     const chordName = config.useSeventhChords
       ? current.chord.seventhName

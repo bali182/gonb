@@ -23,5 +23,7 @@ export function asFraction(duration: Duration, amount: number = 1): Fraction {
       return new Fraction(1, 16).mul(amount)
     case Duration.DOTTED_SIXTEENTH:
       return new Fraction(3, 32).mul(amount)
+    default:
+      throw new Error(`Unrecognized duration: "${duration}"!`)
   }
 }

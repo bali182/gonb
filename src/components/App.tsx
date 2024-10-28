@@ -6,8 +6,8 @@ import { AppDispatch } from '../state/store'
 import { generatorSlice } from '../state/generatorSlice'
 import { HelpModal } from './help/HelpModal'
 import { SettingsModal } from './settings/SettingsModal'
-import { fromUrl } from '../common/url'
 import { isNil } from '../common/utils'
+import { fromUrl } from '../common/url'
 
 export const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -32,9 +32,9 @@ export const App: FC = () => {
   }
 
   useEffect(() => {
-    const gcFromUrl = fromUrl(window.location.href)
-    if (!isNil(gcFromUrl)) {
-      dispatch(generatorSlice.actions.setGeneratorConfig(gcFromUrl))
+    const configFromUrl = fromUrl(window.location.href)
+    if (!isNil(configFromUrl)) {
+      dispatch(generatorSlice.actions.setGeneratorConfig(configFromUrl))
     }
     const withoutQuery = window.location.origin + window.location.pathname
     window.history.replaceState({}, document.title, withoutQuery)

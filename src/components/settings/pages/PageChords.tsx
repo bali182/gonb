@@ -7,6 +7,10 @@ import { Switch } from '../controls/Switch'
 export const PageChords: FC<SettingsPageProps> = ({ value, onChange }) => {
   const { t } = useTranslation()
 
+  const onShowSymbolsChanged = (showChordSymbols: boolean) => {
+    onChange({ ...value, showChordSymbols })
+  }
+
   const onShowChordsStaffChanged = (showChordsStaff: boolean) => {
     onChange({ ...value, showChordsStaff })
   }
@@ -18,8 +22,17 @@ export const PageChords: FC<SettingsPageProps> = ({ value, onChange }) => {
   return (
     <>
       <Section>
-        <Label>{t('Settings.ShowChords')}</Label>
-        <Description>{t('Settings.ShowChordsDescription')}</Description>
+        <Label>{t('Settings.ShowChordLabels')}</Label>
+        <Description>{t('Settings.ShowChordLabelsDescription')}</Description>
+        <Switch
+          id="show-chords"
+          value={Boolean(value.showChordSymbols)}
+          onChange={onShowSymbolsChanged}
+        />
+      </Section>
+      <Section>
+        <Label>{t('Settings.ShowChordsStaff')}</Label>
+        <Description>{t('Settings.ShowChordsStaffDescription')}</Description>
         <Switch
           id="show-chords"
           value={Boolean(value.showChordsStaff)}

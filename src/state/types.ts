@@ -17,6 +17,7 @@ export type GeneratorConfig = {
   clef: Clef
   keySignature: KeySignature
   showChordsStaff: boolean
+  showChordSymbols: boolean
   useSeventhChords: boolean
   notes: string[]
   noteDurations: Duration[]

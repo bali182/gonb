@@ -125,12 +125,15 @@ export const hu: Messages = {
     CopyFailure: 'Vágólapra másolás sikertelen.',
     ScaleOnly: 'Skálahangok',
 
-    ShowChords: 'Mutasd a kíséretet',
-    ShowChordsDescription:
+    ShowChordsStaff: 'Mutasd a kíséretet',
+    ShowChordsStaffDescription:
       'Mutatja a fő dallam alatt játszott akkordokat egy külön szólamon.',
+    ShowChordLabels: 'Mutasd az akkordszimbólumokat',
+    ShowChordLabelsDescription:
+      'Mutatja a kíséretben használt akkordok neveit a dallam fölött.',
     SeventhChords: 'Használj dúsított akkordokat',
     SeventhChordsDescription:
-      'Dúsabb akkordhangzásokat használ a hármashangzatok helyett.',
+      'Dúsabb akkordhangzásokat használ az alap hármashangzatok helyett.',
   },
   Clefs,
   KeySignatures,

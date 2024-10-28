@@ -18,7 +18,7 @@ const boxStyle = css`
 const urlStyle = css`
   font-size: 1em;
   font-weight: bold;
-  overflow-wrap: break-word;
+  word-break: break-all;
 `
 
 const descriptionStyle = css`

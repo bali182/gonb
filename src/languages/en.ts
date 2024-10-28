@@ -134,9 +134,10 @@ export const en = {
     CopySuccess: 'Successfully copied to the clipboard!',
     CopyFailure: 'Failed to copy to the clipboard!',
     ScaleOnly: 'Scale only',
-
-    ShowChords: 'Show accompaniment',
-    ShowChordsDescription:
+    ShowChordLabels: 'Show chord labels',
+    ShowChordLabelsDescription: 'Shows chords labels above the melody.',
+    ShowChordsStaff: 'Show accompaniment',
+    ShowChordsStaffDescription:
       'Shows chords played under the main melody part in a separate staff',
     SeventhChords: 'Use extended chords',
     SeventhChordsDescription:
