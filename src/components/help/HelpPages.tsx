@@ -56,7 +56,7 @@ const BaseHelpPage: FC<BaseHelpPageProps> = ({ track }) => {
 }
 
 const trebleClefTrack = getHelpTrack('E2', 'E5', Clef.TREBLE)
-const bassClefTrack = getHelpTrack('E1', 'G3', Clef.BASS)
+const bassClefTrack = getHelpTrack('B0', 'G3', Clef.BASS)
 
 export const TrebleClefHelpPage: FC = () => {
   return <BaseHelpPage track={trebleClefTrack} />
