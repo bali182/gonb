@@ -24,6 +24,7 @@ export const initialState: AppState = {
     timeStamp: 0,
     showChordsStaff: false,
     useSeventhChords: false,
+    showChordSymbols: false,
     clef: Clef.TREBLE,
     keySignature: KeySignature.C_MAJOR_A_MINOR,
     noteDurations: [Duration.QUARTER],
