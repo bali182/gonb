@@ -1,9 +1,11 @@
 import { FC, useMemo } from 'react'
 import Select, {
   components,
+  CSSObjectWithLabel,
   OptionProps,
   SelectComponentsConfig,
   SingleValueProps,
+  StylesConfig,
 } from 'react-select'
 import { SelectItem } from '../../types'
 import { defaultStyles } from '../dropdownStyles'
@@ -51,6 +53,14 @@ const Option: FC<OptionProps<SelectItem<KeySignature>>> = ({
   )
 }
 
+const modifiedStyles: StylesConfig<any, any, any> = {
+  ...defaultStyles,
+  menuList: (provided, props): CSSObjectWithLabel => ({
+    ...defaultStyles?.menuList?.(provided, props),
+    maxHeight: '250px',
+  }),
+}
+
 export const modifiedComponents: SelectComponentsConfig<any, any, any> = {
   IndicatorSeparator: () => null,
   SingleValue,
@@ -79,7 +89,7 @@ export const KeySignaturePicker: FC<KeySignaturePickerProps> = ({
       inputId="key-signature-picker"
       value={selectedKeySignature}
       options={keySignatures}
-      styles={defaultStyles}
+      styles={modifiedStyles}
       components={modifiedComponents}
       onChange={onChange}
     />
