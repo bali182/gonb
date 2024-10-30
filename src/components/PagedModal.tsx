@@ -6,8 +6,8 @@ import { Modal } from './Modal'
 import { Button } from './Button'
 import { isNil, noop } from '../common/utils'
 
-export type ModalPage<T = any> = {
-  id: string
+export type ModalPage<P extends string, T = any> = {
+  id: P
   name: string
   Icon: ComponentType
   Badge?: ComponentType
@@ -21,17 +21,17 @@ export type PagedModalButton = {
   icon: IconType
 }
 
-export type PagedModalProps<T = any> = {
-  activePage: string
+export type PagedModalProps<P extends string, T> = {
+  activePageId: P
   title: string
   icon: IconType
   closeOnBackdropClick?: boolean
   pageProps: T
-  pages: ModalPage<T>[]
+  pages: ModalPage<P, T>[]
   buttons?: PagedModalButton[]
   onClick?: (button: PagedModalButton, props: T) => void
   onClose: () => void
-  setActivePage: (pageId: string) => void
+  setActivePage: (pageId: P) => void
 }
 
 const menuStyle = css`
@@ -157,18 +157,18 @@ const buttonContainerStyle = css`
   border-bottom-right-radius: 14px;
 `
 
-export function PagedModal<T>({
+export function PagedModal<P extends string, T>({
   pages,
   title,
   icon: Icon,
-  activePage: activePageId,
+  activePageId,
   pageProps: pageData,
   closeOnBackdropClick,
   buttons = [],
   onClick,
   onClose,
   setActivePage,
-}: PagedModalProps<T>) {
+}: PagedModalProps<P, T>) {
   const activePage = useMemo(
     () => pages.find((page) => page.id === activePageId)!,
     [pages, activePageId],

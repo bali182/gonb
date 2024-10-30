@@ -1,7 +1,8 @@
-import { AtBar } from '../alphaTex/alphaTex'
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
 import { KeySignature } from '../common/keySignature'
+import { HelpPageId } from '../components/help/HelpPageId'
+import { SettingsPageId } from '../components/settings/SettingsPageId'
 import { MelodyType } from '../legacy/melodies/types'
 
 export type PlayerConfig = {
@@ -9,6 +10,11 @@ export type PlayerConfig = {
   instrumentVolume: number
   chordsVolume: number
   isLooping: boolean
+}
+
+export type PagesConfig = {
+  settings: SettingsPageId
+  help: HelpPageId
 }
 
 export type GeneratorConfig = {
@@ -43,5 +49,6 @@ export type LegacyGeneratorConfig = {
 
 export type AppState = {
   player: PlayerConfig
+  pages: PagesConfig
   generator: GeneratorConfig
 }

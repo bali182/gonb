@@ -1,4 +1,6 @@
 import { GeneratorConfig } from '../../state/types'
+import { ModalPage } from '../PagedModal'
+import { SettingsPageId } from './SettingsPageId'
 
 export type SelectItem<T> = {
   label: string
@@ -18,3 +20,5 @@ export type SettingsPageProps = {
   issues: ConfigIssues
   onChange: (value: GeneratorConfig) => void
 }
+
+export type SettingsPage = ModalPage<SettingsPageId, SettingsPageProps>

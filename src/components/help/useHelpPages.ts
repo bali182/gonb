@@ -1,20 +1,21 @@
-import { nanoid } from 'nanoid'
 import { GiFClef, GiGClef } from 'react-icons/gi'
 import { ModalPage } from '../PagedModal'
 import { BassClefHelpPage, TrebleClefHelpPage } from './HelpPages'
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../common/useMemoizedTranslation'
+import { HelpPage } from './types'
+import { HelpPageId } from './HelpPageId'
 
-function getHelpPages(t: TFunction): ModalPage[] {
+function getHelpPages(t: TFunction): HelpPage[] {
   return [
     {
-      id: nanoid(),
+      id: HelpPageId.TREBLE_CLEF,
       name: t('Help.TrebleClef'),
       Icon: GiGClef,
       Component: TrebleClefHelpPage,
     },
     {
-      id: nanoid(),
+      id: HelpPageId.BASS_CLEF,
       name: t('Help.BassClef'),
       Icon: GiFClef,
       Component: BassClefHelpPage,
@@ -22,6 +23,6 @@ function getHelpPages(t: TFunction): ModalPage[] {
   ]
 }
 
-export function useHelpPages(): ModalPage[] {
+export function useHelpPages(): HelpPage[] {
   return useMemoizedTranslation(getHelpPages)
 }

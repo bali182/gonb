@@ -5,6 +5,8 @@ import { KeySignature } from '../common/keySignature'
 import { SIX_STRING_GUITAR } from '../components/settings/controls/NotePresetPicker/presets'
 import { AppState } from './types'
 import { matchesPitchClass } from '../common/utils'
+import { SettingsPageId } from '../components/settings/SettingsPageId'
+import { HelpPageId } from '../components/help/HelpPageId'
 
 const SCALE = get(`C major`).notes
 const C_MAJOR_GUITAR = SIX_STRING_GUITAR.filter((note) =>
@@ -30,5 +32,9 @@ export const initialState: AppState = {
     noteDurations: [Duration.QUARTER],
     restDurations: [Duration.QUARTER],
     notes: C_MAJOR_GUITAR,
+  },
+  pages: {
+    settings: SettingsPageId.BASICS,
+    help: HelpPageId.TREBLE_CLEF,
   },
 }
