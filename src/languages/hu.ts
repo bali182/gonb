@@ -7,22 +7,25 @@ import { Messages } from './types'
 const Clefs: Record<Clef, string> = {
   [Clef.BASS]: 'Basszuskulcs',
   [Clef.TREBLE]: 'Violinkulcs',
-  [Clef.SOPRANO]: 'Szopránkulcs',
   [Clef.PERCUSSION]: 'Ütőkulcs',
+  [Clef.TENOR]: 'Tenorkulcs',
+  [Clef.ALTO]: 'Altokulcs',
 }
 
 const ClefsPrimary: Record<Clef, string> = {
   [Clef.BASS]: 'Basszus',
   [Clef.TREBLE]: 'Violin',
-  [Clef.SOPRANO]: 'Szoprán',
   [Clef.PERCUSSION]: 'Ütő',
+  [Clef.TENOR]: 'Tenor',
+  [Clef.ALTO]: 'Alto',
 }
 
 const ClefsAlternate: Record<Clef, string> = {
   [Clef.BASS]: 'F kulcs',
   [Clef.TREBLE]: 'G kulcs',
-  [Clef.SOPRANO]: 'C kulcs',
   [Clef.PERCUSSION]: 'Ütőkulcs',
+  [Clef.TENOR]: 'C(3) kulcs ',
+  [Clef.ALTO]: 'C(4) kulcs ',
 }
 
 const Durations: Record<Duration, string> = {

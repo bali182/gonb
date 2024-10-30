@@ -1,6 +1,7 @@
 export const enum Clef {
-  BASS = 'Bass',
-  TREBLE = 'Treble',
-  SOPRANO = 'Soprano',
-  PERCUSSION = 'Percussion',
+  BASS = 'F4',
+  TREBLE = 'G2',
+  TENOR = 'C3',
+  ALTO = 'C4',
+  PERCUSSION = 'N',
 }

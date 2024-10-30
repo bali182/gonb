@@ -14,7 +14,7 @@ const buttonStyle = css`
   flex: 1;
   border: none;
   padding: 5px 12px;
-  gap: 12px;
+  gap: 8px;
   cursor: pointer;
   border-radius: 6px;
   color: #000000;
@@ -36,8 +36,8 @@ const buttonStyle = css`
 const clefIcon = css`
   font-family: 'Bravura';
   position: relative;
-  font-size: 25px;
-  line-height: 25px;
+  font-size: 20px;
+  line-height: 20px;
   pointer-events: none;
 `
 
@@ -53,7 +53,8 @@ const nameStyle = css`
 
 const alternateNameStyle = css`
   opacity: 0.8;
-  font-size: 0.8em;
+  font-size: 0.75em;
+  white-space: nowrap;
 `
 
 const selectedStyle = css`
@@ -73,7 +74,7 @@ export const ClefButton: FC<ClefButtonProps> = ({
   isSelected,
   onClick,
 }) => {
-  const fullClefStyle = cx(clefIcon, model.style)
+  const fullClefStyle = cx(clefIcon, model.iconStyle)
   const fullButtonStyle = cx(
     buttonStyle,
     isSelected ? selectedStyle : undefined,

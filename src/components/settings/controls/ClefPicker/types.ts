@@ -4,7 +4,7 @@ export type ClefModel = {
   clef: Clef
   name: string
   alternateName: string
-  style: string
+  iconStyle: string
   icon: string
   isEnabled: boolean
 }

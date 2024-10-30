@@ -1,28 +1,30 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
 import { KeySignature } from '../common/keySignature'
-import { ErrorBoundary } from '../components/ErrorBoundary'
 import { MelodyType } from '../legacy/melodies/types'
 
 const Clefs: Record<Clef, string> = {
   [Clef.BASS]: 'Bass clef',
   [Clef.TREBLE]: 'Treble clef',
-  [Clef.SOPRANO]: 'Soprano clef',
   [Clef.PERCUSSION]: 'Percussion clef',
+  [Clef.TENOR]: 'Tenor clef',
+  [Clef.ALTO]: 'Alto clef',
 }
 
 const ClefsPrimary: Record<Clef, string> = {
   [Clef.BASS]: 'Bass',
   [Clef.TREBLE]: 'Treble',
-  [Clef.SOPRANO]: 'Soprano',
-  [Clef.PERCUSSION]: 'Percussion',
+  [Clef.PERCUSSION]: 'Neutral',
+  [Clef.TENOR]: 'Tenor',
+  [Clef.ALTO]: 'Alto',
 }
 
 const ClefsAlternate: Record<Clef, string> = {
   [Clef.BASS]: 'F clef',
   [Clef.TREBLE]: 'G clef',
-  [Clef.SOPRANO]: 'C clef',
-  [Clef.PERCUSSION]: 'Perc. clef',
+  [Clef.PERCUSSION]: 'Percussion',
+  [Clef.TENOR]: 'C(3) clef ',
+  [Clef.ALTO]: 'C(4) clef ',
 }
 
 const Durations: Record<Duration, string> = {

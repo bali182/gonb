@@ -9,40 +9,51 @@ function getClefModel(t: TFunction): ClefModel[] {
     {
       clef: Clef.TREBLE,
       icon: String.fromCodePoint(0xe050),
-      name: t('ClefsPrimary.Treble'),
-      alternateName: t('ClefsAlternate.Treble'),
+      name: t('ClefsPrimary.G2'),
+      alternateName: t('ClefsAlternate.G2'),
       isEnabled: true,
-      style: css`
+      iconStyle: css`
         top: 16px;
       `,
     },
     {
       clef: Clef.BASS,
       icon: String.fromCodePoint(0xe062),
-      name: t('ClefsPrimary.Bass'),
-      alternateName: t('ClefsAlternate.Bass'),
+      name: t('ClefsPrimary.F4'),
+      alternateName: t('ClefsAlternate.F4'),
       isEnabled: true,
-      style: css`
+      iconStyle: css`
         top: 8px;
       `,
     },
-    // {
-    //   clef: Clef.SOPRANO,
-    //   icon: String.fromCodePoint(0xe05c),
-    //   name: t('ClefsPrimary.Soprano'),
-    //   alternateName: t('ClefsAlternate.Soprano'),
-    //   isEnabled: true,
-    //   style: css`
-    //     top: 11px;
-    //   `,
-    // },
+    {
+      clef: Clef.TENOR,
+      icon: String.fromCodePoint(0xe05c),
+      name: t('ClefsPrimary.C3'),
+      alternateName: t('ClefsAlternate.C3'),
+      isEnabled: true,
+      iconStyle: css`
+        top: 11px;
+      `,
+    },
+    {
+      clef: Clef.ALTO,
+      icon: String.fromCodePoint(0xe05c),
+      name: t('ClefsPrimary.C4'),
+      alternateName: t('ClefsAlternate.C4'),
+      isEnabled: true,
+      iconStyle: css`
+        top: 11px;
+      `,
+    },
+
     {
       clef: Clef.PERCUSSION,
       icon: String.fromCodePoint(0xe069),
-      name: t('ClefsPrimary.Percussion'),
-      alternateName: t('ClefsAlternate.Percussion'),
+      name: t('ClefsPrimary.N'),
+      alternateName: t('ClefsAlternate.N'),
       isEnabled: false,
-      style: css`
+      iconStyle: css`
         top: 12px;
       `,
     },
