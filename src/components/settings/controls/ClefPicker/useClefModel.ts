@@ -26,16 +26,16 @@ function getClefModel(t: TFunction): ClefModel[] {
         top: 8px;
       `,
     },
-    {
-      clef: Clef.SOPRANO,
-      icon: String.fromCodePoint(0xe05c),
-      name: t('ClefsPrimary.Soprano'),
-      alternateName: t('ClefsAlternate.Soprano'),
-      isEnabled: true,
-      style: css`
-        top: 11px;
-      `,
-    },
+    // {
+    //   clef: Clef.SOPRANO,
+    //   icon: String.fromCodePoint(0xe05c),
+    //   name: t('ClefsPrimary.Soprano'),
+    //   alternateName: t('ClefsAlternate.Soprano'),
+    //   isEnabled: true,
+    //   style: css`
+    //     top: 11px;
+    //   `,
+    // },
     {
       clef: Clef.PERCUSSION,
       icon: String.fromCodePoint(0xe069),
