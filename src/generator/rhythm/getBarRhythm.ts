@@ -2,7 +2,6 @@ import Fraction from 'fraction.js'
 import { GeneratorConfig } from '../../state/types'
 import { RhythmItem } from './types'
 import { asFraction } from './asFraction'
-import { lte } from './utils'
 import { randomElement } from '../../common/utils'
 import { Duration } from '../../common/duration'
 
@@ -15,7 +14,7 @@ function getAvailableDurations(
   barLength: Fraction,
 ): Duration[] {
   return durations.filter((duration) =>
-    lte(length.add(asFraction(duration)), barLength),
+    length.add(asFraction(duration)).lte(barLength),
   )
 }
 
