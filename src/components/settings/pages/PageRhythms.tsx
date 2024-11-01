@@ -6,6 +6,10 @@ import { SettingsPageProps } from '../types'
 import { isNotNil } from '../../../common/utils'
 import { issueComparator } from '../utils'
 import { Duration } from '../../../common/duration'
+// import {
+//   NoteDurationsGrid,
+//   RestDurationsGrid,
+// } from '../controls/DurationGrid2/DurationGrid'
 
 export const PageRhythms: FC<SettingsPageProps> = ({
   value,
@@ -35,6 +39,20 @@ export const PageRhythms: FC<SettingsPageProps> = ({
           onChange={onRhytmsChange}
         />
       </Section>
+      {/* <Section>
+        <Label>{t('Settings.RhythmDurations')}</Label>
+        <Description issue={issue}>
+          {t('Settings.RhythmDurationsDescription')}
+        </Description>
+        <NoteDurationsGrid value={{}} onChange={noop} />
+      </Section>
+      <Section>
+        <Label>{t('Settings.RhythmDurations')}</Label>
+        <Description issue={issue}>
+          {t('Settings.RhythmDurationsDescription')}
+        </Description>
+        <RestDurationsGrid value={{}} onChange={noop} />
+      </Section> */}
     </>
   )
 }

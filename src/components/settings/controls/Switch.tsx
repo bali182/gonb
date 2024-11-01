@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css'
-import { FC, InputHTMLAttributes } from 'react'
+import { FC } from 'react'
 import { noop } from '../../../common/utils'
 
 const switchStyle = css`
