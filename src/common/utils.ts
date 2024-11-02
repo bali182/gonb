@@ -1,6 +1,7 @@
 import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
 import { get as getScale } from '@tonaljs/scale'
 import { KeySignature } from './keySignature'
+import { Duration } from './duration'
 
 export function isNil<T>(
   input: T | null | undefined,
@@ -12,6 +13,18 @@ export function noop() {}
 
 export function isNotNil<T>(input: T | null | undefined): input is T {
   return input !== null && input !== undefined
+}
+
+export function capitalize(input: string): string {
+  switch (input.length) {
+    case 0:
+      return input
+    case 1:
+      return input.toUpperCase()
+    default: {
+      return input[0]!.toUpperCase() + input.slice(1)
+    }
+  }
 }
 
 export function randomElement<T>(array: T[]): T | undefined {
@@ -210,4 +223,17 @@ export function matchesPitchClass(
   const pc = pitchClass(pitchedNote)
   const eh = enharmonic(pc)
   return pc === reference || eh === reference
+}
+
+export function isDotted(duration: Duration) {
+  switch (duration) {
+    case Duration.DOTTED_WHOLE:
+    case Duration.DOTTED_HALF:
+    case Duration.DOTTED_QUARTER:
+    case Duration.DOTTED_EIGHT:
+    case Duration.DOTTED_SIXTEENTH:
+      return true
+    default:
+      return false
+  }
 }

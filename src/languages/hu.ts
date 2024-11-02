@@ -1,6 +1,8 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
+import { DurationFrequency } from '../common/durationFrequency'
 import { KeySignature } from '../common/keySignature'
+import { DurationType } from '../components/settings/controls/DurationGrid2/types'
 import { MelodyType } from '../legacy/melodies/types'
 import { Messages } from './types'
 
@@ -29,16 +31,21 @@ const ClefsAlternate: Record<Clef, string> = {
 }
 
 const Durations: Record<Duration, string> = {
-  [Duration.WHOLE]: 'egész hang',
-  [Duration.DOTTED_WHOLE]: 'pontozott egész hang',
-  [Duration.HALF]: 'fél hang',
-  [Duration.DOTTED_HALF]: 'pontozott fél hang',
-  [Duration.QUARTER]: 'negyed hang',
-  [Duration.DOTTED_QUARTER]: 'pontozott negyed hang',
-  [Duration.EIGHTH]: 'nyolcad hang',
-  [Duration.DOTTED_EIGHT]: 'pontozott nyolcad hang',
-  [Duration.SIXTEENTH]: 'tizenhatod hang',
-  [Duration.DOTTED_SIXTEENTH]: 'pontozott tizenhatod hang',
+  [Duration.WHOLE]: 'egész',
+  [Duration.DOTTED_WHOLE]: 'pontozott egész',
+  [Duration.HALF]: 'fél',
+  [Duration.DOTTED_HALF]: 'pontozott fél',
+  [Duration.QUARTER]: 'negyed',
+  [Duration.DOTTED_QUARTER]: 'pontozott negyed',
+  [Duration.EIGHTH]: 'nyolcad',
+  [Duration.DOTTED_EIGHT]: 'pontozott nyolcad',
+  [Duration.SIXTEENTH]: 'tizenhatod',
+  [Duration.DOTTED_SIXTEENTH]: 'pontozott tizenhatod',
+}
+
+const DurationType: Record<DurationType, string> = {
+  NOTE: 'hang',
+  REST: 'értékű szünet',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -64,6 +71,12 @@ const MelodyTypes: Record<MelodyType, string> = {
   HALF_NOTES: 'Fél hangok',
   QUARTER_NOTES: 'Negyed hangok',
   MELODY: 'Realisztikus dallam',
+}
+
+export const Frequency: Record<DurationFrequency, string> = {
+  [DurationFrequency.FREQUENT]: 'Gyakori',
+  [DurationFrequency.MODERATE]: 'Mérsékelt',
+  [DurationFrequency.INFREQUENT]: 'Ritka',
 }
 
 export const hu: Messages = {
@@ -169,6 +182,8 @@ export const hu: Messages = {
   ClefsPrimary,
   ClefsAlternate,
   Durations,
+  DurationType,
+  Frequency,
   Validation: {
     PercussionClef: 'Ez a kulcs még nem működik.',
     ZeroBars: 'Legalább 1 ütem szükséges.',
@@ -184,5 +199,11 @@ export const hu: Messages = {
     Explanation:
       'Vagy régiek a mentett adataid, vagy programhibát találtál. Ha úgy gondolod hogy ez programhiba, kérlek jelentsd (az alábbiakat csatolva):',
     Reset: 'Alkalmazás alaphelyzetbe állítása',
+  },
+  DurationGrid: {
+    IsDisabled: 'inaktív.',
+    Enabled: 'Aktív',
+    Probability: 'Valószínűség',
+    ClusterSize: 'Preferált ritmuscsoport méret',
   },
 }

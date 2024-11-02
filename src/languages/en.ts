@@ -1,6 +1,8 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
+import { DurationFrequency } from '../common/durationFrequency'
 import { KeySignature } from '../common/keySignature'
+import { DurationType } from '../components/settings/controls/DurationGrid2/types'
 import { MelodyType } from '../legacy/melodies/types'
 
 const Clefs: Record<Clef, string> = {
@@ -28,16 +30,21 @@ const ClefsAlternate: Record<Clef, string> = {
 }
 
 const Durations: Record<Duration, string> = {
-  [Duration.WHOLE]: 'whole note',
-  [Duration.DOTTED_WHOLE]: 'dotted whole note',
-  [Duration.HALF]: 'half note',
-  [Duration.DOTTED_HALF]: 'dotted half note',
-  [Duration.QUARTER]: 'quarter note',
-  [Duration.DOTTED_QUARTER]: 'dotted quarter note',
-  [Duration.EIGHTH]: 'eighth note',
-  [Duration.DOTTED_EIGHT]: 'dotted eighth note',
-  [Duration.SIXTEENTH]: 'sixteenth note',
-  [Duration.DOTTED_SIXTEENTH]: 'dotted sixteenth note',
+  [Duration.WHOLE]: 'whole',
+  [Duration.DOTTED_WHOLE]: 'dotted whole',
+  [Duration.HALF]: 'half',
+  [Duration.DOTTED_HALF]: 'dotted half',
+  [Duration.QUARTER]: 'quarter',
+  [Duration.DOTTED_QUARTER]: 'dotted quarter',
+  [Duration.EIGHTH]: 'eighth',
+  [Duration.DOTTED_EIGHT]: 'dotted eighth',
+  [Duration.SIXTEENTH]: 'sixteenth',
+  [Duration.DOTTED_SIXTEENTH]: 'dotted sixteenth',
+}
+
+const DurationType: Record<DurationType, string> = {
+  NOTE: 'note',
+  REST: 'note rest',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -56,6 +63,12 @@ const KeySignatures: Record<KeySignature, string> = {
   [KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS]: 'D♭ Major / F Minor',
   [KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS]: 'G♭ Major / E♭ Minor',
   [KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS]: 'C♭ Major / A♭ Minor',
+}
+
+export const Frequency: Record<DurationFrequency, string> = {
+  [DurationFrequency.FREQUENT]: 'Frequent',
+  [DurationFrequency.MODERATE]: 'Moderate',
+  [DurationFrequency.INFREQUENT]: 'Infrequent',
 }
 
 const MelodyTypes: Record<MelodyType, string> = {
@@ -175,6 +188,8 @@ export const en = {
   KeySignatures,
   MelodyTypes,
   Durations,
+  Frequency,
+  DurationType,
   Validation: {
     PercussionClef: 'This clef is not yet supported.',
     ZeroBars: 'There must be at least one bar.',
@@ -191,5 +206,11 @@ export const en = {
       'This may occur if your locally saved configuration is out of date, or you have found a bug! If you think it is a bug please report it (include the message below).',
 
     Reset: 'Reset App',
+  },
+  DurationGrid: {
+    IsDisabled: 'is disabled.',
+    Enabled: 'Enabled',
+    Probability: 'Probability',
+    ClusterSize: 'Preferred cluster size',
   },
 }

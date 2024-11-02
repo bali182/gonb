@@ -1,64 +1,69 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { FC } from 'react'
-import { DurationConfig, DurationItem } from './types'
+import { DurationConfig, DurationItem, DurationType } from './types'
 import { Switch } from '../Switch'
-import { noop } from '../../../../common/utils'
-import { useNoteDurations } from './useNoteDurations'
-import { useRestDurations } from './useRestDurations'
-import { Slider } from '../Slider/Slider'
+import { useDurationItems } from './useDurationItems'
+import { ClusterSizeSlider } from '../ClusterSizeSlider/ClusterSizeSlider'
+import { DurationFrequencyPicker } from '../DurationFrequencyPicker/DurationFrequencyPicker'
+import { DurationFrequency } from '../../../../common/durationFrequency'
+import {
+  clusterTdStyle,
+  clusterThStyle,
+  disabledClusterStyle,
+  emptyThStyle,
+  enabledThStyle,
+  frequencyPickerTdStyle,
+  probabilityThStyle,
+  rowStyle,
+  tableStyle,
+  tdCenterAlignerStyle,
+  tdStyle,
+} from './durationGridStyles'
+import { useTranslation } from 'react-i18next'
+import { Duration } from '../../../../common/duration'
 
-const tableStyle = css`
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-`
-
-const rowStyle = css`
-  &:nth-of-type(even) {
-    background-color: #00000010;
-  }
-  &:nth-of-type(odd) {
-    background-color: #00000000;
-  }
-`
-
-const tdStyle = css`
-  border: 1px solid #00000020;
-  font-weight: 400;
-  text-align: center;
-  padding: 4px;
-  height: 50px;
-`
-
-const thStyle = css`
-  border: 1px solid #00000020;
-  font-weight: 400;
-  text-align: center;
-  padding: 4px;
-`
-
-type GenericDurationGridProps = {
-  items: DurationItem[]
-  // value: DurationConfig
-  // onChange: (value: DurationConfig) => void
+type InternalDurationGridProps = {
+  value: DurationItem[]
+  onChange: (items: DurationItem[]) => void
 }
 
-export const GenericDurationGrid: FC<GenericDurationGridProps> = ({
-  items,
+const InternalDurationGrid: FC<InternalDurationGridProps> = ({
+  value,
+  onChange,
 }) => {
+  const { t } = useTranslation()
+
+  const update = (duration: Duration, updates: Partial<DurationItem>) => {
+    const newItems = value.map((i): DurationItem => {
+      return i.duration === duration ? { ...i, ...updates } : i
+    })
+    onChange(newItems)
+  }
+
+  const onItemToggled = (item: DurationItem) => (isEnabled: boolean) =>
+    update(item.duration, { isEnabled })
+
+  const onFrequencyChange =
+    (item: DurationItem) => (frequency: DurationFrequency) =>
+      update(item.duration, { frequency })
+
+  const onClusterChange = (item: DurationItem) => (cluster: number) =>
+    update(item.duration, { cluster })
+
   return (
     <table className={tableStyle}>
       <thead>
         <tr>
-          <th style={{ width: 100 }}></th>
-          <th className={thStyle} style={{ width: 100 }}>
-            Enabled
+          <th className={emptyThStyle}></th>
+          <th className={enabledThStyle}>{t('DurationGrid.Enabled')}</th>
+          <th className={probabilityThStyle}>
+            {t('DurationGrid.Probability')}
           </th>
-          <th className={thStyle}>Clusters</th>
+          <th className={clusterThStyle}>{t('DurationGrid.ClusterSize')}</th>
         </tr>
       </thead>
       <tbody>
-        {items.map((item) => {
+        {value.map((item) => {
           const key = `${item.duration}-${item.type}`
           const switchId = `${item.duration}-${item.type}-enabled`
           return (
@@ -67,11 +72,37 @@ export const GenericDurationGrid: FC<GenericDurationGridProps> = ({
                 <item.Component />
               </th>
               <td className={tdStyle}>
-                <Switch value={item.isSelected} id={switchId} onChange={noop} />
+                <div className={tdCenterAlignerStyle}>
+                  <Switch
+                    value={item.isEnabled}
+                    id={switchId}
+                    onChange={onItemToggled(item)}
+                  />
+                </div>
               </td>
-              <td className={tdStyle}>
-                <Slider max={8} value={2} onChange={noop} />
-              </td>
+              {item.isEnabled ? (
+                <>
+                  <td className={cx(tdStyle, frequencyPickerTdStyle)}>
+                    <DurationFrequencyPicker
+                      value={item.frequency}
+                      onChange={onFrequencyChange(item)}
+                    />
+                  </td>
+                  <td className={cx(tdStyle, clusterTdStyle)}>
+                    <ClusterSizeSlider
+                      max={item.maxCluster}
+                      value={item.cluster ?? 1}
+                      onChange={onClusterChange(item)}
+                    />
+                  </td>
+                </>
+              ) : (
+                <td className={tdStyle} colSpan={2}>
+                  <div className={disabledClusterStyle}>
+                    {item.name} {t('DurationGrid.IsDisabled')}
+                  </div>
+                </td>
+              )}
             </tr>
           )
         })}
@@ -81,16 +112,18 @@ export const GenericDurationGrid: FC<GenericDurationGridProps> = ({
 }
 
 export type DurationsGridProps = {
+  type: DurationType
+  dotted: boolean
   value: DurationConfig
   onChange: (value: DurationConfig) => void
 }
 
-export const NoteDurationsGrid: FC<DurationsGridProps> = ({ value }) => {
-  const items = useNoteDurations(value)
-  return <GenericDurationGrid items={items} />
-}
-
-export const RestDurationsGrid: FC<DurationsGridProps> = ({ value }) => {
-  const items = useRestDurations(value)
-  return <GenericDurationGrid items={items} />
+export const DurationGrid: FC<DurationsGridProps> = ({
+  value,
+  type,
+  dotted,
+  onChange,
+}) => {
+  const [items, setItems] = useDurationItems(type, dotted, value, onChange)
+  return <InternalDurationGrid value={items} onChange={setItems} />
 }
