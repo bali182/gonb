@@ -20,6 +20,7 @@ import {
 import { cx } from '@emotion/css'
 import { noop } from '../../../../common/utils'
 import { Duration } from '../../../../common/duration'
+import { DurationType } from '../../../../common/durationType'
 
 const Disabled: Duration[] = [Duration.DOTTED_WHOLE, Duration.DOTTED_SIXTEENTH]
 
@@ -52,8 +53,8 @@ export const DurationGrid: FC<DurationGridProps> = ({
   const onNoteLengthSelected = (item: DurationItem) => {
     const updatedData = updateItem(data, item)
     onChange(
-      getDurations(updatedData, 'NOTE'),
-      getDurations(updatedData, 'REST'),
+      getDurations(updatedData, DurationType.NOTE),
+      getDurations(updatedData, DurationType.REST),
     )
   }
 
@@ -66,8 +67,8 @@ export const DurationGrid: FC<DurationGridProps> = ({
     )
 
     onChange(
-      getDurations(updatedData, 'NOTE'),
-      getDurations(updatedData, 'REST'),
+      getDurations(updatedData, DurationType.NOTE),
+      getDurations(updatedData, DurationType.REST),
     )
   }
 
@@ -79,8 +80,8 @@ export const DurationGrid: FC<DurationGridProps> = ({
       durationSelection.get(header)!,
     )
     onChange(
-      getDurations(updatedData, 'NOTE'),
-      getDurations(updatedData, 'REST'),
+      getDurations(updatedData, DurationType.NOTE),
+      getDurations(updatedData, DurationType.REST),
     )
   }
 

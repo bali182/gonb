@@ -5,7 +5,7 @@ import { ConfigIssues, Issue } from './types'
 import { Clef } from '../../common/clef'
 import { Duration } from '../../common/duration'
 import { get } from '@tonaljs/scale'
-import { matchesPitchClass } from '../../common/utils'
+import { isDotted, isNil, matchesPitchClass } from '../../common/utils'
 
 function validateBars(
   t: TFunction,
@@ -47,18 +47,16 @@ const DottedPairs: [Duration, Duration][] = [
   [Duration.DOTTED_EIGHT, Duration.SIXTEENTH],
 ]
 
-function validateNoteDurations(
+function validateDottedPairs(
   t: TFunction,
   config: GeneratorConfig,
 ): Issue | undefined {
-  if (config.noteDurations.length === 0) {
-    return { type: 'error', label: t('Validation.EmptyRhytms') }
-  }
   for (const [dotted, required] of DottedPairs) {
     if (
-      config.noteDurations.includes(dotted) &&
-      !config.noteDurations.includes(required) &&
-      !config.restDurations.includes(required)
+      (!isNil(config.noteDurations[dotted]) ||
+        !isNil(config.restDurations[dotted])) &&
+      isNil(config.noteDurations[required]) &&
+      isNil(config.restDurations[required])
     ) {
       return {
         type: 'error',
@@ -72,25 +70,37 @@ function validateNoteDurations(
   return undefined
 }
 
+function validateNoteDurations(
+  t: TFunction,
+  config: GeneratorConfig,
+): Issue | undefined {
+  const durations = (Object.keys(config.noteDurations) as Duration[]).filter(
+    (d) => !isDotted(d),
+  )
+  if (durations.length === 0) {
+    return { type: 'error', label: t('Validation.EmptyRhytms') }
+  }
+  return validateDottedPairs(t, config)
+}
+
+function validateDottedNoteDurations(
+  _t: TFunction,
+  _config: GeneratorConfig,
+): Issue | undefined {
+  return undefined
+}
+
 function validateRestDurations(
   t: TFunction,
   config: GeneratorConfig,
 ): Issue | undefined {
-  for (const [dotted, required] of DottedPairs) {
-    if (
-      config.restDurations.includes(dotted) &&
-      !config.noteDurations.includes(required) &&
-      !config.restDurations.includes(required)
-    ) {
-      return {
-        type: 'error',
-        label: t('Validation.DottedRhytms', {
-          dotted: t(`Durations.${dotted}`),
-          required: t(`Durations.${required}`),
-        }),
-      }
-    }
-  }
+  return validateDottedPairs(t, config)
+}
+
+function validateDottedRestDurations(
+  _t: TFunction,
+  _config: GeneratorConfig,
+): Issue | undefined {
   return undefined
 }
 
@@ -126,9 +136,11 @@ function validateConfiguration(
     bpm: validateBpm(t, config),
     clef: validateClef(t, config),
     keySignature: validateKeySignature(t, config),
-    noteDurations: validateNoteDurations(t, config),
     notes: validateNotes(t, config),
+    noteDurations: validateNoteDurations(t, config),
     restDurations: validateRestDurations(t, config),
+    dottedNoteDurations: validateDottedNoteDurations(t, config),
+    dottedRestDurations: validateDottedRestDurations(t, config),
   }
 }
 

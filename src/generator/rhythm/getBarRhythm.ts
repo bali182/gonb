@@ -1,58 +1,40 @@
 import Fraction from 'fraction.js'
 import { GeneratorConfig } from '../../state/types'
-import { RhythmItem } from './types'
-import { asFraction } from './asFraction'
-import { randomElement } from '../../common/utils'
-import { Duration } from '../../common/duration'
+import { DurationCluster, RhythmItem } from './types'
+import { getRandomWeightedElement, WeightedItem } from '../../common/utils'
+import { getDurationClusters } from './utils'
 
 const BAR_LENGTH = new Fraction(1, 1)
-const NOTE_CHANCE = 0.9
 
-function getAvailableDurations(
-  durations: Duration[],
+function getAvailableDurationClusters(
+  clusters: WeightedItem<DurationCluster>[],
   length: Fraction,
   barLength: Fraction,
-): Duration[] {
-  return durations.filter((duration) =>
-    length.add(asFraction(duration)).lte(barLength),
-  )
+): WeightedItem<DurationCluster>[] {
+  return clusters.filter(({ value }) => length.add(value.length).lte(barLength))
 }
 
-export function getBarRhythm(config: GeneratorConfig): RhythmItem[] {
-  const { noteDurations, restDurations } = config
+export function getBarRhythm(
+  config: GeneratorConfig,
+  clusters: WeightedItem<DurationCluster>[],
+): RhythmItem[] {
   const items: RhythmItem[] = []
   let length = new Fraction(0, 1)
-  let index = 0
-  while (length.compare(BAR_LENGTH) != 0) {
-    const notes = getAvailableDurations(noteDurations, length, BAR_LENGTH)
-    const rests = getAvailableDurations(restDurations, length, BAR_LENGTH)
-    if (notes.length === 0 && rests.length === 0) {
+  while (length.lt(BAR_LENGTH)) {
+    const available = getAvailableDurationClusters(clusters, length, BAR_LENGTH)
+    if (available.length === 0) {
       const { n, d } = BAR_LENGTH.sub(length)
+      const ns = Object.keys(config.noteDurations)
+      const rs = Object.keys(config.restDurations)
       throw new Error(
-        `${n}/${d} duration remains, but no rhytms fit (notes: ${noteDurations}, rests: ${restDurations}`,
+        `${n}/${d} duration remains, but no rhytms fit (notes: ${ns}, rests: ${rs}`,
       )
     }
-
-    let type: RhythmItem['type'] = undefined!
-    let array: Duration[] = []
-
-    if (notes.length > 0 && rests.length > 0) {
-      type = index === 0 || Math.random() < NOTE_CHANCE ? 'note' : 'rest'
-      array = type === 'note' ? notes : rests
+    const item = getRandomWeightedElement(available)
+    for (let i = 0; i < item.cluster; i += 1) {
+      items.push({ duration: item.duration, type: item.type })
     }
-    if (notes.length > 0 && rests.length === 0) {
-      type = 'note'
-      array = notes
-    }
-    if (notes.length === 0 && rests.length > 0) {
-      type = 'rest'
-      array = rests
-    }
-
-    const value = randomElement(array)!
-    items.push({ duration: value, type })
-    length = length.add(asFraction(value))
-    index += 1
+    length = length.add(item.length)
   }
 
   return items

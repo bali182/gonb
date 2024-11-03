@@ -4,9 +4,9 @@ import {
   PiMusicNoteBold,
   PiMusicNotesBold,
   PiShareBold,
+  PiPauseBold,
 } from 'react-icons/pi'
 import { PageNotes } from './pages/PageNotes'
-import { ModalPage } from '../PagedModal'
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
 import { PageRhythms } from './pages/PageRhythms'
@@ -19,6 +19,7 @@ import { ComponentType } from 'react'
 import { PageShare } from './pages/PageShare'
 import { PageChords } from './pages/PageChords'
 import { SettingsPageId } from './SettingsPageId'
+import { PageRests } from './pages/PageRests'
 
 function getBadge(...issues: (Issue | undefined)[]): ComponentType | undefined {
   const sorted = issues.filter(isNotNil).sort(issueComparator)
@@ -44,18 +45,25 @@ function getSettingsPages(t: TFunction, issues: ConfigIssues): SettingsPage[] {
       Component: PageBasics,
     },
     {
-      id: SettingsPageId.RHYTHMS,
-      name: t('Settings.RhythmsPage'),
-      Icon: PiMetronomeBold,
-      Badge: getBadge(issues.noteDurations, issues.restDurations),
-      Component: PageRhythms,
-    },
-    {
       id: SettingsPageId.NOTES,
       name: t('Settings.NotesPage'),
       Icon: PiMusicNoteBold,
       Badge: getBadge(issues.notes),
       Component: PageNotes,
+    },
+    {
+      id: SettingsPageId.RHYTHMS,
+      name: t('Settings.RhythmsPage'),
+      Icon: PiMetronomeBold,
+      Badge: getBadge(issues.noteDurations, issues.dottedNoteDurations),
+      Component: PageRhythms,
+    },
+    {
+      id: SettingsPageId.RESTS,
+      name: t('Settings.RestsPage'),
+      Icon: PiPauseBold,
+      Badge: getBadge(issues.restDurations, issues.dottedRestDurations),
+      Component: PageRests,
     },
     {
       id: SettingsPageId.CHORDS,

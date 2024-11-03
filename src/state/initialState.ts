@@ -7,6 +7,7 @@ import { AppState } from './types'
 import { matchesPitchClass } from '../common/utils'
 import { SettingsPageId } from '../components/settings/SettingsPageId'
 import { HelpPageId } from '../components/help/HelpPageId'
+import { DurationFrequency } from '../common/durationFrequency'
 
 const SCALE = get(`C major`).notes
 const C_MAJOR_GUITAR = SIX_STRING_GUITAR.filter((note) =>
@@ -29,8 +30,12 @@ export const initialState: AppState = {
     showChordSymbols: false,
     clef: Clef.TREBLE,
     keySignature: KeySignature.C_MAJOR_A_MINOR,
-    noteDurations: [Duration.QUARTER],
-    restDurations: [Duration.QUARTER],
+    noteDurations: {
+      [Duration.HALF]: { cluster: 1, frequency: DurationFrequency.MODERATE },
+    },
+    restDurations: {
+      [Duration.HALF]: { cluster: 1, frequency: DurationFrequency.MODERATE },
+    },
     notes: C_MAJOR_GUITAR,
   },
   pages: {

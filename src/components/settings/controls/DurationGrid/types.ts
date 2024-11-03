@@ -1,7 +1,6 @@
 import { ComponentType } from 'react'
 import { Duration } from '../../../../common/duration'
-
-export type DurationType = 'REST' | 'NOTE'
+import { DurationType } from '../../../../common/durationType'
 
 export type TypeHeader = {
   label: string

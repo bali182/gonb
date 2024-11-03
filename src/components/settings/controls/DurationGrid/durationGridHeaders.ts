@@ -2,13 +2,30 @@ import { TFunction } from 'i18next'
 import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
 import { DurationHeader, TypeHeader } from './types'
 import { Duration } from '../../../../common/duration'
+import { DurationType } from '../../../../common/durationType'
 
 function getTypeHeaders(t: TFunction): TypeHeader[] {
   return [
-    { label: t('NoteAndRestHeaders.Notes'), type: 'NOTE', dotted: false },
-    { label: t('NoteAndRestHeaders.DottedNotes'), type: 'NOTE', dotted: true },
-    { label: t('NoteAndRestHeaders.Rests'), type: 'REST', dotted: false },
-    { label: t('NoteAndRestHeaders.DottedRests'), type: 'REST', dotted: true },
+    {
+      label: t('NoteAndRestHeaders.Notes'),
+      type: DurationType.NOTE,
+      dotted: false,
+    },
+    {
+      label: t('NoteAndRestHeaders.DottedNotes'),
+      type: DurationType.NOTE,
+      dotted: true,
+    },
+    {
+      label: t('NoteAndRestHeaders.Rests'),
+      type: DurationType.REST,
+      dotted: false,
+    },
+    {
+      label: t('NoteAndRestHeaders.DottedRests'),
+      type: DurationType.REST,
+      dotted: true,
+    },
   ]
 }
 

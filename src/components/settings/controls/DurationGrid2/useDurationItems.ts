@@ -1,6 +1,8 @@
-import { DurationConfig, DurationItem, DurationType } from './types'
+import { DurationItem } from './types'
 import { useMemoizedTranslation1 } from '../../../../common/useMemoizedTranslation'
 import { createDurationsSetter, getDurationItems } from './utils'
+import { DurationConfig } from '../../../../state/types'
+import { DurationType } from '../../../../common/durationType'
 
 export function useDurationItems(
   type: DurationType,

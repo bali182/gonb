@@ -1,5 +1,5 @@
 import Fraction from 'fraction.js'
-import { DurationConfig, DurationItem, DurationType } from './types'
+import { DurationItem } from './types'
 import { Duration } from '../../../../common/duration'
 import { asFraction } from '../../../../generator/rhythm/asFraction'
 import * as NoteDurations from './NoteDurations'
@@ -8,15 +8,19 @@ import { ComponentType } from 'react'
 import { TFunction } from 'i18next'
 import { capitalize, isDotted, isNil } from '../../../../common/utils'
 import { DurationFrequency } from '../../../../common/durationFrequency'
+import { DurationConfig } from '../../../../state/types'
+import { DurationType } from '../../../../common/durationType'
 
 export const createDurationsSetter =
   (config: DurationConfig = {}, onChange: (items: DurationConfig) => void) =>
   (items: DurationItem[]): void => {
     const newConfig: DurationConfig = { ...config }
     for (const { isEnabled, duration, cluster, frequency } of items) {
-      newConfig[duration] = isEnabled
-        ? { c: cluster ?? 1, f: frequency }
-        : undefined
+      if (isEnabled) {
+        newConfig[duration] = { cluster: cluster ?? 1, frequency: frequency }
+      } else {
+        delete newConfig[duration]
+      }
     }
     onChange(newConfig)
   }
@@ -64,7 +68,7 @@ function getDurationItemName(
   duration: Duration,
   t: TFunction,
 ): string {
-  const typeLabel = t(`DurationType.${type}`)
+  const typeLabel = t(`DurationTypes.${type}`)
   const valueLabel = t(`Durations.${duration}`)
   return capitalize(`${valueLabel} ${typeLabel}`)
 }
@@ -75,16 +79,16 @@ export function getDurationItem(
   config: DurationConfig,
   t: TFunction,
 ): DurationItem {
-  const { c, f } = config[duration] ?? {}
+  const { cluster, frequency } = config[duration] ?? {}
   const Components = type === 'NOTE' ? NoteComponents : RestComponents
   return {
     type,
     Component: Components[duration],
     duration,
-    cluster: c,
+    cluster: cluster,
     name: getDurationItemName(type, duration, t),
-    isEnabled: !isNil(c),
-    frequency: f ?? DurationFrequency.MODERATE,
+    isEnabled: !isNil(cluster),
+    frequency: frequency ?? DurationFrequency.MODERATE,
     maxCluster: getMaxClusterSize(new Fraction(4, 4), duration),
   }
 }
@@ -102,6 +106,6 @@ export const getDurationItems =
       getDurationItem(type, Duration.EIGHTH, c, t),
       getDurationItem(type, Duration.DOTTED_EIGHT, c, t),
       getDurationItem(type, Duration.SIXTEENTH, c, t),
-      getDurationItem(type, Duration.DOTTED_SIXTEENTH, c, t),
+      // getDurationItem(type, Duration.DOTTED_SIXTEENTH, c, t),
     ].filter((i) => i.maxCluster >= 1 && isDotted(i.duration) === dotted)
   }

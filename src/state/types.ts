@@ -1,5 +1,6 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
+import { DurationFrequency } from '../common/durationFrequency'
 import { KeySignature } from '../common/keySignature'
 import { HelpPageId } from '../components/help/HelpPageId'
 import { SettingsPageId } from '../components/settings/SettingsPageId'
@@ -26,10 +27,17 @@ export type GeneratorConfig = {
   showChordSymbols: boolean
   useSeventhChords: boolean
   notes: string[]
-  noteDurations: Duration[]
-  restDurations: Duration[]
+  noteDurations: DurationConfig
+  restDurations: DurationConfig
   // Just for easier regeneration
   timeStamp: number
+}
+
+export type DurationConfig = Partial<Record<Duration, DurationData>>
+
+export type DurationData = {
+  frequency: DurationFrequency
+  cluster: number
 }
 
 export type LegacyGeneratorConfig = {

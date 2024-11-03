@@ -1,6 +1,6 @@
-import { css, cx } from '@emotion/css'
+import { cx } from '@emotion/css'
 import { FC } from 'react'
-import { DurationConfig, DurationItem, DurationType } from './types'
+import { DurationItem } from './types'
 import { Switch } from '../Switch'
 import { useDurationItems } from './useDurationItems'
 import { ClusterSizeSlider } from '../ClusterSizeSlider/ClusterSizeSlider'
@@ -21,6 +21,8 @@ import {
 } from './durationGridStyles'
 import { useTranslation } from 'react-i18next'
 import { Duration } from '../../../../common/duration'
+import { DurationConfig } from '../../../../state/types'
+import { DurationType } from '../../../../common/durationType'
 
 type InternalDurationGridProps = {
   value: DurationItem[]

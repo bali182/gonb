@@ -1,8 +1,8 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
 import { DurationFrequency } from '../common/durationFrequency'
+import { DurationType } from '../common/durationType'
 import { KeySignature } from '../common/keySignature'
-import { DurationType } from '../components/settings/controls/DurationGrid2/types'
 import { MelodyType } from '../legacy/melodies/types'
 import { Messages } from './types'
 
@@ -43,9 +43,9 @@ const Durations: Record<Duration, string> = {
   [Duration.DOTTED_SIXTEENTH]: 'pontozott tizenhatod',
 }
 
-const DurationType: Record<DurationType, string> = {
-  NOTE: 'hang',
-  REST: 'értékű szünet',
+const DurationTypes: Record<DurationType, string> = {
+  [DurationType.NOTE]: 'hang',
+  [DurationType.REST]: 'értékű szünet',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -123,17 +123,28 @@ export const hu: Messages = {
     BasicsPage: 'Alapbeállítások',
     NotesPage: 'Hangok',
     RhythmsPage: 'Ritmusok',
+    RestsPage: 'Szünetek',
     ChordsPage: 'Akkordok',
     SharePage: 'Megosztás',
 
     Save: 'Mentés',
-    NotesPreset: 'Hang profilok',
-    NotesPresetDescription: 'Válassz előre beállított hang profilok közül!',
+    NotesPreset: 'Profilok',
+    NotesPresetDescription: 'Válassz előre beállított profilok közül!',
     Notes: 'Hangok',
     NotesDescription:
       'Válaszd ki a hangokat amikkel gyakorolni szeretnél (vagy válassz egy profilt).',
-    RhythmDurations: 'Ritmusok',
-    RhythmDurationsDescription: 'Ritmusok amiket gyakrolni szeretnél.',
+    NoteDurations: 'Ritmusok',
+    NoteDurationsDescription:
+      'Válaszd ki a ritmusokat amiket gyakorolni szerenél.',
+    DottedNoteDurations: 'Pontozott ritmusok',
+    DottedNoteDurationsDescription:
+      'Válaszd ki a pontozott ritmusokat amiket gyakorolni szerenél.',
+    RestDurations: 'Szünetek',
+    RestDurationsDescription:
+      'Válaszd ki a szüneteket amiket gyakorolni szerenél.',
+    DottedRestDurations: 'Pontozott szünetek',
+    DottedRestDurationsDescription:
+      'Válaszd ki a pontozott szüneteket amiket gyakorolni szerenél.',
     ShareableLink: 'Megosztható link',
     ShareableLinkDescription: 'Ezen a linken megoszthatod a beállításaidat.',
     ClickToCopy: 'Kattints a link vágólapra másolásához!',
@@ -182,7 +193,7 @@ export const hu: Messages = {
   ClefsPrimary,
   ClefsAlternate,
   Durations,
-  DurationType,
+  DurationTypes,
   Frequency,
   Validation: {
     PercussionClef: 'Ez a kulcs még nem működik.',
@@ -192,7 +203,7 @@ export const hu: Messages = {
     NoScaleNotes:
       'Válassz legalább 1 hangot a {{scale}} dúr skálából ({{scaleNotes}} hangok egyikét).',
     EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
-    DottedRhytms: `Amikor a {{dotted}} ki van választva, a {{required}} kiválasztása kötelező.`,
+    DottedRhytms: `A {{required}} (ritmus vagy szünet) kiválasztása kötelező  (a {{dotted}} miatt).`,
   },
   ErrorBoundary: {
     Title: 'Hiba történt!',
@@ -203,7 +214,7 @@ export const hu: Messages = {
   DurationGrid: {
     IsDisabled: 'inaktív.',
     Enabled: 'Aktív',
-    Probability: 'Valószínűség',
-    ClusterSize: 'Preferált ritmuscsoport méret',
+    Probability: 'Gyakoriság',
+    ClusterSize: 'Preferált csoport méret',
   },
 }

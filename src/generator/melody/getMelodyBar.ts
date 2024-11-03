@@ -12,6 +12,7 @@ import { distance } from '@tonaljs/note'
 import { RhythmItem } from '../rhythm/types'
 import { ProgressionChord } from '../progression/types'
 import { Clef } from '../../common/clef'
+import { DurationType } from '../../common/durationType'
 
 type MelodyNoteType = 'chord-tone' | 'chord-scale' | 'random'
 type MelodyNoteDistanceType = 'closest' | 'close' | 'random'
@@ -81,7 +82,7 @@ export function getMelodyBar(
   for (let i = 0; i < current.rhythm.length; i += 1) {
     const rhythm = current.rhythm[i]!
     // Get rests out of the way
-    if (rhythm.type === 'rest') {
+    if (rhythm.type === DurationType.REST) {
       items.push({ type: 'rest', duration: rhythm.duration })
       continue
     }

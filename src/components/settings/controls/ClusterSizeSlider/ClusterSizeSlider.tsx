@@ -15,8 +15,11 @@ export const ClusterSizeSlider: FC<ClusterSizeSliderProps> = ({
   value,
 }) => {
   const values = useMemo(() => [value], [value])
-  const _onChange = ([value]: number[]) => {
-    onChange(Math.max(1, value!))
+  const _onChange = ([v]: number[]) => {
+    const newValue = Math.max(1, v!)
+    if (newValue !== value) {
+      onChange(newValue)
+    }
   }
 
   return (

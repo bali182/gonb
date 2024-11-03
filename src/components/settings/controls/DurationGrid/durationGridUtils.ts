@@ -1,6 +1,7 @@
 import { Duration } from '../../../../common/duration'
+import { DurationType } from '../../../../common/durationType'
 import { DURATION_ROWS } from './durationGridModel'
-import { DurationHeader, TypeHeader, DurationType, DurationItem } from './types'
+import { DurationHeader, TypeHeader, DurationItem } from './types'
 
 export function getDurationGridData(
   notes: Duration[],
@@ -9,7 +10,7 @@ export function getDurationGridData(
   return DURATION_ROWS.map((row): DurationItem[] => {
     return row.map((item): DurationItem => {
       const isSelected =
-        item.type === 'NOTE'
+        item.type === DurationType.NOTE
           ? notes.includes(item.duration)
           : rests.includes(item.duration)
       return {

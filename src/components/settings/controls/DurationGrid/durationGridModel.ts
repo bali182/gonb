@@ -1,4 +1,5 @@
 import { Duration } from '../../../../common/duration'
+import { DurationType } from '../../../../common/durationType'
 import {
   NoteDottedEighth,
   NoteDottedHalf,
@@ -26,27 +27,27 @@ import { ConstDurationItem } from './types'
 export const NOTE_DURATIONS: ConstDurationItem[] = [
   {
     Component: NoteWhole,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.WHOLE,
   },
   {
     Component: NoteHalf,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.HALF,
   },
   {
     Component: NoteQuarter,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.QUARTER,
   },
   {
     Component: NoteEighth,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.EIGHTH,
   },
   {
     Component: NoteSixteenth,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.SIXTEENTH,
   },
 ]
@@ -54,27 +55,27 @@ export const NOTE_DURATIONS: ConstDurationItem[] = [
 export const REST_DURATIONS: ConstDurationItem[] = [
   {
     Component: RestWhole,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.WHOLE,
   },
   {
     Component: RestHalf,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.HALF,
   },
   {
     Component: RestQuarter,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.QUARTER,
   },
   {
     Component: RestEighth,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.EIGHTH,
   },
   {
     Component: RestSixteenth,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.SIXTEENTH,
   },
 ]
@@ -82,27 +83,27 @@ export const REST_DURATIONS: ConstDurationItem[] = [
 export const DOTTED_NOTE_DURATIONS: ConstDurationItem[] = [
   {
     Component: NoteDottedWhole,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.DOTTED_WHOLE,
   },
   {
     Component: NoteDottedHalf,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.DOTTED_HALF,
   },
   {
     Component: NoteDottedQuarter,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.DOTTED_QUARTER,
   },
   {
     Component: NoteDottedEighth,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.DOTTED_EIGHT,
   },
   {
     Component: NoteDottedSixteenth,
-    type: 'NOTE',
+    type: DurationType.NOTE,
     duration: Duration.DOTTED_SIXTEENTH,
   },
 ]
@@ -110,27 +111,27 @@ export const DOTTED_NOTE_DURATIONS: ConstDurationItem[] = [
 export const DOTTED_REST_DURATIONS: ConstDurationItem[] = [
   {
     Component: RestDottedWhole,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.DOTTED_WHOLE,
   },
   {
     Component: RestDottedHalf,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.DOTTED_HALF,
   },
   {
     Component: RestDottedQuarter,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.DOTTED_QUARTER,
   },
   {
     Component: RestDottedEighth,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.DOTTED_EIGHT,
   },
   {
     Component: RestDottedSixteenth,
-    type: 'REST',
+    type: DurationType.REST,
     duration: Duration.DOTTED_SIXTEENTH,
   },
 ]

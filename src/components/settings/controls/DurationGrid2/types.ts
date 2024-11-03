@@ -1,8 +1,7 @@
 import { ComponentType } from 'react'
 import { Duration } from '../../../../common/duration'
 import { DurationFrequency } from '../../../../common/durationFrequency'
-
-export type DurationType = 'REST' | 'NOTE'
+import { DurationType } from '../../../../common/durationType'
 
 export type TypeHeader = {
   label: string
@@ -25,10 +24,3 @@ export type DurationItem = {
   frequency: DurationFrequency
   cluster?: number
 }
-
-export type DurationData = {
-  f: DurationFrequency
-  c: number
-}
-
-export type DurationConfig = Partial<Record<Duration, DurationData>>

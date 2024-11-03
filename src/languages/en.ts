@@ -1,8 +1,8 @@
 import { Clef } from '../common/clef'
 import { Duration } from '../common/duration'
 import { DurationFrequency } from '../common/durationFrequency'
+import { DurationType } from '../common/durationType'
 import { KeySignature } from '../common/keySignature'
-import { DurationType } from '../components/settings/controls/DurationGrid2/types'
 import { MelodyType } from '../legacy/melodies/types'
 
 const Clefs: Record<Clef, string> = {
@@ -42,9 +42,9 @@ const Durations: Record<Duration, string> = {
   [Duration.DOTTED_SIXTEENTH]: 'dotted sixteenth',
 }
 
-const DurationType: Record<DurationType, string> = {
-  NOTE: 'note',
-  REST: 'note rest',
+const DurationTypes: Record<DurationType, string> = {
+  [DurationType.NOTE]: 'note',
+  [DurationType.REST]: 'note rest',
 }
 
 const KeySignatures: Record<KeySignature, string> = {
@@ -100,6 +100,7 @@ export const en = {
     BasicsPage: 'Basic Settings',
     NotesPage: 'Notes',
     RhythmsPage: 'Rhythms',
+    RestsPage: 'Rests',
     ChordsPage: 'Chords',
     SharePage: 'Share',
 
@@ -138,9 +139,19 @@ export const en = {
     NotesDescription:
       'Select the individual notes of your instruments range, if the presets are not suitable',
 
-    RhythmDurations: 'Rhythm durations',
-    RhythmDurationsDescription:
-      'Select the individual note and rest durations you want to practice',
+    NoteDurations: 'Note durations',
+    NoteDurationsDescription:
+      'Select the individual note durations, how often they occur and in what clusters.',
+    DottedNoteDurations: 'Dotted note durations',
+    DottedNoteDurationsDescription:
+      'Select the individual dotted note durations, how often they occur and in what clusters.',
+
+    RestDurations: 'Rest durations',
+    RestDurationsDescription:
+      'Select the individual rest durations, how often they occur and in what clusters.',
+    DottedRestDurations: 'Dotted rest durations',
+    DottedRestDurationsDescription:
+      'Select the individual dotted rest durations, how often they occur and in what clusters.',
 
     ShareableLink: 'Shareable link',
     ShareableLinkDescription:
@@ -189,7 +200,7 @@ export const en = {
   MelodyTypes,
   Durations,
   Frequency,
-  DurationType,
+  DurationTypes,
   Validation: {
     PercussionClef: 'This clef is not yet supported.',
     ZeroBars: 'There must be at least one bar.',

@@ -1,15 +1,10 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
-import { DurationGrid } from '../controls/DurationGrid/DurationGrid'
 import { SettingsPageProps } from '../types'
-import { isNotNil } from '../../../common/utils'
-import { issueComparator } from '../utils'
-import { Duration } from '../../../common/duration'
-// import {
-//   NoteDurationsGrid,
-//   RestDurationsGrid,
-// } from '../controls/DurationGrid2/DurationGrid'
+import { DurationGrid } from '../controls/DurationGrid2/DurationGrid'
+import { DurationConfig } from '../../../state/types'
+import { DurationType } from '../../../common/durationType'
 
 export const PageRhythms: FC<SettingsPageProps> = ({
   value,
@@ -18,41 +13,36 @@ export const PageRhythms: FC<SettingsPageProps> = ({
 }) => {
   const { t } = useTranslation()
 
-  const onRhytmsChange = (notes: Duration[], rests: Duration[]) => {
-    onChange({ ...value, noteDurations: notes, restDurations: rests })
+  const onNoteDurationsChange = (noteDurations: DurationConfig) => {
+    onChange({ ...value, noteDurations })
   }
-
-  const issue = [issues.noteDurations, issues.restDurations]
-    .filter(isNotNil)
-    .sort(issueComparator)[0]
 
   return (
     <>
       <Section>
-        <Label>{t('Settings.RhythmDurations')}</Label>
-        <Description issue={issue}>
-          {t('Settings.RhythmDurationsDescription')}
+        <Label>{t('Settings.NoteDurations')}</Label>
+        <Description issue={issues.noteDurations}>
+          {t('Settings.NoteDurationsDescription')}
         </Description>
         <DurationGrid
-          notes={value.noteDurations}
-          rests={value.restDurations}
-          onChange={onRhytmsChange}
+          value={value.noteDurations}
+          onChange={onNoteDurationsChange}
+          type={DurationType.NOTE}
+          dotted={false}
         />
       </Section>
-      {/* <Section>
-        <Label>{t('Settings.RhythmDurations')}</Label>
-        <Description issue={issue}>
-          {t('Settings.RhythmDurationsDescription')}
-        </Description>
-        <NoteDurationsGrid value={{}} onChange={noop} />
-      </Section>
       <Section>
-        <Label>{t('Settings.RhythmDurations')}</Label>
-        <Description issue={issue}>
-          {t('Settings.RhythmDurationsDescription')}
+        <Label>{t('Settings.DottedNoteDurations')}</Label>
+        <Description issue={issues.dottedNoteDurations}>
+          {t('Settings.DottedNoteDurationsDescription')}
         </Description>
-        <RestDurationsGrid value={{}} onChange={noop} />
-      </Section> */}
+        <DurationGrid
+          value={value.noteDurations}
+          onChange={onNoteDurationsChange}
+          type={DurationType.NOTE}
+          dotted={true}
+        />
+      </Section>
     </>
   )
 }
