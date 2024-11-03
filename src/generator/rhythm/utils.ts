@@ -17,9 +17,9 @@ const NoteFrequencies: Record<DurationFrequency, number> = {
 }
 
 const RestFrequencies: Record<DurationFrequency, number> = {
-  [DurationFrequency.FREQUENT]: 100,
-  [DurationFrequency.MODERATE]: 50,
-  [DurationFrequency.INFREQUENT]: 10,
+  [DurationFrequency.FREQUENT]: 500,
+  [DurationFrequency.MODERATE]: 100,
+  [DurationFrequency.INFREQUENT]: 50,
 }
 
 function getClusters(
