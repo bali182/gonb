@@ -29,6 +29,7 @@ export const initialState: AppState = {
     useSeventhChords: false,
     showChordSymbols: false,
     clef: Clef.TREBLE,
+    timeSignature: { upper: 4, lower: 4 },
     keySignature: KeySignature.C_MAJOR_A_MINOR,
     noteDurations: {
       [Duration.HALF]: { cluster: 1, frequency: DurationFrequency.MODERATE },

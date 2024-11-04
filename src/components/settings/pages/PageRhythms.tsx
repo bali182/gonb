@@ -25,6 +25,7 @@ export const PageRhythms: FC<SettingsPageProps> = ({
           {t('Settings.NoteDurationsDescription')}
         </Description>
         <DurationGrid
+          timeSignature={value.timeSignature}
           value={value.noteDurations}
           onChange={onNoteDurationsChange}
           type={DurationType.NOTE}
@@ -38,6 +39,7 @@ export const PageRhythms: FC<SettingsPageProps> = ({
         </Description>
         <DurationGrid
           value={value.noteDurations}
+          timeSignature={value.timeSignature}
           onChange={onNoteDurationsChange}
           type={DurationType.NOTE}
           dotted={true}

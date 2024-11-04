@@ -25,6 +25,7 @@ export const PageRests: FC<SettingsPageProps> = ({
           {t('Settings.RestDurationsDescription')}
         </Description>
         <DurationGrid
+          timeSignature={value.timeSignature}
           value={value.restDurations}
           onChange={onRestDurationsChange}
           type={DurationType.REST}
@@ -37,6 +38,7 @@ export const PageRests: FC<SettingsPageProps> = ({
           {t('Settings.DottedRestDurationsDescription')}
         </Description>
         <DurationGrid
+          timeSignature={value.timeSignature}
           value={value.restDurations}
           onChange={onRestDurationsChange}
           type={DurationType.REST}

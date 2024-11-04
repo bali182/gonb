@@ -22,6 +22,7 @@ export type GeneratorConfig = {
   bars: number
   bpm: number
   clef: Clef
+  timeSignature: TimeSignature
   keySignature: KeySignature
   showChordsStaff: boolean
   showChordSymbols: boolean
@@ -31,6 +32,11 @@ export type GeneratorConfig = {
   restDurations: DurationConfig
   // Just for easier regeneration
   timeStamp: number
+}
+
+export type TimeSignature = {
+  upper: number
+  lower: number
 }
 
 export type DurationConfig = Partial<Record<Duration, DurationData>>

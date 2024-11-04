@@ -21,7 +21,7 @@ import {
 } from './durationGridStyles'
 import { useTranslation } from 'react-i18next'
 import { Duration } from '../../../../common/duration'
-import { DurationConfig } from '../../../../state/types'
+import { DurationConfig, TimeSignature } from '../../../../state/types'
 import { DurationType } from '../../../../common/durationType'
 
 type InternalDurationGridProps = {
@@ -117,6 +117,7 @@ export type DurationsGridProps = {
   type: DurationType
   dotted: boolean
   value: DurationConfig
+  timeSignature: TimeSignature
   onChange: (value: DurationConfig) => void
 }
 
@@ -124,8 +125,15 @@ export const DurationGrid: FC<DurationsGridProps> = ({
   value,
   type,
   dotted,
+  timeSignature,
   onChange,
 }) => {
-  const [items, setItems] = useDurationItems(type, dotted, value, onChange)
+  const [items, setItems] = useDurationItems(
+    type,
+    dotted,
+    value,
+    timeSignature,
+    onChange,
+  )
   return <InternalDurationGrid value={items} onChange={setItems} />
 }
