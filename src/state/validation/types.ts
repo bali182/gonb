@@ -1,4 +1,6 @@
-export enum IssueType {
+import { Duration } from '../../common/duration'
+
+export const enum IssueType {
   WARNING = 'warning',
   ERROR = 'error',
 }
@@ -24,3 +26,9 @@ type _ConfigIssues = {
 }
 
 export type ConfigIssues = Partial<_ConfigIssues>
+
+export type DurationIssue = {
+  cause: Duration
+  largestSolution: Duration | undefined
+  solutions: Duration[]
+}
