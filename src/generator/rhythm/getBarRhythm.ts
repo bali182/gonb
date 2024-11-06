@@ -4,8 +4,6 @@ import { DurationCluster, RhythmItem } from './types'
 import { getRandomWeightedElement, WeightedItem } from '../../common/utils'
 import { DurationType } from '../../common/durationType'
 
-const BAR_LENGTH = new Fraction(1, 1)
-
 function getAvailableDurationClusters(
   clusters: WeightedItem<DurationCluster>[],
   length: Fraction,
@@ -30,15 +28,19 @@ export function getBarRhythm(
   const items: RhythmItem[] = []
   let length = new Fraction(0, 1)
   let index = 0
-  while (length.lt(BAR_LENGTH)) {
+  const barLength = new Fraction(
+    config.timeSignature.upper,
+    config.timeSignature.lower,
+  )
+  while (length.lt(barLength)) {
     const available = getAvailableDurationClusters(
       clusters,
       length,
-      BAR_LENGTH,
+      barLength,
       index,
     )
     if (available.length === 0) {
-      const { n, d } = BAR_LENGTH.sub(length)
+      const { n, d } = barLength.sub(length)
       const ns = Object.keys(config.noteDurations)
       const rs = Object.keys(config.restDurations)
       throw new Error(

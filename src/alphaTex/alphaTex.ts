@@ -41,8 +41,8 @@ export type AtBar = {
 }
 
 export type AtTimeSignature = {
-  top: number
-  bottom: number
+  upper: number
+  lower: number
 }
 
 export type AtTrack = {

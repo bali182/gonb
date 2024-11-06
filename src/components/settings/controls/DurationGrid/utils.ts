@@ -8,7 +8,11 @@ import { ComponentType } from 'react'
 import { TFunction } from 'i18next'
 import { capitalize, isDotted, isNil } from '../../../../common/utils'
 import { DurationFrequency } from '../../../../common/durationFrequency'
-import { DurationConfig } from '../../../../state/types'
+import {
+  DurationConfig,
+  GeneratorConfig,
+  TimeSignature,
+} from '../../../../state/types'
 import { DurationType } from '../../../../common/durationType'
 
 export const createDurationsSetter =
@@ -76,11 +80,13 @@ function getDurationItemName(
 export function getDurationItem(
   type: DurationType,
   duration: Duration,
-  config: DurationConfig,
+  durationConfig: DurationConfig,
+  timeSignature: TimeSignature,
   t: TFunction,
 ): DurationItem {
-  const { cluster, frequency } = config[duration] ?? {}
+  const { cluster, frequency } = durationConfig[duration] ?? {}
   const Components = type === 'NOTE' ? NoteComponents : RestComponents
+  const maxLength = new Fraction(timeSignature.upper, timeSignature.lower)
   return {
     type,
     Component: Components[duration],
@@ -89,23 +95,23 @@ export function getDurationItem(
     name: getDurationItemName(type, duration, t),
     isEnabled: !isNil(cluster),
     frequency: frequency ?? DurationFrequency.MODERATE,
-    maxCluster: getMaxClusterSize(new Fraction(4, 4), duration),
+    maxCluster: getMaxClusterSize(maxLength, duration),
   }
 }
 
 export const getDurationItems =
-  (type: DurationType, dotted: boolean) =>
-  (t: TFunction, c: DurationConfig): DurationItem[] => {
+  (type: DurationType, dotted: boolean, timeSignature: TimeSignature) =>
+  (t: TFunction, _language: string, c: DurationConfig): DurationItem[] => {
     return [
-      getDurationItem(type, Duration.WHOLE, c, t),
-      getDurationItem(type, Duration.DOTTED_WHOLE, c, t),
-      getDurationItem(type, Duration.HALF, c, t),
-      getDurationItem(type, Duration.DOTTED_HALF, c, t),
-      getDurationItem(type, Duration.QUARTER, c, t),
-      getDurationItem(type, Duration.DOTTED_QUARTER, c, t),
-      getDurationItem(type, Duration.EIGHTH, c, t),
-      getDurationItem(type, Duration.DOTTED_EIGHT, c, t),
-      getDurationItem(type, Duration.SIXTEENTH, c, t),
+      getDurationItem(type, Duration.WHOLE, c, timeSignature, t),
+      getDurationItem(type, Duration.DOTTED_WHOLE, c, timeSignature, t),
+      getDurationItem(type, Duration.HALF, c, timeSignature, t),
+      getDurationItem(type, Duration.DOTTED_HALF, c, timeSignature, t),
+      getDurationItem(type, Duration.QUARTER, c, timeSignature, t),
+      getDurationItem(type, Duration.DOTTED_QUARTER, c, timeSignature, t),
+      getDurationItem(type, Duration.EIGHTH, c, timeSignature, t),
+      getDurationItem(type, Duration.DOTTED_EIGHT, c, timeSignature, t),
+      getDurationItem(type, Duration.SIXTEENTH, c, timeSignature, t),
       // getDurationItem(type, Duration.DOTTED_SIXTEENTH, c, t),
     ].filter((i) => i.maxCluster >= 1 && isDotted(i.duration) === dotted)
   }

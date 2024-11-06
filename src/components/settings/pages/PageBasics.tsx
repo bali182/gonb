@@ -7,6 +7,8 @@ import { ClefPicker } from '../controls/ClefPicker/ClefPicker'
 import { KeySignaturePicker } from '../controls/KeySignaturePicker/KeySignaturePicker'
 import { NumberInput } from '../controls/Input/NumberInput'
 import { SettingsPageProps } from '../types'
+import { TimeSignaturePicker } from '../controls/TimeSignaturePicker/TimeSignaturePicker'
+import { TimeSignature } from '../../../state/types'
 
 export const PageBasics: FC<SettingsPageProps> = ({
   onChange,
@@ -20,6 +22,8 @@ export const PageBasics: FC<SettingsPageProps> = ({
     onChange({ ...value, keySignature })
   const setBpm = (bpm: number) => onChange({ ...value, bpm })
   const setBars = (bars: number) => onChange({ ...value, bars })
+  const setTimeSignature = (timeSignature: TimeSignature) =>
+    onChange({ ...value, timeSignature })
 
   return (
     <>
@@ -38,6 +42,16 @@ export const PageBasics: FC<SettingsPageProps> = ({
         <KeySignaturePicker
           value={value.keySignature}
           onChange={setKeySignature}
+        />
+      </Section>
+      <Section>
+        <Label>{t('Settings.TimeSignature')}</Label>
+        <Description issue={issues.timeSignature}>
+          {t('Settings.TimeSignatureDescription')}
+        </Description>
+        <TimeSignaturePicker
+          value={value.timeSignature}
+          onChange={setTimeSignature}
         />
       </Section>
       <Section>

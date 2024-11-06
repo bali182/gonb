@@ -26,10 +26,7 @@ export function getSong(config: GeneratorConfig): AtSong {
     instrument:
       config.clef === Clef.BASS ? 'AcousticBass' : 'AcousticGuitarSteel',
     keySignature: config.keySignature,
-    timeSignature: {
-      top: 4,
-      bottom: 4,
-    },
+    timeSignature: config.timeSignature,
     tuning: DEFAULT_TUNING,
     staff: 'score',
   }
@@ -41,10 +38,7 @@ export function getSong(config: GeneratorConfig): AtSong {
     clef: Clef.TREBLE,
     instrument: 'AcousticGuitarSteel',
     keySignature: config.keySignature,
-    timeSignature: {
-      top: 4,
-      bottom: 4,
-    },
+    timeSignature: config.timeSignature,
     tuning: DEFAULT_TUNING,
     staff: 'score',
   }

@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { SettingsPageProps } from '../types'
-import { DurationGrid } from '../controls/DurationGrid2/DurationGrid'
+import { DurationGrid } from '../controls/DurationGrid/DurationGrid'
 import { DurationConfig } from '../../../state/types'
 import { DurationType } from '../../../common/durationType'
 
@@ -25,6 +25,7 @@ export const PageRhythms: FC<SettingsPageProps> = ({
           {t('Settings.NoteDurationsDescription')}
         </Description>
         <DurationGrid
+          timeSignature={value.timeSignature}
           value={value.noteDurations}
           onChange={onNoteDurationsChange}
           type={DurationType.NOTE}
@@ -38,6 +39,7 @@ export const PageRhythms: FC<SettingsPageProps> = ({
         </Description>
         <DurationGrid
           value={value.noteDurations}
+          timeSignature={value.timeSignature}
           onChange={onNoteDurationsChange}
           type={DurationType.NOTE}
           dotted={true}

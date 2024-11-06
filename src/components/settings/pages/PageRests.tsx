@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { SettingsPageProps } from '../types'
-import { DurationGrid } from '../controls/DurationGrid2/DurationGrid'
+import { DurationGrid } from '../controls/DurationGrid/DurationGrid'
 import { DurationConfig } from '../../../state/types'
 import { DurationType } from '../../../common/durationType'
 
@@ -25,6 +25,7 @@ export const PageRests: FC<SettingsPageProps> = ({
           {t('Settings.RestDurationsDescription')}
         </Description>
         <DurationGrid
+          timeSignature={value.timeSignature}
           value={value.restDurations}
           onChange={onRestDurationsChange}
           type={DurationType.REST}
@@ -37,6 +38,7 @@ export const PageRests: FC<SettingsPageProps> = ({
           {t('Settings.DottedRestDurationsDescription')}
         </Description>
         <DurationGrid
+          timeSignature={value.timeSignature}
           value={value.restDurations}
           onChange={onRestDurationsChange}
           type={DurationType.REST}

@@ -1,5 +1,6 @@
 import { ComponentType } from 'react'
 import { Duration } from '../../../../common/duration'
+import { DurationFrequency } from '../../../../common/durationFrequency'
 import { DurationType } from '../../../../common/durationType'
 
 export type TypeHeader = {
@@ -13,10 +14,13 @@ export type DurationHeader = {
   durations: Duration[]
 }
 
-export type ConstDurationItem = {
+export type DurationItem = {
   Component: ComponentType
   type: DurationType
   duration: Duration
+  name: string
+  isEnabled: boolean
+  maxCluster: number
+  frequency: DurationFrequency
+  cluster?: number
 }
-
-export type DurationItem = ConstDurationItem & { isSelected: boolean }

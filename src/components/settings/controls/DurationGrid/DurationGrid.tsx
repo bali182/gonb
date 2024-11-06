@@ -1,142 +1,139 @@
-import { FC, useMemo } from 'react'
-import {
-  disabledStyle,
-  selectedStyle,
-  tableStyle,
-  tdStyle,
-  thStyle,
-} from './durationGridStyles'
-import { useDurationHeaders, useTypeHeaders } from './durationGridHeaders'
-import { DurationHeader, TypeHeader, DurationItem } from './types'
-import {
-  getDurationHeaderSelection,
-  getDurations,
-  getTypeHeaderSelection,
-  getDurationGridData,
-  updateDurationHeader,
-  updateItem,
-  updateTypeHeader,
-} from './durationGridUtils'
 import { cx } from '@emotion/css'
-import { noop } from '../../../../common/utils'
+import { FC } from 'react'
+import { DurationItem } from './types'
+import { Switch } from '../Switch'
+import { useDurationItems } from './useDurationItems'
+import { ClusterSizeSlider } from '../ClusterSizeSlider/ClusterSizeSlider'
+import { DurationFrequencyPicker } from '../DurationFrequencyPicker/DurationFrequencyPicker'
+import { DurationFrequency } from '../../../../common/durationFrequency'
+import {
+  clusterTdStyle,
+  clusterThStyle,
+  disabledClusterStyle,
+  emptyThStyle,
+  enabledThStyle,
+  frequencyPickerTdStyle,
+  probabilityThStyle,
+  rowStyle,
+  tableStyle,
+  tdCenterAlignerStyle,
+  tdStyle,
+} from './durationGridStyles'
+import { useTranslation } from 'react-i18next'
 import { Duration } from '../../../../common/duration'
+import { DurationConfig, TimeSignature } from '../../../../state/types'
 import { DurationType } from '../../../../common/durationType'
 
-const Disabled: Duration[] = [Duration.DOTTED_WHOLE, Duration.DOTTED_SIXTEENTH]
-
-export type DurationGridProps = {
-  rests: Duration[]
-  notes: Duration[]
-  onChange: (notes: Duration[], rests: Duration[]) => void
+type InternalDurationGridProps = {
+  value: DurationItem[]
+  onChange: (items: DurationItem[]) => void
 }
 
-export const DurationGrid: FC<DurationGridProps> = ({
-  notes,
-  rests,
+const InternalDurationGrid: FC<InternalDurationGridProps> = ({
+  value,
   onChange,
 }) => {
-  const durationHeaders = useDurationHeaders()
-  const typeHeaders = useTypeHeaders()
+  const { t } = useTranslation()
 
-  const data = useMemo(() => getDurationGridData(notes, rests), [notes, rests])
-
-  const durationSelection = useMemo(
-    () => getDurationHeaderSelection(data, Disabled, durationHeaders),
-    [data, durationHeaders],
-  )
-
-  const typeSelection = useMemo(
-    () => getTypeHeaderSelection(data, Disabled, typeHeaders),
-    [data, typeHeaders],
-  )
-
-  const onNoteLengthSelected = (item: DurationItem) => {
-    const updatedData = updateItem(data, item)
-    onChange(
-      getDurations(updatedData, DurationType.NOTE),
-      getDurations(updatedData, DurationType.REST),
-    )
+  const update = (duration: Duration, updates: Partial<DurationItem>) => {
+    const newItems = value.map((i): DurationItem => {
+      return i.duration === duration ? { ...i, ...updates } : i
+    })
+    onChange(newItems)
   }
 
-  const onTypeHeaderSelected = (header: TypeHeader) => {
-    const updatedData = updateTypeHeader(
-      data,
-      header,
-      Disabled,
-      typeSelection.get(header)!,
-    )
+  const onItemToggled = (item: DurationItem) => (isEnabled: boolean) =>
+    update(item.duration, { isEnabled })
 
-    onChange(
-      getDurations(updatedData, DurationType.NOTE),
-      getDurations(updatedData, DurationType.REST),
-    )
-  }
+  const onFrequencyChange =
+    (item: DurationItem) => (frequency: DurationFrequency) =>
+      update(item.duration, { frequency })
 
-  const onDurationHeaderSelected = (header: DurationHeader) => {
-    const updatedData = updateDurationHeader(
-      data,
-      header,
-      Disabled,
-      durationSelection.get(header)!,
-    )
-    onChange(
-      getDurations(updatedData, DurationType.NOTE),
-      getDurations(updatedData, DurationType.REST),
-    )
-  }
+  const onClusterChange = (item: DurationItem) => (cluster: number) =>
+    update(item.duration, { cluster })
 
   return (
     <table className={tableStyle}>
       <thead>
         <tr>
-          <th />
-          {typeHeaders.map((header) => {
-            const className = cx(
-              thStyle,
-              typeSelection.get(header) ? selectedStyle : undefined,
-            )
-            const onClick = () => onTypeHeaderSelected(header)
-            return (
-              <th onClick={onClick} className={className} key={header.label}>
-                {header.label}
-              </th>
-            )
-          })}
+          <th className={emptyThStyle}></th>
+          <th className={enabledThStyle}>{t('DurationGrid.Enabled')}</th>
+          <th className={probabilityThStyle}>
+            {t('DurationGrid.Probability')}
+          </th>
+          <th className={clusterThStyle}>{t('DurationGrid.ClusterSize')}</th>
         </tr>
-        {durationHeaders.map((header, i) => {
-          const row = data[i]!
-          const headerClassName = cx(
-            thStyle,
-            durationSelection.get(header) ? selectedStyle : undefined,
-          )
-          const onHeaderClick = () => onDurationHeaderSelected(header)
-
+      </thead>
+      <tbody>
+        {value.map((item) => {
+          const key = `${item.duration}-${item.type}`
+          const switchId = `${item.duration}-${item.type}-enabled`
           return (
-            <tr key={header.label}>
-              <th className={headerClassName} onClick={onHeaderClick}>
-                {header.label}
+            <tr className={rowStyle} key={key}>
+              <th className={tdStyle}>
+                <item.Component />
               </th>
-              {row.map((item) => {
-                const isDisabled = Disabled.includes(item.duration)
-                const className = cx({
-                  [tdStyle]: true,
-                  [selectedStyle]: item.isSelected,
-                  [disabledStyle]: isDisabled,
-                })
-                const onClick = isDisabled
-                  ? noop
-                  : () => onNoteLengthSelected(item)
-                const key = `${item.type}-${item.duration}`
-                return (
-                  <td className={className} onClick={onClick} key={key}>
-                    <item.Component />
+              <td className={tdStyle}>
+                <div className={tdCenterAlignerStyle}>
+                  <Switch
+                    value={item.isEnabled}
+                    id={switchId}
+                    onChange={onItemToggled(item)}
+                  />
+                </div>
+              </td>
+              {item.isEnabled ? (
+                <>
+                  <td className={cx(tdStyle, frequencyPickerTdStyle)}>
+                    <DurationFrequencyPicker
+                      value={item.frequency}
+                      onChange={onFrequencyChange(item)}
+                    />
                   </td>
-                )
-              })}
+                  <td className={cx(tdStyle, clusterTdStyle)}>
+                    <ClusterSizeSlider
+                      max={item.maxCluster}
+                      value={item.cluster ?? 1}
+                      onChange={onClusterChange(item)}
+                    />
+                  </td>
+                </>
+              ) : (
+                <td className={tdStyle} colSpan={2}>
+                  <div className={disabledClusterStyle}>
+                    {item.name} {t('DurationGrid.IsDisabled')}
+                  </div>
+                </td>
+              )}
             </tr>
           )
         })}
-      </thead>
+      </tbody>
     </table>
   )
+}
+
+export type DurationsGridProps = {
+  type: DurationType
+  dotted: boolean
+  value: DurationConfig
+  timeSignature: TimeSignature
+  onChange: (value: DurationConfig) => void
+}
+
+export const DurationGrid: FC<DurationsGridProps> = ({
+  value,
+  type,
+  dotted,
+  timeSignature,
+  onChange,
+}) => {
+  const [items, setItems] = useDurationItems(
+    type,
+    dotted,
+    value,
+    timeSignature,
+    onChange,
+  )
+  return <InternalDurationGrid value={items} onChange={setItems} />
 }

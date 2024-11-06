@@ -1,8 +1,8 @@
-import { Issue } from './types'
+import { Issue, IssueType } from '../../state/validation/types'
 
-const IssueWeights: Record<Issue['type'], number> = {
-  error: 1,
-  warning: 2,
+const IssueWeights: Record<IssueType, number> = {
+  [IssueType.WARNING]: 2,
+  [IssueType.ERROR]: 1,
 }
 
 export function issueComparator(a: Issue, b: Issue): number {

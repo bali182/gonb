@@ -1,66 +1,85 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 
 export const tableStyle = css`
-  border-spacing: 0;
-  border-collapse: collapse;
-  overflow: hidden;
-  table-layout: fixed;
   width: 100%;
-
-  tr:nth-child(odd) > td:nth-child(odd) {
-    background-color: #00000010;
-  }
-  tr:nth-child(odd) > td:nth-child(even) {
-    background-color: #00000015;
-  }
-  tr:nth-child(even) > td:nth-child(odd) {
-    background-color: #00000020;
-  }
-  tr:nth-child(even) > td:nth-child(even) {
-    background-color: #00000025;
-  }
+  border-collapse: collapse;
+  table-layout: fixed;
 `
 
-export const thStyle = css`
-  text-align: center;
-  padding: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  height: 38px;
-  font-weight: 400;
-  font-size: 0.9em;
-  border: 1px solid #00000050;
-  &:hover {
-    background-color: #00000030 !important;
+export const rowStyle = css`
+  &:nth-of-type(even) {
+    background-color: #00000010;
+    &:hover {
+      background-color: #00000015;
+    }
+  }
+
+  &:nth-of-type(odd) {
+    background-color: #00000000;
+    &:hover {
+      background-color: #00000010;
+    }
   }
 `
 
 export const tdStyle = css`
-  padding: 6px;
-  font-size: 0.8em;
+  border: 1px solid #00000020;
+  font-weight: 400;
+  height: 45px;
+`
+
+export const tdCenterAlignerStyle = css`
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const thStyle = css`
+  border: 1px solid #00000020;
+  font-weight: 400;
   text-align: center;
-  cursor: pointer;
-  position: relative;
-  border: 1px solid #00000050;
-  &:hover {
-    background-color: #00000050 !important;
-  }
+  font-size: 1em;
+  height: 45px;
 `
 
-export const selectedStyle = css`
-  background-color: #000000aa !important;
-  color: #fff;
-  &:hover {
-    background-color: #000000cc !important;
-  }
+export const emptyThStyle = css`
+  width: 75px;
 `
 
-export const disabledStyle = css`
-  background-color: #00000020 !important;
-  color: #999 !important;
-  cursor: not-allowed;
-  &:hover {
-    background-color: #00000020 !important;
-  }
+export const enabledThStyle = cx(
+  thStyle,
+  css`
+    width: 85px;
+  `,
+)
+export const probabilityThStyle = cx(
+  thStyle,
+  css`
+    width: 120px;
+  `,
+)
+
+export const clusterThStyle = cx(thStyle, css``)
+
+export const disabledClusterStyle = css`
+  width: 100%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: #00000090;
+  text-align: left;
+  margin-left: 10px;
+  line-height: 1.2em;
+`
+
+export const clusterTdStyle = css`
+  padding: 0px 20px;
+  text-align: center;
+`
+
+export const frequencyPickerTdStyle = css`
+  padding: 0px;
 `

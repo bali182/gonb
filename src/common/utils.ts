@@ -225,6 +225,10 @@ export function matchesPitchClass(
   return pc === reference || eh === reference
 }
 
+export function negate<T>(predicate: (input: T) => boolean) {
+  return (input: T) => !predicate(input)
+}
+
 export function isDotted(duration: Duration) {
   switch (duration) {
     case Duration.DOTTED_WHOLE:

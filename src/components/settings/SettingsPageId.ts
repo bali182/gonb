@@ -1,4 +1,4 @@
-export enum SettingsPageId {
+export const enum SettingsPageId {
   BASICS = 'basics',
   RHYTHMS = 'rhythms',
   RESTS = 'rests',
