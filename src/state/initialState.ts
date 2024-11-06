@@ -23,7 +23,7 @@ export const initialState: AppState = {
   },
   generator: {
     bars: 4,
-    bpm: 60,
+    tempo: 60,
     timeStamp: 0,
     showChordsStaff: false,
     useSeventhChords: false,

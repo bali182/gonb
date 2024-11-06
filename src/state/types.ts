@@ -20,7 +20,7 @@ export type PagesConfig = {
 
 export type GeneratorConfig = {
   bars: number
-  bpm: number
+  tempo: number
   clef: Clef
   timeSignature: TimeSignature
   keySignature: KeySignature
