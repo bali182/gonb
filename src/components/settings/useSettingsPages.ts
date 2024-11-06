@@ -11,7 +11,7 @@ import { TFunction } from 'i18next'
 import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
 import { PageRhythms } from './pages/PageRhythms'
 import { PageBasics } from './pages/PageBasics'
-import { ConfigIssues, Issue, SettingsPage } from './types'
+import { SettingsPage } from './types'
 import { isNil, isNotNil } from '../../common/utils'
 import { issueComparator } from './utils'
 import { ErrorIcon, WarningIcon } from './controls/InputSectionPrimitives'
@@ -20,6 +20,7 @@ import { PageShare } from './pages/PageShare'
 import { PageChords } from './pages/PageChords'
 import { SettingsPageId } from './SettingsPageId'
 import { PageRests } from './pages/PageRests'
+import { ConfigIssues, Issue } from '../../state/validation/types'
 
 function getBadge(...issues: (Issue | undefined)[]): ComponentType | undefined {
   const sorted = issues.filter(isNotNil).sort(issueComparator)

@@ -2,7 +2,7 @@ import { PiFloppyDiskBold } from 'react-icons/pi'
 import { PagedModalButton } from '../PagedModal'
 import { TFunction } from 'i18next'
 import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
-import { ConfigIssues } from './types'
+import { ConfigIssues } from '../../state/validation/types'
 
 function getButtons(t: TFunction, issues: ConfigIssues): PagedModalButton[] {
   const errors = Object.values(issues).filter(

@@ -1,8 +1,8 @@
 import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
-import { Issue } from '../types'
 import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
+import { Issue, IssueType } from '../../../state/validation/types'
 
 const sectionStyle = css`
   display: flex;
@@ -49,8 +49,8 @@ type DescriptionProps = PropsWithChildren & {
 export const Description: FC<DescriptionProps> = ({ children, issue }) => {
   const style = cx({
     [descriptionStyle]: true,
-    [warningStyle]: issue?.type === 'warning',
-    [errorStyle]: issue?.type === 'error',
+    [warningStyle]: issue?.type === IssueType.WARNING,
+    [errorStyle]: issue?.type === IssueType.ERROR,
   })
 
   return <div className={style}>{isNil(issue) ? children : issue.label}</div>
