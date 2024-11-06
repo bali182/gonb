@@ -14,6 +14,7 @@ type _ConfigIssues = {
   bars: Issue
   bpm: Issue
   clef: Issue
+  timeSignature: Issue
   keySignature: Issue
   showChordsStaff: Issue
   showChordSymbols: Issue

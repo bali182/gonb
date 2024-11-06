@@ -46,6 +46,7 @@ function getSettingsPages(
         issues.bpm,
         issues.clef,
         issues.keySignature,
+        issues.timeSignature,
       ),
       Component: PageBasics,
     },

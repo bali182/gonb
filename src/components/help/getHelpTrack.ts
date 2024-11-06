@@ -39,7 +39,7 @@ export function getHelpTrack(
         keySignature: KeySignature.C_MAJOR_A_MINOR,
         name: '',
         shortName: '',
-        timeSignature: { bottom: 4, top: 4 },
+        timeSignature: { lower: 4, upper: 4 },
         tuning: DEFAULT_TUNING,
       },
     ],

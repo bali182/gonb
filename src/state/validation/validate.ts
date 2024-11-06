@@ -9,6 +9,7 @@ import { validateNoteDurations } from './validateNoteDurations'
 import { validateRestDurations } from './validateRestDurations'
 import { validateDottedNoteDurations } from './validateDottedNoteDurations'
 import { validateDottedRestDurations } from './validateDottedRestDurations'
+import { validateTimeSignature } from './validateTimeSignature'
 
 export function validate(
   t: TFunction,
@@ -20,6 +21,7 @@ export function validate(
     bpm: validateBpm(t, config),
     clef: ok(),
     keySignature: ok(),
+    timeSignature: validateTimeSignature(t, language, config),
     notes: validateNotes(t, config),
     noteDurations: validateNoteDurations(t, language, config),
     restDurations: validateRestDurations(t, language, config),

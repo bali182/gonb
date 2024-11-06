@@ -113,6 +113,8 @@ export const en = {
     ClefDescription: 'Clef you want to practice. Can be either bass or treble.',
     KeySignature: 'Key signature',
     KeySignatureDescription: 'The key you want to practice in.',
+    TimeSignature: 'Time signature',
+    TimeSignatureDescription: 'The time you want to practice in.',
     MelodyType: 'Melody type',
     MelodyTypeDescription: 'The type of melodies you want to practice.',
     Range: 'Range',
@@ -210,6 +212,8 @@ export const en = {
       'Select at least 1 note of {{scale}} major (one of {{scaleNotes}}).',
     EmptyRhytms: 'Select at least one duration.',
     DottedRhytms: `When {{dotted}} is selected, {{required}} must be selected as well.`,
+    TimeSignatureLower: `Lower value must be {{lower}}`,
+    TimeSignatureUpper: `Upper value must be between {{min}} and {{max}}`,
   },
   ErrorBoundary: {
     Title: 'An unexpected error happened!',

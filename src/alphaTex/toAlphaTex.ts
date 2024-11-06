@@ -101,7 +101,7 @@ function getBars(model: AtTrack): string[] {
   }
   const firstBarMeta = [
     `\\clef ${model.clef}`,
-    `\\ts ${model.timeSignature.top} ${model.timeSignature.bottom}`,
+    `\\ts ${model.timeSignature.upper} ${model.timeSignature.lower}`,
     `\\ks ${model.keySignature}`,
   ].join(' ')
   const [first, ...rest] = model.bars
