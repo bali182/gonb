@@ -39,7 +39,7 @@ function getDurationIssue(
 
   // No solution, what do?
   if (solutions.length === 0) {
-    return { cause: duration, solutions: [], largestSolution: undefined }
+    return { cause: duration, solutions: [] }
   }
 
   // If we have any of the possible solutions selected, no issues.
@@ -48,14 +48,10 @@ function getDurationIssue(
   }
 
   const sortedSolutions = Array.from(solutions).sort((a, b) =>
-    DV[a].compare(DV[b]),
+    DV[b].compare(DV[a]),
   )
 
-  return {
-    cause: duration,
-    largestSolution: sortedSolutions[sortedSolutions.length - 1],
-    solutions: sortedSolutions,
-  }
+  return { cause: duration, solutions: sortedSolutions }
 }
 
 function getDurationsIssue(
@@ -84,6 +80,7 @@ function getSelectedDurations(config: DurationConfig): Duration[] {
 
 export function validateIfBarCanComplete(
   t: TFunction,
+  language: string,
   config: GeneratorConfig,
   dotted: boolean,
 ): Issue | undefined {
@@ -106,15 +103,22 @@ export function validateIfBarCanComplete(
   }
 
   // No possible solution, this should not happen
-  if (isNil(issue.largestSolution)) {
+  if (issue.solutions.length === 0) {
     throw new Error(`Should not get here!`)
   }
+
+  const arrayFormat = new Intl.ListFormat(language, {
+    style: 'short',
+    type: 'disjunction',
+  })
+
+  const solutions = issue.solutions.map((s) => t(`Durations.${s}`))
 
   return {
     type: IssueType.ERROR,
     label: t('Validation.DottedRhytms', {
       dotted: t(`Durations.${issue.cause}`),
-      required: t(`Durations.${issue.largestSolution}`),
+      required: arrayFormat.format(solutions),
     }),
   }
 }

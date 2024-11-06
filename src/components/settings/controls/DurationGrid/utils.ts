@@ -101,7 +101,7 @@ export function getDurationItem(
 
 export const getDurationItems =
   (type: DurationType, dotted: boolean, timeSignature: TimeSignature) =>
-  (t: TFunction, c: DurationConfig): DurationItem[] => {
+  (t: TFunction, _language: string, c: DurationConfig): DurationItem[] => {
     return [
       getDurationItem(type, Duration.WHOLE, c, timeSignature, t),
       getDurationItem(type, Duration.DOTTED_WHOLE, c, timeSignature, t),

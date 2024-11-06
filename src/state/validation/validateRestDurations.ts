@@ -5,7 +5,8 @@ import { validateIfBarCanComplete } from './durationUtils'
 
 export function validateRestDurations(
   t: TFunction,
+  language: string,
   config: GeneratorConfig,
 ): Issue | undefined {
-  return validateIfBarCanComplete(t, config, false)
+  return validateIfBarCanComplete(t, language, config, false)
 }

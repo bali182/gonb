@@ -10,16 +10,20 @@ import { validateRestDurations } from './validateRestDurations'
 import { validateDottedNoteDurations } from './validateDottedNoteDurations'
 import { validateDottedRestDurations } from './validateDottedRestDurations'
 
-export function validate(t: TFunction, config: GeneratorConfig): ConfigIssues {
+export function validate(
+  t: TFunction,
+  language: string,
+  config: GeneratorConfig,
+): ConfigIssues {
   return {
     bars: validateBars(t, config),
     bpm: validateBpm(t, config),
     clef: ok(),
     keySignature: ok(),
     notes: validateNotes(t, config),
-    noteDurations: validateNoteDurations(t, config),
-    restDurations: validateRestDurations(t, config),
-    dottedNoteDurations: validateDottedNoteDurations(t, config),
-    dottedRestDurations: validateDottedRestDurations(t, config),
+    noteDurations: validateNoteDurations(t, language, config),
+    restDurations: validateRestDurations(t, language, config),
+    dottedNoteDurations: validateDottedNoteDurations(t, language, config),
+    dottedRestDurations: validateDottedRestDurations(t, language, config),
   }
 }

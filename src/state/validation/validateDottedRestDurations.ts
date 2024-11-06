@@ -5,7 +5,8 @@ import { validateIfBarCanComplete } from './durationUtils'
 
 export function validateDottedRestDurations(
   t: TFunction,
+  language: string,
   config: GeneratorConfig,
 ): Issue | undefined {
-  return validateIfBarCanComplete(t, config, true)
+  return validateIfBarCanComplete(t, language, config, true)
 }

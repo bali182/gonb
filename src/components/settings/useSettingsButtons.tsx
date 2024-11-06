@@ -4,7 +4,11 @@ import { TFunction } from 'i18next'
 import { useMemoizedTranslation1 } from '../../common/useMemoizedTranslation'
 import { ConfigIssues } from '../../state/validation/types'
 
-function getButtons(t: TFunction, issues: ConfigIssues): PagedModalButton[] {
+function getButtons(
+  t: TFunction,
+  _lang: string,
+  issues: ConfigIssues,
+): PagedModalButton[] {
   const errors = Object.values(issues).filter(
     (issue) => issue?.type === 'error',
   )

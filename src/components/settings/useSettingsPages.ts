@@ -31,7 +31,11 @@ function getBadge(...issues: (Issue | undefined)[]): ComponentType | undefined {
   return first.type === 'error' ? ErrorIcon : WarningIcon
 }
 
-function getSettingsPages(t: TFunction, issues: ConfigIssues): SettingsPage[] {
+function getSettingsPages(
+  t: TFunction,
+  _language: string,
+  issues: ConfigIssues,
+): SettingsPage[] {
   return [
     {
       id: SettingsPageId.BASICS,
