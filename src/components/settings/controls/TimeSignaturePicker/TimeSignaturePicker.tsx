@@ -1,7 +1,10 @@
-import { ChangeEvent, MouseEvent, FC } from 'react'
+import { ChangeEvent, FC } from 'react'
 import { TimeSignature } from '../../../../state/types'
 import { Input } from '../Input/Input'
-import { css, cx } from '@emotion/css'
+import { css } from '@emotion/css'
+import Select from 'react-select'
+import { SelectItem } from '../../types'
+import { lowerComponents, lowerStyles } from './styling'
 
 export type TimeSignaturePickerProps = {
   value: TimeSignature
@@ -13,32 +16,21 @@ const containerStyle = css`
   flex-direction: row;
   align-items: center;
   border-radius: 6px;
-  padding: 5px 7px;
+  padding: 6px 7px;
   gap: 8px;
   background-color: #00000010;
 `
 
 const inputStyle = css`
-  max-width: 60px;
-  padding: 5px 7px;
+  max-width: 55px;
+  height: 36px;
+  padding: 6px 7px;
 `
 
-const upperStyle = cx(inputStyle, css``)
-
-const lowerStyle = cx(inputStyle, css``)
-
-function getLowerStep(value: number): number {
-  switch (value) {
-    case 1:
-      return 1
-    case 2:
-      return 2
-    case 4:
-      return 4
-    default:
-      return 0
-  }
-}
+const LOWER_ITEMS: SelectItem<number>[] = [1, 2, 4, 8].map((value) => ({
+  label: value.toString(),
+  value,
+}))
 
 export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
   value,
@@ -47,14 +39,17 @@ export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
   const onUpperChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange({ ...value, upper: e.target.valueAsNumber })
   }
-  const onLowerChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange({ ...value, lower: e.target.valueAsNumber })
+
+  const onLowerChange = (e: SelectItem<number> | null) => {
+    onChange({ ...value, lower: e?.value ?? value.lower })
   }
+
+  const selectedLower = LOWER_ITEMS.find((item) => item.value === value.lower)
 
   return (
     <div className={containerStyle}>
       <Input
-        className={upperStyle}
+        className={inputStyle}
         value={value.upper}
         onChange={onUpperChange}
         type="number"
@@ -63,14 +58,13 @@ export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
         max={30}
       />
       /
-      <Input
-        className={lowerStyle}
-        value={value.lower}
+      <Select<SelectItem<number>>
+        menuPosition="fixed"
+        value={selectedLower}
+        options={LOWER_ITEMS}
+        styles={lowerStyles}
+        components={lowerComponents}
         onChange={onLowerChange}
-        type="number"
-        step={1}
-        min={1}
-        max={8}
       />
     </div>
   )
