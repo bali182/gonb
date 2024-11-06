@@ -7,7 +7,7 @@ import { generatorSlice } from '../state/generatorSlice'
 import { HelpModal } from './help/HelpModal'
 import { SettingsModal } from './settings/SettingsModal'
 import { isNil } from '../common/utils'
-import { fromUrl } from '../common/url'
+import { fromUrl } from '../url/url'
 
 export const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
