@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Section, Description, Label } from '../controls/InputSectionPrimitives'
 import { SettingsPageProps } from '../types'
 import { ShareableLink } from '../controls/ShareableLink/ShareableLink'
-import { toUrl } from '../../../common/url'
+import { toUrl } from '../../../url/url'
 
 export const PageShare: FC<SettingsPageProps> = ({ value }) => {
   const { t } = useTranslation()

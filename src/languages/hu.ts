@@ -104,6 +104,8 @@ export const hu: Messages = {
     ClefDescription: 'Zenei kulcs amiben gyakorolni szeretnél.',
     KeySignature: 'Előjegyzés',
     KeySignatureDescription: 'Az előjegyzés amivel gyakorolni szeretnél.',
+    TimeSignature: 'Ütemmutató',
+    TimeSignatureDescription: 'Az ütemmutató amivel gyakorolni szeretnél.',
     MelodyType: 'Dallam típusa',
     MelodyTypeDescription: 'Dallam típusa amit gyakorolni szeretnél.',
     Range: 'Tartomány',
@@ -204,6 +206,8 @@ export const hu: Messages = {
       'Válassz legalább 1 hangot a {{scale}} dúr skálából ({{scaleNotes}} hangok egyikét).',
     EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
     DottedRhytms: `A {{required}} (ritmus vagy szünet) kiválasztása kötelező  (a {{dotted}} miatt).`,
+    TimeSignatureLower: `A nevező megengedett értékei: {{lower}}.`,
+    TimeSignatureUpper: `A számláló {{min}} és {{max}} között kell hogy legyen.`,
   },
   ErrorBoundary: {
     Title: 'Hiba történt!',

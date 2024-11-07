@@ -46,7 +46,7 @@ export function getSong(config: GeneratorConfig): AtSong {
   return {
     title: i18n.t('Score.MelodyIn', { key: config.keySignature }),
     music: 'Édes Balázs',
-    tempo: config.bpm,
+    tempo: config.tempo,
     tracks: [melodyTrack, chordsTrack],
   }
 }
