@@ -4,6 +4,8 @@ import { SheetLogo } from './SheetLogo'
 import { Button } from './Button'
 import { PiGearBold, PiFastForwardBold, PiQuestionBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
+import { LanguageSwitch } from './LanguageSwitch'
+import { Language } from '../state/types'
 
 const toolbarStyle = css`
   display: flex;
@@ -43,15 +45,19 @@ const toolBarButtonIconStyle = css`
 `
 
 type ToolbarProps = {
+  language: Language
   onRegenerate: () => void
   onOpenSettings: () => void
   onOpenHelp: () => void
+  onLanguageChange: (language: Language) => void
 }
 
 export const Toolbar: FC<ToolbarProps> = ({
+  language,
   onRegenerate,
   onOpenSettings,
   onOpenHelp,
+  onLanguageChange,
 }) => {
   const { t } = useTranslation()
   return (
@@ -72,6 +78,7 @@ export const Toolbar: FC<ToolbarProps> = ({
           <PiQuestionBold className={toolBarButtonIconStyle} />
           <span className={toolBarButtonLabelStyle}> {t('Menu.Help')}</span>
         </Button>
+        <LanguageSwitch onChange={onLanguageChange} language={language} />
       </div>
     </div>
   )

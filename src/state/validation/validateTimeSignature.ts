@@ -29,7 +29,7 @@ export function validateTimeSignature(
   if (upper < UPPER_MIN || upper > UPPER_MAX) {
     return {
       type: IssueType.ERROR,
-      label: t('Validation.TimeSignatureLower', {
+      label: t('Validation.TimeSignatureUpper', {
         min: UPPER_MIN,
         max: UPPER_MAX,
       }),

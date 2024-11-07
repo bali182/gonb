@@ -6,6 +6,11 @@ import { HelpPageId } from '../components/help/HelpPageId'
 import { SettingsPageId } from '../components/settings/SettingsPageId'
 import { MelodyType } from '../legacy/melodies/types'
 
+export const enum Language {
+  Hungarian = 'hu',
+  English = 'en',
+}
+
 export type PlayerConfig = {
   metronomeVolume: number
   instrumentVolume: number
@@ -65,4 +70,5 @@ export type AppState = {
   player: PlayerConfig
   pages: PagesConfig
   generator: GeneratorConfig
+  language: Language | null
 }
