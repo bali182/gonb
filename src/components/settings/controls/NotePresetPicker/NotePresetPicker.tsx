@@ -26,6 +26,7 @@ const buttonStyle = css`
   border-radius: 0px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
+  height: auto;
   background-color: #00000010;
   color: #000;
   font-size: 1em;

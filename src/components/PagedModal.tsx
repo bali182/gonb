@@ -5,6 +5,7 @@ import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
 import { Button } from './Button'
 import { isNil, noop } from '../common/utils'
+import { useScrollOverflowGradient } from './useScrollOverflowGradient'
 
 export type ModalPage<P extends string, T = any> = {
   id: P
@@ -131,18 +132,34 @@ const contentContainerStyle = css`
   overflow: auto;
   width: 600px;
   height: 540px;
-  padding-bottom: 20px;
 `
 
-const contentBottomGradient = css`
+const gradientBase = css`
   position: absolute;
   pointer-events: none;
-  bottom: 65px;
-  left: 0px;
-  right: 20px;
-  height: 16px;
-  background: linear-gradient(0deg, #ffffffff 0%, #ffffff00 100%);
+  height: 50px;
+  transition: opacity linear 200ms;
 `
+
+const bottomGradient = cx(
+  gradientBase,
+  css`
+    bottom: 65px;
+    left: 0px;
+    right: 20px;
+    background: linear-gradient(0deg, #ffffffff 0%, transparent 100%);
+  `,
+)
+
+const topGradient = cx(
+  gradientBase,
+  css`
+    top: 60px;
+    left: 0px;
+    right: 20px;
+    background: linear-gradient(180deg, #ffffffff 0%, transparent 100%);
+  `,
+)
 
 const buttonContainerStyle = css`
   height: 65px;
@@ -174,6 +191,14 @@ export function PagedModal<P extends string, T>({
     [pages, activePageId],
   )
 
+  const { ref, needsBottomGradient, needsTopGradient, onScroll, setScrollTop } =
+    useScrollOverflowGradient()
+
+  const onMenuClick = (id: P) => () => {
+    setActivePage(id)
+    setScrollTop(0)
+  }
+
   return (
     <Modal onBackdropClick={closeOnBackdropClick ? onClose : noop}>
       <div className={menuStyle}>
@@ -187,9 +212,8 @@ export function PagedModal<P extends string, T>({
               menuItemStlye,
               id === activePageId ? activeMenuItemStyle : null,
             )
-            const onClick = () => setActivePage(e.id)
             return (
-              <div key={id} className={className} onClick={onClick}>
+              <div key={id} className={className} onClick={onMenuClick(e.id)}>
                 <Icon />
                 <span className={menuItemNameStyle}>{name}</span>
                 {Badge && <Badge />}
@@ -205,12 +229,23 @@ export function PagedModal<P extends string, T>({
           </div>
           <PiX className={closeIconStyle} onClick={onClose} />
         </header>
-        <div className={contentContainerStyle}>
+        <div className={contentContainerStyle} ref={ref} onScroll={onScroll}>
+          {
+            <div
+              className={topGradient}
+              style={{ opacity: needsTopGradient ? 1 : 0 }}
+            />
+          }
           {<activePage.Component {...(pageData as any)} />}
         </div>
         {isNil(buttons) || buttons.length === 0 ? null : (
           <>
-            <div className={contentBottomGradient} />
+            {
+              <div
+                className={bottomGradient}
+                style={{ opacity: needsBottomGradient ? 1 : 0 }}
+              />
+            }
             <ButtonsBar
               buttons={buttons}
               data={pageData}
