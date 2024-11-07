@@ -1,7 +1,7 @@
 import { AlphaTabApi, json, synth } from '@coderline/alphatab'
 import { useEffect, useState } from 'react'
 import { alphaTabConfig } from './alphaTabConfig'
-import { isNil } from '../common/utils'
+import { isNil, noop } from '../common/utils'
 
 export type UseAlphaTabResult = {
   api: AlphaTabApi | undefined
@@ -20,8 +20,6 @@ export type UseAlphaTabConfig = {
   isLooping?: boolean
   player?: Partial<json.PlayerSettingsJson>
 }
-
-const noop = () => {}
 
 export function useAlphaTab({
   tex,
@@ -59,14 +57,19 @@ export function useAlphaTab({
       const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea, player))
 
       _api.renderStarted.on(() => setLoading(true))
-      _api.renderFinished.on(() => {
-        setLoading(false)
-        setTrackVolume(_api, 0, instrumentVolume)
-        setTrackVolume(_api, 1, chordsVolume)
+      _api.renderFinished.on(() => setLoading(false))
+      _api.playerStateChanged.on(({ state }) => {
+        const isPlaying = state === synth.PlayerState.Playing
+        setPlaying(isPlaying)
+
+        // This seems to be the best place to set these, otherwise main
+        // track volume seems to be lost.
+        if (isPlaying) {
+          setTrackVolume(_api, 0, instrumentVolume)
+          setTrackVolume(_api, 1, chordsVolume)
+          setMetronomeVolume(_api, metronomeVolume)
+        }
       })
-      _api.playerStateChanged.on(({ state }) =>
-        setPlaying(state === synth.PlayerState.Playing),
-      )
 
       _api.render()
       if (!isNil(isLooping)) {
@@ -89,42 +92,44 @@ export function useAlphaTab({
   }
 }
 
-export function useTrackVolume(
+function useTrackVolume(
   api: AlphaTabApi | undefined,
   trackIndex: number,
   volume: number | undefined,
 ): void {
   useEffect(() => {
     setTrackVolume(api, trackIndex, volume)
-  }, [trackIndex, volume, api])
+  }, [api, trackIndex, volume])
 }
 
-export function useMetronomeVolume(
+function useMetronomeVolume(
   api: AlphaTabApi | undefined,
   volume: number | undefined,
 ): void {
-  useEffect(() => {
-    if (isNil(api) || isNil(volume)) {
-      return
-    }
-    api.metronomeVolume = volume
-  }, [volume])
+  useEffect(() => setMetronomeVolume(api, volume), [api, volume])
 }
 
-export function setTrackVolume(
+function setTrackVolume(
   api: AlphaTabApi | undefined,
   trackIndex: number,
   volume: number | undefined,
 ): void {
-  // Seems to be necessary, otherwise volume might not be set
-  setTimeout(() => {
-    if (isNil(api) || isNil(volume)) {
-      return
-    }
-    const track = api.score?.tracks[trackIndex]
-    if (isNil(track)) {
-      return
-    }
-    api.changeTrackVolume([track], volume)
-  }, 5)
+  if (isNil(api) || isNil(volume)) {
+    return
+  }
+  const track = api.score?.tracks?.[trackIndex]
+  if (isNil(track)) {
+    return
+  }
+  api.changeTrackVolume([track], volume)
+}
+
+function setMetronomeVolume(
+  api: AlphaTabApi | undefined,
+  volume: number | undefined,
+): void {
+  if (isNil(api) || isNil(volume)) {
+    return
+  }
+  api.metronomeVolume = volume
 }
