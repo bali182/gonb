@@ -43,4 +43,5 @@ export const initialState: AppState = {
     settings: SettingsPageId.BASICS,
     help: HelpPageId.TREBLE_CLEF,
   },
+  language: null,
 }

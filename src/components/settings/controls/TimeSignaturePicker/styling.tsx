@@ -78,9 +78,4 @@ export const lowerStyles: StylesConfig<any, any, any> = {
 
 export const lowerComponents: SelectComponentsConfig<any, any, any> = {
   IndicatorSeparator: () => null,
-  IndicatorsContainer: (props) => {
-    const styles = props.getStyles('indicatorsContainer', props)
-    console.log(props.children, styles)
-    return <div>{props.children}</div>
-  },
 }

@@ -11,6 +11,7 @@ const buttonStyle = css`
   padding: 5px 14px 5px 12px;
   gap: 6px;
   cursor: pointer;
+  height: 40px;
   font-size: 1.2em;
   border-radius: 20px;
   background-color: transparent;
