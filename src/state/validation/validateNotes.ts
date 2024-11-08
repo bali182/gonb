@@ -1,12 +1,12 @@
 import { TFunction } from 'i18next'
-import { GeneratorConfig } from '../../state/types'
 import { Issue, IssueType } from './types'
 import { matchesPitchClass } from '../../common/utils'
 import { get } from '@tonaljs/scale'
+import { NumberSafeGeneratorConfig } from '../../components/settings/types'
 
 export function validateNotes(
   t: TFunction,
-  config: GeneratorConfig,
+  config: NumberSafeGeneratorConfig,
 ): Issue | undefined {
   if (config.notes.length === 0) {
     return { type: IssueType.ERROR, label: t('Validation.EmptyNotes') }

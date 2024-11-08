@@ -20,9 +20,9 @@ export const PageBasics: FC<SettingsPageProps> = ({
   const setClef = (clef: Clef) => onChange({ ...value, clef })
   const setKeySignature = (keySignature: KeySignature) =>
     onChange({ ...value, keySignature })
-  const setBpm = (bpm: number) => onChange({ ...value, tempo: bpm })
-  const setBars = (bars: number) => onChange({ ...value, bars })
-  const setTimeSignature = (timeSignature: TimeSignature) =>
+  const setTempo = (tempo: number | undefined) => onChange({ ...value, tempo })
+  const setBars = (bars: number | undefined) => onChange({ ...value, bars })
+  const setTimeSignature = (timeSignature: Partial<TimeSignature>) =>
     onChange({ ...value, timeSignature })
 
   return (
@@ -61,7 +61,7 @@ export const PageBasics: FC<SettingsPageProps> = ({
         </Description>
         <NumberInput
           value={value.tempo}
-          onChange={setBpm}
+          onChange={setTempo}
           min={10}
           max={400}
           step={1}

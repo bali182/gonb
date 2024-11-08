@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, useState } from 'react'
 import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
 import { PagedModal, PagedModalButton } from '../PagedModal'
-import { SettingsPageProps } from './types'
+import { NumberSafeGeneratorConfig, SettingsPageProps } from './types'
 import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
 import { useSettingsButtons } from './useSettingsButtons'
@@ -11,6 +11,7 @@ import { generatorSlice } from '../../state/generatorSlice'
 import { AppDispatch } from '../../state/store'
 import { SettingsPageId } from './SettingsPageId'
 import { pagesSlice } from '../../state/pagesSlice'
+import { GeneratorConfig } from '../../state/types'
 
 export type SettingsModalProps = {
   onClose: () => void
@@ -22,7 +23,9 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
 
   const activePageId = useSelector(pagesSlice.selectors.selectSettingsPage)
   const configInState = useSelector(generatorSlice.selectSlice)
-  const [config, setConfig] = useState(() => configInState)
+  const [config, setConfig] = useState<NumberSafeGeneratorConfig>(
+    () => configInState,
+  )
 
   const issues = useValidationIssues(config)
   const buttons = useSettingsButtons(issues)
@@ -47,7 +50,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({ onClose }) => {
     if (button.id === 'save') {
       dispatch(
         generatorSlice.actions.setGeneratorConfig({
-          ...config,
+          // This should be a proper Generator config, if validators pass.
+          ...(config as GeneratorConfig),
           timeStamp: Date.now(),
         }),
       )

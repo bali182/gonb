@@ -204,6 +204,14 @@ export const en = {
   Frequency,
   DurationTypes,
   Validation: {
+    EmptyBars: 'Number of bars cannot be empty.',
+    EmptyTempo: 'Tempo cannot be empty.',
+    EmptyTimeSignatureUpper: 'Upper part of time signature cannot be empty.',
+    EmptyTimeSignatureLower: 'Lower part of time signature cannot be empty.',
+    DurationLongerThanBar: `Duration {{duration}} doesn't fit in a bar of {{timeSignature}}.`,
+    DurationInvalidBecauseOfTimeSignature: `Invalid because of time signature.`,
+    DurationInvalidBeacauseOfTimeSignature:
+      'Please fix the time signature before configuring durations!',
     PercussionClef: 'This clef is not yet supported.',
     ZeroBars: 'There must be at least one bar.',
     WrongBpm: 'Tempo must be between 10 and 400 bpm.',
@@ -214,6 +222,7 @@ export const en = {
     DottedRhytms: `When {{dotted}} is selected, {{required}} must be selected as well.`,
     TimeSignatureLower: `Lower value must be {{lower}}`,
     TimeSignatureUpper: `Upper value must be between {{min}} and {{max}}`,
+    ErrorInUrl: `Can't share your configuration until it has critical issues.`,
   },
   ErrorBoundary: {
     Title: 'An unexpected error happened!',
@@ -223,9 +232,10 @@ export const en = {
     Reset: 'Reset App',
   },
   DurationGrid: {
-    IsDisabled: 'is disabled.',
+    IsNotActive: 'is inactive.',
     Enabled: 'Enabled',
     Probability: 'Probability',
     ClusterSize: 'Preferred cluster size',
+    DurationTooLong: '{{duration}} does not fit in a bar.',
   },
 }

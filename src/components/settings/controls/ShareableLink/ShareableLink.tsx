@@ -1,7 +1,8 @@
 import { css } from '@emotion/css'
-import { FC, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCheckBold, PiWarningCircleBold } from 'react-icons/pi'
+import { isNil } from '../../../../common/utils'
 
 const boxStyle = css`
   padding: 8px;
@@ -57,17 +58,24 @@ const CopyDescription: FC<CopyDescriptionProps> = ({ isCopied }) => {
 }
 
 type ShareableLinkProps = {
-  url: string
+  url: string | undefined
+  disabled: boolean
 }
 
-export const ShareableLink: FC<ShareableLinkProps> = ({ url }) => {
+export const ShareableLink: FC<ShareableLinkProps> = ({ url, disabled }) => {
   const [isCopied, setCopied] = useState<boolean | undefined>(undefined)
 
   const onClick = () => {
-    navigator.clipboard
-      .writeText(url)
-      .then(() => setCopied(true))
-      .catch(() => setCopied(false))
+    if (!isNil(url)) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => setCopied(true))
+        .catch(() => setCopied(false))
+    }
+  }
+
+  if (disabled) {
+    return null
   }
 
   return (

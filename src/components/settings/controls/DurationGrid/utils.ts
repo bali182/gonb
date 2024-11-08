@@ -1,25 +1,29 @@
 import Fraction from 'fraction.js'
 import { DurationItem } from './types'
 import { Duration } from '../../../../common/duration'
-import { asFraction } from '../../../../generator/rhythm/asFraction'
+import {
+  asFraction,
+  DURATION_VALUES,
+} from '../../../../generator/rhythm/asFraction'
 import * as NoteDurations from './NoteDurations'
 import * as RestDurations from './RestDurations'
 import { ComponentType } from 'react'
 import { TFunction } from 'i18next'
 import { capitalize, isDotted, isNil } from '../../../../common/utils'
 import { DurationFrequency } from '../../../../common/durationFrequency'
-import {
-  DurationConfig,
-  GeneratorConfig,
-  TimeSignature,
-} from '../../../../state/types'
+import { DurationConfig, TimeSignature } from '../../../../state/types'
 import { DurationType } from '../../../../common/durationType'
 
 export const createDurationsSetter =
   (config: DurationConfig = {}, onChange: (items: DurationConfig) => void) =>
   (items: DurationItem[]): void => {
     const newConfig: DurationConfig = { ...config }
-    for (const { isEnabled, duration, cluster, frequency } of items) {
+    for (const {
+      isSelected: isEnabled,
+      duration,
+      cluster,
+      frequency,
+    } of items) {
       if (isEnabled) {
         newConfig[duration] = { cluster: cluster ?? 1, frequency: frequency }
       } else {
@@ -59,7 +63,7 @@ export function getMaxClusterSize(
   timeSignature: Fraction,
   duration: Duration,
 ): number {
-  const len = asFraction(duration)
+  const len = DURATION_VALUES[duration]
   const times = timeSignature.div(len).valueOf()
   if (times < 1) {
     return 0
@@ -67,51 +71,57 @@ export function getMaxClusterSize(
   return Math.floor(times)
 }
 
-function getDurationItemName(
+export function getDurationItemName(
   type: DurationType,
   duration: Duration,
   t: TFunction,
+  doCapitalize: boolean = true,
 ): string {
   const typeLabel = t(`DurationTypes.${type}`)
   const valueLabel = t(`Durations.${duration}`)
-  return capitalize(`${valueLabel} ${typeLabel}`)
+  const fullLabel = `${valueLabel} ${typeLabel}`
+  return doCapitalize ? capitalize(fullLabel) : fullLabel
 }
 
 export function getDurationItem(
   type: DurationType,
   duration: Duration,
   durationConfig: DurationConfig,
-  timeSignature: TimeSignature,
+  timeSignature: Partial<TimeSignature>,
   t: TFunction,
 ): DurationItem {
   const { cluster, frequency } = durationConfig[duration] ?? {}
   const Components = type === 'NOTE' ? NoteComponents : RestComponents
-  const maxLength = new Fraction(timeSignature.upper, timeSignature.lower)
+  const maxLength = new Fraction(
+    timeSignature.upper ?? 0,
+    timeSignature.lower ?? 1,
+  )
   return {
     type,
-    Component: Components[duration],
     duration,
-    cluster: cluster,
+    cluster,
+    timeSignature,
+    Component: Components[duration],
     name: getDurationItemName(type, duration, t),
-    isEnabled: !isNil(cluster),
+    isSelected: !isNil(cluster),
+    isEnabled: DURATION_VALUES[duration].lte(maxLength),
     frequency: frequency ?? DurationFrequency.MODERATE,
     maxCluster: getMaxClusterSize(maxLength, duration),
   }
 }
 
+const DURATIONS = (Object.keys(DURATION_VALUES) as Duration[]).sort((a, b) =>
+  DURATION_VALUES[b].sub(DURATION_VALUES[a]).valueOf(),
+)
+
 export const getDurationItems =
-  (type: DurationType, dotted: boolean, timeSignature: TimeSignature) =>
+  (
+    type: DurationType,
+    dotted: boolean,
+    timeSignature: Partial<TimeSignature>,
+  ) =>
   (t: TFunction, _language: string, c: DurationConfig): DurationItem[] => {
-    return [
-      getDurationItem(type, Duration.WHOLE, c, timeSignature, t),
-      getDurationItem(type, Duration.DOTTED_WHOLE, c, timeSignature, t),
-      getDurationItem(type, Duration.HALF, c, timeSignature, t),
-      getDurationItem(type, Duration.DOTTED_HALF, c, timeSignature, t),
-      getDurationItem(type, Duration.QUARTER, c, timeSignature, t),
-      getDurationItem(type, Duration.DOTTED_QUARTER, c, timeSignature, t),
-      getDurationItem(type, Duration.EIGHTH, c, timeSignature, t),
-      getDurationItem(type, Duration.DOTTED_EIGHT, c, timeSignature, t),
-      getDurationItem(type, Duration.SIXTEENTH, c, timeSignature, t),
-      // getDurationItem(type, Duration.DOTTED_SIXTEENTH, c, t),
-    ].filter((i) => i.maxCluster >= 1 && isDotted(i.duration) === dotted)
+    return DURATIONS.filter((duration) => isDotted(duration) === dotted).map(
+      (duration) => getDurationItem(type, duration, c, timeSignature, t),
+    )
   }

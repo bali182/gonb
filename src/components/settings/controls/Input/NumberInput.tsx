@@ -1,12 +1,13 @@
 import { ChangeEvent, FC } from 'react'
 import { Input } from './Input'
+import { isNil } from '../../../../common/utils'
 
 export type NumberInputProps = {
-  value: number
+  value: number | undefined
   min: number
   max: number
   step: number
-  onChange: (value: number) => void
+  onChange: (value: number | undefined) => void
 }
 
 export const NumberInput: FC<NumberInputProps> = ({
@@ -17,12 +18,13 @@ export const NumberInput: FC<NumberInputProps> = ({
   onChange: _onChange,
 }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    _onChange(e.target.valueAsNumber)
+    const num = e.target.valueAsNumber
+    _onChange(isNil(num) || Number.isNaN(num) ? undefined : num)
   }
   return (
     <Input
       type="number"
-      value={value}
+      value={value ?? ''}
       min={min}
       max={max}
       step={step}

@@ -10,6 +10,7 @@ import {
   clusterTdStyle,
   clusterThStyle,
   disabledClusterStyle,
+  disabledRowStyle,
   emptyThStyle,
   enabledThStyle,
   frequencyPickerTdStyle,
@@ -23,10 +24,28 @@ import { useTranslation } from 'react-i18next'
 import { Duration } from '../../../../common/duration'
 import { DurationConfig, TimeSignature } from '../../../../state/types'
 import { DurationType } from '../../../../common/durationType'
+import { t } from 'i18next'
+import { isNil } from '../../../../common/utils'
 
 type InternalDurationGridProps = {
   value: DurationItem[]
   onChange: (items: DurationItem[]) => void
+}
+
+function getJoinedRowLabel(item: DurationItem): string {
+  const { isEnabled, isSelected, name, timeSignature } = item
+  if (isEnabled && !isSelected) {
+    return `${name} ${t('DurationGrid.IsNotActive')}`
+  }
+  if (!isEnabled) {
+    if (isNil(timeSignature.lower) || isNil(timeSignature.upper)) {
+      return t('Validation.DurationInvalidBecauseOfTimeSignature')
+    }
+    return t('DurationGrid.DurationTooLong', {
+      duration: name.toLowerCase(),
+    })
+  }
+  throw new Error(`Unknown situation with duration ${name}`)
 }
 
 const InternalDurationGrid: FC<InternalDurationGridProps> = ({
@@ -43,7 +62,7 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
   }
 
   const onItemToggled = (item: DurationItem) => (isEnabled: boolean) =>
-    update(item.duration, { isEnabled })
+    update(item.duration, { isSelected: isEnabled })
 
   const onFrequencyChange =
     (item: DurationItem) => (frequency: DurationFrequency) =>
@@ -68,21 +87,23 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
         {value.map((item) => {
           const key = `${item.duration}-${item.type}`
           const switchId = `${item.duration}-${item.type}-enabled`
+          const fullRowStyle = item.isEnabled ? rowStyle : disabledRowStyle
           return (
-            <tr className={rowStyle} key={key}>
+            <tr className={fullRowStyle} key={key}>
               <th className={tdStyle}>
                 <item.Component />
               </th>
               <td className={tdStyle}>
                 <div className={tdCenterAlignerStyle}>
                   <Switch
-                    value={item.isEnabled}
+                    value={item.isSelected}
                     id={switchId}
                     onChange={onItemToggled(item)}
+                    disabled={!item.isEnabled && !item.isSelected}
                   />
                 </div>
               </td>
-              {item.isEnabled ? (
+              {item.isSelected && item.isEnabled ? (
                 <>
                   <td className={cx(tdStyle, frequencyPickerTdStyle)}>
                     <DurationFrequencyPicker
@@ -101,7 +122,7 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
               ) : (
                 <td className={tdStyle} colSpan={2}>
                   <div className={disabledClusterStyle}>
-                    {item.name} {t('DurationGrid.IsDisabled')}
+                    {getJoinedRowLabel(item)}
                   </div>
                 </td>
               )}
@@ -117,7 +138,7 @@ export type DurationsGridProps = {
   type: DurationType
   dotted: boolean
   value: DurationConfig
-  timeSignature: TimeSignature
+  timeSignature: Partial<TimeSignature>
   onChange: (value: DurationConfig) => void
 }
 

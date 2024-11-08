@@ -5,10 +5,11 @@ import { css } from '@emotion/css'
 import Select from 'react-select'
 import { SelectItem } from '../../types'
 import { lowerComponents, lowerStyles } from './styling'
+import { isNil } from '../../../../common/utils'
 
 export type TimeSignaturePickerProps = {
-  value: TimeSignature
-  onChange: (value: TimeSignature) => void
+  value: Partial<TimeSignature>
+  onChange: (value: Partial<TimeSignature>) => void
 }
 
 const containerStyle = css`
@@ -37,7 +38,11 @@ export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
   onChange,
 }) => {
   const onUpperChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange({ ...value, upper: e.target.valueAsNumber })
+    const num = e.target.valueAsNumber
+    onChange({
+      ...value,
+      upper: isNil(num) || Number.isNaN(num) ? undefined : num,
+    })
   }
 
   const onLowerChange = (e: SelectItem<number> | null) => {
@@ -50,7 +55,7 @@ export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
     <div className={containerStyle}>
       <Input
         className={inputStyle}
-        value={value.upper}
+        value={value.upper ?? ''}
         onChange={onUpperChange}
         type="number"
         step={1}

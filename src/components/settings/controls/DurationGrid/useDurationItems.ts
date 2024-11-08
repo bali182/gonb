@@ -8,7 +8,7 @@ export function useDurationItems(
   type: DurationType,
   dotted: boolean,
   config: DurationConfig,
-  timeSignature: TimeSignature,
+  timeSignature: Partial<TimeSignature>,
   onChange: (items: DurationConfig) => void,
 ): [DurationItem[], (items: DurationItem[]) => void] {
   const producer = getDurationItems(type, dotted, timeSignature)

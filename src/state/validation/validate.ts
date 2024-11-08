@@ -10,11 +10,12 @@ import { validateRestDurations } from './validateRestDurations'
 import { validateDottedNoteDurations } from './validateDottedNoteDurations'
 import { validateDottedRestDurations } from './validateDottedRestDurations'
 import { validateTimeSignature } from './validateTimeSignature'
+import { NumberSafeGeneratorConfig } from '../../components/settings/types'
 
 export function validate(
   t: TFunction,
   language: string,
-  config: GeneratorConfig,
+  config: NumberSafeGeneratorConfig,
 ): ConfigIssues {
   return {
     bars: validateBars(t, config),

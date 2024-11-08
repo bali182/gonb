@@ -2,9 +2,12 @@ import Fraction from 'fraction.js'
 import { Duration } from '../../common/duration'
 import { DURATION_VALUES as DV } from '../../generator/rhythm/asFraction'
 import { DurationIssue, Issue, IssueType } from './types'
-import { DurationConfig, GeneratorConfig, TimeSignature } from '../types'
+import { DurationConfig, DurationData, TimeSignature } from '../types'
 import { isDotted, isNil, negate } from '../../common/utils'
 import { TFunction } from 'i18next'
+import { NumberSafeGeneratorConfig } from '../../components/settings/types'
+import { DurationType } from '../../common/durationType'
+import { getDurationItemName } from '../../components/settings/controls/DurationGrid/utils'
 
 const DURATIONS = Object.keys(DV) as Duration[]
 
@@ -81,12 +84,18 @@ function getSelectedDurations(config: DurationConfig): Duration[] {
 export function validateIfBarCanComplete(
   t: TFunction,
   language: string,
-  config: GeneratorConfig,
+  config: NumberSafeGeneratorConfig,
   dotted: boolean,
 ): Issue | undefined {
+  const { timeSignature, noteDurations, restDurations } = config
+
+  if (isNil(timeSignature.lower) || isNil(timeSignature.upper)) {
+    return undefined
+  }
+
   const selected = [
-    ...getSelectedDurations(config.noteDurations),
-    ...getSelectedDurations(config.restDurations),
+    ...getSelectedDurations(noteDurations),
+    ...getSelectedDurations(restDurations),
   ].sort((a, b) => DV[b].compare(DV[a]))
 
   // This is not our job
@@ -96,7 +105,11 @@ export function validateIfBarCanComplete(
 
   const display = dotted ? DOTTED_DURATIONS : NORMAL_DURATIONS
 
-  const issue = getDurationsIssue(config.timeSignature, selected, display)
+  const issue = getDurationsIssue(
+    timeSignature as TimeSignature,
+    selected,
+    display,
+  )
 
   if (isNil(issue)) {
     return undefined
@@ -121,4 +134,48 @@ export function validateIfBarCanComplete(
       required: arrayFormat.format(solutions),
     }),
   }
+}
+
+export function validateIfAllFitsBar(
+  t: TFunction,
+  _language: string,
+  config: NumberSafeGeneratorConfig,
+  dotted: boolean,
+  type: DurationType,
+): Issue | undefined {
+  const { timeSignature, noteDurations, restDurations } = config
+  if (isNil(timeSignature.lower) || isNil(timeSignature.upper)) {
+    return {
+      label: t('Validation.DurationInvalidBeacauseOfTimeSignature'),
+      type: IssueType.ERROR,
+    }
+  }
+  const barLength = new Fraction(timeSignature.upper!, timeSignature.lower!)
+  const durationsConfig =
+    type === DurationType.NOTE ? noteDurations : restDurations
+
+  const durationTuples = Object.entries(durationsConfig) as [
+    Duration,
+    DurationData,
+  ][]
+
+  const durations = durationTuples
+    .filter(([d, value]) => !isNil(value) && isDotted(d) === dotted)
+    .map(([key]) => key)
+    .sort((a, b) => DV[b].sub(DV[a]).valueOf())
+
+  const longerThanBar = durations.find((d) => DV[d].gt(barLength))
+
+  if (!isNil(longerThanBar)) {
+    const tsString = `${timeSignature.upper}/${timeSignature.lower}`
+    return {
+      label: t('Validation.DurationLongerThanBar', {
+        duration: getDurationItemName(type, longerThanBar, t, false),
+        timeSignature: tsString,
+      }),
+      type: IssueType.ERROR,
+    }
+  }
+
+  return undefined
 }

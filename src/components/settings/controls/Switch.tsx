@@ -19,26 +19,34 @@ const sliderStyle = css`
   transition: 0.4s;
   border-radius: 26px;
   background-color: #777;
-
-  &:before {
-    position: absolute;
-    content: '';
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    transition: 0.4s;
-    border-radius: 50%;
-    background-color: #ffffff;
-  }
 `
 
 const checkedSliderStyle = css`
   background-color: #238636;
+`
 
-  &:before {
-    transform: translateX(26px);
-  }
+const disabledSliderStyle = css`
+  cursor: not-allowed;
+`
+
+const thumbStyle = css`
+  position: absolute;
+  content: '';
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  transition: 0.4s;
+  border-radius: 50%;
+  background-color: #ffffff;
+`
+
+const checkedThumbStyle = css`
+  transform: translateX(26px);
+`
+
+const disabledThumbStyle = css`
+  background-color: #ffffff80;
 `
 
 const inputStyle = css`
@@ -50,32 +58,51 @@ const inputStyle = css`
   left: 0;
   cursor: pointer;
   z-index: 2; /* Ensure the input is on top of the slider */
+  &:disabled {
+    cursor: not-allowed;
+  }
 `
 
 export type SwitchProps = {
   id: string
   value: boolean
+  disabled?: boolean
   onChange: (value: boolean) => void
 }
 
-export const Switch: FC<SwitchProps> = ({ id, value, onChange }) => {
+export const Switch: FC<SwitchProps> = ({ id, value, disabled, onChange }) => {
   const handleChange = () => {
+    if (disabled) {
+      return
+    }
     onChange(!value)
   }
+
+  const sliderClassName = cx({
+    [sliderStyle]: true,
+    [checkedSliderStyle]: value,
+    [disabledSliderStyle]: disabled,
+  })
+
+  const thumbClassName = cx({
+    [thumbStyle]: true,
+    [checkedThumbStyle]: value,
+    [disabledThumbStyle]: disabled,
+  })
 
   return (
     <label className={switchStyle}>
       <input
         id={id}
         type="checkbox"
+        disabled={disabled}
         checked={value}
         onChange={noop}
         onClick={handleChange}
         className={inputStyle}
       />
-      <span
-        className={cx(sliderStyle, value ? checkedSliderStyle : undefined)}
-      />
+      <span className={sliderClassName} />
+      <span className={thumbClassName} />
     </label>
   )
 }

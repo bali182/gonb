@@ -206,8 +206,18 @@ export const hu: Messages = {
       'Válassz legalább 1 hangot a {{scale}} dúr skálából ({{scaleNotes}} hangok egyikét).',
     EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
     DottedRhytms: `A {{required}} (ritmus vagy szünet) kiválasztása kötelező  (a {{dotted}} miatt).`,
-    TimeSignatureLower: `A nevező megengedett értékei: {{lower}}.`,
-    TimeSignatureUpper: `A számláló {{min}} és {{max}} között kell hogy legyen.`,
+    TimeSignatureLower: `Az ütemmutató nevezője a következő értékek egyike kell hogy legyen: {{lower}}.`,
+    TimeSignatureUpper: `Az ütemmutató számlálója {{min}} és {{max}} között kell hogy legyen.`,
+    EmptyBars: 'Az ütemszám nem lehet üres.',
+    EmptyTempo: 'A tempó nem lehet üres.',
+    EmptyTimeSignatureUpper: 'Az ütemmutató számlálója nem lehet üres.',
+    EmptyTimeSignatureLower: 'Az ütemmutató nevezője nem lehet üres.',
+    ErrorInUrl: `Megosztható URL nem generálható ameddig a beállítás kritikus hibákat tartalmaz.`,
+    DurationLongerThanBar: `Egy {{duration}} nem fér egy {{timeSignature}} ütemmutatójú ütembe.`,
+    DurationInvalidBecauseOfTimeSignature:
+      'Érvénytelen a hibás ütemmutató miatt.',
+    DurationInvalidBeacauseOfTimeSignature:
+      'Javítsd az ütemmutatót a ritmusok beállítása előtt!',
   },
   ErrorBoundary: {
     Title: 'Hiba történt!',
@@ -216,9 +226,10 @@ export const hu: Messages = {
     Reset: 'Alkalmazás alaphelyzetbe állítása',
   },
   DurationGrid: {
-    IsDisabled: 'inaktív.',
+    IsNotActive: 'inaktív.',
     Enabled: 'Aktív',
     Probability: 'Gyakoriság',
     ClusterSize: 'Preferált csoport méret',
+    DurationTooLong: 'Egy {{duration}} nem fér egy ütembe.',
   },
 }

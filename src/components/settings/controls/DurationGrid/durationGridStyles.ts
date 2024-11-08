@@ -22,6 +22,11 @@ export const rowStyle = css`
   }
 `
 
+export const disabledRowStyle = css`
+  background-color: #00000020;
+  cursor: not-allowed;
+`
+
 export const tdStyle = css`
   border: 1px solid #00000020;
   font-weight: 400;
