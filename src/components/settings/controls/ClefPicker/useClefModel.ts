@@ -46,17 +46,17 @@ function getClefModel(t: TFunction): ClefModel[] {
         top: 11px;
       `,
     },
-
-    {
-      clef: Clef.PERCUSSION,
-      icon: String.fromCodePoint(0xe069),
-      name: t('ClefsPrimary.N'),
-      alternateName: t('ClefsAlternate.N'),
-      isEnabled: false,
-      iconStyle: css`
-        top: 12px;
-      `,
-    },
+    // Disabling for now
+    // {
+    //   clef: Clef.PERCUSSION,
+    //   icon: String.fromCodePoint(0xe069),
+    //   name: t('ClefsPrimary.N'),
+    //   alternateName: t('ClefsAlternate.N'),
+    //   isEnabled: false,
+    //   iconStyle: css`
+    //     top: 12px;
+    //   `,
+    // },
   ]
 }
 
