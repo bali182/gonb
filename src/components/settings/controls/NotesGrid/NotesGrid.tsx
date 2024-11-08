@@ -13,6 +13,8 @@ import {
 import { Cell } from './Cell'
 import { NoteHeader, OctaveHeader } from './Headers'
 import { tableStyle } from './notesGridStyles'
+import { useTranslation } from 'react-i18next'
+import { Language } from '../../../../state/types'
 
 export type NotesGridProps = {
   value: string[]
@@ -20,6 +22,8 @@ export type NotesGridProps = {
 }
 
 export const NotesGrid: FC<NotesGridProps> = ({ onChange, value }) => {
+  const { i18n } = useTranslation()
+  const language = i18n.language as Language
   const data = useMemo(() => asNotesGridData(value), [value])
   const columnSelection = useMemo(() => asColumnSelection(data), [data])
   const rowSelection = useMemo(() => asRowSelection(data), [data])
@@ -46,6 +50,7 @@ export const NotesGrid: FC<NotesGridProps> = ({ onChange, value }) => {
             return (
               <NoteHeader
                 key={`note-header-${note}`}
+                language={language}
                 isSelected={isColumnSelected}
                 note={note}
                 onClick={onRowHeaderClick}
@@ -69,6 +74,7 @@ export const NotesGrid: FC<NotesGridProps> = ({ onChange, value }) => {
                 return (
                   <Cell
                     key={`note-${note}${octave}`}
+                    language={language}
                     isSelected={isNoteSelected}
                     note={note}
                     octave={octave}

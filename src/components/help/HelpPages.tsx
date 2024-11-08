@@ -3,7 +3,7 @@ import { useAlphaTab } from '../../alphaTex/useAlphaTab'
 import { ScoreView } from '../ScoreView'
 import { AtSong } from '../../alphaTex/alphaTex'
 import { toAlphaTex } from '../../alphaTex/toAlphaTex'
-import { getHelpTrack } from './getHelpTrack'
+import { useHelpTrack } from './useHelpTrack'
 import { css } from '@emotion/css'
 import { noPlayer } from '../../alphaTex/alphaTabConfig'
 import { Clef } from '../../common/clef'
@@ -55,13 +55,12 @@ const BaseHelpPage: FC<BaseHelpPageProps> = ({ track }) => {
   )
 }
 
-const trebleClefTrack = getHelpTrack('E2', 'E5', Clef.TREBLE)
-const bassClefTrack = getHelpTrack('B0', 'G3', Clef.BASS)
-
 export const TrebleClefHelpPage: FC = () => {
+  const trebleClefTrack = useHelpTrack('E2', 'E5', Clef.TREBLE)
   return <BaseHelpPage track={trebleClefTrack} />
 }
 
 export const BassClefHelpPage: FC = () => {
+  const bassClefTrack = useHelpTrack('B0', 'G3', Clef.BASS)
   return <BaseHelpPage track={bassClefTrack} />
 }

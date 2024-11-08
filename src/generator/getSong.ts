@@ -11,12 +11,12 @@ import { getRhythm } from './rhythm/getRhythm'
 
 export function getSong(config: GeneratorConfig): AtSong {
   const progression = getProgression(config)
-  const chords = getChords(config, progression)
+  const chords = getChords(config, progression, i18n)
   const rhythm = getRhythm(config)
   const melodyInput = progression.map(
     (chord, i): MelodyBarInput => ({ chord, rhythm: rhythm[i]! }),
   )
-  const melody = getMelody(config, melodyInput)
+  const melody = getMelody(config, melodyInput, i18n)
 
   const melodyTrack: AtTrack = {
     name: 'melody',

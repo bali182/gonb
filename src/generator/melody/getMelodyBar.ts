@@ -1,18 +1,20 @@
 import { semitones } from '@tonaljs/interval'
 import { AtBar, AtItem, AtNote } from '../../alphaTex/alphaTex'
 import {
+  beautifyChord,
   getRandomWeightedElement,
   isNil,
   randomElement,
   WeightedItem,
 } from '../../common/utils'
-import { GeneratorConfig } from '../../state/types'
+import { GeneratorConfig, Language } from '../../state/types'
 import { MelodyBarInput } from './types'
 import { distance } from '@tonaljs/note'
 import { RhythmItem } from '../rhythm/types'
 import { ProgressionChord } from '../progression/types'
 import { Clef } from '../../common/clef'
 import { DurationType } from '../../common/durationType'
+import { i18n } from 'i18next'
 
 type MelodyNoteType = 'chord-tone' | 'chord-scale' | 'random'
 type MelodyNoteDistanceType = 'closest' | 'close' | 'random'
@@ -69,6 +71,7 @@ export function getMelodyBar(
   input: MelodyBarInput[],
   bars: AtBar[],
   index: number,
+  i18n: i18n,
 ): AtBar {
   const previous = bars[index - 1]
   const current = input[index]!
@@ -129,7 +132,7 @@ export function getMelodyBar(
       ? current.chord.seventhName
       : current.chord.triadName
 
-    item.label = `${chordName}`
+    item.label = beautifyChord(chordName, i18n.language as Language)
   }
 
   return { items }

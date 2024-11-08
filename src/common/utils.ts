@@ -2,6 +2,8 @@ import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
 import { get as getScale } from '@tonaljs/scale'
 import { KeySignature } from './keySignature'
 import { Duration } from './duration'
+import { Language } from '../state/types'
+import { get as getChord } from '@tonaljs/chord'
 
 export function isNil<T>(
   input: T | null | undefined,
@@ -240,4 +242,36 @@ export function isDotted(duration: Duration) {
     default:
       return false
   }
+}
+
+function normalizeNoteName(note: string, language: Language): string {
+  switch (note) {
+    case 'B':
+      return language === Language.Hungarian ? 'H' : 'B'
+    case 'Bb':
+      return language === Language.Hungarian ? 'B' : 'Bb'
+    default:
+      return note
+  }
+}
+
+export function beautifyNote(note: string, language: Language): string {
+  return normalizeNoteName(note, language).replace('#', '♯').replace('b', '♭')
+}
+
+// Don't use this in tonal code!!!
+export function beautifyChord(chordName: string, language: Language): string {
+  const {
+    tonic,
+    aliases: [alias],
+  } = getChord(chordName)
+
+  if (isNil(tonic) || isNil(alias)) {
+    throw new Error(
+      `Invalid chord ${chordName}, it's tonic was identified as  ${tonic} by tonal.`,
+    )
+  }
+  const type = alias === 'M' ? '' : alias
+  const root = beautifyNote(tonic, language)
+  return `${root}${type}`
 }

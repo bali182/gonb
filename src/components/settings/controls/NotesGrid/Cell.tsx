@@ -1,6 +1,5 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
-import { beautifyNote } from './notesGridUtils'
 import {
   bottomRightNoteStyle,
   selectedStyle,
@@ -9,11 +8,14 @@ import {
   fillSeparatorStyle,
 } from './notesGridStyles'
 import { enharmonic } from '@tonaljs/note'
+import { beautifyNote } from '../../../../common/utils'
+import { Language } from '../../../../state/types'
 
 export type CellProps = {
   note: string
   octave: number
   isSelected: boolean
+  language: Language
   onClick: (note: string, octave: number) => void
 }
 
@@ -21,6 +23,7 @@ export const Cell: FC<CellProps> = ({
   isSelected,
   note,
   octave,
+  language,
   onClick: _onClick,
 }) => {
   const tdFullStyle = cx(tdStyle, isSelected ? selectedStyle : undefined)
@@ -31,7 +34,7 @@ export const Cell: FC<CellProps> = ({
   if (ehNote === note) {
     return (
       <td className={tdFullStyle} onClick={onClick}>
-        {beautifyNote(note)}
+        {beautifyNote(note, language)}
         {octave}
       </td>
     )
@@ -40,11 +43,11 @@ export const Cell: FC<CellProps> = ({
     <td className={tdFullStyle} onClick={onClick}>
       <div className={fillSeparatorStyle} />
       <span className={topLeftNoteStyle}>
-        {beautifyNote(note)}
+        {beautifyNote(note, language)}
         {octave}
       </span>
       <span className={bottomRightNoteStyle}>
-        {beautifyNote(ehNote)}
+        {beautifyNote(ehNote, language)}
         {octave}
       </span>
     </td>

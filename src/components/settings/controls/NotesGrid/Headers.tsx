@@ -1,42 +1,53 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
-import { beautifyNote } from './notesGridUtils'
 import {
   bottomRightNoteStyle,
   selectedStyle,
   fillSeparatorStyle,
   thStyle,
   topLeftNoteStyle,
+  topThStyle,
+  leftThStyle,
 } from './notesGridStyles'
 import { enharmonic } from '@tonaljs/note'
+import { beautifyNote } from '../../../../common/utils'
+import { Language } from '../../../../state/types'
 
 export type NoteHeaderProps = {
   note: string
   isSelected: boolean
+  language: Language
   onClick: (note: string) => void
 }
 
 export const NoteHeader: FC<NoteHeaderProps> = ({
   isSelected,
   note,
+  language,
   onClick: _onClick,
 }) => {
-  const tdFullStyle = cx(thStyle, isSelected ? selectedStyle : undefined)
+  const tdFullStyle = cx({
+    [thStyle]: true,
+    [topThStyle]: true,
+    [selectedStyle]: isSelected,
+  })
   const ehNote = enharmonic(note)
   const onClick = () => _onClick(note)
 
   if (ehNote === note) {
     return (
       <th className={tdFullStyle} onClick={onClick}>
-        {beautifyNote(note)}
+        {beautifyNote(note, language)}
       </th>
     )
   }
   return (
     <th className={tdFullStyle} onClick={onClick}>
       <div className={fillSeparatorStyle} />
-      <span className={topLeftNoteStyle}>{beautifyNote(note)}</span>
-      <span className={bottomRightNoteStyle}>{beautifyNote(ehNote)}</span>
+      <span className={topLeftNoteStyle}>{beautifyNote(note, language)}</span>
+      <span className={bottomRightNoteStyle}>
+        {beautifyNote(ehNote, language)}
+      </span>
     </th>
   )
 }
@@ -52,7 +63,11 @@ export const OctaveHeader: FC<OctaveHeaderProps> = ({
   octave,
   onClick: _onClick,
 }) => {
-  const tdFullStyle = cx(thStyle, isSelected ? selectedStyle : undefined)
+  const tdFullStyle = cx({
+    [thStyle]: true,
+    [leftThStyle]: true,
+    [selectedStyle]: isSelected,
+  })
   const onClick = () => _onClick(octave)
   return (
     <th className={tdFullStyle} onClick={onClick}>

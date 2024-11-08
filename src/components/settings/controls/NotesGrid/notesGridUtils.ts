@@ -110,7 +110,3 @@ export function updateRow(
   const row = data[note]!.map(() => isSelected)
   return { ...data, [note]: row }
 }
-
-export function beautifyNote(note: string): string {
-  return note.replace('#', '♯').replace('b', '♭')
-}

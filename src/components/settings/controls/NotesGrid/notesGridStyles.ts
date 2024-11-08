@@ -6,19 +6,6 @@ export const tableStyle = css`
   overflow: hidden;
   table-layout: fixed;
   width: 100%;
-
-  tr:nth-child(odd) > td:nth-child(odd) {
-    background-color: #00000010;
-  }
-  tr:nth-child(odd) > td:nth-child(even) {
-    background-color: #00000015;
-  }
-  tr:nth-child(even) > td:nth-child(odd) {
-    background-color: #00000020;
-  }
-  tr:nth-child(even) > td:nth-child(even) {
-    background-color: #00000025;
-  }
 `
 
 export const thStyle = css`
@@ -30,10 +17,19 @@ export const thStyle = css`
   overflow: hidden;
   height: 38px;
   font-size: 0.9em;
-  border: 1px solid #00000050;
+  border: 1px solid #00000030;
+  background-color: #00000010;
   &:hover {
-    background-color: #00000030 !important;
+    background-color: #00000020 !important;
   }
+`
+
+export const topThStyle = css`
+  border-bottom-color: #00000050;
+`
+
+export const leftThStyle = css`
+  border-right-color: #00000050;
 `
 
 export const tdStyle = css`
@@ -42,7 +38,7 @@ export const tdStyle = css`
   text-align: center;
   cursor: pointer;
   position: relative;
-  border: 1px solid #00000050;
+  border: 1px solid #00000030;
   &:hover {
     background-color: #00000050 !important;
   }
