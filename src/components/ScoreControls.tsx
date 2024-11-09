@@ -1,27 +1,33 @@
 import { css, cx } from '@emotion/css'
 import { DOMAttributes, FC } from 'react'
+import { IconType } from 'react-icons'
 import {
   PiPauseFill,
   PiPlayFill,
   PiStopFill,
   PiRepeatBold,
+  PiHourglassBold,
 } from 'react-icons/pi'
 
-export type BasicButtonProps = DOMAttributes<HTMLButtonElement> & {
+type PlayerButtonKind = 'primary' | 'secondary'
+
+export type BasicButtonProps = {
+  kind: PlayerButtonKind
+  icon: IconType
   onClick: () => void
 }
 
-export type ToggleButtonProps = BasicButtonProps & {
+export type ToggleButtonProps = {
+  kind: PlayerButtonKind
   isToggled: boolean
+  icon: IconType
+  onToggle: (isToggled: boolean) => void
 }
 
-const playButtonStyle = css`
+const baseButtonStyle = css`
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
   background-color: #ffffff15;
   color: #ffffff;
-  font-size: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,26 +42,16 @@ const playButtonStyle = css`
   }
 `
 
+const primaryButtonStyle = css`
+  width: 100px;
+  height: 100px;
+  font-size: 50px;
+`
+
 const secondaryButtonStyle = css`
-  border-radius: 50%;
   width: 70px;
   height: 70px;
-  background-color: transparent;
-  color: #ffffff;
   font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease, outline 0.2s ease;
-  background-color: #ffffff20;
-  border: none;
-  &:hover {
-    background-color: #ffffff40;
-  }
-  &:focus {
-    outline: 2px solid #ffffff;
-  }
 `
 
 const toogledButtonStyle = css`
@@ -65,38 +61,39 @@ const toogledButtonStyle = css`
   }
 `
 
-export const PlayButton: FC<ToggleButtonProps> = ({
+export const PlayerButton: FC<BasicButtonProps> = ({
   onClick,
-  isToggled,
-  ...rest
+  kind,
+  icon: Icon,
 }) => {
+  const style = cx({
+    [baseButtonStyle]: true,
+    [primaryButtonStyle]: kind === 'primary',
+    [secondaryButtonStyle]: kind === 'secondary',
+  })
   return (
-    <button className={playButtonStyle} onClick={onClick} {...rest}>
-      {isToggled ? <PiPauseFill /> : <PiPlayFill />}
+    <button className={style} onClick={onClick}>
+      <Icon />
     </button>
   )
 }
 
-export const LoopButton: FC<ToggleButtonProps> = ({
-  onClick,
+export const PlayerToggle: FC<ToggleButtonProps> = ({
+  kind,
   isToggled,
-  ...rest
+  onToggle,
+  icon: Icon,
 }) => {
-  const className = cx(
-    secondaryButtonStyle,
-    isToggled ? toogledButtonStyle : null,
-  )
+  const style = cx({
+    [baseButtonStyle]: true,
+    [primaryButtonStyle]: kind === 'primary',
+    [secondaryButtonStyle]: kind === 'secondary',
+    [toogledButtonStyle]: isToggled,
+  })
+  const onClick = () => onToggle(!isToggled)
   return (
-    <button className={className} onClick={onClick} {...rest}>
-      <PiRepeatBold />
-    </button>
-  )
-}
-
-export const StopButton: FC<BasicButtonProps> = ({ onClick, ...rest }) => {
-  return (
-    <button className={secondaryButtonStyle} onClick={onClick} {...rest}>
-      <PiStopFill />
+    <button className={style} onClick={onClick}>
+      <Icon />
     </button>
   )
 }

@@ -2,11 +2,16 @@ import { FC } from 'react'
 import { css } from '@emotion/css'
 import { VolumeSlider } from './VolumeSlider'
 import {
+  PiHourglassBold,
   PiMetronomeBold,
   PiMusicNoteBold,
   PiMusicNotesBold,
+  PiPauseFill,
+  PiPlayFill,
+  PiRepeatBold,
+  PiStopFill,
 } from 'react-icons/pi'
-import { LoopButton, PlayButton, StopButton } from './ScoreControls'
+import { PlayerButton, PlayerToggle } from './ScoreControls'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 
 const playerControlsStyle = css`
@@ -60,12 +65,14 @@ const logoStyle = css`
 export type PlayerControlsProps = {
   isLooping: boolean
   isPlaying: boolean
+  isCountingIn: boolean
   instrumentVolume: number
   chordsVolume: number
   metronomeVolume: number
   onPlayPause: () => void
   onLoop: () => void
   onStop: () => void
+  onCountIn: () => void
   onInstrumentVolumeChange: (volume: number) => void
   onChordsVolumeChange: (volume: number) => void
   onMetronomeVolumeChange: (metronomeVolume: number) => void
@@ -74,11 +81,13 @@ export type PlayerControlsProps = {
 export const PlayerControls: FC<PlayerControlsProps> = ({
   isPlaying,
   isLooping,
+  isCountingIn,
   instrumentVolume,
   metronomeVolume,
   chordsVolume,
   onPlayPause,
   onLoop,
+  onCountIn,
   onStop,
   onInstrumentVolumeChange,
   onMetronomeVolumeChange,
@@ -105,9 +114,25 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
       </div>
       <div className={middleContainerStyle}>
         <div className={controlsContainerStyle}>
-          <StopButton onClick={onStop} />
-          <PlayButton onClick={onPlayPause} isToggled={isPlaying} />
-          <LoopButton onClick={onLoop} isToggled={isLooping} />
+          <PlayerButton kind="secondary" icon={PiStopFill} onClick={onStop} />
+          <PlayerToggle
+            kind="primary"
+            icon={isPlaying ? PiPauseFill : PiPlayFill}
+            isToggled={isPlaying}
+            onToggle={onPlayPause}
+          />
+          <PlayerToggle
+            kind="secondary"
+            icon={PiRepeatBold}
+            isToggled={isLooping}
+            onToggle={onLoop}
+          />
+          <PlayerToggle
+            kind="secondary"
+            icon={PiHourglassBold}
+            isToggled={isCountingIn}
+            onToggle={onCountIn}
+          />
         </div>
       </div>
       <SVGAlphaTabLogo className={logoStyle} />

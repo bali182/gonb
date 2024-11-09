@@ -64,6 +64,13 @@ export const Score: FC = () => {
         isLooping: !playerConfig.isLooping,
       }),
     )
+  const onCountIn = () =>
+    dispatch(
+      playerSlice.actions.setPlayerConfig({
+        ...playerConfig,
+        isCountingIn: !playerConfig.isCountingIn,
+      }),
+    )
   const onInstrumentVolumeChange = (instrumentVolume: number) =>
     dispatch(
       playerSlice.actions.setPlayerConfig({
@@ -107,6 +114,7 @@ export const Score: FC = () => {
     metronomeVolume: playerConfig.metronomeVolume,
     chordsVolume: playerConfig.chordsVolume,
     isLooping: playerConfig.isLooping,
+    isCountingIn: playerConfig.isCountingIn,
     showChordsStaff: generatorConfig.showChordsStaff,
   })
 
@@ -121,11 +129,13 @@ export const Score: FC = () => {
       <PlayerControls
         isPlaying={isPlaying}
         isLooping={playerConfig.isLooping}
+        isCountingIn={playerConfig.isCountingIn}
         instrumentVolume={playerConfig.instrumentVolume}
         metronomeVolume={playerConfig.metronomeVolume}
         chordsVolume={playerConfig.chordsVolume}
         onLoop={onLoop}
         onStop={onStop}
+        onCountIn={onCountIn}
         onPlayPause={onPlayPause}
         onInstrumentVolumeChange={onInstrumentVolumeChange}
         onChordsVolumeChange={onChordsVolumeChange}

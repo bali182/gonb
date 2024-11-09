@@ -18,6 +18,7 @@ export type UseAlphaTabConfig = {
   metronomeVolume?: number
   showChordsStaff?: boolean
   isLooping?: boolean
+  isCountingIn?: boolean
   player?: Partial<json.PlayerSettingsJson>
 }
 
@@ -27,6 +28,7 @@ export function useAlphaTab({
   player,
   scrollArea,
   isLooping,
+  isCountingIn,
   instrumentVolume,
   chordsVolume,
   showChordsStaff,
@@ -48,28 +50,56 @@ export function useAlphaTab({
     }
   }, [api, isLooping])
 
-  useTrackVolume(api, 0, instrumentVolume)
-  useTrackVolume(api, 1, chordsVolume)
-  useMetronomeVolume(api, metronomeVolume)
+  useEffect(() => {
+    if (!isNil(api)) {
+      const onRenderStarted = () => setLoading(true)
+      const onRenderFinished = () => setLoading(false)
+      api.renderStarted.on(onRenderStarted)
+      api.renderFinished.on(onRenderFinished)
+      return () => {
+        api.renderStarted.off(onRenderStarted)
+        api.renderFinished.off(onRenderFinished)
+      }
+    }
+    return noop
+  }, [api, setLoading])
 
   useEffect(() => {
-    if (!isNil(root) && !isNil(scrollArea)) {
-      const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea, player))
-
-      _api.renderStarted.on(() => setLoading(true))
-      _api.renderFinished.on(() => setLoading(false))
-      _api.playerStateChanged.on(({ state }) => {
+    if (!isNil(api)) {
+      const onPlayerStateChanged = ({
+        state,
+      }: synth.PlayerStateChangedEventArgs): void => {
         const isPlaying = state === synth.PlayerState.Playing
         setPlaying(isPlaying)
 
         // This seems to be the best place to set these, otherwise main
         // track volume seems to be lost.
         if (isPlaying) {
-          setTrackVolume(_api, 0, instrumentVolume)
-          setTrackVolume(_api, 1, chordsVolume)
-          setMetronomeVolume(_api, metronomeVolume)
+          setTrackVolume(api, 0, instrumentVolume)
+          setTrackVolume(api, 1, chordsVolume)
+          setMetronomeVolume(api, metronomeVolume, isCountingIn)
         }
-      })
+      }
+      api.playerStateChanged.on(onPlayerStateChanged)
+      return () => api.playerStateChanged.off(onPlayerStateChanged)
+    }
+    return noop
+  }, [
+    api,
+    instrumentVolume,
+    chordsVolume,
+    metronomeVolume,
+    isCountingIn,
+    setPlaying,
+  ])
+
+  useTrackVolume(api, 0, instrumentVolume)
+  useTrackVolume(api, 1, chordsVolume)
+  useMetronomeVolume(api, metronomeVolume, isCountingIn)
+
+  useEffect(() => {
+    if (!isNil(root) && !isNil(scrollArea)) {
+      const _api = new AlphaTabApi(root, alphaTabConfig(scrollArea, player))
 
       _api.render()
       if (!isNil(isLooping)) {
@@ -77,6 +107,9 @@ export function useAlphaTab({
       }
       if (!isNil(metronomeVolume)) {
         _api.metronomeVolume = metronomeVolume
+        if (isCountingIn) {
+          _api.countInVolume = metronomeVolume
+        }
       }
 
       setApi(_api)
@@ -105,8 +138,12 @@ function useTrackVolume(
 function useMetronomeVolume(
   api: AlphaTabApi | undefined,
   volume: number | undefined,
+  isCountingIn: boolean | undefined,
 ): void {
-  useEffect(() => setMetronomeVolume(api, volume), [api, volume])
+  useEffect(
+    () => setMetronomeVolume(api, volume, isCountingIn),
+    [api, volume, isCountingIn],
+  )
 }
 
 function setTrackVolume(
@@ -127,9 +164,11 @@ function setTrackVolume(
 function setMetronomeVolume(
   api: AlphaTabApi | undefined,
   volume: number | undefined,
+  isCountingIn: boolean | undefined,
 ): void {
   if (isNil(api) || isNil(volume)) {
     return
   }
   api.metronomeVolume = volume
+  api.countInVolume = isCountingIn ? volume : 0
 }

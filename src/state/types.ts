@@ -16,6 +16,7 @@ export type PlayerConfig = {
   instrumentVolume: number
   chordsVolume: number
   isLooping: boolean
+  isCountingIn: boolean
 }
 
 export type PagesConfig = {
