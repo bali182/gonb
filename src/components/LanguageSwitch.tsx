@@ -1,9 +1,11 @@
+/// <reference types="vite-awesome-svg-loader" />
+
 import { css, cx } from '@emotion/css'
 import { FC } from 'react'
 import { noop } from '../common/utils'
 import { Language } from '../state/types'
-import huFlag from './svg/hu.svg'
-import ukFlag from './svg/gb.svg'
+import huFlag from './svg/hu.svg?base64-data-uri'
+import ukFlag from './svg/gb.svg?base64-data-uri'
 
 const switchStyle = css`
   position: relative;

@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import svg from 'vite-svg-loader'
+import { viteAwesomeSvgLoader as svg } from 'vite-awesome-svg-loader'
 import { alphaTab } from '@coderline/alphatab/vite'
 
 export default defineConfig({
-  plugins: [react(), alphaTab(), svg({ defaultImport: 'url' })],
+  plugins: [react(), alphaTab(), svg()],
   appType: 'spa',
   base: './',
   build: {
