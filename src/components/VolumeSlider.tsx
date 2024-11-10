@@ -85,8 +85,6 @@ export type VolumeSliderProps = Omit<
 > & {
   value: number
   Icon: IconType
-  muteTooltip: MessageKey
-  maxTooltip: MessageKey
   sliderTooltip: MessageKey
   onChange: (value: number) => void
 }
@@ -95,18 +93,14 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
   value,
   onChange,
   Icon,
-  maxTooltip,
-  muteTooltip,
   sliderTooltip,
-  ...rest
 }) => {
   return (
-    <div className={containerStyle} {...rest}>
+    <div className={containerStyle} data-tooltip={sliderTooltip}>
       <Icon className={iconStyle} />
       <RiVolumeMuteFill
         className={controlIconStyle}
         onClick={() => onChange(0)}
-        data-tooltip={muteTooltip}
       />
       <input
         type="range"
@@ -116,12 +110,10 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
         step={0.02}
         value={value}
         onChange={(event) => onChange(event.target.valueAsNumber)}
-        data-tooltip={sliderTooltip}
       />
       <RiVolumeUpFill
         className={controlIconStyle}
         onClick={() => onChange(1)}
-        data-tooltip={maxTooltip}
       />
     </div>
   )

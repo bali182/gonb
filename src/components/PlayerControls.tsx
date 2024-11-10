@@ -101,24 +101,18 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
           value={metronomeVolume}
           onChange={onMetronomeVolumeChange}
           sliderTooltip="PlayerTooltips.MetronomeVolume"
-          maxTooltip="PlayerTooltips.MaxMetronome"
-          muteTooltip="PlayerTooltips.MuteMetronome"
         />
         <VolumeSlider
           Icon={PiMusicNoteBold}
           value={instrumentVolume}
           onChange={onInstrumentVolumeChange}
           sliderTooltip="PlayerTooltips.MelodyVolume"
-          maxTooltip="PlayerTooltips.MaxMelody"
-          muteTooltip="PlayerTooltips.MuteMelody"
         />
         <VolumeSlider
           Icon={PiMusicNotesBold}
           value={chordsVolume}
           onChange={onChordsVolumeChange}
           sliderTooltip="PlayerTooltips.ChordsVolume"
-          maxTooltip="PlayerTooltips.MaxChords"
-          muteTooltip="PlayerTooltips.MuteChords"
         />
       </div>
       <div className={middleContainerStyle}>
