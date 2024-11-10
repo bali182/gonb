@@ -2,6 +2,7 @@ import { css } from '@emotion/css'
 import { DOMAttributes, FC } from 'react'
 import { IconType } from 'react-icons'
 import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri'
+import { MessageKey } from '../languages/types'
 
 const containerStyle = css`
   display: flex;
@@ -84,6 +85,9 @@ export type VolumeSliderProps = Omit<
 > & {
   value: number
   Icon: IconType
+  muteTooltip: MessageKey
+  maxTooltip: MessageKey
+  sliderTooltip: MessageKey
   onChange: (value: number) => void
 }
 
@@ -91,6 +95,9 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
   value,
   onChange,
   Icon,
+  maxTooltip,
+  muteTooltip,
+  sliderTooltip,
   ...rest
 }) => {
   return (
@@ -99,6 +106,7 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
       <RiVolumeMuteFill
         className={controlIconStyle}
         onClick={() => onChange(0)}
+        data-tooltip={muteTooltip}
       />
       <input
         type="range"
@@ -108,10 +116,12 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
         step={0.02}
         value={value}
         onChange={(event) => onChange(event.target.valueAsNumber)}
+        data-tooltip={sliderTooltip}
       />
       <RiVolumeUpFill
         className={controlIconStyle}
         onClick={() => onChange(1)}
+        data-tooltip={maxTooltip}
       />
     </div>
   )
