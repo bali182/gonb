@@ -20,7 +20,7 @@ export const baseTooltipStyle = css`
   z-index: 1000;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.1s ease, visibility 0.1s ease;
+  /* transition: opacity 0.1s ease, visibility 0.1s ease; */
 `
 
 export const baseArrowStyle = css`
