@@ -1,18 +1,13 @@
 import { css, cx } from '@emotion/css'
-import { DOMAttributes, FC } from 'react'
+import { FC } from 'react'
 import { IconType } from 'react-icons'
-import {
-  PiPauseFill,
-  PiPlayFill,
-  PiStopFill,
-  PiRepeatBold,
-  PiHourglassBold,
-} from 'react-icons/pi'
+import { MessageKey } from '../languages/types'
 
 type PlayerButtonKind = 'primary' | 'secondary'
 
 export type BasicButtonProps = {
   kind: PlayerButtonKind
+  tooltip: MessageKey
   icon: IconType
   onClick: () => void
 }
@@ -20,6 +15,7 @@ export type BasicButtonProps = {
 export type ToggleButtonProps = {
   kind: PlayerButtonKind
   isToggled: boolean
+  tooltip: MessageKey
   icon: IconType
   onToggle: (isToggled: boolean) => void
 }
@@ -64,6 +60,7 @@ const toogledButtonStyle = css`
 export const PlayerButton: FC<BasicButtonProps> = ({
   onClick,
   kind,
+  tooltip,
   icon: Icon,
 }) => {
   const style = cx({
@@ -72,7 +69,7 @@ export const PlayerButton: FC<BasicButtonProps> = ({
     [secondaryButtonStyle]: kind === 'secondary',
   })
   return (
-    <button className={style} onClick={onClick}>
+    <button className={style} onClick={onClick} data-tooltip={tooltip}>
       <Icon />
     </button>
   )
@@ -81,6 +78,7 @@ export const PlayerButton: FC<BasicButtonProps> = ({
 export const PlayerToggle: FC<ToggleButtonProps> = ({
   kind,
   isToggled,
+  tooltip,
   onToggle,
   icon: Icon,
 }) => {
@@ -92,7 +90,7 @@ export const PlayerToggle: FC<ToggleButtonProps> = ({
   })
   const onClick = () => onToggle(!isToggled)
   return (
-    <button className={style} onClick={onClick}>
+    <button className={style} onClick={onClick} data-tooltip={tooltip}>
       <Icon />
     </button>
   )

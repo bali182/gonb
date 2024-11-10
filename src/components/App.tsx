@@ -11,6 +11,7 @@ import { fromUrl } from '../url/url'
 import { useTranslation } from 'react-i18next'
 import { languageSlice } from '../state/languageSlice'
 import { Language } from '../state/types'
+import { TooltipManager } from './tooltip/TooltipManager'
 
 export const App: FC = () => {
   const { i18n } = useTranslation()
@@ -60,6 +61,7 @@ export const App: FC = () => {
 
   return (
     <>
+      <TooltipManager disabled={false} />
       <Toolbar
         language={language}
         onOpenSettings={onSettingsOpened}

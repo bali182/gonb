@@ -100,38 +100,55 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
           Icon={PiMetronomeBold}
           value={metronomeVolume}
           onChange={onMetronomeVolumeChange}
+          sliderTooltip="PlayerTooltips.MetronomeVolume"
+          maxTooltip="PlayerTooltips.MaxMetronome"
+          muteTooltip="PlayerTooltips.MuteMetronome"
         />
         <VolumeSlider
           Icon={PiMusicNoteBold}
           value={instrumentVolume}
           onChange={onInstrumentVolumeChange}
+          sliderTooltip="PlayerTooltips.MelodyVolume"
+          maxTooltip="PlayerTooltips.MaxMelody"
+          muteTooltip="PlayerTooltips.MuteMelody"
         />
         <VolumeSlider
           Icon={PiMusicNotesBold}
           value={chordsVolume}
           onChange={onChordsVolumeChange}
+          sliderTooltip="PlayerTooltips.ChordsVolume"
+          maxTooltip="PlayerTooltips.MaxChords"
+          muteTooltip="PlayerTooltips.MuteChords"
         />
       </div>
       <div className={middleContainerStyle}>
         <div className={controlsContainerStyle}>
-          <PlayerButton kind="secondary" icon={PiStopFill} onClick={onStop} />
+          <PlayerButton
+            kind="secondary"
+            icon={PiStopFill}
+            onClick={onStop}
+            tooltip="PlayerTooltips.Stop"
+          />
           <PlayerToggle
             kind="primary"
             icon={isPlaying ? PiPauseFill : PiPlayFill}
             isToggled={isPlaying}
             onToggle={onPlayPause}
+            tooltip={isPlaying ? 'PlayerTooltips.Pause' : 'PlayerTooltips.Play'}
           />
           <PlayerToggle
             kind="secondary"
             icon={PiRepeatBold}
             isToggled={isLooping}
             onToggle={onLoop}
+            tooltip="PlayerTooltips.Loop"
           />
           <PlayerToggle
             kind="secondary"
             icon={PiHourglassBold}
             isToggled={isCountingIn}
             onToggle={onCountIn}
+            tooltip="PlayerTooltips.CountIn"
           />
         </div>
       </div>
