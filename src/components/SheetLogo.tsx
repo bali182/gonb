@@ -1,12 +1,12 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import { PiMusicNoteSimpleBold } from 'react-icons/pi'
+import gonb from './svg/gonb.svg?base64-data-uri'
 
 const logoBlockStyle = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   margin-right: 60px;
   flex-shrink: 0;
   &:hover,
@@ -24,8 +24,7 @@ const logoTextStyle = css`
 `
 
 const titleIconStyle = css`
-  color: #000;
-  font-size: 3.4em;
+  width: 100px;
 `
 
 const titleStyle = css`
@@ -47,10 +46,10 @@ const subTitleStyle = css`
 export const SheetLogo: FC = () => {
   return (
     <span className={logoBlockStyle}>
-      <PiMusicNoteSimpleBold className={titleIconStyle} />
+      <img src={gonb} className={titleIconStyle} />
       <span className={logoTextStyle}>
-        <h1 className={titleStyle}>Sheet</h1>
-        <h2 className={subTitleStyle}>learn sheet music.</h2>
+        <h1 className={titleStyle}>Gonb</h1>
+        <h2 className={subTitleStyle}>reading practice.</h2>
       </span>
     </span>
   )
