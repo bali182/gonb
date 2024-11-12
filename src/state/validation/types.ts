@@ -1,32 +1,32 @@
 import { Duration } from '../../common/duration'
+import { TimeSignature } from '../types'
 
 export const enum IssueType {
   WARNING = 'warning',
   ERROR = 'error',
 }
 
-export type Issue = {
+export type Issue<Id = any> = {
   type: IssueType
   label: string
+  id: Id
 }
 
-type _ConfigIssues = {
-  bars: Issue
-  bpm: Issue
-  clef: Issue
-  timeSignature: Issue
-  keySignature: Issue
-  showChordsStaff: Issue
-  showChordSymbols: Issue
-  useSeventhChords: Issue
-  notes: Issue
-  noteDurations: Issue
-  dottedNoteDurations: Issue
-  restDurations: Issue
-  dottedRestDurations: Issue
+export type ConfigIssues = {
+  bars: ReadonlyArray<Issue>
+  bpm: ReadonlyArray<Issue>
+  clef: ReadonlyArray<Issue>
+  timeSignature: ReadonlyArray<Issue<keyof TimeSignature>>
+  keySignature: ReadonlyArray<Issue>
+  showChordsStaff: ReadonlyArray<Issue>
+  showChordSymbols: ReadonlyArray<Issue>
+  useSeventhChords: ReadonlyArray<Issue>
+  notes: ReadonlyArray<Issue>
+  noteDurations: ReadonlyArray<Issue<Duration | undefined>>
+  dottedNoteDurations: ReadonlyArray<Issue<Duration | undefined>>
+  restDurations: ReadonlyArray<Issue<Duration | undefined>>
+  dottedRestDurations: ReadonlyArray<Issue<Duration | undefined>>
 }
-
-export type ConfigIssues = Partial<_ConfigIssues>
 
 export type DurationIssue = {
   cause: Duration

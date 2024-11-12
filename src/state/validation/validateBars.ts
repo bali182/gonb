@@ -2,16 +2,29 @@ import { TFunction } from 'i18next'
 import { Issue, IssueType } from './types'
 import { NumberSafeGeneratorConfig } from '../../components/settings/types'
 import { isNil } from '../../common/utils'
+import { NO_ISSUES } from './utils'
 
 export function validateBars(
   t: TFunction,
   config: NumberSafeGeneratorConfig,
-): Issue | undefined {
+): ReadonlyArray<Issue> {
   if (isNil(config.bars)) {
-    return { type: IssueType.ERROR, label: t('Validation.EmptyBars') }
+    return [
+      {
+        id: undefined,
+        type: IssueType.ERROR,
+        label: t('Validation.EmptyBars'),
+      },
+    ]
   }
   if (config.bars <= 0) {
-    return { type: IssueType.ERROR, label: t('Validation.ZeroBars') }
+    return [
+      {
+        id: undefined,
+        type: IssueType.ERROR,
+        label: t('Validation.ZeroBars'),
+      },
+    ]
   }
-  return undefined
+  return NO_ISSUES
 }

@@ -21,7 +21,7 @@ export const PageRests: FC<SettingsPageProps> = ({
     <>
       <Section>
         <Label>{t('Settings.RestDurations')}</Label>
-        <Description issue={issues.restDurations}>
+        <Description issues={issues.restDurations}>
           {t('Settings.RestDurationsDescription')}
         </Description>
         <DurationGrid
@@ -34,7 +34,7 @@ export const PageRests: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.DottedRestDurations')}</Label>
-        <Description issue={issues.dottedRestDurations}>
+        <Description issues={issues.dottedRestDurations}>
           {t('Settings.DottedRestDurationsDescription')}
         </Description>
         <DurationGrid
