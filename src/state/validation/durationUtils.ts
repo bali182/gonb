@@ -142,42 +142,80 @@ export function validateIfBarCanComplete(
   })
 }
 
+function getSelectedDurationsOfType(
+  { noteDurations, restDurations }: NumberSafeGeneratorConfig,
+  dotted: boolean | undefined,
+  type: DurationType | undefined,
+): Duration[] {
+  const durationsConfig =
+    type === undefined
+      ? { ...noteDurations, ...restDurations }
+      : type === DurationType.NOTE
+      ? noteDurations
+      : restDurations
+
+  const durationTuples = Object.entries(durationsConfig) as [
+    Duration,
+    DurationData,
+  ][]
+  return durationTuples
+    .filter(([d, v]) => !isNil(v) && (isNil(dotted) || isDotted(d) === dotted))
+    .map(([duration]) => duration)
+    .sort((a, b) => DV[b].sub(DV[a]).valueOf())
+}
+
 export function validateIfAllFitsBar(
   t: TFunction,
   _language: string,
   config: NumberSafeGeneratorConfig,
   dotted: boolean,
   type: DurationType,
-): ReadonlyArray<Issue<Duration>> {
-  const { timeSignature, noteDurations, restDurations } = config
+): ReadonlyArray<Issue<Duration | undefined>> {
+  const { timeSignature } = config
   if (!isCompleteTimeSignature(timeSignature)) {
     return NO_ISSUES
   }
   const barLength = new Fraction(timeSignature.upper, timeSignature.lower)
-  const durationsConfig =
-    type === DurationType.NOTE ? noteDurations : restDurations
+  const tsString = `${timeSignature.upper}/${timeSignature.lower}`
 
-  const durationTuples = Object.entries(durationsConfig) as [
-    Duration,
-    DurationData,
-  ][]
+  if (type === DurationType.NOTE) {
+    const durations = getSelectedDurationsOfType(config, undefined, type)
+    const fitsBar = durations.filter((d) => DV[d].lte(barLength))
+    if (fitsBar.length === 0) {
+      return [
+        {
+          id: undefined,
+          label: t('Validation.EmptyDurations', {
+            timeSignature: tsString,
+          }),
+          type: IssueType.ERROR,
+        },
+      ]
+    }
+  }
 
-  const durations = durationTuples
-    .filter(([d, value]) => !isNil(value) && isDotted(d) === dotted)
-    .map(([key]) => key)
-    .sort((a, b) => DV[b].sub(DV[a]).valueOf())
-
+  const durations = getSelectedDurationsOfType(config, dotted, type)
   return durations
     .filter((d) => DV[d].gt(barLength))
-    .map((duration) => {
-      const tsString = `${timeSignature.upper}/${timeSignature.lower}`
-      return {
-        id: duration,
-        label: t('Validation.DurationLongerThanBar', {
-          duration: getDurationItemName(type, duration, t, false),
-          timeSignature: tsString,
-        }),
-        type: IssueType.WARNING,
-      }
-    })
+    .map((duration) => ({
+      id: duration,
+      label: t('Validation.DurationLongerThanBar', {
+        duration: getDurationItemName(type, duration, t, false),
+        timeSignature: tsString,
+      }),
+      type: IssueType.WARNING,
+    }))
 }
+
+export const createDurationValidator =
+  (type: DurationType, dotted: boolean) =>
+  (
+    t: TFunction,
+    language: string,
+    config: NumberSafeGeneratorConfig,
+  ): ReadonlyArray<Issue> => {
+    return [
+      ...validateIfAllFitsBar(t, language, config, dotted, type),
+      ...validateIfBarCanComplete(t, language, config, dotted),
+    ]
+  }

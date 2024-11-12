@@ -204,7 +204,8 @@ export const hu: Messages = {
     EmptyNotes: 'Válassz legalább 1 hangot.',
     NoScaleNotes:
       'Válassz legalább 1 hangot a {{scale}} dúr skálából ({{scaleNotes}} hangok egyikét).',
-    EmptyRhytms: 'Válassz legalább 1 ritmust tipust hangokhoz.',
+    EmptyDurations:
+      'Válassz legalább 1 ritmust tipust, ami befér {{timeSignature}}-be.',
     DottedRhytms: `A {{required}} (ritmus vagy szünet) kiválasztása kötelező  (a {{dotted}} miatt).`,
     TimeSignatureLower: `Az ütemmutató nevezője a következő értékek egyike kell hogy legyen: {{lower}}.`,
     TimeSignatureUpper: `Az ütemmutató számlálója {{min}} és {{max}} között kell hogy legyen.`,
@@ -213,7 +214,7 @@ export const hu: Messages = {
     EmptyTimeSignatureUpper: 'Az ütemmutató számlálója nem lehet üres.',
     EmptyTimeSignatureLower: 'Az ütemmutató nevezője nem lehet üres.',
     ErrorInUrl: `Megosztható URL nem generálható ameddig a beállítás kritikus hibákat tartalmaz.`,
-    DurationLongerThanBar: `Egy {{duration}} nem fér egy {{timeSignature}} ütemmutatójú ütembe.`,
+    DurationLongerThanBar: `Egy {{duration}} nem fér egy {{timeSignature}} ütemmutatójú ütembe, emiatt nem fog előfordulni a kottában.`,
     DurationInvalidBecauseOfTimeSignature:
       'Érvénytelen a hibás ütemmutató miatt.',
     DurationInvalidBeacauseOfTimeSignature:
