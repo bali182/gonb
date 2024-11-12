@@ -8,6 +8,7 @@ import { TFunction } from 'i18next'
 import { NumberSafeGeneratorConfig } from '../../components/settings/types'
 import { DurationType } from '../../common/durationType'
 import { getDurationItemName } from '../../components/settings/controls/DurationGrid/utils'
+import { isCompleteTimeSignature, NO_ISSUES } from './utils'
 
 const DURATIONS = Object.keys(DV) as Duration[]
 
@@ -57,12 +58,13 @@ function getDurationIssue(
   return { cause: duration, solutions: sortedSolutions }
 }
 
-function getDurationsIssue(
+function getDurationIssues(
   { upper, lower }: TimeSignature,
   selected: Duration[],
   display: Duration[],
-): DurationIssue | undefined {
+): DurationIssue[] {
   const timeSignature = new Fraction(upper, lower)
+  const issues: DurationIssue[] = []
   for (const duration of selected) {
     const issue = getDurationIssue(timeSignature, selected, duration)
     if (isNil(issue)) {
@@ -71,9 +73,9 @@ function getDurationsIssue(
     if (!display.some((d) => issue.solutions.includes(d))) {
       continue
     }
-    return issue
+    issues.push(issue)
   }
-  return undefined
+  return issues
 }
 
 function getSelectedDurations(config: DurationConfig): Duration[] {
@@ -86,11 +88,12 @@ export function validateIfBarCanComplete(
   language: string,
   config: NumberSafeGeneratorConfig,
   dotted: boolean,
-): Issue | undefined {
+): ReadonlyArray<Issue<Duration>> {
   const { timeSignature, noteDurations, restDurations } = config
 
-  if (isNil(timeSignature.lower) || isNil(timeSignature.upper)) {
-    return undefined
+  // Not our job
+  if (!isCompleteTimeSignature(timeSignature)) {
+    return NO_ISSUES
   }
 
   const selected = [
@@ -98,42 +101,45 @@ export function validateIfBarCanComplete(
     ...getSelectedDurations(restDurations),
   ].sort((a, b) => DV[b].compare(DV[a]))
 
-  // This is not our job
+  // Not our job
   if (selected.length === 0) {
-    return undefined
+    return NO_ISSUES
   }
 
   const display = dotted ? DOTTED_DURATIONS : NORMAL_DURATIONS
 
-  const issue = getDurationsIssue(
+  const durationIssues = getDurationIssues(
     timeSignature as TimeSignature,
     selected,
     display,
   )
 
-  if (isNil(issue)) {
-    return undefined
+  if (durationIssues.length === 0) {
+    return NO_ISSUES
   }
 
-  // No possible solution, this should not happen
-  if (issue.solutions.length === 0) {
-    throw new Error(`Should not get here!`)
-  }
+  return durationIssues.map((durationIssue) => {
+    // No possible solution, this should not happen
+    if (durationIssue.solutions.length === 0) {
+      throw new Error(`Should not get here!`)
+    }
 
-  const arrayFormat = new Intl.ListFormat(language, {
-    style: 'short',
-    type: 'disjunction',
+    const arrayFormat = new Intl.ListFormat(language, {
+      style: 'short',
+      type: 'disjunction',
+    })
+
+    const solutions = durationIssue.solutions.map((s) => t(`Durations.${s}`))
+
+    return {
+      id: durationIssue.cause,
+      type: IssueType.ERROR,
+      label: t('Validation.DottedRhytms', {
+        dotted: t(`Durations.${durationIssue.cause}`),
+        required: arrayFormat.format(solutions),
+      }),
+    }
   })
-
-  const solutions = issue.solutions.map((s) => t(`Durations.${s}`))
-
-  return {
-    type: IssueType.ERROR,
-    label: t('Validation.DottedRhytms', {
-      dotted: t(`Durations.${issue.cause}`),
-      required: arrayFormat.format(solutions),
-    }),
-  }
 }
 
 export function validateIfAllFitsBar(
@@ -142,15 +148,12 @@ export function validateIfAllFitsBar(
   config: NumberSafeGeneratorConfig,
   dotted: boolean,
   type: DurationType,
-): Issue | undefined {
+): ReadonlyArray<Issue<Duration>> {
   const { timeSignature, noteDurations, restDurations } = config
-  if (isNil(timeSignature.lower) || isNil(timeSignature.upper)) {
-    return {
-      label: t('Validation.DurationInvalidBeacauseOfTimeSignature'),
-      type: IssueType.ERROR,
-    }
+  if (!isCompleteTimeSignature(timeSignature)) {
+    return NO_ISSUES
   }
-  const barLength = new Fraction(timeSignature.upper!, timeSignature.lower!)
+  const barLength = new Fraction(timeSignature.upper, timeSignature.lower)
   const durationsConfig =
     type === DurationType.NOTE ? noteDurations : restDurations
 
@@ -164,18 +167,17 @@ export function validateIfAllFitsBar(
     .map(([key]) => key)
     .sort((a, b) => DV[b].sub(DV[a]).valueOf())
 
-  const longerThanBar = durations.find((d) => DV[d].gt(barLength))
-
-  if (!isNil(longerThanBar)) {
-    const tsString = `${timeSignature.upper}/${timeSignature.lower}`
-    return {
-      label: t('Validation.DurationLongerThanBar', {
-        duration: getDurationItemName(type, longerThanBar, t, false),
-        timeSignature: tsString,
-      }),
-      type: IssueType.ERROR,
-    }
-  }
-
-  return undefined
+  return durations
+    .filter((d) => DV[d].gt(barLength))
+    .map((duration) => {
+      const tsString = `${timeSignature.upper}/${timeSignature.lower}`
+      return {
+        id: duration,
+        label: t('Validation.DurationLongerThanBar', {
+          duration: getDurationItemName(type, duration, t, false),
+          timeSignature: tsString,
+        }),
+        type: IssueType.WARNING,
+      }
+    })
 }

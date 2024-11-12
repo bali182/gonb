@@ -7,25 +7,30 @@ import { toUrl } from '../../../url/url'
 import { GeneratorConfig } from '../../../state/types'
 import { isNil } from '../../../common/utils'
 import { Issue, IssueType } from '../../../state/validation/types'
+import { NO_ISSUES } from '../../../state/validation/utils'
 
 export const PageShare: FC<SettingsPageProps> = ({ value, issues }) => {
   const { t } = useTranslation()
 
-  const issue = useMemo((): Issue | undefined => {
+  const issue = useMemo((): ReadonlyArray<Issue> => {
     const hasCriticalIssues = Object.values(issues)
+      .flatMap((issues) => issues)
       .filter((issue) => !isNil(issue))
       .some((issue) => issue.type === IssueType.ERROR)
     if (hasCriticalIssues) {
-      return {
-        type: IssueType.ERROR,
-        label: t('Validation.ErrorInUrl'),
-      }
+      return [
+        {
+          id: undefined,
+          type: IssueType.ERROR,
+          label: t('Validation.ErrorInUrl'),
+        },
+      ]
     }
-    return undefined
+    return NO_ISSUES
   }, [issues])
 
   const url = useMemo(
-    () => (isNil(issue) ? toUrl(value as GeneratorConfig) : undefined),
+    () => (issue.length === 0 ? toUrl(value as GeneratorConfig) : undefined),
     [value, issue],
   )
 
@@ -33,7 +38,7 @@ export const PageShare: FC<SettingsPageProps> = ({ value, issues }) => {
     <>
       <Section>
         <Label>{t('Settings.ShareableLink')}</Label>
-        <Description issue={issue}>
+        <Description issues={issue}>
           {t('Settings.ShareableLinkDescription')}
         </Description>
         <ShareableLink url={url} disabled={!isNil(issue)} />

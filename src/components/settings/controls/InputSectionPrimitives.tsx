@@ -3,6 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
 import { Issue, IssueType } from '../../../state/validation/types'
+import { useHighestSeverity } from '../../../state/validation/utils'
 
 const sectionStyle = css`
   display: flex;
@@ -43,17 +44,23 @@ const errorStyle = css`
 `
 
 type DescriptionProps = PropsWithChildren & {
-  issue?: Issue
+  issues: ReadonlyArray<Issue>
 }
 
-export const Description: FC<DescriptionProps> = ({ children, issue }) => {
+export const Description: FC<DescriptionProps> = ({ children, issues }) => {
+  const highestSeverity = useHighestSeverity(issues)
+
   const style = cx({
     [descriptionStyle]: true,
-    [warningStyle]: issue?.type === IssueType.WARNING,
-    [errorStyle]: issue?.type === IssueType.ERROR,
+    [warningStyle]: highestSeverity?.type === IssueType.WARNING,
+    [errorStyle]: highestSeverity?.type === IssueType.ERROR,
   })
 
-  return <div className={style}>{isNil(issue) ? children : issue.label}</div>
+  return (
+    <div className={style}>
+      {isNil(highestSeverity) ? children : highestSeverity.label}
+    </div>
+  )
 }
 
 export const WarningIcon: FC = () => <PiWarningBold color="#ec942c" />

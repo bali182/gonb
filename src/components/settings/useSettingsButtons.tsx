@@ -9,9 +9,9 @@ function getButtons(
   _lang: string,
   issues: ConfigIssues,
 ): PagedModalButton[] {
-  const errors = Object.values(issues).filter(
-    (issue) => issue?.type === 'error',
-  )
+  const errors = Object.values(issues)
+    .flatMap((issues) => issues)
+    .filter((issue) => issue?.type === 'error')
   return [
     {
       id: 'save',
