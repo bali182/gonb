@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
 import { MessageKey } from '../languages/types'
 
@@ -57,6 +57,27 @@ const toogledButtonStyle = css`
   }
 `
 
+const buttonGroupStyle = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  button:first-child {
+    border-radius: 50% 0 0 50%;
+    padding-left: 6px;
+  }
+
+  button:last-child {
+    border-radius: 0 50% 50% 0;
+    padding-right: 6px;
+  }
+
+  button:not(:first-child):not(:last-child) {
+    border-radius: 0;
+    padding: 0px;
+  }
+`
+
 export const PlayerButton: FC<BasicButtonProps> = ({
   onClick,
   kind,
@@ -94,4 +115,8 @@ export const PlayerToggle: FC<ToggleButtonProps> = ({
       <Icon />
     </button>
   )
+}
+
+export const ButtonGroup: FC<PropsWithChildren> = ({ children }) => {
+  return <div className={buttonGroupStyle}>{children}</div>
 }

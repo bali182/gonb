@@ -41,7 +41,7 @@ export const PageShare: FC<SettingsPageProps> = ({ value, issues }) => {
         <Description issues={issue}>
           {t('Settings.ShareableLinkDescription')}
         </Description>
-        <ShareableLink url={url} disabled={!isNil(issue)} />
+        <ShareableLink url={url} disabled={issue.length > 0} />
       </Section>
     </>
   )

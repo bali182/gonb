@@ -81,9 +81,14 @@ export const Frequency: Record<DurationFrequency, string> = {
 
 export const hu: Messages = {
   Language: 'Nyelv',
+  Logo: {
+    Name: 'Gonb',
+    Slogan: 'tanulj meg olvasni.',
+  },
   Score: {
     MelodyIn: `Egy dallam {{key}}-ben`,
     AlphaTabRenderedBy: 'Kottát rajzolta:',
+    Issues: 'Hibák és ötletek:',
   },
   Menu: {
     GenerateNew: 'Generálj újat',
@@ -205,7 +210,7 @@ export const hu: Messages = {
     NoScaleNotes:
       'Válassz legalább 1 hangot a {{scale}} dúr skálából ({{scaleNotes}} hangok egyikét).',
     EmptyDurations:
-      'Válassz legalább 1 ritmust tipust, ami befér {{timeSignature}}-be.',
+      'Válassz legalább 1 ritmusértéket, ami befér {{timeSignature}}-be.',
     DottedRhytms: `A {{required}} (ritmus vagy szünet) kiválasztása kötelező  (a {{dotted}} miatt).`,
     TimeSignatureLower: `Az ütemmutató nevezője a következő értékek egyike kell hogy legyen: {{lower}}.`,
     TimeSignatureUpper: `Az ütemmutató számlálója {{min}} és {{max}} között kell hogy legyen.`,

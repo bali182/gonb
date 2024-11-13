@@ -83,6 +83,7 @@ export const en = {
   Score: {
     MelodyIn: `A Melody in {{key}}`,
     AlphaTabRenderedBy: 'Score rendered by:',
+    Issues: 'Report issues & ideas:',
   },
   Menu: {
     GenerateNew: 'Generate new',
@@ -203,6 +204,10 @@ export const en = {
   Durations,
   Frequency,
   DurationTypes,
+  Logo: {
+    Name: 'Gonb',
+    Slogan: 'learn to read.',
+  },
   Validation: {
     EmptyBars: 'Number of bars cannot be empty.',
     EmptyTempo: 'Tempo cannot be empty.',

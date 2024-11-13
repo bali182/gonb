@@ -1,12 +1,13 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import { PiMusicNoteSimpleBold } from 'react-icons/pi'
+import gonb from './svg/gonb.svg?base64-data-uri'
+import { useTranslation } from 'react-i18next'
 
 const logoBlockStyle = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   margin-right: 60px;
   flex-shrink: 0;
   &:hover,
@@ -14,6 +15,7 @@ const logoBlockStyle = css`
   &:visited {
     text-decoration: none;
   }
+  user-select: none;
 `
 
 const logoTextStyle = css`
@@ -24,19 +26,18 @@ const logoTextStyle = css`
 `
 
 const titleIconStyle = css`
-  color: #000;
-  font-size: 3.4em;
+  width: 100px;
 `
 
 const titleStyle = css`
   color: #000;
-  font-size: 2.4em;
+  font-size: 2.3em;
   font-weight: bold;
   line-height: 90%;
   margin: 0px;
 `
 
-const subTitleStyle = css`
+const sloganStyle = css`
   color: #00000099;
   font-size: 0.8em;
   line-height: 90%;
@@ -44,13 +45,14 @@ const subTitleStyle = css`
   white-space: nowrap;
 `
 
-export const SheetLogo: FC = () => {
+export const Logo: FC = () => {
+  const { t } = useTranslation()
   return (
     <span className={logoBlockStyle}>
-      <PiMusicNoteSimpleBold className={titleIconStyle} />
+      <img src={gonb} className={titleIconStyle} />
       <span className={logoTextStyle}>
-        <h1 className={titleStyle}>Sheet</h1>
-        <h2 className={subTitleStyle}>learn sheet music.</h2>
+        <h1 className={titleStyle}>{t('Logo.Name')}</h1>
+        <h2 className={sloganStyle}>{t('Logo.Slogan')}</h2>
       </span>
     </span>
   )
