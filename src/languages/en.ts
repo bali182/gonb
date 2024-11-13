@@ -208,7 +208,7 @@ export const en = {
     EmptyTempo: 'Tempo cannot be empty.',
     EmptyTimeSignatureUpper: 'Upper part of time signature cannot be empty.',
     EmptyTimeSignatureLower: 'Lower part of time signature cannot be empty.',
-    DurationLongerThanBar: `Duration {{duration}} doesn't fit in a bar of {{timeSignature}}.`,
+    DurationLongerThanBar: `Duration {{duration}} doesn't fit in a bar of {{timeSignature}}, so it will never occur in the score.`,
     DurationInvalidBecauseOfTimeSignature: `Invalid because of time signature.`,
     DurationInvalidBeacauseOfTimeSignature:
       'Please fix the time signature before configuring durations!',
@@ -218,7 +218,7 @@ export const en = {
     EmptyNotes: 'Select at least 1 note.',
     NoScaleNotes:
       'Select at least 1 note of {{scale}} major (one of {{scaleNotes}}).',
-    EmptyRhytms: 'Select at least one duration.',
+    EmptyDurations: `Select at least one duration, that fits in {{timeSignature}}.`,
     DottedRhytms: `When {{dotted}} is selected, {{required}} must be selected as well.`,
     TimeSignatureLower: `Lower value must be {{lower}}`,
     TimeSignatureUpper: `Upper value must be between {{min}} and {{max}}`,

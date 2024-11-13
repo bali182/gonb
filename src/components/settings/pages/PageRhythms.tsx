@@ -21,7 +21,7 @@ export const PageRhythms: FC<SettingsPageProps> = ({
     <>
       <Section>
         <Label>{t('Settings.NoteDurations')}</Label>
-        <Description issue={issues.noteDurations}>
+        <Description issues={issues.noteDurations}>
           {t('Settings.NoteDurationsDescription')}
         </Description>
         <DurationGrid
@@ -34,7 +34,7 @@ export const PageRhythms: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.DottedNoteDurations')}</Label>
-        <Description issue={issues.dottedNoteDurations}>
+        <Description issues={issues.dottedNoteDurations}>
           {t('Settings.DottedNoteDurationsDescription')}
         </Description>
         <DurationGrid

@@ -29,14 +29,14 @@ export const PageBasics: FC<SettingsPageProps> = ({
     <>
       <Section>
         <Label>{t('Settings.Clef')}</Label>
-        <Description issue={issues.clef}>
+        <Description issues={issues.clef}>
           {t('Settings.ClefDescription')}
         </Description>
         <ClefPicker value={value.clef} onChange={setClef} />
       </Section>
       <Section>
         <Label>{t('Settings.KeySignature')}</Label>
-        <Description issue={issues.keySignature}>
+        <Description issues={issues.keySignature}>
           {t('Settings.KeySignatureDescription')}
         </Description>
         <KeySignaturePicker
@@ -46,7 +46,7 @@ export const PageBasics: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.TimeSignature')}</Label>
-        <Description issue={issues.timeSignature}>
+        <Description issues={issues.timeSignature}>
           {t('Settings.TimeSignatureDescription')}
         </Description>
         <TimeSignaturePicker
@@ -56,7 +56,7 @@ export const PageBasics: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.Tempo')}</Label>
-        <Description issue={issues.bpm}>
+        <Description issues={issues.bpm}>
           {t('Settings.TempoDescription')}
         </Description>
         <NumberInput
@@ -69,7 +69,7 @@ export const PageBasics: FC<SettingsPageProps> = ({
       </Section>
       <Section>
         <Label>{t('Settings.BarCount')}</Label>
-        <Description issue={issues.bars}>
+        <Description issues={issues.bars}>
           {t('Settings.BarCountDescription')}
         </Description>
         <NumberInput

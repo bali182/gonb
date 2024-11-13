@@ -2,16 +2,29 @@ import { TFunction } from 'i18next'
 import { Issue, IssueType } from './types'
 import { NumberSafeGeneratorConfig } from '../../components/settings/types'
 import { isNil } from '../../common/utils'
+import { NO_ISSUES } from './utils'
 
 export function validateBpm(
   t: TFunction,
   config: NumberSafeGeneratorConfig,
-): Issue | undefined {
+): ReadonlyArray<Issue> {
   if (isNil(config.tempo)) {
-    return { type: IssueType.ERROR, label: t('Validation.EmptyTempo') }
+    return [
+      {
+        id: undefined,
+        type: IssueType.ERROR,
+        label: t('Validation.EmptyTempo'),
+      },
+    ]
   }
   if (config.tempo < 10 || config.tempo > 400) {
-    return { type: IssueType.ERROR, label: t('Validation.WrongBpm') }
+    return [
+      {
+        id: undefined,
+        type: IssueType.ERROR,
+        label: t('Validation.WrongBpm'),
+      },
+    ]
   }
-  return undefined
+  return NO_ISSUES
 }

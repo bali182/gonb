@@ -22,8 +22,13 @@ import { SettingsPageId } from './SettingsPageId'
 import { PageRests } from './pages/PageRests'
 import { ConfigIssues, Issue } from '../../state/validation/types'
 
-function getBadge(...issues: (Issue | undefined)[]): ComponentType | undefined {
-  const sorted = issues.filter(isNotNil).sort(issueComparator)
+function getBadge(
+  ...pageIssues: ReadonlyArray<Issue>[]
+): ComponentType | undefined {
+  const sorted = pageIssues
+    .flatMap((issues) => issues)
+    .filter(isNotNil)
+    .sort(issueComparator)
   const first = sorted[0]
   if (isNil(first)) {
     return undefined
