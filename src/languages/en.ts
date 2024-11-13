@@ -83,6 +83,7 @@ export const en = {
   Score: {
     MelodyIn: `A Melody in {{key}}`,
     AlphaTabRenderedBy: 'Score rendered by:',
+    Issues: 'Report issues & ideas:',
   },
   Menu: {
     GenerateNew: 'Generate new',

@@ -15,6 +15,7 @@ const logoBlockStyle = css`
   &:visited {
     text-decoration: none;
   }
+  user-select: none;
 `
 
 const logoTextStyle = css`
