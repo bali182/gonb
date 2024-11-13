@@ -203,6 +203,10 @@ export const en = {
   Durations,
   Frequency,
   DurationTypes,
+  Logo: {
+    Name: 'Gonb',
+    Slogan: 'learn to read.',
+  },
   Validation: {
     EmptyBars: 'Number of bars cannot be empty.',
     EmptyTempo: 'Tempo cannot be empty.',

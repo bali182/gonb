@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
-import { SheetLogo } from './SheetLogo'
+import { Logo } from './Logo'
 import { Button } from './Button'
 import { PiGearBold, PiFastForwardBold, PiQuestionBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
@@ -62,7 +62,7 @@ export const Toolbar: FC<ToolbarProps> = ({
   const { t } = useTranslation()
   return (
     <div className={toolbarStyle}>
-      <SheetLogo />
+      <Logo />
       <div className={buttonsContainer}>
         <Button onClick={onRegenerate} className={toolBarButtonStyle}>
           <PiFastForwardBold className={toolBarButtonIconStyle} />
