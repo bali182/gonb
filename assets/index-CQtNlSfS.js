@@ -522,7 +522,7 @@ Parsing JSON Request failed.`,n)):n.statusText==="timeout"?s(new Rr("Request Tim
   gap: 2px;
   cursor: pointer;
   transition: opacity 0.2s ease;
-`,yR=({className:i})=>{const{t:e}=di();return x.jsxs("div",{className:ft(mR,i),children:[x.jsx("span",{className:t1,children:e("Score.AlphaTabRenderedBy")}),x.jsx("a",{href:"https://alphatab.net",className:pR,children:x.jsx("img",{src:dR,className:fR})}),x.jsx("span",{className:t1,children:e("Score.Issues")}),x.jsxs("a",{href:"https://github.com/bali182/sheet/issues/new",className:gR,children:[x.jsx(ZL,{})," Github"]})]})},bR=A`
+`,yR=({className:i})=>{const{t:e}=di();return x.jsxs("div",{className:ft(mR,i),children:[x.jsx("span",{className:t1,children:e("Score.AlphaTabRenderedBy")}),x.jsx("a",{href:"https://alphatab.net",className:pR,children:x.jsx("img",{src:dR,className:fR})}),x.jsx("span",{className:t1,children:e("Score.Issues")}),x.jsxs("a",{href:"https://github.com/bali182/gonb/issues/new",className:gR,children:[x.jsx(ZL,{})," Github"]})]})},bR=A`
   padding: 0px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
