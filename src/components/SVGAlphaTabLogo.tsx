@@ -58,7 +58,7 @@ export const SVGAlphaTabLogo: FC<HTMLProps<HTMLElement>> = ({ className }) => {
       </a>
       <span className={labelStyle}>{t('Score.Issues')}</span>
       <a
-        href="https://github.com/bali182/sheet/issues/new"
+        href="https://github.com/bali182/gonb/issues/new"
         className={githubLinkStyle}
       >
         <PiGithubLogoBold /> Github
