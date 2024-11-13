@@ -8,7 +8,7 @@ import { MessageKey } from '../../languages/types'
 import { isNil } from '../../common/utils'
 
 const TOOLTIP_ROOT = document.getElementById('tooltip')!
-const TOOLTIP_APPEAR_DELAY = 800
+const TOOLTIP_APPEAR_DELAY = 500
 const TOOLTIP_DISAPPEAR_DELAY = 300
 
 type TooltipManagerProps = {

@@ -11,7 +11,7 @@ import {
   PiRepeatBold,
   PiStopFill,
 } from 'react-icons/pi'
-import { PlayerButton, PlayerToggle } from './ScoreControls'
+import { ButtonGroup, PlayerButton, PlayerToggle } from './ScoreControls'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 
 const playerControlsStyle = css`
@@ -130,20 +130,22 @@ export const PlayerControls: FC<PlayerControlsProps> = ({
             onToggle={onPlayPause}
             tooltip={isPlaying ? 'PlayerTooltips.Pause' : 'PlayerTooltips.Play'}
           />
-          <PlayerToggle
-            kind="secondary"
-            icon={PiRepeatBold}
-            isToggled={isLooping}
-            onToggle={onLoop}
-            tooltip="PlayerTooltips.Loop"
-          />
-          <PlayerToggle
-            kind="secondary"
-            icon={PiHourglassBold}
-            isToggled={isCountingIn}
-            onToggle={onCountIn}
-            tooltip="PlayerTooltips.CountIn"
-          />
+          <ButtonGroup>
+            <PlayerToggle
+              kind="secondary"
+              icon={PiRepeatBold}
+              isToggled={isLooping}
+              onToggle={onLoop}
+              tooltip="PlayerTooltips.Loop"
+            />
+            <PlayerToggle
+              kind="secondary"
+              icon={PiHourglassBold}
+              isToggled={isCountingIn}
+              onToggle={onCountIn}
+              tooltip="PlayerTooltips.CountIn"
+            />
+          </ButtonGroup>
         </div>
       </div>
       <SVGAlphaTabLogo className={logoStyle} />
