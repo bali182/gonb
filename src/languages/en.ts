@@ -172,16 +172,17 @@ export const en = {
     SeventhChordsDescription:
       'Uses extended chords for the accompaniment instead of triads',
   },
-  NotePresets: {
+  PresetNames: {
     Custom: 'Custom notes',
+    Unfretted: 'Unfretted strings ({{notes}})',
+    Position: '{{position}}. position ({{lowest}} to {{highest}})',
+    ToNthFret: 'Up to {{fret}}th fret ({{lowest}} to {{highest}})',
+  },
+  Instruments: {
     SixStringGuitar: '6 String Guitar',
     SevenStringGuitar: '7 String Guitar',
     FourStringBass: '4 String Bass',
     FiveStringBass: '5 String Bass',
-    SixStringGuitarUnfretted: '6 String Guitar (unfretted)',
-    SevenStringGuitarUnfretted: '7 String Guitar (unfretted)',
-    FourStringBassUnfretted: '4 String Bass (unfretted)',
-    FiveStringBassUnfretted: '5 String Bass (unfretted)',
   },
   NoteAndRestHeaders: {
     Notes: 'Notes',

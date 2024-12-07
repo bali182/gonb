@@ -245,14 +245,15 @@ export function isDotted(duration: Duration) {
 }
 
 function normalizeNoteName(note: string, language: Language): string {
-  switch (note) {
-    case 'B':
-      return language === Language.Hungarian ? 'H' : 'B'
-    case 'Bb':
-      return language === Language.Hungarian ? 'B' : 'Bb'
-    default:
-      return note
+  if (language === Language.Hungarian) {
+    if (note.includes('Bb')) {
+      return note.replace('Bb', 'B')
+    }
+    if (note.includes('B')) {
+      return note.replace('B', 'H')
+    }
   }
+  return note
 }
 
 export function beautifyNote(note: string, language: Language): string {

@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
 import Select, { CSSObjectWithLabel, StylesConfig } from 'react-select'
-import { SelectItem } from '../../types'
+import { SelectGroup, SelectItem } from '../../types'
 import { defaultComponents, defaultStyles } from '../dropdownStyles'
 import { useNotePresets } from './useNotePresets'
 import { arraysEqual, isNil, matchesPitchClass } from '../../../../common/utils'
@@ -56,12 +56,16 @@ export const NotePresetPicker: FC<NotePresetPicker> = ({
   onChange: _onChange,
 }) => {
   const { t } = useTranslation()
-  const presets = useNotePresets()
+  const presetGroups = useNotePresets()
+  const presets = useMemo(
+    () => presetGroups.flatMap((group) => group.options),
+    [presetGroups],
+  )
 
   const selectedPreset = useMemo(
     () =>
       presets.find(({ value: preset }) => arraysEqual(preset, value)) ?? null,
-    [value, presets],
+    [value, presetGroups],
   )
 
   const onChange = (item: SelectItem<string[]> | null) => {
@@ -80,12 +84,12 @@ export const NotePresetPicker: FC<NotePresetPicker> = ({
 
   return (
     <div className={containerStyle}>
-      <Select<SelectItem<string[]>>
+      <Select<SelectItem<string[]>, false, SelectGroup<string[]>>
         inputId="note-preset-picker"
         value={selectedPreset}
-        options={presets}
+        options={presetGroups}
         styles={notePresetStyles}
-        placeholder={t('NotePresets.Custom')}
+        placeholder={t('PresetNames.Custom')}
         components={defaultComponents}
         onChange={onChange}
       />

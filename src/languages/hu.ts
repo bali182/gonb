@@ -172,17 +172,17 @@ export const hu: Messages = {
   Clefs,
   KeySignatures,
   MelodyTypes,
-
-  NotePresets: {
+  PresetNames: {
+    Custom: 'Egyedi hangok',
+    Unfretted: 'Üres húrok ({{notes}})',
+    Position: '{{position}}. fekvés ({{lowest}}-től {{highest}}-ig)',
+    ToNthFret: 'A {{fret}}. bundig ({{lowest}}-től {{highest}}-ig)',
+  },
+  Instruments: {
     SixStringGuitar: '6 Húros Gitár',
     SevenStringGuitar: '7 Húros Gitár',
     FourStringBass: '4 Húros Basszusgitár',
     FiveStringBass: '5 Húros Basszusgitár',
-    SixStringGuitarUnfretted: '6 Húros Gitár (csak húrok)',
-    SevenStringGuitarUnfretted: '7 Húros Gitár (csak húrok)',
-    FourStringBassUnfretted: '4 Húros Basszusgitár (csak húrok)',
-    FiveStringBassUnfretted: '5 Húros Basszusgitár (csak húrok)',
-    Custom: 'Egyedi hangok',
   },
   NoteAndRestHeaders: {
     Notes: 'Hangok',
