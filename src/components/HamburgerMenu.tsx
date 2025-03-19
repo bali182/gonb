@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css'
 import { FC, useState } from 'react'
-import { PiListBold, PiX } from 'react-icons/pi'
+import { PiGear, PiX } from 'react-icons/pi'
 
 const headerButtonContainerStyle = css`
   flex-grow: 1;
@@ -15,7 +15,7 @@ export const HamburgerMenu: FC = () => {
   const [isOpen, setOpen] = useState(false)
   return (
     <div className={headerButtonContainerStyle}>
-      <PiListBold onClick={() => setOpen(!isOpen)} />
+      <PiGear onClick={() => setOpen(!isOpen)} />
       <Menu isOpen={isOpen} setOpen={setOpen} />
     </div>
   )

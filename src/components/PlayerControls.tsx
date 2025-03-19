@@ -15,6 +15,7 @@ import {
   PlayerToggleDesktop,
   PlayerToggleMobile,
 } from './ScoreControls'
+import { useAppContext } from '../context/useAppContext'
 
 const desktopContainerStyle = css`
   display: flex;
@@ -49,29 +50,30 @@ export type PlayerControlsProps = {
   onCountIn: () => void
 }
 
-export const PlayerControlsDesktop: FC<PlayerControlsProps> = ({
-  isPlaying,
-  isLooping,
-  isCountingIn,
-  onPlayPause,
-  onLoop,
-  onCountIn,
-  onStop,
-}) => {
+export const PlayerControlsDesktop: FC = () => {
+  const {
+    stop,
+    playPause,
+    toggleLooping,
+    toggleCountIn,
+    isPlaying,
+    isLooping,
+    isCountingIn,
+  } = useAppContext()
   return (
     <div className={desktopContainerStyle}>
       <div className={innerDesktopContainerStyle}>
         <PlayerButtonDesktop
           kind="secondary"
           icon={PiStopFill}
-          onClick={onStop}
+          onClick={stop}
           label="PlayerTooltips.Stop"
         />
         <PlayerToggleDesktop
           kind="primary"
           icon={isPlaying ? PiPauseFill : PiPlayFill}
           isToggled={isPlaying}
-          onToggle={onPlayPause}
+          onToggle={playPause}
           label={isPlaying ? 'PlayerTooltips.Pause' : 'PlayerTooltips.Play'}
         />
         <ButtonGroup>
@@ -79,14 +81,14 @@ export const PlayerControlsDesktop: FC<PlayerControlsProps> = ({
             kind="secondary"
             icon={PiRepeatBold}
             isToggled={isLooping}
-            onToggle={onLoop}
+            onToggle={toggleLooping}
             label="PlayerTooltips.Loop"
           />
           <PlayerToggleDesktop
             kind="secondary"
             icon={PiHourglassBold}
             isToggled={isCountingIn}
-            onToggle={onCountIn}
+            onToggle={toggleCountIn}
             label="PlayerTooltips.CountIn"
           />
         </ButtonGroup>
@@ -95,44 +97,46 @@ export const PlayerControlsDesktop: FC<PlayerControlsProps> = ({
   )
 }
 
-export const PlayerControlsMobile: FC<PlayerControlsProps> = ({
-  isPlaying,
-  isLooping,
-  isCountingIn,
-  onPlayPause,
-  onLoop,
-  onCountIn,
-  onStop,
-}) => {
+export const PlayerControlsMobile: FC = () => {
+  const {
+    stop,
+    playPause,
+    regenerate,
+    toggleLooping,
+    toggleCountIn,
+    isPlaying,
+    isLooping,
+    isCountingIn,
+  } = useAppContext()
   return (
     <div className={mobileContainerStyle}>
       <PlayerButtonMobile
         icon={PiFastForwardFill}
-        onClick={onStop}
+        onClick={regenerate}
         label="PlayerTooltips.Regenerate"
       />
       <PlayerButtonMobile
         icon={PiStopFill}
-        onClick={onStop}
+        onClick={stop}
         label="PlayerTooltips.Stop"
       />
       <PlayerToggleMobile
         icon={isPlaying ? PiPauseFill : PiPlayFill}
         isToggled={isPlaying}
-        onToggle={onPlayPause}
+        onToggle={playPause}
         label={isPlaying ? 'PlayerTooltips.Pause' : 'PlayerTooltips.Play'}
       />
       <PlayerToggleMobile
         icon={PiRepeatBold}
         isToggled={isLooping}
-        onToggle={onLoop}
+        onToggle={toggleLooping}
         label="PlayerTooltips.Loop"
       />
       <PlayerToggleMobile
         kind="secondary"
         icon={PiHourglassBold}
         isToggled={isCountingIn}
-        onToggle={onCountIn}
+        onToggle={toggleCountIn}
         label="PlayerTooltips.CountIn"
       />
     </div>

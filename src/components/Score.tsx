@@ -12,6 +12,7 @@ import { generatorSlice } from '../state/generatorSlice'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 import { VolumeControls } from './VolumeControls'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
+import { useAppContext } from '../context/useAppContext'
 
 const wrapStyle = css`
   //.at-wrap
@@ -78,89 +79,33 @@ const logoStyle = css`
 `
 
 export const Score: FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const [scrollArea, setScrollArea] = useState<HTMLElement>()
-  const [root, setRoot] = useState<HTMLElement>()
-  const generatorConfig = useSelector(generatorSlice.selectSlice)
-  const tex = useSelector(alphaTexSelector)
-  const playerConfig = useSelector(playerSlice.selectSlice)
   const isMobile = useIsMobile()
+  const context = useAppContext()
 
   const setScrollAreaCallback = useCallback((node: HTMLDivElement | null) => {
-    setScrollArea(node ?? undefined)
+    context.setScrollAreaDOMElement(node ?? undefined)
   }, [])
 
   const setRootCallback = useCallback((node: HTMLDivElement | null) => {
-    setRoot(node ?? undefined)
+    context.setRootDOMElement(node ?? undefined)
   }, [])
-
-  const onPlayPause = () => api?.playPause()
-  const onStop = () => api?.stop()
-
-  const onLoop = () =>
-    dispatch(
-      playerSlice.actions.setPlayerConfig({
-        ...playerConfig,
-        isLooping: !playerConfig.isLooping,
-      }),
-    )
-  const onCountIn = () =>
-    dispatch(
-      playerSlice.actions.setPlayerConfig({
-        ...playerConfig,
-        isCountingIn: !playerConfig.isCountingIn,
-      }),
-    )
-  const onInstrumentVolumeChange = (instrumentVolume: number) =>
-    dispatch(
-      playerSlice.actions.setPlayerConfig({
-        ...playerConfig,
-        instrumentVolume,
-      }),
-    )
-  const onMetronomeVolumeChange = (metronomeVolume: number) =>
-    dispatch(
-      playerSlice.actions.setPlayerConfig({
-        ...playerConfig,
-        metronomeVolume,
-      }),
-    )
-  const onChordsVolumeChange = (chordsVolume: number) =>
-    dispatch(
-      playerSlice.actions.setPlayerConfig({
-        ...playerConfig,
-        chordsVolume,
-      }),
-    )
 
   useEffect(() => {
     const keyListener = (e: KeyboardEvent) => {
       if (e.code === 'Space') {
-        return onPlayPause()
+        return context.playPause()
       }
       if (e.code === 'KeyR') {
-        return onLoop()
+        return context.toggleLooping()
       }
     }
     document.addEventListener('keypress', keyListener)
     return () => document.removeEventListener('keypress', keyListener)
   })
 
-  const { api, isPlaying, isLoading } = useAlphaTab({
-    tex,
-    root,
-    scrollArea,
-    instrumentVolume: playerConfig.instrumentVolume,
-    metronomeVolume: playerConfig.metronomeVolume,
-    chordsVolume: playerConfig.chordsVolume,
-    isLooping: playerConfig.isLooping,
-    isCountingIn: playerConfig.isCountingIn,
-    showChordsStaff: generatorConfig.showChordsStaff,
-  })
-
   return (
     <div className={wrapStyle}>
-      <ScoreOverlay isVisible={isLoading} />
+      <ScoreOverlay isVisible={context.isLoading} />
       <ScoreView
         viewPortStyle={isMobile ? mobileViewportStyle : desktopViewportStyle}
         setRootCallback={setRootCallback}
@@ -171,35 +116,15 @@ export const Score: FC = () => {
       >
         {!isMobile && (
           <VolumeControls
-            instrumentVolume={playerConfig.instrumentVolume}
-            metronomeVolume={playerConfig.metronomeVolume}
-            chordsVolume={playerConfig.chordsVolume}
-            onInstrumentVolumeChange={onInstrumentVolumeChange}
-            onChordsVolumeChange={onChordsVolumeChange}
-            onMetronomeVolumeChange={onMetronomeVolumeChange}
+            instrumentVolume={context.instrumentVolume}
+            metronomeVolume={context.metronomeVolume}
+            chordsVolume={context.chordsVolume}
+            onInstrumentVolumeChange={context.setInstrumentVolume}
+            onChordsVolumeChange={context.setChordsVolume}
+            onMetronomeVolumeChange={context.setMetronomeVolume}
           />
         )}
-        {isMobile ? (
-          <PlayerControlsMobile
-            isPlaying={isPlaying}
-            isLooping={playerConfig.isLooping}
-            isCountingIn={playerConfig.isCountingIn}
-            onLoop={onLoop}
-            onStop={onStop}
-            onCountIn={onCountIn}
-            onPlayPause={onPlayPause}
-          />
-        ) : (
-          <PlayerControlsDesktop
-            isPlaying={isPlaying}
-            isLooping={playerConfig.isLooping}
-            isCountingIn={playerConfig.isCountingIn}
-            onLoop={onLoop}
-            onStop={onStop}
-            onCountIn={onCountIn}
-            onPlayPause={onPlayPause}
-          />
-        )}
+        {isMobile ? <PlayerControlsMobile /> : <PlayerControlsDesktop />}
         {!isMobile && <SVGAlphaTabLogo className={logoStyle} />}
       </div>
     </div>

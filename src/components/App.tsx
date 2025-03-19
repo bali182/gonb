@@ -12,6 +12,8 @@ import { useTranslation } from 'react-i18next'
 import { languageSlice } from '../state/languageSlice'
 import { Language } from '../state/types'
 import { TooltipManager } from './tooltip/TooltipManager'
+import { AppContext } from '../context/AppContext'
+import { useCreateAppContext } from '../context/useCreateAppContext'
 
 export const App: FC = () => {
   const { i18n } = useTranslation()
@@ -59,8 +61,10 @@ export const App: FC = () => {
     }
   }, [storedLanguage])
 
+  const context = useCreateAppContext()
+
   return (
-    <>
+    <AppContext.Provider value={context}>
       <TooltipManager disabled={false} />
       <Toolbar
         language={language}
@@ -72,6 +76,6 @@ export const App: FC = () => {
       <Score />
       {showHelp && <HelpModal onClose={onHelpClosed} />}
       {showSettings && <SettingsModal onClose={onSettingsClosed} />}
-    </>
+    </AppContext.Provider>
   )
 }
