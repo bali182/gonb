@@ -13,7 +13,7 @@ const rotation = keyframes`
 const spinnerStyle = css`
   width: 60px;
   height: 60px;
-  border: 7px solid #fff;
+  border: 7px solid #ffffff;
   border-bottom-color: transparent;
   border-radius: 50%;
   display: inline-block;

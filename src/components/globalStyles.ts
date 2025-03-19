@@ -1,4 +1,5 @@
 import { css } from '@emotion/react'
+import { IS_MOBILE_QUERY } from './useIsMobile'
 
 export const globalStyles = css`
   @font-face {
@@ -12,11 +13,11 @@ export const globalStyles = css`
     // Base font size
     font-size: 16px;
 
-    @media screen and (pointer: coarse) {
+    @media ${IS_MOBILE_QUERY} {
       font-size: 24px;
     }
 
-    @media screen and (pointer: coarse) and (min-resolution: 3dppx) {
+    @media ${IS_MOBILE_QUERY} and (min-resolution: 3dppx) {
       font-size: 34px;
     }
   }
@@ -58,9 +59,14 @@ export const globalStyles = css`
     background-color: #ebebeb;
     height: 100vh;
     width: 100vw;
+
     @supports (height: 100dvh) {
       height: min(100vh, 100dvh);
     }
+
+     @media ${IS_MOBILE_QUERY} {
+      background-color: #f0f0f0;
+    } 
   }
 
   img,

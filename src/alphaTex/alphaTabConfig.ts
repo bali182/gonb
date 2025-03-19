@@ -1,5 +1,6 @@
 import { json } from '@coderline/alphatab'
-import { isNil, isNotNil } from '../common/utils'
+import { isNil } from '../common/utils'
+import { isMobile } from '../components/useIsMobile'
 
 const core: json.CoreSettingsJson = {
   tex: true,
@@ -7,8 +8,9 @@ const core: json.CoreSettingsJson = {
   engine: 'svg',
 }
 
-const display: json.DisplaySettingsJson = {
+const display = (mobile: boolean): json.DisplaySettingsJson => ({
   staveProfile: 'Default',
+  scale: mobile ? 1.8 : 1,
   // justifyLastSystem: true,
   // barsPerRow: 4,
   // resources: {
@@ -19,8 +21,7 @@ const display: json.DisplaySettingsJson = {
   //   scoreInfoColor: '#fff',
   //   barNumberColor: '#fff',
   // },
-}
-
+})
 export const player = (
   scrollElement: HTMLElement,
 ): json.PlayerSettingsJson => ({
@@ -59,7 +60,7 @@ export const alphaTabConfig = (
   overrides?: Partial<json.PlayerSettingsJson>,
 ): json.SettingsJson => ({
   core,
-  display,
+  display: display(isMobile()),
   notation,
   player: isNil(overrides) ? player(scrollElement) : overrides,
 })

@@ -46,7 +46,7 @@ export const tdStyle = css`
 
 export const selectedStyle = css`
   background-color: #000000aa !important;
-  color: #fff;
+  color: #ffffff;
   &:hover {
     background-color: #000000cc !important;
   }

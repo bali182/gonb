@@ -11,19 +11,27 @@ import { ScoreView } from './ScoreView'
 import { generatorSlice } from '../state/generatorSlice'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 import { VolumeControls } from './VolumeControls'
-import { useIsMobile } from './useIsMobile'
+import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 
 const wrapStyle = css`
   //.at-wrap
   width: 100vw;
-  height: calc(100vh - 120px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
+
+  height: calc(100vh - 120px);
   @supports (height: 100dvh) {
     height: calc(min(100vh, 100dvh) - 120px);
+  }
+
+  @media ${IS_MOBILE_QUERY} {
+    height: calc(100vh - 150px);
+    @supports (height: 100dvh) {
+      height: calc(min(100vh, 100dvh) - 150px);
+    }
   }
 `
 
@@ -35,9 +43,9 @@ const desktopViewportStyle = css`
 `
 
 const mobileViewportStyle = css`
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
   padding: 0px;
 `
 

@@ -139,7 +139,7 @@ const baseMobileButtonStyle = css`
 
 const toggledMobileButtonStyle = css`
   color: #ffffff;
-  font-weight: bold;
+  background-color: #ffffff20;
 `
 
 export const PlayerButtonMobile: FC<BasicButtonProps> = ({

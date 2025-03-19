@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import { css, cx } from '@emotion/css'
+import { IS_MOBILE_QUERY } from './useIsMobile'
 
 export type ScoreViewProps = {
   setRootCallback: (root: HTMLDivElement) => void
@@ -20,9 +21,15 @@ const baseViewportStyle = css`
   position: absolute;
   top: 0px;
   bottom: 30px;
-  background-color: #fff;
   border-radius: 8px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: #ffffff;
+
+  @media ${IS_MOBILE_QUERY} {
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 30px 29px 0px;
+  }
 `
 
 export const ScoreView: FC<ScoreViewProps> = ({

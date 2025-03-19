@@ -104,15 +104,6 @@ export const PlayerControlsMobile: FC<PlayerControlsProps> = ({
   onCountIn,
   onStop,
 }) => {
-  console.log(
-    isPlaying,
-    isLooping,
-    isCountingIn,
-    onPlayPause,
-    onLoop,
-    onCountIn,
-    onStop,
-  )
   return (
     <div className={mobileContainerStyle}>
       <PlayerButtonMobile

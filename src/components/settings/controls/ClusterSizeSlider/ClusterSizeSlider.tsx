@@ -125,7 +125,7 @@ const thumbStlye = css`
   width: 26px;
   border-radius: 50%;
   background-color: #777;
-  color: #fff;
+  color: #ffffff;
   display: flex;
   flex-direction: row;
   align-items: center;
