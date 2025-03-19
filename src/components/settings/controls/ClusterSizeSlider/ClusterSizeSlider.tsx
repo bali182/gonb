@@ -130,7 +130,7 @@ const thumbStlye = css`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 0.75em;
+  font-size: 0.75rem;
   transition: outline 0.5s ease;
   outline: 0px solid #00000020;
 `

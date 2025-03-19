@@ -17,7 +17,7 @@ export const Section: FC<PropsWithChildren> = ({ children }) => {
 }
 
 const labelStyle = css`
-  font-size: 1em;
+  font-size: 1rem;
   color: #000000;
   margin-bottom: 2px;
   pointer-events: auto;
@@ -28,7 +28,7 @@ export const Label: FC<PropsWithChildren> = ({ children }) => {
 }
 
 const descriptionStyle = css`
-  font-size: 0.8em;
+  font-size: 0.8rem;
   color: #000000aa;
   margin-bottom: 14px;
 `

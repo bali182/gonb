@@ -45,7 +45,7 @@ const thStyle = css`
   border: 1px solid #00000020;
   font-weight: 400;
   text-align: center;
-  font-size: 1em;
+  font-size: 1rem;
   height: 45px;
 `
 
@@ -73,11 +73,11 @@ export const disabledClusterStyle = css`
   height: 45px;
   display: flex;
   align-items: center;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   color: #00000090;
   text-align: left;
   margin-left: 10px;
-  line-height: 1.2em;
+  line-height: 1.2rem;
 `
 
 export const clusterTdStyle = css`

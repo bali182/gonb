@@ -48,12 +48,12 @@ const nameWrapperStyle = css`
 `
 
 const nameStyle = css`
-  font-size: 1em;
+  font-size: 1rem;
 `
 
 const alternateNameStyle = css`
   opacity: 0.8;
-  font-size: 0.75em;
+  font-size: 0.75rem;
   white-space: nowrap;
 `
 

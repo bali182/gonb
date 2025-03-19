@@ -46,17 +46,17 @@ const contentContainer = css`
 `
 
 const titleStyle = css`
-  font-size: 1.5em;
+  font-size: 1.5rem;
   color: #000000;
 `
 
 const descriptionStyle = css`
-  font-size: 1em;
+  font-size: 1rem;
   color: #00000090;
 `
 
 const errorMessageStyle = css`
-  font-size: 1em;
+  font-size: 1rem;
   padding: 10px;
   background-color: #00000010;
   border-radius: 10px;

@@ -65,7 +65,7 @@ const volumeSliderStyle = css`
 `
 
 const controlIconStyle = css`
-  font-size: 1.6em;
+  font-size: 1.6rem;
   color: #ffffffdd;
   cursor: pointer;
   &:hover {
@@ -74,7 +74,7 @@ const controlIconStyle = css`
 `
 
 const iconStyle = css`
-  font-size: 1.8em;
+  font-size: 1.8rem;
   margin-right: 10px;
   color: #ffffff;
 `

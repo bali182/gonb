@@ -12,7 +12,7 @@ const buttonStyle = css`
   gap: 6px;
   cursor: pointer;
   height: 40px;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   border-radius: 20px;
   background-color: transparent;
   background-color: #444;

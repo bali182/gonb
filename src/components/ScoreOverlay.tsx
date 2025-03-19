@@ -26,7 +26,7 @@ const scoreOvelayStyle = css`
 
 export const scoreOverlayContentStyle = css`
   color: #ffffff;
-  font-size: 2em;
+  font-size: 2rem;
 `
 
 export const ScoreOverlay: FC<TabOverlayProps> = ({ isVisible }) => {

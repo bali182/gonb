@@ -17,7 +17,7 @@ const boxStyle = css`
 `
 
 const urlStyle = css`
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: bold;
   word-break: break-all;
 `
@@ -25,7 +25,7 @@ const urlStyle = css`
 const descriptionStyle = css`
   display: flex;
   gap: 4px;
-  font-size: 0.7em;
+  font-size: 0.7rem;
   color: #00000090;
 `
 

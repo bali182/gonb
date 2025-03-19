@@ -16,7 +16,7 @@ export const thStyle = css`
   position: relative;
   overflow: hidden;
   height: 38px;
-  font-size: 0.9em;
+  font-size: 0.9rem;
   border: 1px solid #00000030;
   background-color: #00000010;
   &:hover {
@@ -34,7 +34,7 @@ export const leftThStyle = css`
 
 export const tdStyle = css`
   padding: 6px;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   text-align: center;
   cursor: pointer;
   position: relative;

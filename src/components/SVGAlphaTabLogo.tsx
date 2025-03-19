@@ -25,12 +25,12 @@ const githubLinkStyle = css`
   flex-direction: row;
   gap: 1px;
   align-items: center;
-  font-size: 1.3em;
+  font-size: 1.3rem;
 `
 
 const labelStyle = css`
   visibility: hidden;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   line-height: 100%;
   color: #ffffff99;
   @media (min-width: 1080px) {

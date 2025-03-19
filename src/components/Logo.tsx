@@ -31,7 +31,7 @@ const titleIconStyle = css`
 
 const titleStyle = css`
   color: #000;
-  font-size: 2.3em;
+  font-size: 2.3rem;
   font-weight: bold;
   line-height: 90%;
   margin: 0px;
@@ -39,7 +39,7 @@ const titleStyle = css`
 
 const sloganStyle = css`
   color: #00000099;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   line-height: 90%;
   font-weight: normal;
   white-space: nowrap;

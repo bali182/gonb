@@ -9,7 +9,7 @@ const inputStyle = css`
   border: none;
   outline: none;
   padding: 10px 14px;
-  font-size: 1em;
+  font-size: 1rem;
   &:hover {
     background-color: #00000015;
   }

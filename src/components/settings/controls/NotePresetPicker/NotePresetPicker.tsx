@@ -29,7 +29,7 @@ const buttonStyle = css`
   height: auto;
   background-color: #00000010;
   color: #000;
-  font-size: 1em;
+  font-size: 1rem;
   border-left: 1px solid #00000020;
   &:hover {
     color: #000;
