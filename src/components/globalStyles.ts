@@ -8,6 +8,19 @@ export const globalStyles = css`
       url('font/Bravura.otf') format('opentype');
   }
 
+  html {
+    // Base font size
+    font-size: 16px;
+
+    @media screen and (pointer: coarse) {
+      font-size: 24px;
+    }
+
+    @media screen and (pointer: coarse) and (min-resolution: 3dppx) {
+      font-size: 34px;
+    }
+  }
+
   #root {
     width: 100vw;
     height: 100vh;
@@ -83,35 +96,6 @@ export const globalStyles = css`
   a {
     text-decoration: none !important;
   }
-
-  // Custom scrollbar
-  /* * {
-    --sb-track-color: #ffffff20;
-    --sb-thumb-color: #ffffff60;
-    --sb-size: 8px;
-  }
-
-  *::-webkit-scrollbar {
-    width: var(--sb-size);
-    height: var(--sb-size);
-  }
-
-  *::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: 4px;
-  }
-
-  @supports not selector(::-webkit-scrollbar) {
-    * {
-      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-    }
-  } */
 
   /** Alphatab stuff */
   .at-cursor-bar {
