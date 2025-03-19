@@ -2,20 +2,21 @@ import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
 import { MessageKey } from '../languages/types'
+import { Trans } from 'react-i18next'
 
 type PlayerButtonKind = 'primary' | 'secondary'
 
 export type BasicButtonProps = {
-  kind: PlayerButtonKind
-  tooltip: MessageKey
+  kind?: PlayerButtonKind
+  label: MessageKey
   icon: IconType
   onClick: () => void
 }
 
 export type ToggleButtonProps = {
-  kind: PlayerButtonKind
+  kind?: PlayerButtonKind
   isToggled: boolean
-  tooltip: MessageKey
+  label: MessageKey
   icon: IconType
   onToggle: (isToggled: boolean) => void
 }
@@ -78,10 +79,10 @@ const buttonGroupStyle = css`
   }
 `
 
-export const PlayerButton: FC<BasicButtonProps> = ({
+export const PlayerButtonDesktop: FC<BasicButtonProps> = ({
   onClick,
   kind,
-  tooltip,
+  label: tooltip,
   icon: Icon,
 }) => {
   const style = cx({
@@ -96,10 +97,10 @@ export const PlayerButton: FC<BasicButtonProps> = ({
   )
 }
 
-export const PlayerToggle: FC<ToggleButtonProps> = ({
+export const PlayerToggleDesktop: FC<ToggleButtonProps> = ({
   kind,
   isToggled,
-  tooltip,
+  label: tooltip,
   onToggle,
   icon: Icon,
 }) => {
@@ -113,6 +114,68 @@ export const PlayerToggle: FC<ToggleButtonProps> = ({
   return (
     <button className={style} onClick={onClick} data-tooltip={tooltip}>
       <Icon />
+    </button>
+  )
+}
+
+const baseMobileButtonStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  &:focus {
+    color: #ffffff;
+  }
+`
+
+const toggledMobileButtonStyle = css`
+  color: #ffffff;
+  font-weight: bold;
+`
+
+export const PlayerButtonMobile: FC<BasicButtonProps> = ({
+  onClick,
+  label,
+  icon: Icon,
+}) => {
+  const style = cx({
+    [baseMobileButtonStyle]: true,
+  })
+  return (
+    <button className={style} onClick={onClick}>
+      <Icon fontSize="2em" />
+      <Trans i18nKey={label} />
+    </button>
+  )
+}
+
+export const PlayerToggleMobile: FC<ToggleButtonProps> = ({
+  isToggled,
+  label,
+  onToggle,
+  icon: Icon,
+}) => {
+  const style = cx({
+    [baseMobileButtonStyle]: true,
+    [toggledMobileButtonStyle]: isToggled,
+  })
+  const fullLabelStyle = cx({})
+  const onClick = () => onToggle(!isToggled)
+  return (
+    <button className={style} onClick={onClick}>
+      <Icon fontSize="2em" />
+      <span className={fullLabelStyle}>
+        <Trans i18nKey={label} />
+      </span>
     </button>
   )
 }

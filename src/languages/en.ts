@@ -250,7 +250,8 @@ export const en = {
     Play: 'Play',
     Pause: 'Pause',
     Stop: 'Stop',
-    Loop: 'Loop selection',
-    CountIn: 'Count-in before play',
+    Loop: 'Loop',
+    CountIn: 'Count-in',
+    Regenerate: 'Generate new',
   },
 }
