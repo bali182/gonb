@@ -6,7 +6,7 @@ import { Button } from '../../Button'
 import { PagedModalButton } from '../../types'
 
 export type MobileSettingsPageProps<T> = PropsWithChildren & {
-  titles: string[]
+  title: string
   isOpen: boolean
   buttons?: PagedModalButton[]
   data?: T
@@ -45,6 +45,8 @@ const headerStyle = css`
   width: 100%;
   padding: 40px;
   height: 150px;
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #ccc;
 `
 
 const titlesStyle = css`
@@ -71,24 +73,28 @@ const backIconStyle = css`
 
 const contentStyle = css`
   flex: 1 1 1px;
+  overflow: auto;
 `
 
 const buttonContainerStyle = css`
-  height: 65px;
+  width: 100%;
+  padding: 40px;
+  height: 180px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   pointer-events: all;
-  padding: 14px;
   gap: 10px;
   width: 100%;
   border-bottom-right-radius: 14px;
+  background-color: #f0f0f0;
+  border-top: 2px solid #ccc;
 `
 
 export function MobileSettingsPage<T>({
   isOpen,
-  titles,
+  title,
   buttons,
   children,
   data,
@@ -104,20 +110,15 @@ export function MobileSettingsPage<T>({
   return (
     <div className={pageStyle}>
       <div className={headerStyle}>
-        {titles.length > 1 && !isNil(onBack) && (
+        {!isNil(onBack) && (
           <PiCaretLeft className={backIconStyle} onClick={onBack} />
         )}
         <div className={titlesStyle}>
-          {titles.map((title, index) => (
-            <Fragment key={title}>
-              <span>{title}</span>
-              {index < titles.length - 1 && (
-                <span className={titleSeparator}>/</span>
-              )}
-            </Fragment>
-          ))}
+          <span>{title}</span>
         </div>
-        <PiX className={closeIconStyle} onClick={onClose} />
+        {!isNil(onClose) && (
+          <PiX className={closeIconStyle} onClick={onClose} />
+        )}
       </div>
       <div className={contentStyle}>{children}</div>
 

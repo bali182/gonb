@@ -1,5 +1,6 @@
 import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
+import { IS_MOBILE_QUERY } from './useIsMobile'
 
 const buttonStyle = css`
   display: flex;
@@ -24,6 +25,13 @@ const buttonStyle = css`
     background-color: #888;
     color: #ddd;
     cursor: not-allowed;
+  }
+
+  @media ${IS_MOBILE_QUERY} {
+    height: 100px;
+    font-size: 1.8rem;
+    border-radius: 50px;
+    padding: 10px 24px 10px 20px;
   }
 `
 

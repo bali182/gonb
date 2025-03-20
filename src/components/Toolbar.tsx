@@ -4,7 +4,7 @@ import { Logo } from './Logo'
 import { Language } from '../state/types'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { ToolbarMenuDesktop } from './ToolbarMenu'
-import { HamburgerMenu } from './settings/mobile/HamburgerMenu'
+import { ConfigButton } from './settings/mobile/ConfigButton'
 
 const toolbarStyle = css`
   display: flex;
@@ -34,7 +34,7 @@ export const Toolbar: FC<ToolbarProps> = (props) => {
     <div className={toolbarStyle}>
       <Logo />
       {!isMobile && <ToolbarMenuDesktop {...props} />}
-      {isMobile && <HamburgerMenu />}
+      {isMobile && <ConfigButton />}
     </div>
   )
 }

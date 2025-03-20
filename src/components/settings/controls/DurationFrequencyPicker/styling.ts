@@ -6,7 +6,7 @@ import {
 
 const fontChangeProps = (provided: CSSObjectWithLabel): CSSObjectWithLabel => ({
   ...provided,
-  fontSize: '0.9em',
+  fontSize: '0.9rem',
   color: '#000000',
 })
 

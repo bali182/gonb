@@ -1,5 +1,5 @@
 import { css } from '@emotion/css'
-import { ModalPage, PagedModalButton } from '../../types'
+import { ModalPage } from '../../types'
 
 const menuStyle = css`
   border-top-left-radius: 14px;
@@ -22,6 +22,7 @@ const menuItemStlye = css`
   gap: 20px;
   padding: 30px 40px;
   cursor: pointer;
+  border-bottom: 2px solid #ccc;
   &:hover {
     color: #000000;
     background-color: #00000010;
@@ -57,13 +58,4 @@ export function DrilldownMenu<P extends string, T>({
       </div>
     </div>
   )
-}
-
-export type _DrilldownMenuProps<P extends string, T> = {
-  activePageId: P | undefined
-  pageProps: T
-  pages: ModalPage<P, T>[]
-  buttons?: PagedModalButton[]
-  onClick?: (button: PagedModalButton, props: T) => void
-  setActivePage: (pageId: P) => void
 }
