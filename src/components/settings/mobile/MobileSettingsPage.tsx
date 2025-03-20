@@ -26,7 +26,6 @@ const basePageStyle = css`
   z-index: 1001;
   transition: 0.2s ease;
   background-color: #ffffff;
-  box-shadow: rgba(100, 100, 111, 0.4) 0px 2px 29px 0px;
 
   @supports (height: 100dvh) {
     height: min(100vh, 100dvh);
