@@ -1,26 +1,12 @@
 import { css, cx } from '@emotion/css'
-import { ComponentType, useMemo } from 'react'
+import { useMemo } from 'react'
 import { IconType } from 'react-icons'
 import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
 import { Button } from './Button'
 import { isNil, noop } from '../common/utils'
 import { useScrollOverflowGradient } from './useScrollOverflowGradient'
-
-export type ModalPage<P extends string, T = any> = {
-  id: P
-  name: string
-  Icon: ComponentType
-  Badge?: ComponentType
-  Component: ComponentType<T>
-}
-
-export type PagedModalButton = {
-  id: string
-  label: string
-  enabled: boolean
-  icon: IconType
-}
+import { ModalPage, PagedModalButton } from './types'
 
 export type PagedModalProps<P extends string, T> = {
   activePageId: P

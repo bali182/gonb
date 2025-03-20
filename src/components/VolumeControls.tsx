@@ -6,15 +6,7 @@ import {
   PiMusicNotesBold,
 } from 'react-icons/pi'
 import { VolumeSlider } from './VolumeSlider'
-
-type VolumeControlsProps = {
-  instrumentVolume: number
-  chordsVolume: number
-  metronomeVolume: number
-  onInstrumentVolumeChange: (volume: number) => void
-  onChordsVolumeChange: (volume: number) => void
-  onMetronomeVolumeChange: (metronomeVolume: number) => void
-}
+import { useAppContext } from '../context/useAppContext'
 
 const volumeContainerStyle = css`
   display: flex;
@@ -23,32 +15,34 @@ const volumeContainerStyle = css`
   justify-self: start;
 `
 
-export const VolumeControls: FC<VolumeControlsProps> = ({
-  instrumentVolume,
-  metronomeVolume,
-  chordsVolume,
-  onInstrumentVolumeChange,
-  onMetronomeVolumeChange,
-  onChordsVolumeChange,
-}) => {
+export const VolumeControls: FC = () => {
+  const {
+    metronomeVolume,
+    instrumentVolume,
+    chordsVolume,
+    setMetronomeVolume,
+    setInstrumentVolume,
+    setChordsVolume,
+  } = useAppContext()
+
   return (
     <div className={volumeContainerStyle}>
       <VolumeSlider
         Icon={PiMetronomeBold}
         value={metronomeVolume}
-        onChange={onMetronomeVolumeChange}
+        onChange={setMetronomeVolume}
         sliderTooltip="PlayerTooltips.MetronomeVolume"
       />
       <VolumeSlider
         Icon={PiMusicNoteBold}
         value={instrumentVolume}
-        onChange={onInstrumentVolumeChange}
+        onChange={setInstrumentVolume}
         sliderTooltip="PlayerTooltips.MelodyVolume"
       />
       <VolumeSlider
         Icon={PiMusicNotesBold}
         value={chordsVolume}
-        onChange={onChordsVolumeChange}
+        onChange={setChordsVolume}
         sliderTooltip="PlayerTooltips.ChordsVolume"
       />
     </div>

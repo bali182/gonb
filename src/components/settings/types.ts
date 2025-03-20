@@ -1,6 +1,6 @@
 import { GeneratorConfig, TimeSignature } from '../../state/types'
 import { ConfigIssues } from '../../state/validation/types'
-import { ModalPage } from '../PagedModal'
+import { ModalPage } from '../types'
 import { SettingsPageId } from './SettingsPageId'
 
 export type SelectItem<T> = {

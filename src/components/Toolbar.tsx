@@ -4,7 +4,7 @@ import { Logo } from './Logo'
 import { Language } from '../state/types'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { ToolbarMenuDesktop } from './ToolbarMenu'
-import { HamburgerMenu } from './HamburgerMenu'
+import { HamburgerMenu } from './settings/mobile/HamburgerMenu'
 
 const toolbarStyle = css`
   display: flex;

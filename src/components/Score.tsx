@@ -1,14 +1,8 @@
-import { FC, useState, useCallback, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { css } from '@emotion/css'
 import { ScoreOverlay } from './ScoreOverlay'
-import { useAlphaTab } from '../alphaTex/useAlphaTab'
 import { PlayerControlsDesktop, PlayerControlsMobile } from './PlayerControls'
-import { useDispatch, useSelector } from 'react-redux'
-import { alphaTexSelector } from '../state/selectors'
-import { playerSlice } from '../state/playerSlice'
-import { AppDispatch } from '../state/store'
 import { ScoreView } from './ScoreView'
-import { generatorSlice } from '../state/generatorSlice'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 import { VolumeControls } from './VolumeControls'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
@@ -114,16 +108,7 @@ export const Score: FC = () => {
       <div
         className={isMobile ? mobileBottomMenuStyle : desktopBottomMenuStyle}
       >
-        {!isMobile && (
-          <VolumeControls
-            instrumentVolume={context.instrumentVolume}
-            metronomeVolume={context.metronomeVolume}
-            chordsVolume={context.chordsVolume}
-            onInstrumentVolumeChange={context.setInstrumentVolume}
-            onChordsVolumeChange={context.setChordsVolume}
-            onMetronomeVolumeChange={context.setMetronomeVolume}
-          />
-        )}
+        {!isMobile && <VolumeControls />}
         {isMobile ? <PlayerControlsMobile /> : <PlayerControlsDesktop />}
         {!isMobile && <SVGAlphaTabLogo className={logoStyle} />}
       </div>

@@ -68,12 +68,12 @@ export function useCreateAppContext(): AppContextType {
   )
 
   const setChordsVolume = useCallback(
-    (metronomeVolume: number) => setPlayerConfig({ metronomeVolume }),
+    (chordsVolume: number) => setPlayerConfig({ chordsVolume }),
     [setPlayerConfig],
   )
 
   const setMetronomeVolume = useCallback(
-    (chordsVolume: number) => setPlayerConfig({ chordsVolume }),
+    (metronomeVolume: number) => setPlayerConfig({ metronomeVolume }),
     [setPlayerConfig],
   )
 

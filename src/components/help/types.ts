@@ -1,4 +1,4 @@
-import { ModalPage } from '../PagedModal'
+import { ModalPage } from '../types'
 import { HelpPageId } from './HelpPageId'
 
 export type HelpPage = ModalPage<HelpPageId, {}>
