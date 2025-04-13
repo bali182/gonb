@@ -142,6 +142,124 @@ const toggledMobileButtonStyle = css`
   background-color: #ffffff20;
 `
 
+const iconContainerStyle = css`
+  display: grid;
+`
+
+const baseIconStyle = css`
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  font-size: 2em;
+  grid-row: 1;
+  grid-column: 1;
+`
+
+const hiddenOffIconStyle = css`
+  opacity: 0;
+  transform: translateX(-20px) scale(0.8);
+`
+
+const hiddenOnIconStyle = css`
+  opacity: 0;
+  transform: translateX(20px) scale(0.8);
+`
+
+const visibleOffIconStyle = css`
+  opacity: 1;
+  transform: translateX(0) scale(1);
+`
+
+const visibleOnIconStyle = css`
+  opacity: 1;
+  transform: translateX(0) scale(1.25);
+`
+
+const simpleSelectedIconStyle = css`
+  transform: scale(1.25);
+`
+
+export type ToggleButtonMobileProps = {
+  kind?: PlayerButtonKind
+  isToggled: boolean
+  label: MessageKey
+  offIcon: IconType
+  onIcon: IconType
+  onToggle: (isToggled: boolean) => void
+}
+
+type SwappingIconsProps = {
+  offIcon: IconType
+  onIcon: IconType
+  isToggled: boolean
+}
+
+const SwappingIcons: FC<SwappingIconsProps> = ({
+  isToggled,
+  offIcon: OffIcon,
+  onIcon: OnIcon,
+}) => {
+  const offIconComputedStyle = cx({
+    [baseIconStyle]: true,
+    [hiddenOffIconStyle]: true,
+    [visibleOffIconStyle]: !isToggled,
+  })
+  const onIconComputedStyle = cx({
+    [baseIconStyle]: true,
+    [hiddenOnIconStyle]: true,
+    [visibleOnIconStyle]: isToggled,
+  })
+  return (
+    <div className={iconContainerStyle}>
+      <OffIcon className={offIconComputedStyle} />
+      <OnIcon className={onIconComputedStyle} />
+    </div>
+  )
+}
+
+type SimpleIconProps = {
+  isToggled: boolean
+  icon: IconType
+}
+
+const SimpleIcon: FC<SimpleIconProps> = ({ isToggled, icon: Icon }) => {
+  const computedIconStyle = cx({
+    [baseIconStyle]: true,
+    [simpleSelectedIconStyle]: isToggled,
+  })
+
+  return <Icon className={computedIconStyle} />
+}
+
+export const PlayerToggleMobile: FC<ToggleButtonMobileProps> = ({
+  isToggled,
+  label,
+  onToggle,
+  offIcon: OffIcon,
+  onIcon: OnIcon,
+}) => {
+  const style = cx({
+    [baseMobileButtonStyle]: true,
+    [toggledMobileButtonStyle]: isToggled,
+  })
+
+  const onClick = () => onToggle(!isToggled)
+  return (
+    <button className={style} onClick={onClick}>
+      {OffIcon === OnIcon ? (
+        <SimpleIcon isToggled={isToggled} icon={OnIcon} />
+      ) : (
+        <SwappingIcons
+          isToggled={isToggled}
+          offIcon={OffIcon}
+          onIcon={OnIcon}
+        />
+      )}
+      <span>
+        <Trans i18nKey={label} />
+      </span>
+    </button>
+  )
+}
+
 export const PlayerButtonMobile: FC<BasicButtonProps> = ({
   onClick,
   label,
@@ -154,28 +272,6 @@ export const PlayerButtonMobile: FC<BasicButtonProps> = ({
     <button className={style} onClick={onClick}>
       <Icon fontSize="2em" />
       <Trans i18nKey={label} />
-    </button>
-  )
-}
-
-export const PlayerToggleMobile: FC<ToggleButtonProps> = ({
-  isToggled,
-  label,
-  onToggle,
-  icon: Icon,
-}) => {
-  const style = cx({
-    [baseMobileButtonStyle]: true,
-    [toggledMobileButtonStyle]: isToggled,
-  })
-  const fullLabelStyle = cx({})
-  const onClick = () => onToggle(!isToggled)
-  return (
-    <button className={style} onClick={onClick}>
-      <Icon fontSize="2em" />
-      <span className={fullLabelStyle}>
-        <Trans i18nKey={label} />
-      </span>
     </button>
   )
 }

@@ -8,14 +8,14 @@ import {
 import { VolumeSlider } from './VolumeSlider'
 import { useAppContext } from '../context/useAppContext'
 
-const volumeContainerStyle = css`
+const volumeContainerDesktopStyle = css`
   display: flex;
   flex-direction: column;
   gap: 10px;
   justify-self: start;
 `
 
-export const VolumeControls: FC = () => {
+export const VolumeControlsDesktop: FC = () => {
   const {
     metronomeVolume,
     instrumentVolume,
@@ -26,7 +26,7 @@ export const VolumeControls: FC = () => {
   } = useAppContext()
 
   return (
-    <div className={volumeContainerStyle}>
+    <div className={volumeContainerDesktopStyle}>
       <VolumeSlider
         Icon={PiMetronomeBold}
         value={metronomeVolume}
@@ -41,6 +41,52 @@ export const VolumeControls: FC = () => {
       />
       <VolumeSlider
         Icon={PiMusicNotesBold}
+        value={chordsVolume}
+        onChange={setChordsVolume}
+        sliderTooltip="PlayerTooltips.ChordsVolume"
+      />
+    </div>
+  )
+}
+
+const volumeContainerMobileStyle = css`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-self: start;
+  align-self: stretch;
+  background-color: #333;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px;
+`
+
+export const VolumeControlsMobile: FC = () => {
+  const {
+    metronomeVolume,
+    instrumentVolume,
+    chordsVolume,
+    setMetronomeVolume,
+    setInstrumentVolume,
+    setChordsVolume,
+  } = useAppContext()
+
+  return (
+    <div className={volumeContainerMobileStyle}>
+      <VolumeSlider
+        // Icon={PiMetronomeBold}
+        value={metronomeVolume}
+        onChange={setMetronomeVolume}
+        sliderTooltip="PlayerTooltips.MetronomeVolume"
+      />
+      <VolumeSlider
+        // Icon={PiMusicNoteBold}
+        value={instrumentVolume}
+        onChange={setInstrumentVolume}
+        sliderTooltip="PlayerTooltips.MelodyVolume"
+      />
+      <VolumeSlider
+        // Icon={PiMusicNotesBold}
         value={chordsVolume}
         onChange={setChordsVolume}
         sliderTooltip="PlayerTooltips.ChordsVolume"

@@ -4,7 +4,7 @@ import { ScoreOverlay } from './ScoreOverlay'
 import { PlayerControlsDesktop, PlayerControlsMobile } from './PlayerControls'
 import { ScoreView } from './ScoreView'
 import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
-import { VolumeControls } from './VolumeControls'
+import { VolumeControlsDesktop } from './VolumeControls'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { useAppContext } from '../context/useAppContext'
 
@@ -108,7 +108,7 @@ export const Score: FC = () => {
       <div
         className={isMobile ? mobileBottomMenuStyle : desktopBottomMenuStyle}
       >
-        {!isMobile && <VolumeControls />}
+        {!isMobile && <VolumeControlsDesktop />}
         {isMobile ? <PlayerControlsMobile /> : <PlayerControlsDesktop />}
         {!isMobile && <SVGAlphaTabLogo className={logoStyle} />}
       </div>

@@ -1,10 +1,11 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PagedModalButton } from '../../types'
-import { VolumeControls } from '../../VolumeControls'
+import { VolumeControlsMobile } from '../../VolumeControls'
 import { SettingsPage } from '../types'
 import { DrilldownMenu } from './DrilldownMenu'
 import { MobileSettingsPage } from './MobileSettingsPage'
+import { css } from '@emotion/css'
 
 type MenuProps = {
   isOpen: boolean
@@ -14,6 +15,11 @@ type MenuProps = {
   onClick: (page: SettingsPage) => void
   onButtonClick: (button: PagedModalButton) => void
 }
+
+const containerStyle = css`
+  display: flex;
+  flex-direction: column;
+`
 
 export const MenuPage: FC<MenuProps> = ({
   isOpen,
@@ -32,8 +38,10 @@ export const MenuPage: FC<MenuProps> = ({
       onClose={onClose}
       onClick={onButtonClick}
     >
-      <DrilldownMenu pages={pages} onClick={onClick} />
-      <VolumeControls />
+      <div className={containerStyle}>
+        <DrilldownMenu pages={pages} onClick={onClick} />
+        <VolumeControlsMobile />
+      </div>
     </MobileSettingsPage>
   )
 }

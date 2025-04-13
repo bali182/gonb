@@ -121,20 +121,23 @@ export const PlayerControlsMobile: FC = () => {
         label="PlayerTooltips.Stop"
       />
       <PlayerToggleMobile
-        icon={isPlaying ? PiPauseFill : PiPlayFill}
+        offIcon={PiPlayFill}
+        onIcon={PiPauseFill}
         isToggled={isPlaying}
         onToggle={playPause}
         label={isPlaying ? 'PlayerTooltips.Pause' : 'PlayerTooltips.Play'}
       />
       <PlayerToggleMobile
-        icon={PiRepeatBold}
+        offIcon={PiRepeatBold}
+        onIcon={PiRepeatBold}
         isToggled={isLooping}
         onToggle={toggleLooping}
         label="PlayerTooltips.Loop"
       />
       <PlayerToggleMobile
         kind="secondary"
-        icon={PiHourglassBold}
+        offIcon={PiHourglassBold}
+        onIcon={PiHourglassBold}
         isToggled={isCountingIn}
         onToggle={toggleCountIn}
         label="PlayerTooltips.CountIn"

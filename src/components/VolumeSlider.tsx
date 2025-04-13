@@ -3,6 +3,7 @@ import { DOMAttributes, FC } from 'react'
 import { IconType } from 'react-icons'
 import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri'
 import { MessageKey } from '../languages/types'
+import { isNil } from '../common/utils'
 
 const containerStyle = css`
   display: flex;
@@ -15,7 +16,7 @@ const containerStyle = css`
 const volumeSliderStyle = css`
   appearance: none;
   background-color: transparent;
-  width: 180px;
+  width: 100%;
 
   &::-webkit-slider-runnable-track {
     height: 8px;
@@ -84,8 +85,8 @@ export type VolumeSliderProps = Omit<
   'onChange'
 > & {
   value: number
-  Icon: IconType
-  sliderTooltip: MessageKey
+  Icon?: IconType
+  sliderTooltip?: MessageKey
   onChange: (value: number) => void
 }
 
@@ -97,7 +98,7 @@ export const VolumeSlider: FC<VolumeSliderProps> = ({
 }) => {
   return (
     <div className={containerStyle} data-tooltip={sliderTooltip}>
-      <Icon className={iconStyle} />
+      {!isNil(Icon) && <Icon className={iconStyle} />}
       <RiVolumeMuteFill
         className={controlIconStyle}
         onClick={() => onChange(0)}
