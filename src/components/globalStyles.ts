@@ -16,10 +16,6 @@ export const globalStyles = css`
     @media ${IS_MOBILE_QUERY} {
       font-size: 24px;
     }
-
-    @media ${IS_MOBILE_QUERY} and (min-resolution: 3dppx) {
-      font-size: 34px;
-    }
   }
 
   #root {

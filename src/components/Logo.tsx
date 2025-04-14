@@ -1,8 +1,9 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { FC } from 'react'
 import gonb from './svg/gonb.svg?base64-data-uri'
 import { useTranslation } from 'react-i18next'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
+import { headerStyle, MOBILE_TOOLBAR_HEIGHT, smallTextStyle } from './constants'
 
 const logoBlockStyle = css`
   display: flex;
@@ -20,7 +21,7 @@ const logoBlockStyle = css`
   gap: 8px;
 
   @media ${IS_MOBILE_QUERY} {
-    gap: 14px;
+    gap: 8px;
   }
 `
 
@@ -33,39 +34,40 @@ const logoTextStyle = css`
 
 const titleIconStyle = css`
   @media ${IS_MOBILE_QUERY} {
-    width: 120px;
+    max-width: 20vw;
+    max-height: ${MOBILE_TOOLBAR_HEIGHT - 10}px;
+    height: auto;
   }
   width: 100px;
 `
 
-const titleStyle = css`
-  color: #000;
-  font-size: 2.3rem;
-  @media ${IS_MOBILE_QUERY} {
-    font-size: 2rem;
-  }
-  font-weight: bold;
-  line-height: 90%;
-  margin: 0px;
-`
+const titleStyle = cx(
+  headerStyle,
+  css`
+    color: #000;
+    line-height: 90%;
+    margin: 0px;
+  `,
+)
 
-const sloganStyle = css`
-  color: #00000099;
-  font-size: 0.8rem;
-  line-height: 90%;
-  font-weight: normal;
-  white-space: nowrap;
-`
+const sloganStyle = cx(
+  smallTextStyle,
+  css`
+    color: #000000aa;
+    line-height: 90%;
+    font-weight: normal;
+    white-space: nowrap;
+  `,
+)
 
 export const Logo: FC = () => {
   const { t } = useTranslation()
-  const isMobile = useIsMobile()
   return (
     <span className={logoBlockStyle}>
       <img src={gonb} className={titleIconStyle} />
       <span className={logoTextStyle}>
         <h1 className={titleStyle}>{t('Logo.Name')}</h1>
-        {!isMobile && <h2 className={sloganStyle}>{t('Logo.Slogan')}</h2>}
+        <h2 className={sloganStyle}>{t('Logo.Slogan')}</h2>
       </span>
     </span>
   )

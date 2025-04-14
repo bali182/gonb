@@ -8,20 +8,11 @@ const core: json.CoreSettingsJson = {
   engine: 'svg',
 }
 
-const display = (mobile: boolean): json.DisplaySettingsJson => ({
+const display: json.DisplaySettingsJson = {
   staveProfile: 'Default',
-  scale: mobile ? 1.8 : 1,
-  // justifyLastSystem: true,
-  // barsPerRow: 4,
-  // resources: {
-  //   staffLineColor: '#ffffff80',
-  //   barSeparatorColor: '#fff',
-  //   mainGlyphColor: '#fff',
-  //   secondaryGlyphColor: '#fff',
-  //   scoreInfoColor: '#fff',
-  //   barNumberColor: '#fff',
-  // },
-})
+  scale: 1,
+}
+
 export const player = (
   scrollElement: HTMLElement,
 ): json.PlayerSettingsJson => ({
@@ -60,7 +51,7 @@ export const alphaTabConfig = (
   overrides?: Partial<json.PlayerSettingsJson>,
 ): json.SettingsJson => ({
   core,
-  display: display(isMobile()),
+  display,
   notation,
   player: isNil(overrides) ? player(scrollElement) : overrides,
 })

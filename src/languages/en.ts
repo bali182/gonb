@@ -252,6 +252,6 @@ export const en = {
     Stop: 'Stop',
     Loop: 'Loop',
     CountIn: 'Count-in',
-    Regenerate: 'Re-generate',
+    Regenerate: 'Generate',
   },
 }

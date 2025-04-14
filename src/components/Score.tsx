@@ -7,6 +7,7 @@ import { SVGAlphaTabLogo } from './SVGAlphaTabLogo'
 import { VolumeControlsDesktop } from './VolumeControls'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { useAppContext } from '../context/useAppContext'
+import { DESKTOP_TOOLBAR_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from './constants'
 
 const wrapStyle = css`
   //.at-wrap
@@ -17,15 +18,15 @@ const wrapStyle = css`
   overflow: hidden;
   position: relative;
 
-  height: calc(100vh - 120px);
+  height: calc(100vh - ${DESKTOP_TOOLBAR_HEIGHT}px);
   @supports (height: 100dvh) {
-    height: calc(min(100vh, 100dvh) - 120px);
+    height: calc(min(100vh, 100dvh) - ${DESKTOP_TOOLBAR_HEIGHT}px);
   }
 
   @media ${IS_MOBILE_QUERY} {
-    height: calc(100vh - 150px);
+    height: calc(100vh - ${MOBILE_TOOLBAR_HEIGHT}px);
     @supports (height: 100dvh) {
-      height: calc(min(100vh, 100dvh) - 150px);
+      height: calc(min(100vh, 100dvh) - ${MOBILE_TOOLBAR_HEIGHT}px);
     }
   }
 `
@@ -38,9 +39,9 @@ const desktopViewportStyle = css`
 `
 
 const mobileViewportStyle = css`
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
   padding: 0px;
 `
 
@@ -61,7 +62,7 @@ const desktopBottomMenuStyle = css`
 const mobileBottomMenuStyle = css`
   display: flex;
   flex-direction: row;
-  height: 140px;
+  height: 80px;
   background-color: #333;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin: 0px;

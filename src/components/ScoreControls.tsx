@@ -3,6 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
 import { MessageKey } from '../languages/types'
 import { Trans } from 'react-i18next'
+import { bodyTextStyle } from './constants'
 
 type PlayerButtonKind = 'primary' | 'secondary'
 
@@ -79,6 +80,11 @@ const buttonGroupStyle = css`
   }
 `
 
+const iconStyle = css`
+  margin-top: 3px;
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+`
+
 export const PlayerButtonDesktop: FC<BasicButtonProps> = ({
   onClick,
   kind,
@@ -113,7 +119,7 @@ export const PlayerToggleDesktop: FC<ToggleButtonProps> = ({
   const onClick = () => onToggle(!isToggled)
   return (
     <button className={style} onClick={onClick} data-tooltip={tooltip}>
-      <Icon />
+      <Icon className={iconStyle} />
     </button>
   )
 }
@@ -123,7 +129,7 @@ const baseMobileButtonStyle = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 6px;
 
   color: #eeeeee;
   display: flex;
@@ -146,12 +152,14 @@ const iconContainerStyle = css`
   display: grid;
 `
 
-const baseIconStyle = css`
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  font-size: 2em;
-  grid-row: 1;
-  grid-column: 1;
-`
+const baseIconStyle = cx(
+  iconStyle,
+  css`
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    grid-row: 1;
+    grid-column: 1;
+  `,
+)
 
 const hiddenOffIconStyle = css`
   opacity: 0;
@@ -253,7 +261,7 @@ export const PlayerToggleMobile: FC<ToggleButtonMobileProps> = ({
           onIcon={OnIcon}
         />
       )}
-      <span>
+      <span className={bodyTextStyle}>
         <Trans i18nKey={label} />
       </span>
     </button>
@@ -270,8 +278,10 @@ export const PlayerButtonMobile: FC<BasicButtonProps> = ({
   })
   return (
     <button className={style} onClick={onClick}>
-      <Icon fontSize="2em" />
-      <Trans i18nKey={label} />
+      <Icon className={iconStyle} />
+      <span className={bodyTextStyle}>
+        <Trans i18nKey={label} />
+      </span>
     </button>
   )
 }

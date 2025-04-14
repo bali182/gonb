@@ -19,7 +19,10 @@ const containerStyle = css`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 3rem;
+`
+
+const gearIconStyle = css`
+  font-size: clamp(1.8rem, 1.2vw, 2.5rem);
 `
 
 export const ConfigButton: FC = () => {
@@ -67,7 +70,7 @@ export const ConfigButton: FC = () => {
 
   return (
     <div className={containerStyle}>
-      <PiGear onClick={onGearClick} />
+      <PiGear onClick={onGearClick} className={gearIconStyle} />
       <MenuPage
         isOpen={isOpen}
         buttons={buttons}

@@ -5,6 +5,7 @@ import { Language } from '../state/types'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { ToolbarMenuDesktop } from './ToolbarMenu'
 import { ConfigButton } from './settings/mobile/ConfigButton'
+import { DESKTOP_TOOLBAR_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from './constants'
 
 const toolbarStyle = css`
   display: flex;
@@ -12,11 +13,11 @@ const toolbarStyle = css`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 120px;
+  height: ${DESKTOP_TOOLBAR_HEIGHT}px;
   padding: 20px 200px;
   @media ${IS_MOBILE_QUERY} {
-    padding: 40px;
-    height: 150px;
+    padding: 10px;
+    height: ${MOBILE_TOOLBAR_HEIGHT}px;
   }
 `
 

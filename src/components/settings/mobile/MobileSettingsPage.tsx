@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css'
-import { FC, Fragment, PropsWithChildren } from 'react'
-import { PiCaretLeft, PiCaretLeftBold, PiX } from 'react-icons/pi'
+import { PropsWithChildren } from 'react'
+import { PiCaretLeft, PiX } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
 import { Button } from '../../Button'
 import { PagedModalButton } from '../../types'
