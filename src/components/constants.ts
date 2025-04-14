@@ -4,7 +4,7 @@ export const MOBILE_TOOLBAR_HEIGHT = 80
 export const DESKTOP_TOOLBAR_HEIGHT = 120
 
 export const headerStyle = css`
-  font-size: clamp(1.5rem, 4vw, 2.5rem); /* ~24px → 40px */
+  font-size: clamp(1.4rem, 4vw, 2.5rem); /* ~24px → 40px */
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -26,4 +26,8 @@ export const smallTextStyle = css`
   font-size: clamp(0.625rem, 0.9vw, 0.875rem); /* ~10px → 14px */
   font-weight: 400;
   line-height: 1.4;
+`
+
+export const actionIconStyle = css`
+  font-size: clamp(1.8rem, 1.2vw, 2.5rem);
 `

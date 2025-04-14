@@ -8,6 +8,7 @@ import { VolumeControlsDesktop } from './VolumeControls'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { useAppContext } from '../context/useAppContext'
 import { DESKTOP_TOOLBAR_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from './constants'
+import { noop } from '../common/utils'
 
 const wrapStyle = css`
   //.at-wrap
@@ -86,6 +87,9 @@ export const Score: FC = () => {
   }, [])
 
   useEffect(() => {
+    if (isMobile) {
+      return noop
+    }
     const keyListener = (e: KeyboardEvent) => {
       if (e.code === 'Space') {
         return context.playPause()

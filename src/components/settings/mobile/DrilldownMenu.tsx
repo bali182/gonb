@@ -1,5 +1,6 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { ModalPage } from '../../types'
+import { bodyTextStyle, subHeaderStyle } from '../../constants'
 
 const menuStyle = css`
   border-top-left-radius: 14px;
@@ -13,21 +14,23 @@ const menuContainerStyle = css`
   flex-direction: column;
 `
 
-const menuItemStlye = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: #000000cc;
-  font-size: 1.8rem;
-  gap: 20px;
-  padding: 30px 40px;
-  cursor: pointer;
-  border-bottom: 2px solid #ccc;
-  &:hover {
-    color: #000000;
-    background-color: #00000010;
-  }
-`
+const menuItemStlye = cx(
+  subHeaderStyle,
+  css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000000cc;
+    gap: 10px;
+    padding: 15px 10px;
+    cursor: pointer;
+    border-bottom: 2px solid #ccc;
+    &:hover {
+      color: #000000;
+      background-color: #00000010;
+    }
+  `,
+)
 
 const menuItemNameStyle = css`
   flex: 1;

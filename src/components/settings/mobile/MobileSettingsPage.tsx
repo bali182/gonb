@@ -4,6 +4,11 @@ import { PiCaretLeft, PiX } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
 import { Button } from '../../Button'
 import { PagedModalButton } from '../../types'
+import {
+  actionIconStyle,
+  headerStyle,
+  MOBILE_TOOLBAR_HEIGHT,
+} from '../../constants'
 
 export type MobileSettingsPageProps<T> = PropsWithChildren & {
   title: string
@@ -36,39 +41,33 @@ const openPageStyle = css`
   left: 0px;
 `
 
-const headerStyle = css`
+const titleBarStyle = css`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 40px;
-  height: 150px;
+  padding: 10px;
+  height: ${MOBILE_TOOLBAR_HEIGHT}px;
   background-color: #f0f0f0;
   border-bottom: 2px solid #ccc;
 `
 
-const titlesStyle = css`
-  font-size: 2rem;
-  flex-grow: 1;
-  flex-shrink: 1;
-`
+const titlesStyle = cx(
+  headerStyle,
+  css`
+    flex-grow: 1;
+    flex-shrink: 1;
+  `,
+)
 
-const titleSeparator = css`
-  color: #666;
-  margin-left: 20px;
-  margin-right: 20px;
-`
-
-const closeIconStyle = css`
-  font-size: 3rem;
-`
-
-const backIconStyle = css`
-  font-size: 3rem;
-  position: relative;
-  left: -10px;
-`
+const backIconStyle = cx(
+  actionIconStyle,
+  css`
+    position: relative;
+    left: -5px;
+  `,
+)
 
 const contentStyle = css`
   flex: 1 1 1px;
@@ -108,7 +107,7 @@ export function MobileSettingsPage<T>({
 
   return (
     <div className={pageStyle}>
-      <div className={headerStyle}>
+      <div className={titleBarStyle}>
         {!isNil(onBack) && (
           <PiCaretLeft className={backIconStyle} onClick={onBack} />
         )}
@@ -116,7 +115,7 @@ export function MobileSettingsPage<T>({
           <span>{title}</span>
         </div>
         {!isNil(onClose) && (
-          <PiX className={closeIconStyle} onClick={onClose} />
+          <PiX className={actionIconStyle} onClick={onClose} />
         )}
       </div>
       <div className={contentStyle}>{children}</div>

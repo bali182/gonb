@@ -1,6 +1,5 @@
 import { json } from '@coderline/alphatab'
 import { isNil } from '../common/utils'
-import { isMobile } from '../components/useIsMobile'
 
 const core: json.CoreSettingsJson = {
   tex: true,
