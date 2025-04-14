@@ -1,14 +1,18 @@
 import { createContext } from 'react'
 import { noop } from '../common/utils'
+import { Language } from '../state/types'
 
 export type AppContextType = {
   isPlaying: boolean
   isLooping: boolean
   isLoading: boolean
+  isSettingsOpen: boolean
+  isHelpOpen: boolean
   isCountingIn: boolean
   instrumentVolume: number
   metronomeVolume: number
   chordsVolume: number
+  language: Language
   setRootDOMElement: (e: HTMLElement | undefined) => void
   setScrollAreaDOMElement: (e: HTMLElement | undefined) => void
   stop: () => void
@@ -19,6 +23,9 @@ export type AppContextType = {
   setInstrumentVolume: (volume: number) => void
   setChordsVolume: (volume: number) => void
   setMetronomeVolume: (volume: number) => void
+  setSettingsOpen: (open: boolean) => void
+  setHelpOpen: (open: boolean) => void
+  setLanguage: (language: Language) => void
 }
 
 export const AppContext = createContext<AppContextType>({
@@ -29,6 +36,9 @@ export const AppContext = createContext<AppContextType>({
   instrumentVolume: 0,
   metronomeVolume: 0,
   chordsVolume: 0,
+  isSettingsOpen: false,
+  isHelpOpen: false,
+  language: undefined!,
   setRootDOMElement: noop,
   setScrollAreaDOMElement: noop,
   stop: noop,
@@ -39,4 +49,7 @@ export const AppContext = createContext<AppContextType>({
   setInstrumentVolume: noop,
   setChordsVolume: noop,
   setMetronomeVolume: noop,
+  setSettingsOpen: noop,
+  setHelpOpen: noop,
+  setLanguage: noop,
 })

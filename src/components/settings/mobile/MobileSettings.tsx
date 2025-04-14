@@ -1,35 +1,22 @@
-import { css } from '@emotion/css'
-import { FC, useState } from 'react'
-import { PiGear } from 'react-icons/pi'
-import { useSettingsPages } from '../useSettingsPages'
-import { NumberSafeGeneratorConfig, SettingsPage } from '../types'
-import { useDispatch, useSelector } from 'react-redux'
-import { generatorSlice } from '../../../state/generatorSlice'
-import { useValidationIssues } from '../useValidationIssues'
-import { useSettingsButtons } from '../useSettingsButtons'
+import { FC, useEffect, useState } from 'react'
 import { MenuPage } from './MenuPage'
 import { EditorPage } from './EditorPage'
-import { PagedModalButton } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../state/store'
+import { generatorSlice } from '../../../state/generatorSlice'
+import { PagedModalButton } from '../../types'
 import { GeneratorConfig } from '../../../state/types'
+import { useValidationIssues } from '../useValidationIssues'
+import { useSettingsButtons } from '../useSettingsButtons'
+import { useSettingsPages } from '../useSettingsPages'
+import { NumberSafeGeneratorConfig, SettingsPage } from '../types'
+import { useAppContext } from '../../../context/useAppContext'
 
-const containerStyle = css`
-  flex-grow: 1;
-  flex-shrink: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-`
-
-const gearIconStyle = css`
-  font-size: clamp(1.8rem, 1.2vw, 2.5rem);
-`
-
-export const ConfigButton: FC = () => {
+export const MobileSettings: FC = () => {
   const dispatch = useDispatch<AppDispatch>()
   const configInState = useSelector(generatorSlice.selectSlice)
+  const { isSettingsOpen, setSettingsOpen } = useAppContext()
 
-  const [isOpen, setOpen] = useState(false)
   const [activePage, setActivePage] = useState<SettingsPage | undefined>(
     undefined,
   )
@@ -41,13 +28,8 @@ export const ConfigButton: FC = () => {
   const buttons = useSettingsButtons(issues)
   const pages = useSettingsPages(issues)
 
-  const onGearClick = () => {
-    setOpen(!isOpen)
-    setActivePage(undefined)
-  }
-
   const closeMenu = () => {
-    setOpen(false)
+    setSettingsOpen(false)
     setActivePage(undefined)
   }
 
@@ -68,11 +50,12 @@ export const ConfigButton: FC = () => {
     closeMenu()
   }
 
+  useEffect(() => setActivePage(undefined), [isSettingsOpen])
+
   return (
-    <div className={containerStyle}>
-      <PiGear onClick={onGearClick} className={gearIconStyle} />
+    <>
       <MenuPage
-        isOpen={isOpen}
+        isOpen={isSettingsOpen}
         buttons={buttons}
         pages={pages}
         onClick={setActivePage}
@@ -86,6 +69,6 @@ export const ConfigButton: FC = () => {
         onBack={closeEditor}
         onChange={setConfig}
       />
-    </div>
+    </>
   )
 }

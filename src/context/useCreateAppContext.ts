@@ -5,14 +5,25 @@ import { alphaTexSelector } from '../state/selectors'
 import { playerSlice } from '../state/playerSlice'
 import { useAlphaTab } from '../alphaTex/useAlphaTab'
 import { AppDispatch } from '../state/store'
-import { PlayerConfig } from '../state/types'
-import { useCallback, useState } from 'react'
+import { Language, PlayerConfig } from '../state/types'
+import { useCallback, useEffect, useState } from 'react'
+import { languageSlice } from '../state/languageSlice'
+import { isNil } from '../common/utils'
+import { useTranslation } from 'react-i18next'
+import { fromUrl } from '../url/url'
 
 export function useCreateAppContext(): AppContextType {
+  const { i18n } = useTranslation()
   const dispatch = useDispatch<AppDispatch>()
   const generatorConfig = useSelector(generatorSlice.selectSlice)
   const tex = useSelector(alphaTexSelector)
   const playerConfig = useSelector(playerSlice.selectSlice)
+  const [isSettingsOpen, setSettingsOpen] = useState(false)
+  const [isHelpOpen, setHelpOpen] = useState(false)
+  const storedLanguage = useSelector(languageSlice.selectSlice)
+  const language = (
+    isNil(storedLanguage) ? i18n.language : storedLanguage
+  ) as Language
 
   const [root, setRootDOMElement] = useState<HTMLElement>()
   const [scrollArea, setScrollAreaDOMElement] = useState<HTMLElement>()
@@ -77,6 +88,27 @@ export function useCreateAppContext(): AppContextType {
     [setPlayerConfig],
   )
 
+  const setLanguage = useCallback((language: Language) => {
+    dispatch(languageSlice.actions.setLanguage(language))
+  }, [])
+
+  // Update i18n language, when stored language changes.
+  useEffect(() => {
+    if (!isNil(storedLanguage)) {
+      i18n.changeLanguage(storedLanguage, () => regenerate())
+    }
+  }, [storedLanguage])
+
+  // Try to set config, when it is present in the url.
+  useEffect(() => {
+    const configFromUrl = fromUrl(window.location.href)
+    if (!isNil(configFromUrl)) {
+      dispatch(generatorSlice.actions.setGeneratorConfig(configFromUrl))
+    }
+    const withoutQuery = window.location.origin + window.location.pathname
+    window.history.replaceState({}, document.title, withoutQuery)
+  }, [])
+
   return {
     instrumentVolume: playerConfig.instrumentVolume,
     metronomeVolume: playerConfig.metronomeVolume,
@@ -85,6 +117,9 @@ export function useCreateAppContext(): AppContextType {
     isCountingIn: playerConfig.isCountingIn,
     isLoading,
     isPlaying,
+    isHelpOpen,
+    isSettingsOpen,
+    language,
     stop,
     playPause,
     regenerate,
@@ -95,5 +130,8 @@ export function useCreateAppContext(): AppContextType {
     setMetronomeVolume,
     setRootDOMElement,
     setScrollAreaDOMElement,
+    setSettingsOpen,
+    setHelpOpen,
+    setLanguage,
   }
 }

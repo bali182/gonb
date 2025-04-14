@@ -1,10 +1,9 @@
 import { css } from '@emotion/css'
 import { FC } from 'react'
 import { Logo } from './Logo'
-import { Language } from '../state/types'
 import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
 import { ToolbarMenuDesktop } from './ToolbarMenu'
-import { ConfigButton } from './settings/mobile/ConfigButton'
+import { ToolbarMenuMobile } from './settings/mobile/ToolbarMenuMobile'
 import { DESKTOP_TOOLBAR_HEIGHT, MOBILE_TOOLBAR_HEIGHT } from './constants'
 
 const toolbarStyle = css`
@@ -21,21 +20,12 @@ const toolbarStyle = css`
   }
 `
 
-export type ToolbarProps = {
-  language: Language
-  onRegenerate: () => void
-  onOpenSettings: () => void
-  onOpenHelp: () => void
-  onLanguageChange: (language: Language) => void
-}
-
-export const Toolbar: FC<ToolbarProps> = (props) => {
+export const Toolbar: FC = () => {
   const isMobile = useIsMobile()
   return (
     <div className={toolbarStyle}>
       <Logo />
-      {!isMobile && <ToolbarMenuDesktop {...props} />}
-      {isMobile && <ConfigButton />}
+      {isMobile ? <ToolbarMenuMobile /> : <ToolbarMenuDesktop />}
     </div>
   )
 }

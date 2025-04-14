@@ -2,9 +2,9 @@ import { css } from '@emotion/css'
 import { FC } from 'react'
 import { Button } from './Button'
 import { PiFastForwardBold, PiGearBold, PiQuestionBold } from 'react-icons/pi'
-import { t } from 'i18next'
 import { LanguageSwitch } from './LanguageSwitch'
-import { ToolbarProps } from './Toolbar'
+import { useAppContext } from '../context/useAppContext'
+import { useTranslation } from 'react-i18next'
 
 const buttonsContainer = css`
   display: flex;
@@ -30,16 +30,17 @@ const toolBarButtonIconStyle = css`
   flex-shrink: 0;
 `
 
-export const ToolbarMenuDesktop: FC<ToolbarProps> = ({
-  language,
-  onRegenerate,
-  onOpenSettings,
-  onOpenHelp,
-  onLanguageChange,
-}) => {
+export const ToolbarMenuDesktop: FC = () => {
+  const { t } = useTranslation()
+  const { language, regenerate, setSettingsOpen, setHelpOpen, setLanguage } =
+    useAppContext()
+
+  const onOpenSettings = () => setSettingsOpen(true)
+  const onOpenHelp = () => setHelpOpen(true)
+
   return (
     <div className={buttonsContainer}>
-      <Button onClick={onRegenerate} className={toolBarButtonStyle}>
+      <Button onClick={regenerate} className={toolBarButtonStyle}>
         <PiFastForwardBold className={toolBarButtonIconStyle} />
         <span className={toolBarButtonLabelStyle}>{t('Menu.GenerateNew')}</span>
       </Button>
@@ -51,7 +52,7 @@ export const ToolbarMenuDesktop: FC<ToolbarProps> = ({
         <PiQuestionBold className={toolBarButtonIconStyle} />
         <span className={toolBarButtonLabelStyle}> {t('Menu.Help')}</span>
       </Button>
-      <LanguageSwitch onChange={onLanguageChange} language={language} />
+      <LanguageSwitch onChange={setLanguage} language={language} />
     </div>
   )
 }
