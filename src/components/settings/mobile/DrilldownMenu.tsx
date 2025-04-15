@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css'
 import { ModalPage } from '../../types'
-import { bodyTextStyle, subHeaderStyle } from '../../constants'
+import { largeBodyText } from '../../constants'
 
 const menuStyle = css`
   border-top-left-radius: 14px;
@@ -15,7 +15,7 @@ const menuContainerStyle = css`
 `
 
 const menuItemStlye = cx(
-  subHeaderStyle,
+  largeBodyText,
   css`
     display: flex;
     flex-direction: row;

@@ -2,7 +2,7 @@ import { css, cx } from '@emotion/css'
 import { FC } from 'react'
 import gonb from './svg/gonb.svg?base64-data-uri'
 import { useTranslation } from 'react-i18next'
-import { IS_MOBILE_QUERY, useIsMobile } from './useIsMobile'
+import { IS_MOBILE_QUERY } from './useIsMobile'
 import { headerStyle, MOBILE_TOOLBAR_HEIGHT, smallTextStyle } from './constants'
 
 const logoBlockStyle = css`
@@ -44,7 +44,6 @@ const titleIconStyle = css`
 const titleStyle = cx(
   headerStyle,
   css`
-    color: #000;
     line-height: 90%;
     margin: 0px;
   `,

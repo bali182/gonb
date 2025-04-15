@@ -6,8 +6,8 @@ import { Button } from '../../Button'
 import { PagedModalButton } from '../../types'
 import {
   actionIconStyle,
-  headerStyle,
   MOBILE_TOOLBAR_HEIGHT,
+  subHeaderStyle,
 } from '../../constants'
 
 export type MobileSettingsPageProps<T> = PropsWithChildren & {
@@ -54,7 +54,7 @@ const titleBarStyle = css`
 `
 
 const titlesStyle = cx(
-  headerStyle,
+  subHeaderStyle,
   css`
     flex-grow: 1;
     flex-shrink: 1;
@@ -76,8 +76,7 @@ const contentStyle = css`
 
 const buttonContainerStyle = css`
   width: 100%;
-  padding: 40px;
-  height: 180px;
+  padding: 14px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

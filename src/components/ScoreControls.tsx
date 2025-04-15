@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
 import { MessageKey } from '../languages/types'
 import { Trans } from 'react-i18next'
-import { bodyTextStyle } from './constants'
+import { menuTextStyle, menuIconStyle } from './constants'
 
 type PlayerButtonKind = 'primary' | 'secondary'
 
@@ -80,11 +80,6 @@ const buttonGroupStyle = css`
   }
 `
 
-const iconStyle = css`
-  margin-top: 3px;
-  font-size: clamp(1rem, 1.2vw, 1.5rem);
-`
-
 export const PlayerButtonDesktop: FC<BasicButtonProps> = ({
   onClick,
   kind,
@@ -119,7 +114,7 @@ export const PlayerToggleDesktop: FC<ToggleButtonProps> = ({
   const onClick = () => onToggle(!isToggled)
   return (
     <button className={style} onClick={onClick} data-tooltip={tooltip}>
-      <Icon className={iconStyle} />
+      <Icon className={menuIconStyle} />
     </button>
   )
 }
@@ -153,7 +148,7 @@ const iconContainerStyle = css`
 `
 
 const baseIconStyle = cx(
-  iconStyle,
+  menuIconStyle,
   css`
     transition: opacity 0.2s ease, transform 0.2s ease;
     grid-row: 1;
@@ -261,7 +256,7 @@ export const PlayerToggleMobile: FC<ToggleButtonMobileProps> = ({
           onIcon={OnIcon}
         />
       )}
-      <span className={bodyTextStyle}>
+      <span className={menuTextStyle}>
         <Trans i18nKey={label} />
       </span>
     </button>
@@ -278,8 +273,8 @@ export const PlayerButtonMobile: FC<BasicButtonProps> = ({
   })
   return (
     <button className={style} onClick={onClick}>
-      <Icon className={iconStyle} />
-      <span className={bodyTextStyle}>
+      <Icon className={menuIconStyle} />
+      <span className={menuTextStyle}>
         <Trans i18nKey={label} />
       </span>
     </button>
