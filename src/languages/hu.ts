@@ -245,8 +245,8 @@ export const hu: Messages = {
     Play: 'Lejátszás',
     Pause: 'Szünet',
     Stop: 'Stop',
-    Loop: 'Ismétlés',
-    CountIn: 'Beszámolás',
+    Loop: 'Ismétel',
+    CountIn: 'Beszámol',
     Regenerate: 'Újat!',
   },
 }

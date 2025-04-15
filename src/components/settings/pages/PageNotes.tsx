@@ -32,7 +32,11 @@ export const PageNotes: FC<SettingsPageProps> = ({
         <Description issues={issues.notes}>
           {t('Settings.NotesDescription')}
         </Description>
-        <NotesGrid value={value.notes} onChange={setNotes} />
+        <NotesGrid
+          value={value.notes}
+          keySignature={value.keySignature}
+          onChange={setNotes}
+        />
       </Section>
     </>
   )

@@ -62,6 +62,19 @@ export const bodyTextStyle = css`
   }
 `
 
+export const extraSmallTextStyle = css`
+  font-size: 0.875rem;
+  font-weight: 400;
+
+  @media ${TABLET_SELECTOR} {
+    font-size: 0.6rem;
+  }
+
+  @media ${MOBILE_SELECTOR} {
+    font-size: 0.5rem;
+  }
+`
+
 export const smallTextStyle = css`
   font-size: 0.875rem;
   font-weight: 400;
@@ -113,14 +126,15 @@ export const actionIconStyle = css`
 `
 
 export const menuIconStyle = css`
-  margin-top: 3px;
   font-size: 1.5rem;
 
   @media ${TABLET_SELECTOR} {
+    margin-top: 3px;
     font-size: 1.25rem;
   }
 
   @media ${MOBILE_SELECTOR} {
+    margin-top: 3px;
     font-size: 1rem;
   }
 `

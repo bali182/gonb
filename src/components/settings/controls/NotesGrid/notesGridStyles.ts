@@ -1,4 +1,9 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
+import {
+  extraSmallTextStyle,
+  MOBILE_SELECTOR,
+  smallTextStyle,
+} from '../../../constants'
 
 export const tableStyle = css`
   border-spacing: 0;
@@ -8,21 +13,26 @@ export const tableStyle = css`
   width: 100%;
 `
 
-export const thStyle = css`
-  font-weight: 400;
-  text-align: center;
-  padding: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  height: 38px;
-  font-size: 0.9rem;
-  border: 1px solid #00000030;
-  background-color: #00000010;
-  &:hover {
-    background-color: #00000020 !important;
-  }
-`
+export const thStyle = cx(
+  smallTextStyle,
+  css`
+    font-weight: 400;
+    text-align: center;
+    padding: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    height: 38px;
+    border: 1px solid #00000030;
+    background-color: #00000010;
+    @media ${MOBILE_SELECTOR} {
+      padding: 2px;
+    }
+    &:hover {
+      background-color: #00000020 !important;
+    }
+  `,
+)
 
 export const topThStyle = css`
   border-bottom-color: #00000050;
@@ -32,17 +42,23 @@ export const leftThStyle = css`
   border-right-color: #00000050;
 `
 
-export const tdStyle = css`
-  padding: 6px;
-  font-size: 0.8rem;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  border: 1px solid #00000030;
-  &:hover {
-    background-color: #00000050 !important;
-  }
-`
+export const tdStyle = cx(
+  extraSmallTextStyle,
+  css`
+    padding: 6px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #00000030;
+    &:hover {
+      background-color: #00000050 !important;
+    }
+
+    @media ${MOBILE_SELECTOR} {
+      padding: 2px;
+    }
+  `,
+)
 
 export const selectedStyle = css`
   background-color: #000000aa !important;

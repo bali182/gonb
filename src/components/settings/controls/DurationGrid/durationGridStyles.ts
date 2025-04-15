@@ -95,11 +95,9 @@ export const disabledClusterStyle = cx(
     height: 45px;
     display: flex;
     align-items: center;
-    font-size: 0.9rem;
     color: #00000090;
     text-align: left;
-    margin-left: 10px;
-    line-height: 1.2rem;
+    padding-left: 10px;
   `,
 )
 
