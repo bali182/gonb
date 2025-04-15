@@ -99,20 +99,20 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
             [disabledRowStyle]: !item.isEnabled,
           })
           const nameCellStyle = cx(tdStyle, clickableCellStyle, {
-            [disabledCellStyle]: !item.isEnabled,
+            [disabledCellStyle]: !item.isEnabled && !item.isSelected,
           })
           const mergedCellStyle = cx(tdStyle, {
             [pointerCursorStyle]: item.isEnabled,
           })
           const CheckBoxIcon = item.isSelected ? PiCheckFatFill : PiCheckFatThin
-          const NameCellIcon = item.isEnabled ? CheckBoxIcon : PiXLight
+          const NameCellIcon =
+            item.isEnabled || item.isSelected ? CheckBoxIcon : PiXLight
           const checkIconFullStyle = cx(checkIconStyle, {
             [hollowCheckIconStyle]: !item.isSelected,
             [checkedCheckIconStyle]: item.isSelected,
           })
-          const onItemToggledHandler = item.isEnabled
-            ? onItemToggled(item)
-            : undefined
+          const onItemToggledHandler =
+            item.isEnabled || item.isSelected ? onItemToggled(item) : undefined
 
           return (
             <tr className={fullRowStyle} key={key}>
