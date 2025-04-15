@@ -235,7 +235,7 @@ export const hu: Messages = {
     IsNotActive: 'inaktív.',
     Enabled: 'Aktív',
     Probability: 'Gyakoriság',
-    ClusterSize: 'Preferált csoport méret',
+    ClusterSize: 'Csoport méret',
     DurationTooLong: 'Egy {{duration}} nem fér egy ütembe.',
   },
   PlayerTooltips: {

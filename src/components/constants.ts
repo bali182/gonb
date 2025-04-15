@@ -32,7 +32,7 @@ export const subHeaderStyle = css`
   }
 
   @media ${MOBILE_SELECTOR} {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 `
 
@@ -54,11 +54,11 @@ export const bodyTextStyle = css`
   font-weight: 400;
 
   @media ${TABLET_SELECTOR} {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   @media ${MOBILE_SELECTOR} {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 `
 
@@ -85,6 +85,18 @@ export const menuTextStyle = css`
 
   @media ${MOBILE_SELECTOR} {
     font-size: 0.55rem;
+  }
+`
+
+export const smallIconStyle = css`
+  font-size: 1rem;
+
+  @media ${TABLET_SELECTOR} {
+    font-size: 0.9rem;
+  }
+
+  @media ${MOBILE_SELECTOR} {
+    font-size: 0.8rem;
   }
 `
 

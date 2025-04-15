@@ -240,7 +240,7 @@ export const en = {
     IsNotActive: 'is inactive.',
     Enabled: 'Enabled',
     Probability: 'Probability',
-    ClusterSize: 'Preferred cluster size',
+    ClusterSize: 'Cluster size',
     DurationTooLong: '{{duration}} does not fit in a bar.',
   },
   PlayerTooltips: {

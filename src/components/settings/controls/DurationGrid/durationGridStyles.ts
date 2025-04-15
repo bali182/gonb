@@ -1,4 +1,5 @@
 import { css, cx } from '@emotion/css'
+import { smallIconStyle, smallTextStyle } from '../../../constants'
 
 export const tableStyle = css`
   width: 100%;
@@ -28,37 +29,56 @@ export const disabledRowStyle = css`
 `
 
 export const tdStyle = css`
-  border: 1px solid #00000020;
+  border: 1px solid #ccc;
   font-weight: 400;
   height: 45px;
 `
 
-export const tdCenterAlignerStyle = css`
-  width: 100%;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const clickableCellStyle = css`
+  cursor: pointer;
+  position: relative;
+  user-select: none;
 `
 
-const thStyle = css`
-  border: 1px solid #00000020;
-  font-weight: 400;
-  text-align: center;
-  font-size: 1rem;
-  height: 45px;
+export const pointerCursorStyle = css`
+  cursor: pointer;
 `
+
+export const disabledCellStyle = css`
+  cursor: not-allowed;
+`
+
+export const checkIconStyle = cx(
+  smallIconStyle,
+  css`
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+  `,
+)
+
+export const hollowCheckIconStyle = css`
+  color: #666;
+`
+
+export const checkedCheckIconStyle = css`
+  color: green;
+`
+
+const thStyle = cx(
+  smallTextStyle,
+  css`
+    border: 1px solid #ccc;
+    font-weight: 400;
+    text-align: center;
+    height: 45px;
+  `,
+)
 
 export const emptyThStyle = css`
   width: 75px;
 `
 
-export const enabledThStyle = cx(
-  thStyle,
-  css`
-    width: 85px;
-  `,
-)
 export const probabilityThStyle = cx(
   thStyle,
   css`
@@ -68,17 +88,20 @@ export const probabilityThStyle = cx(
 
 export const clusterThStyle = cx(thStyle, css``)
 
-export const disabledClusterStyle = css`
-  width: 100%;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  color: #00000090;
-  text-align: left;
-  margin-left: 10px;
-  line-height: 1.2rem;
-`
+export const disabledClusterStyle = cx(
+  smallTextStyle,
+  css`
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #00000090;
+    text-align: left;
+    margin-left: 10px;
+    line-height: 1.2rem;
+  `,
+)
 
 export const clusterTdStyle = css`
   padding: 0px 20px;

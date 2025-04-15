@@ -4,6 +4,7 @@ import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
 import { Issue, IssueType } from '../../../state/validation/types'
 import { useHighestSeverity } from '../../../state/validation/utils'
+import { bodyTextStyle, smallTextStyle } from '../../constants'
 
 const sectionStyle = css`
   display: flex;
@@ -16,22 +17,26 @@ export const Section: FC<PropsWithChildren> = ({ children }) => {
   return <div className={sectionStyle}>{children}</div>
 }
 
-const labelStyle = css`
-  font-size: 1rem;
-  color: #000000;
-  margin-bottom: 2px;
-  pointer-events: auto;
-`
+const labelStyle = cx(
+  bodyTextStyle,
+  css`
+    color: #000000;
+    margin-bottom: 2px;
+    pointer-events: auto;
+  `,
+)
 
 export const Label: FC<PropsWithChildren> = ({ children }) => {
   return <div className={labelStyle}>{children}</div>
 }
 
-const descriptionStyle = css`
-  font-size: 0.8rem;
-  color: #000000aa;
-  margin-bottom: 14px;
-`
+const descriptionStyle = cx(
+  smallTextStyle,
+  css`
+    color: #000000aa;
+    margin-bottom: 14px;
+  `,
+)
 
 const warningStyle = css`
   font-weight: bold;

@@ -9,6 +9,7 @@ const core: json.CoreSettingsJson = {
 
 const display: json.DisplaySettingsJson = {
   staveProfile: 'Default',
+  padding: [10, 20],
   scale: 1,
 }
 
