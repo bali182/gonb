@@ -9,41 +9,42 @@ function getClefModel(t: TFunction): ClefModel[] {
     {
       clef: Clef.TREBLE,
       icon: String.fromCodePoint(0xe050),
-      name: t('ClefsPrimary.G2'),
+      label: t('ClefsPrimary.G2'),
       alternateName: t('ClefsAlternate.G2'),
       isEnabled: true,
       iconStyle: css`
-        top: 16px;
+        top: 6px;
+        transform: scale(0.95);
       `,
     },
     {
       clef: Clef.BASS,
       icon: String.fromCodePoint(0xe062),
-      name: t('ClefsPrimary.F4'),
+      label: t('ClefsPrimary.F4'),
       alternateName: t('ClefsAlternate.F4'),
       isEnabled: true,
       iconStyle: css`
-        top: 8px;
+        top: -1px;
       `,
     },
     {
       clef: Clef.TENOR,
       icon: String.fromCodePoint(0xe05c),
-      name: t('ClefsPrimary.C3'),
+      label: t('ClefsPrimary.C3'),
       alternateName: t('ClefsAlternate.C3'),
       isEnabled: true,
       iconStyle: css`
-        top: 11px;
+        top: 4px;
       `,
     },
     {
       clef: Clef.ALTO,
       icon: String.fromCodePoint(0xe05c),
-      name: t('ClefsPrimary.C4'),
+      label: t('ClefsPrimary.C4'),
       alternateName: t('ClefsAlternate.C4'),
       isEnabled: true,
       iconStyle: css`
-        top: 11px;
+        top: 4px;
       `,
     },
     // Disabling for now

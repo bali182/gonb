@@ -6,20 +6,12 @@ import { KeySignature } from '../common/keySignature'
 import { MelodyType } from '../legacy/melodies/types'
 import { Messages } from './types'
 
-const Clefs: Record<Clef, string> = {
+const ClefsPrimary: Record<Clef, string> = {
   [Clef.BASS]: 'Basszuskulcs',
   [Clef.TREBLE]: 'Violinkulcs',
   [Clef.PERCUSSION]: 'Ütőkulcs',
   [Clef.TENOR]: 'Tenorkulcs',
   [Clef.ALTO]: 'Altokulcs',
-}
-
-const ClefsPrimary: Record<Clef, string> = {
-  [Clef.BASS]: 'Basszus',
-  [Clef.TREBLE]: 'Violin',
-  [Clef.PERCUSSION]: 'Ütő',
-  [Clef.TENOR]: 'Tenor',
-  [Clef.ALTO]: 'Alto',
 }
 
 const ClefsAlternate: Record<Clef, string> = {
@@ -169,7 +161,6 @@ export const hu: Messages = {
     SeventhChordsDescription:
       'Dúsabb akkordhangzásokat használ az alap hármashangzatok helyett.',
   },
-  Clefs,
   KeySignatures,
   MelodyTypes,
 

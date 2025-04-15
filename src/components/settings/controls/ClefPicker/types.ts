@@ -2,9 +2,9 @@ import { Clef } from '../../../../common/clef'
 
 export type ClefModel = {
   clef: Clef
-  name: string
+  label: string
   alternateName: string
-  iconStyle: string
+  iconStyle?: string
   icon: string
   isEnabled: boolean
 }

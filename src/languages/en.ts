@@ -5,20 +5,12 @@ import { DurationType } from '../common/durationType'
 import { KeySignature } from '../common/keySignature'
 import { MelodyType } from '../legacy/melodies/types'
 
-const Clefs: Record<Clef, string> = {
+const ClefsPrimary: Record<Clef, string> = {
   [Clef.BASS]: 'Bass clef',
   [Clef.TREBLE]: 'Treble clef',
   [Clef.PERCUSSION]: 'Percussion clef',
   [Clef.TENOR]: 'Tenor clef',
   [Clef.ALTO]: 'Alto clef',
-}
-
-const ClefsPrimary: Record<Clef, string> = {
-  [Clef.BASS]: 'Bass',
-  [Clef.TREBLE]: 'Treble',
-  [Clef.PERCUSSION]: 'Neutral',
-  [Clef.TENOR]: 'Tenor',
-  [Clef.ALTO]: 'Alto',
 }
 
 const ClefsAlternate: Record<Clef, string> = {
@@ -196,7 +188,6 @@ export const en = {
     Eighth: 'Eighth notes',
     Sixteenth: 'Sixteenth notes',
   },
-  Clefs,
   ClefsPrimary,
   ClefsAlternate,
   KeySignatures,
