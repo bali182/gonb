@@ -3,7 +3,7 @@ import { useClefModel } from './useClefModel'
 import { Clef } from '../../../../common/clef'
 import Select from 'react-select'
 import { ClefModel } from './types'
-import { clefPickerClassNames, clefPickerComponents } from './styling'
+import { clefPickerComponents } from './styling'
 import { SelectItem } from '../../types'
 import { defaultClassNames } from '../dropdownStyles'
 

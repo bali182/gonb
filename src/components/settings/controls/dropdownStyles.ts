@@ -1,6 +1,6 @@
 import { css, cx } from '@emotion/css'
 import { ClassNamesConfig, SelectComponentsConfig } from 'react-select'
-import { bodyTextStyle, smallTextStyle } from '../../constants'
+import { bodyTextStyle } from '../../constants'
 
 export const defaultClassNames: ClassNamesConfig<any, any, any> = {
   input: () => inputStyle,
@@ -20,7 +20,7 @@ export const defaultClassNames: ClassNamesConfig<any, any, any> = {
     }),
 }
 
-export const inputStyle = cx(
+const inputStyle = cx(
   bodyTextStyle,
   css`
     && {
@@ -29,7 +29,7 @@ export const inputStyle = cx(
   `,
 )
 
-export const singleValueStyle = cx(
+const singleValueStyle = cx(
   bodyTextStyle,
   css`
     && {
@@ -38,7 +38,7 @@ export const singleValueStyle = cx(
   `,
 )
 
-export const menuListStyle = cx(
+const menuListStyle = cx(
   bodyTextStyle,
   css`
     && {
@@ -47,28 +47,28 @@ export const menuListStyle = cx(
   `,
 )
 
-export const valueContainerStyle = css`
+const valueContainerStyle = css`
   && {
     padding-right: 0px;
     margin-right: 0px;
   }
 `
 
-export const indicatorsContainerStyle = css`
+const indicatorsContainerStyle = css`
   && {
     padding-left: 0px;
     margin-left: 0px;
   }
 `
 
-export const dropdownIndicatorStyle = css`
+const dropdownIndicatorStyle = css`
   && {
     padding-left: 0px;
     margin-left: 0px;
   }
 `
 
-export const placeholderStyle = cx(
+const placeholderStyle = cx(
   bodyTextStyle,
   css`
     && {
@@ -76,7 +76,7 @@ export const placeholderStyle = cx(
   `,
 )
 
-export const controlStyle = css`
+const controlStyle = css`
   && {
     border-width: 0px;
     box-shadow: none;
@@ -94,7 +94,7 @@ export const controlStyle = css`
   }
 `
 
-export const optionStyle = css`
+const optionStyle = css`
   && {
     color: #000000;
     background-color: transparent;
@@ -105,19 +105,19 @@ export const optionStyle = css`
   }
 `
 
-export const optionSelectedStyle = css`
+const optionSelectedStyle = css`
   && {
     background-color: #00000015;
   }
 `
 
-export const optionFocusedStyle = css`
+const optionFocusedStyle = css`
   && {
     background-color: #00000020;
   }
 `
 
-export const menuStyle = css`
+const menuStyle = css`
   && {
     min-width: 60px;
   }

@@ -1,6 +1,7 @@
 import { css, cx } from '@emotion/css'
 import { ModalPage } from '../../types'
 import { largeBodyText } from '../../constants'
+import { LanguagePicker } from '../controls/LanguageSelector/LanguageSelector'
 
 const menuStyle = css`
   border-top-left-radius: 14px;
@@ -32,6 +33,17 @@ const menuItemStlye = cx(
   `,
 )
 
+const languageItemStyle = cx(
+  largeBodyText,
+  css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000000cc;
+    border-bottom: 2px solid #ccc;
+  `,
+)
+
 const menuItemNameStyle = css`
   flex: 1;
 `
@@ -47,6 +59,9 @@ export function DrilldownMenu<P extends string, T>({
 }: DrilldownMenuProps<P, T>) {
   return (
     <div className={menuStyle}>
+      <div className={languageItemStyle}>
+        <LanguagePicker />
+      </div>
       <div className={menuContainerStyle}>
         {pages.map((e) => {
           const { id, name, Icon, Badge } = e
