@@ -1,4 +1,4 @@
-import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
+import { enharmonic, fromMidi, get, midi, pitchClass } from '@tonaljs/note'
 import { get as getScale } from '@tonaljs/scale'
 import { KeySignature } from './keySignature'
 import { Duration } from './duration'
@@ -223,9 +223,9 @@ export function matchesPitchClass(
   reference: string,
   pitchedNote: string,
 ): boolean {
-  const pc = pitchClass(pitchedNote)
-  const eh = enharmonic(pc)
-  return pc === reference || eh === reference
+  const { chroma: refChroma } = get(reference)
+  const { chroma: noteChroma } = get(pitchedNote)
+  return refChroma === noteChroma
 }
 
 export function negate<T>(predicate: (input: T) => boolean) {

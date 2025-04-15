@@ -1,6 +1,5 @@
 import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
-import { IS_MOBILE_QUERY } from './useIsMobile'
 import { bodyTextStyle } from './constants'
 
 const buttonStyle = cx(
@@ -27,11 +26,6 @@ const buttonStyle = cx(
       background-color: #888;
       color: #ddd;
       cursor: not-allowed;
-    }
-
-    @media ${IS_MOBILE_QUERY} {
-      border-radius: 50px;
-      padding: 24px 24px 24px 20px;
     }
   `,
 )

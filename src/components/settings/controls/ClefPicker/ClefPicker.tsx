@@ -5,6 +5,7 @@ import Select from 'react-select'
 import { ClefModel } from './types'
 import { clefPickerClassNames, clefPickerComponents } from './styling'
 import { SelectItem } from '../../types'
+import { defaultClassNames } from '../dropdownStyles'
 
 export type ClefPickerProps = {
   value: Clef
@@ -27,7 +28,7 @@ export const ClefPicker: FC<ClefPickerProps> = ({ value, onChange }) => {
       menuPosition="fixed"
       value={selectedClef}
       options={clefs}
-      classNames={clefPickerClassNames}
+      classNames={defaultClassNames}
       components={clefPickerComponents}
       onChange={_onChange}
     />

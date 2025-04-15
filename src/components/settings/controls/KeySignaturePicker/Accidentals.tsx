@@ -19,7 +19,6 @@ const YShiftOrder: Record<Accidental, number[]> = {
 
 const sharpsStyle = css`
   letter-spacing: -3px;
-  font-size: 0.8rem;
   margin-right: 4px;
 `
 
