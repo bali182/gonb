@@ -5,7 +5,7 @@ import {
   PiMusicNoteBold,
   PiMusicNotesBold,
 } from 'react-icons/pi'
-import { VolumeSlider } from './VolumeSlider'
+import { MutableVolumeSlider } from './MutableVolumeSlider'
 import { useAppContext } from '../context/useAppContext'
 
 const volumeContainerDesktopStyle = css`
@@ -27,66 +27,20 @@ export const VolumeControlsDesktop: FC = () => {
 
   return (
     <div className={volumeContainerDesktopStyle}>
-      <VolumeSlider
+      <MutableVolumeSlider
         Icon={PiMetronomeBold}
         value={metronomeVolume}
         onChange={setMetronomeVolume}
         sliderTooltip="PlayerTooltips.MetronomeVolume"
       />
-      <VolumeSlider
+      <MutableVolumeSlider
         Icon={PiMusicNoteBold}
         value={instrumentVolume}
         onChange={setInstrumentVolume}
         sliderTooltip="PlayerTooltips.MelodyVolume"
       />
-      <VolumeSlider
+      <MutableVolumeSlider
         Icon={PiMusicNotesBold}
-        value={chordsVolume}
-        onChange={setChordsVolume}
-        sliderTooltip="PlayerTooltips.ChordsVolume"
-      />
-    </div>
-  )
-}
-
-const volumeContainerMobileStyle = css`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-self: start;
-  align-self: stretch;
-  background-color: #333;
-  border-radius: 20px;
-  padding: 20px;
-  margin: 20px;
-`
-
-export const VolumeControlsMobile: FC = () => {
-  const {
-    metronomeVolume,
-    instrumentVolume,
-    chordsVolume,
-    setMetronomeVolume,
-    setInstrumentVolume,
-    setChordsVolume,
-  } = useAppContext()
-
-  return (
-    <div className={volumeContainerMobileStyle}>
-      <VolumeSlider
-        // Icon={PiMetronomeBold}
-        value={metronomeVolume}
-        onChange={setMetronomeVolume}
-        sliderTooltip="PlayerTooltips.MetronomeVolume"
-      />
-      <VolumeSlider
-        // Icon={PiMusicNoteBold}
-        value={instrumentVolume}
-        onChange={setInstrumentVolume}
-        sliderTooltip="PlayerTooltips.MelodyVolume"
-      />
-      <VolumeSlider
-        // Icon={PiMusicNotesBold}
         value={chordsVolume}
         onChange={setChordsVolume}
         sliderTooltip="PlayerTooltips.ChordsVolume"

@@ -21,7 +21,7 @@ const menuItemStlye = cx(
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: #000000cc;
+    color: #000000dd;
     gap: 10px;
     padding: 15px 10px;
     cursor: pointer;

@@ -4,13 +4,25 @@ import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
 import { Issue, IssueType } from '../../../state/validation/types'
 import { useHighestSeverity } from '../../../state/validation/utils'
-import { bodyTextStyle, smallTextStyle } from '../../constants'
+import {
+  bodyTextStyle,
+  smallTextStyle,
+  MOBILE_SELECTOR,
+  TABLET_SELECTOR,
+} from '../../constants'
 
 const sectionStyle = css`
   display: flex;
   flex-direction: column;
   padding: 14px;
   pointer-events: auto;
+
+  @media ${MOBILE_SELECTOR} {
+    padding: 10px;
+  }
+  @media ${TABLET_SELECTOR} {
+    padding: 10px;
+  }
 `
 
 export const Section: FC<PropsWithChildren> = ({ children }) => {
@@ -20,7 +32,7 @@ export const Section: FC<PropsWithChildren> = ({ children }) => {
 const labelStyle = cx(
   bodyTextStyle,
   css`
-    color: #000000;
+    color: #000000dd;
     margin-bottom: 2px;
     pointer-events: auto;
   `,

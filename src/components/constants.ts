@@ -14,11 +14,11 @@ export const headerStyle = css`
   letter-spacing: -0.02em;
 
   @media ${TABLET_SELECTOR} {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   @media ${MOBILE_SELECTOR} {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 `
 

@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PagedModalButton } from '../../types'
-import { VolumeControlsMobile } from '../../VolumeControls'
 import { SettingsPage } from '../types'
 import { DrilldownMenu } from './DrilldownMenu'
 import { MobileSettingsPage } from './MobileSettingsPage'
 import { css } from '@emotion/css'
+import { VolumeControls } from './VolumeControls'
 
 type MenuProps = {
   isOpen: boolean
@@ -40,7 +40,7 @@ export const MenuPage: FC<MenuProps> = ({
     >
       <div className={containerStyle}>
         <DrilldownMenu pages={pages} onClick={onClick} />
-        <VolumeControlsMobile />
+        <VolumeControls />
       </div>
     </MobileSettingsPage>
   )
