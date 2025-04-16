@@ -154,7 +154,7 @@ export const en = {
     ClickToCopy: 'Click to copy URL to the clipboard!',
     CopySuccess: 'Successfully copied to the clipboard!',
     CopyFailure: 'Failed to copy to the clipboard!',
-    ScaleOnly: 'Scale only',
+    ScaleOnly: 'Scale',
     ShowChordLabels: 'Show chord labels',
     ShowChordLabelsDescription: 'Shows chords labels above the melody.',
     ShowChordsStaff: 'Show accompaniment',
@@ -163,6 +163,18 @@ export const en = {
     SeventhChords: 'Use extended chords',
     SeventhChordsDescription:
       'Uses extended chords for the accompaniment instead of triads',
+  },
+  Instruments: {
+    SixStringGuitar: '6 String Guitar',
+    SevenStringGuitar: '7 String Guitar',
+    FourStringBass: '4 String Bass',
+    FiveStringBass: '5 String Bass',
+  },
+  PresetNames: {
+    Custom: 'Custom notes',
+    Unfretted: 'Unfretted strings ({{notes}})',
+    Position: '{{position}}. position ({{lowest}} to {{highest}})',
+    ToNthFret: 'Up to {{fret}}th fret ({{lowest}} to {{highest}})',
   },
   NotePresets: {
     Custom: 'Custom notes',

@@ -149,7 +149,7 @@ export const hu: Messages = {
     ClickToCopy: 'Kattints a link vágólapra másolásához!',
     CopySuccess: 'Link sikeresen a vágólapra másolva!',
     CopyFailure: 'Vágólapra másolás sikertelen.',
-    ScaleOnly: 'Skálahangok',
+    ScaleOnly: 'Skála',
 
     ShowChordsStaff: 'Mutasd a kíséretet',
     ShowChordsStaffDescription:
@@ -163,7 +163,18 @@ export const hu: Messages = {
   },
   KeySignatures,
   MelodyTypes,
-
+  PresetNames: {
+    Custom: 'Egyedi hangok',
+    Unfretted: 'Üres húrok ({{notes}})',
+    Position: '{{position}}. fekvés ({{lowest}}-{{highest}})',
+    ToNthFret: 'A {{fret}}. bundig ({{lowest}}-{{highest}})',
+  },
+  Instruments: {
+    SixStringGuitar: '6 Húros Gitár',
+    SevenStringGuitar: '7 Húros Gitár',
+    FourStringBass: '4 Húros Basszusgitár',
+    FiveStringBass: '5 Húros Basszusgitár',
+  },
   NotePresets: {
     SixStringGuitar: '6 Húros Gitár',
     SevenStringGuitar: '7 Húros Gitár',

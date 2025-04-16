@@ -41,6 +41,15 @@ const buttonStyle = cx(
   `,
 )
 
+const placeholderStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+      white-space: nowrap;
+    }
+  `,
+)
+
 const controlStyle = css`
   && {
     border-bottom-right-radius: 0px;
@@ -65,6 +74,7 @@ const notePresetClassNames: ClassNamesConfig<any, any, any> = {
   singleValue: (props) =>
     cx(defaultClassNames?.singleValue?.(props), singleValueStyle),
   container: () => contStyle,
+  placeholder: () => placeholderStyle,
 }
 
 export const NotePresetPicker: FC<NotePresetPicker> = ({
@@ -73,8 +83,11 @@ export const NotePresetPicker: FC<NotePresetPicker> = ({
   onChange: _onChange,
 }) => {
   const { t } = useTranslation()
-  const presets = useNotePresets()
-
+  const presetGroups = useNotePresets()
+  const presets = useMemo(
+    () => presetGroups.flatMap((group) => group.options),
+    [presetGroups],
+  )
   const selectedPreset = useMemo(
     () =>
       presets.find(({ value: preset }) => arraysEqual(preset, value)) ?? null,
@@ -100,7 +113,7 @@ export const NotePresetPicker: FC<NotePresetPicker> = ({
       <Select<SelectItem<string[]>>
         inputId="note-preset-picker"
         value={selectedPreset}
-        options={presets}
+        options={presetGroups}
         classNames={notePresetClassNames}
         placeholder={t('NotePresets.Custom')}
         components={defaultComponents}
