@@ -220,7 +220,7 @@ export const hu: Messages = {
     Title: 'Hiba történt!',
     Explanation:
       'Vagy régiek a mentett adataid, vagy programhibát találtál. Ha úgy gondolod hogy ez programhiba, kérlek jelentsd (az alábbiakat csatolva):',
-    Reset: 'Alkalmazás alaphelyzetbe állítása',
+    Reset: 'App alaphelyzetbe állítása',
   },
   DurationGrid: {
     IsNotActive: 'inaktív.',

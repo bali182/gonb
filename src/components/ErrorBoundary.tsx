@@ -1,4 +1,4 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { Component, ReactElement } from 'react'
 import { Translation } from 'react-i18next'
 import { isNil } from '../common/utils'
@@ -8,6 +8,14 @@ import { connect } from 'react-redux'
 import { generatorSlice } from '../state/generatorSlice'
 import { initialState } from '../state/initialState'
 import { PiArrowClockwiseBold } from 'react-icons/pi'
+import {
+  bodyTextStyle,
+  headerStyle,
+  MOBILE_SELECTOR,
+  smallTextStyle,
+  subHeaderStyle,
+  TABLET_SELECTOR,
+} from './constants'
 
 type ErrorBoundaryState = {
   error: Error | undefined
@@ -34,6 +42,12 @@ const errorContainerStyle = css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media ${MOBILE_SELECTOR} {
+    padding: 10px;
+  }
+  @media ${TABLET_SELECTOR} {
+    padding: 10px;
+  }
 `
 
 const contentContainer = css`
@@ -45,25 +59,39 @@ const contentContainer = css`
   gap: 10px;
 `
 
-const titleStyle = css`
-  font-size: 1.5rem;
-  color: #000000;
-`
+const titleStyle = cx(
+  headerStyle,
+  css`
+    color: #000000;
+  `,
+)
 
-const descriptionStyle = css`
-  font-size: 1rem;
-  color: #00000090;
-`
+const descriptionStyle = cx(
+  bodyTextStyle,
+  css`
+    color: #00000090;
+  `,
+)
 
-const errorMessageStyle = css`
-  font-size: 1rem;
-  padding: 10px;
-  background-color: #00000010;
-  border-radius: 10px;
-  text-align: left;
-  max-width: 800px;
-  overflow: auto;
-`
+const errorMessageStyle = cx(
+  bodyTextStyle,
+  css`
+    padding: 10px;
+    background-color: #00000010;
+    border-radius: 10px;
+    text-align: left;
+    max-width: 800px;
+    overflow: auto;
+    @media ${MOBILE_SELECTOR} {
+      max-width: calc(100vw - 20px);
+      max-height: 50vh;
+    }
+    @media ${TABLET_SELECTOR} {
+      max-width: calc(100vw - 20px);
+      max-height: 50vh;
+    }
+  `,
+)
 
 class _ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
