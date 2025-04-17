@@ -25,6 +25,7 @@ export const ClefPicker: FC<ClefPickerProps> = ({ value, onChange }) => {
   return (
     <Select<SelectItem<ClefModel>>
       inputId="duration-frequency-picker"
+      isSearchable={false}
       menuPosition="fixed"
       value={selectedClef}
       options={clefs}

@@ -35,6 +35,7 @@ export const DurationFrequencyPicker: FC<DurationFrequencyPickerProps> = ({
     <Select<SelectItem<DurationFrequency>>
       inputId="duration-frequency-picker"
       menuPosition="fixed"
+      isSearchable={false}
       value={selectedFrequency}
       options={frequencies}
       classNames={durationFrequencyPickerClassNames}

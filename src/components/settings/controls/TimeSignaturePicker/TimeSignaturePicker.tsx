@@ -65,6 +65,7 @@ export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
       /
       <Select<SelectItem<number>>
         menuPosition="fixed"
+        isSearchable={false}
         value={selectedLower}
         options={LOWER_ITEMS}
         classNames={lowerClassNames}
