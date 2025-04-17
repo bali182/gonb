@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 export const IS_MOBILE_QUERY = 'screen and (pointer: coarse) and (hover: none)'
 
 export const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
-  useEffect(() => {
+  const [_isMobile, setIsMobile] = useState(isMobile())
+  useLayoutEffect(() => {
     const query = matchMedia(IS_MOBILE_QUERY)
     setIsMobile(query.matches)
 
@@ -17,7 +17,7 @@ export const useIsMobile = () => {
     }
   }, [])
 
-  return isMobile
+  return _isMobile
 }
 
 export function isMobile() {
