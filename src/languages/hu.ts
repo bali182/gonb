@@ -81,6 +81,7 @@ export const hu: Messages = {
     MelodyIn: `Egy dallam {{key}}-ben`,
     AlphaTabRenderedBy: 'Kottát rajzolta:',
     Issues: 'Hibák és ötletek:',
+    Loading: 'A kotta töltődik...',
   },
   Menu: {
     GenerateNew: 'Generálj újat',

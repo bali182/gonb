@@ -76,6 +76,7 @@ export const en = {
     MelodyIn: `A Melody in {{key}}`,
     AlphaTabRenderedBy: 'Score rendered by:',
     Issues: 'Report issues & ideas:',
+    Loading: 'Score is loading...',
   },
   Menu: {
     GenerateNew: 'Generate new',

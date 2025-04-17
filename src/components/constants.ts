@@ -112,3 +112,15 @@ export const menuIconStyle = css`
     font-size: 0.8rem;
   }
 `
+
+export const volumeIconSizeStyle = css`
+  font-size: 2rem;
+
+  @media ${TABLET_SELECTOR} {
+    font-size: 0.9rem;
+  }
+
+  @media ${MOBILE_SELECTOR} {
+    font-size: 1.1rem;
+  }
+`

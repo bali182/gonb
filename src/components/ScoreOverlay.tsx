@@ -1,6 +1,8 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { FC } from 'react'
 import { Spinner } from './Spinner'
+import { bodyTextStyle } from './constants'
+import { useTranslation } from 'react-i18next'
 
 export type TabOverlayProps = {
   isVisible: boolean
@@ -24,19 +26,24 @@ const scoreOvelayStyle = css`
   gap: 20px;
 `
 
-export const scoreOverlayContentStyle = css`
-  color: #ffffff;
-  font-size: 2rem;
-`
+export const scoreOverlayContentStyle = cx(
+  bodyTextStyle,
+  css`
+    color: #ffffff;
+  `,
+)
 
 export const ScoreOverlay: FC<TabOverlayProps> = ({ isVisible }) => {
+  const { t } = useTranslation()
+
   if (!isVisible) {
     return null
   }
+
   return (
     <div className={scoreOvelayStyle}>
       <Spinner />
-      <div className={scoreOverlayContentStyle}>Score is loading...</div>
+      <div className={scoreOverlayContentStyle}>{t('Score.Loading')}</div>
     </div>
   )
 }

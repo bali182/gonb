@@ -5,7 +5,7 @@ import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri'
 import { MessageKey } from '../languages/types'
 import { isNil } from '../common/utils'
 import { Slider, SliderProps } from './Slider'
-import { menuIconStyle } from './constants'
+import { volumeIconSizeStyle } from './constants'
 
 const containerStyle = css`
   display: flex;
@@ -15,10 +15,12 @@ const containerStyle = css`
   justify-content: center;
 `
 
-const controlIconStyle = css`
-  font-size: 1.6rem;
-  cursor: pointer;
-`
+const controlIconStyle = cx(
+  volumeIconSizeStyle,
+  css`
+    cursor: pointer;
+  `,
+)
 
 const lightControlIconStyle = css`
   color: #ffffffdd;
@@ -35,9 +37,8 @@ const darkControlIconStyle = css`
 `
 
 const iconStyle = cx(
-  menuIconStyle,
+  volumeIconSizeStyle,
   css`
-    font-size: 1.8rem;
     margin-right: 10px;
     color: #ffffff;
   `,
@@ -71,10 +72,14 @@ export const MutableVolumeSlider: FC<VolumeSliderProps> = ({
   )
   return (
     <div className={containerStyle} data-tooltip={sliderTooltip}>
-      {!isNil(Icon) && <Icon className={iconStyle} />}
+      {!isNil(Icon) && (
+        <Icon className={iconStyle} width="1rem" height="1rem" />
+      )}
       <MuteIcon
         className={computedControlIconStyle}
         onClick={() => onChange(0)}
+        width="1rem"
+        height="1rem"
       />
       <Slider
         min={0}
@@ -87,6 +92,8 @@ export const MutableVolumeSlider: FC<VolumeSliderProps> = ({
       <MaxVolumeIcon
         className={computedControlIconStyle}
         onClick={() => onChange(1)}
+        width="1rem"
+        height="1rem"
       />
     </div>
   )
