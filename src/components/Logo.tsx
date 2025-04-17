@@ -3,7 +3,11 @@ import { FC } from 'react'
 import gonb from './svg/gonb.svg?base64-data-uri'
 import { useTranslation } from 'react-i18next'
 import { IS_MOBILE_QUERY } from './useIsMobile'
-import { headerStyle, MOBILE_TOOLBAR_HEIGHT, smallTextStyle } from './constants'
+import {
+  extraSmallTextStyle,
+  headerStyle,
+  MOBILE_TOOLBAR_HEIGHT,
+} from './constants'
 
 const logoBlockStyle = css`
   display: flex;
@@ -34,7 +38,7 @@ const logoTextStyle = css`
 
 const titleIconStyle = css`
   @media ${IS_MOBILE_QUERY} {
-    max-width: 20vw;
+    max-width: 18vw;
     max-height: ${MOBILE_TOOLBAR_HEIGHT - 10}px;
     height: auto;
   }
@@ -50,7 +54,7 @@ const titleStyle = cx(
 )
 
 const sloganStyle = cx(
-  smallTextStyle,
+  extraSmallTextStyle,
   css`
     color: #000000aa;
     line-height: 90%;

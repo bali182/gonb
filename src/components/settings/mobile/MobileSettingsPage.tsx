@@ -50,7 +50,7 @@ const titleBarStyle = css`
   padding: 10px;
   height: ${MOBILE_TOOLBAR_HEIGHT}px;
   background-color: #f0f0f0;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
 `
 
 const titlesStyle = cx(
@@ -86,7 +86,7 @@ const buttonContainerStyle = css`
   width: 100%;
   border-bottom-right-radius: 14px;
   background-color: #f0f0f0;
-  border-top: 2px solid #ccc;
+  border-top: 1px solid #ccc;
 `
 
 export function MobileSettingsPage<T>({

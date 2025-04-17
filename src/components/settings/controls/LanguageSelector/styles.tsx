@@ -6,13 +6,13 @@ import {
   SingleValueProps,
   components,
 } from 'react-select'
-import { largeBodyText } from '../../../constants'
 import { FC } from 'react'
 import { SelectItem } from '../../types'
 import { Language } from '../../../../state/types'
 
 import huFlag from '../../../svg/hu.svg?base64-data-uri'
 import ukFlag from '../../../svg/gb.svg?base64-data-uri'
+import { bodyTextStyle } from '../../../constants'
 
 export const languagePickerClassNames: ClassNamesConfig<any, any, any> = {
   input: () => inputStyle,
@@ -34,7 +34,7 @@ export const languagePickerClassNames: ClassNamesConfig<any, any, any> = {
 }
 
 const containerStyle = cx(
-  largeBodyText,
+  bodyTextStyle,
   css`
     && {
       width: 100%;
@@ -43,7 +43,7 @@ const containerStyle = cx(
 )
 
 const inputStyle = cx(
-  largeBodyText,
+  bodyTextStyle,
   css`
     && {
       padding: 0px;
@@ -52,7 +52,7 @@ const inputStyle = cx(
 )
 
 const singleValueStyle = cx(
-  largeBodyText,
+  bodyTextStyle,
   css`
     && {
       overflow: visible;
@@ -61,7 +61,7 @@ const singleValueStyle = cx(
 )
 
 const menuListStyle = cx(
-  largeBodyText,
+  bodyTextStyle,
   css`
     && {
       background-color: #00000010;
@@ -93,7 +93,7 @@ const dropdownIndicatorStyle = css`
 `
 
 const placeholderStyle = cx(
-  largeBodyText,
+  bodyTextStyle,
   css`
     && {
     }

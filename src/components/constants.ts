@@ -1,6 +1,6 @@
 import { css } from '@emotion/css'
 
-export const MOBILE_TOOLBAR_HEIGHT = 80
+export const MOBILE_TOOLBAR_HEIGHT = 70
 export const DESKTOP_TOOLBAR_HEIGHT = 120
 
 export const MOBILE_SELECTOR = 'screen and (max-width: 479px)'
@@ -9,16 +9,16 @@ export const TABLET_SELECTOR =
 export const DESKTOP_SELECTOR = 'min-width: 1025px'
 
 export const headerStyle = css`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   letter-spacing: -0.02em;
 
   @media ${TABLET_SELECTOR} {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   @media ${MOBILE_SELECTOR} {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 `
 
@@ -28,24 +28,11 @@ export const subHeaderStyle = css`
   letter-spacing: -0.02em;
 
   @media ${TABLET_SELECTOR} {
-    font-size: 1.3rem;
-  }
-
-  @media ${MOBILE_SELECTOR} {
     font-size: 1.1rem;
   }
-`
-
-export const largeBodyText = css`
-  font-size: 1.5rem;
-  font-weight: 400;
-
-  @media ${TABLET_SELECTOR} {
-    font-size: 1rem;
-  }
 
   @media ${MOBILE_SELECTOR} {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 `
 
@@ -63,15 +50,15 @@ export const bodyTextStyle = css`
 `
 
 export const extraSmallTextStyle = css`
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 400;
 
   @media ${TABLET_SELECTOR} {
-    font-size: 0.6rem;
+    font-size: 0.65rem;
   }
 
   @media ${MOBILE_SELECTOR} {
-    font-size: 0.5rem;
+    font-size: 0.55rem;
   }
 `
 
@@ -85,19 +72,6 @@ export const smallTextStyle = css`
 
   @media ${MOBILE_SELECTOR} {
     font-size: 0.625rem;
-  }
-`
-
-export const menuTextStyle = css`
-  font-size: 1rem;
-  font-weight: 400;
-
-  @media ${TABLET_SELECTOR} {
-    font-size: 0.65rem;
-  }
-
-  @media ${MOBILE_SELECTOR} {
-    font-size: 0.55rem;
   }
 `
 
@@ -130,11 +104,11 @@ export const menuIconStyle = css`
 
   @media ${TABLET_SELECTOR} {
     margin-top: 3px;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
 
   @media ${MOBILE_SELECTOR} {
     margin-top: 3px;
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
 `

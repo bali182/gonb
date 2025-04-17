@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react'
 import { IconType } from 'react-icons'
 import { MessageKey } from '../languages/types'
 import { Trans } from 'react-i18next'
-import { menuTextStyle, menuIconStyle } from './constants'
+import { extraSmallTextStyle, menuIconStyle } from './constants'
 
 type PlayerButtonKind = 'primary' | 'secondary'
 
@@ -256,7 +256,7 @@ export const PlayerToggleMobile: FC<ToggleButtonMobileProps> = ({
           onIcon={OnIcon}
         />
       )}
-      <span className={menuTextStyle}>
+      <span className={extraSmallTextStyle}>
         <Trans i18nKey={label} />
       </span>
     </button>
@@ -274,7 +274,7 @@ export const PlayerButtonMobile: FC<BasicButtonProps> = ({
   return (
     <button className={style} onClick={onClick}>
       <Icon className={menuIconStyle} />
-      <span className={menuTextStyle}>
+      <span className={extraSmallTextStyle}>
         <Trans i18nKey={label} />
       </span>
     </button>

@@ -6,6 +6,7 @@ import { DrilldownMenu } from './DrilldownMenu'
 import { MobileSettingsPage } from './MobileSettingsPage'
 import { css } from '@emotion/css'
 import { VolumeControls } from './VolumeControls'
+import { LanguagePicker } from '../controls/LanguageSelector/LanguageSelector'
 
 type MenuProps = {
   isOpen: boolean
@@ -39,6 +40,7 @@ export const MenuPage: FC<MenuProps> = ({
       onClick={onButtonClick}
     >
       <div className={containerStyle}>
+        <LanguagePicker />
         <DrilldownMenu pages={pages} onClick={onClick} />
         <VolumeControls />
       </div>

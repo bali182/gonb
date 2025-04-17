@@ -5,6 +5,19 @@ import { Language } from '../../../../state/types'
 import { useAppContext } from '../../../../context/useAppContext'
 import { isNil } from '../../../../common/utils'
 import { languagePickerClassNames, languagePickerComponents } from './styles'
+import { css, cx } from '@emotion/css'
+import { bodyTextStyle } from '../../../constants'
+
+const languageItemStyle = cx(
+  bodyTextStyle,
+  css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #000000cc;
+    border-bottom: 1px solid #ccc;
+  `,
+)
 
 const LANGUAGES: SelectItem<Language>[] = [
   { label: 'English', value: Language.English },
@@ -23,14 +36,17 @@ export const LanguagePicker: FC = () => {
   }
 
   return (
-    <Select<SelectItem<Language>>
-      inputId="language-picker"
-      menuPosition="fixed"
-      value={selectedLang}
-      options={LANGUAGES}
-      classNames={languagePickerClassNames}
-      components={languagePickerComponents}
-      onChange={_onChange}
-    />
+    <div className={languageItemStyle}>
+      <Select<SelectItem<Language>>
+        inputId="language-picker"
+        menuPosition="fixed"
+        isSearchable={false}
+        value={selectedLang}
+        options={LANGUAGES}
+        classNames={languagePickerClassNames}
+        components={languagePickerComponents}
+        onChange={_onChange}
+      />
+    </div>
   )
 }

@@ -5,7 +5,7 @@ import { RiVolumeMuteFill, RiVolumeUpFill } from 'react-icons/ri'
 import { MessageKey } from '../languages/types'
 import { isNil } from '../common/utils'
 import { Slider, SliderProps } from './Slider'
-import { largeBodyText } from './constants'
+import { menuIconStyle } from './constants'
 
 const containerStyle = css`
   display: flex;
@@ -35,7 +35,7 @@ const darkControlIconStyle = css`
 `
 
 const iconStyle = cx(
-  largeBodyText,
+  menuIconStyle,
   css`
     font-size: 1.8rem;
     margin-right: 10px;
