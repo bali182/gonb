@@ -48,7 +48,8 @@ export const MobileSettings: FC = () => {
         }),
       )
     }
-    closeMenu()
+    setSettingsOpen(false)
+    setActivePage(undefined)
   }
 
   useEffect(() => setActivePage(undefined), [isSettingsOpen])
