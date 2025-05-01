@@ -1,5 +1,5 @@
 import { css, cx } from '@emotion/css'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useRef } from 'react'
 import { PiCaretLeft, PiX } from 'react-icons/pi'
 import { isNil } from '../../../common/utils'
 import { Button } from '../../Button'
@@ -104,20 +104,34 @@ export function MobileSettingsPage<T>({
     [openPageStyle]: isOpen,
   })
 
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const _onBack = () => {
+    onBack?.()
+    containerRef.current?.scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }
+
+  const _onClose = () => {
+    onClose?.()
+    containerRef.current?.scroll({ top: 0, left: 0, behavior: 'smooth' })
+  }
+
   return (
     <div className={pageStyle}>
       <div className={titleBarStyle}>
         {!isNil(onBack) && (
-          <PiCaretLeft className={backIconStyle} onClick={onBack} />
+          <PiCaretLeft className={backIconStyle} onClick={_onBack} />
         )}
         <div className={titlesStyle}>
           <span>{title}</span>
         </div>
         {!isNil(onClose) && (
-          <PiX className={actionIconStyle} onClick={onClose} />
+          <PiX className={actionIconStyle} onClick={_onClose} />
         )}
       </div>
-      <div className={contentStyle}>{children}</div>
+      <div className={contentStyle} ref={containerRef}>
+        {children}
+      </div>
 
       {!isNil(buttons) && !isNil(onClick) && buttons.length > 0 && (
         <div className={buttonContainerStyle}>
