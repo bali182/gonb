@@ -31,6 +31,7 @@ export const MobileSettings: FC = () => {
   const closeMenu = () => {
     setSettingsOpen(false)
     setActivePage(undefined)
+    setConfig(configInState)
   }
 
   const closeEditor = () => {
