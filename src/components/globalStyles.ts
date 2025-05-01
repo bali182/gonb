@@ -60,9 +60,9 @@ export const globalStyles = css`
       height: min(100vh, 100dvh);
     }
 
-     @media ${IS_MOBILE_QUERY} {
+    @media ${IS_MOBILE_QUERY} {
       background-color: #f0f0f0;
-    } 
+    }
   }
 
   img,

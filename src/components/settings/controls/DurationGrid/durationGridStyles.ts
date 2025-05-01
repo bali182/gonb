@@ -38,6 +38,7 @@ export const clickableCellStyle = css`
   cursor: pointer;
   position: relative;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 `
 
 export const pointerCursorStyle = css`
