@@ -9,21 +9,23 @@ import {
 } from './alphaTex'
 import { isNil, isNotNil } from '../common/utils'
 import { asFrettedNote, asNumber, hasDot } from './utils'
-import { Duration } from '../common/duration'
+import { isMobile } from '../components/useIsMobile'
 
 // Reference: https://alphatab.net/docs/alphatex/introduction
 
 function getSongMetaData(song: AtSong): string[] {
-  const pieces = [
-    isNil(song.title) ? undefined : `\\title "${song.title}"`,
-    isNil(song.subtitle) ? undefined : `\\subtitle "${song.subtitle}"`,
-    isNil(song.artist) ? undefined : `\\artist "${song.artist}"`,
-    isNil(song.album) ? undefined : `\\album "${song.album}"`,
-    isNil(song.words) ? undefined : `\\words "${song.words}"`,
-    isNil(song.music) ? undefined : `\\music "${song.music}"`,
-    isNil(song.copyright) ? undefined : `\\copyright "${song.copyright}"`,
-    `\\tempo ${song.tempo ?? 120}`,
-  ]
+  const extra = isMobile()
+    ? []
+    : [
+        isNil(song.title) ? undefined : `\\title "${song.title}"`,
+        isNil(song.subtitle) ? undefined : `\\subtitle "${song.subtitle}"`,
+        isNil(song.artist) ? undefined : `\\artist "${song.artist}"`,
+        isNil(song.album) ? undefined : `\\album "${song.album}"`,
+        isNil(song.words) ? undefined : `\\words "${song.words}"`,
+        isNil(song.music) ? undefined : `\\music "${song.music}"`,
+        isNil(song.copyright) ? undefined : `\\copyright "${song.copyright}"`,
+      ]
+  const pieces = [...extra, `\\tempo ${song.tempo ?? 120}`]
   return pieces.filter(isNotNil)
 }
 

@@ -4,7 +4,7 @@ import { Input } from '../Input/Input'
 import { css } from '@emotion/css'
 import Select from 'react-select'
 import { SelectItem } from '../../types'
-import { lowerComponents, lowerStyles } from './styling'
+import { lowerClassNames, lowerComponents } from './styling'
 import { isNil } from '../../../../common/utils'
 
 export type TimeSignaturePickerProps = {
@@ -65,9 +65,10 @@ export const TimeSignaturePicker: FC<TimeSignaturePickerProps> = ({
       /
       <Select<SelectItem<number>>
         menuPosition="fixed"
+        isSearchable={false}
         value={selectedLower}
         options={LOWER_ITEMS}
-        styles={lowerStyles}
+        classNames={lowerClassNames}
         components={lowerComponents}
         onChange={onLowerChange}
       />

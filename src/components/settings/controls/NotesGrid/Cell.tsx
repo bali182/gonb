@@ -7,19 +7,21 @@ import {
   topLeftNoteStyle,
   fillSeparatorStyle,
 } from './notesGridStyles'
-import { enharmonic } from '@tonaljs/note'
+import { enharmonic, get } from '@tonaljs/note'
 import { beautifyNote } from '../../../../common/utils'
 import { Language } from '../../../../state/types'
+import { Accidental } from '../KeySignaturePicker/types'
 
 export type CellProps = {
   note: string
   octave: number
   isSelected: boolean
   language: Language
+  accidental: Accidental
   onClick: (note: string, octave: number) => void
 }
 
-export const Cell: FC<CellProps> = ({
+export const DesktopCell: FC<CellProps> = ({
   isSelected,
   note,
   octave,
@@ -50,6 +52,28 @@ export const Cell: FC<CellProps> = ({
         {beautifyNote(ehNote, language)}
         {octave}
       </span>
+    </td>
+  )
+}
+
+export const MobileCell: FC<CellProps> = ({
+  isSelected,
+  note,
+  octave,
+  language,
+  accidental,
+  onClick: _onClick,
+}) => {
+  const tdFullStyle = cx(tdStyle, isSelected ? selectedStyle : undefined)
+  const noteObj = get(note)
+  const noteName = noteObj.acc === accidental ? note : enharmonic(note)
+  const onClick = () => {
+    _onClick(note, octave)
+  }
+  return (
+    <td className={tdFullStyle} onClick={onClick}>
+      {beautifyNote(noteName, language)}
+      {octave}
     </td>
   )
 }

@@ -5,20 +5,12 @@ import { DurationType } from '../common/durationType'
 import { KeySignature } from '../common/keySignature'
 import { MelodyType } from '../legacy/melodies/types'
 
-const Clefs: Record<Clef, string> = {
+const ClefsPrimary: Record<Clef, string> = {
   [Clef.BASS]: 'Bass clef',
   [Clef.TREBLE]: 'Treble clef',
   [Clef.PERCUSSION]: 'Percussion clef',
   [Clef.TENOR]: 'Tenor clef',
   [Clef.ALTO]: 'Alto clef',
-}
-
-const ClefsPrimary: Record<Clef, string> = {
-  [Clef.BASS]: 'Bass',
-  [Clef.TREBLE]: 'Treble',
-  [Clef.PERCUSSION]: 'Neutral',
-  [Clef.TENOR]: 'Tenor',
-  [Clef.ALTO]: 'Alto',
 }
 
 const ClefsAlternate: Record<Clef, string> = {
@@ -84,6 +76,7 @@ export const en = {
     MelodyIn: `A Melody in {{key}}`,
     AlphaTabRenderedBy: 'Score rendered by:',
     Issues: 'Report issues & ideas:',
+    Loading: 'Score is loading...',
   },
   Menu: {
     GenerateNew: 'Generate new',
@@ -162,7 +155,7 @@ export const en = {
     ClickToCopy: 'Click to copy URL to the clipboard!',
     CopySuccess: 'Successfully copied to the clipboard!',
     CopyFailure: 'Failed to copy to the clipboard!',
-    ScaleOnly: 'Scale only',
+    ScaleOnly: 'Scale',
     ShowChordLabels: 'Show chord labels',
     ShowChordLabelsDescription: 'Shows chords labels above the melody.',
     ShowChordsStaff: 'Show accompaniment',
@@ -171,6 +164,18 @@ export const en = {
     SeventhChords: 'Use extended chords',
     SeventhChordsDescription:
       'Uses extended chords for the accompaniment instead of triads',
+  },
+  Instruments: {
+    SixStringGuitar: '6 String Guitar',
+    SevenStringGuitar: '7 String Guitar',
+    FourStringBass: '4 String Bass',
+    FiveStringBass: '5 String Bass',
+  },
+  PresetNames: {
+    Custom: 'Custom notes',
+    Unfretted: 'Unfretted strings ({{notes}})',
+    Position: '{{position}}. position ({{lowest}} to {{highest}})',
+    ToNthFret: 'Up to {{fret}}th fret ({{lowest}} to {{highest}})',
   },
   NotePresets: {
     Custom: 'Custom notes',
@@ -196,7 +201,6 @@ export const en = {
     Eighth: 'Eighth notes',
     Sixteenth: 'Sixteenth notes',
   },
-  Clefs,
   ClefsPrimary,
   ClefsAlternate,
   KeySignatures,
@@ -240,7 +244,7 @@ export const en = {
     IsNotActive: 'is inactive.',
     Enabled: 'Enabled',
     Probability: 'Probability',
-    ClusterSize: 'Preferred cluster size',
+    ClusterSize: 'Cluster size',
     DurationTooLong: '{{duration}} does not fit in a bar.',
   },
   PlayerTooltips: {
@@ -250,7 +254,8 @@ export const en = {
     Play: 'Play',
     Pause: 'Pause',
     Stop: 'Stop',
-    Loop: 'Loop selection',
-    CountIn: 'Count-in before play',
+    Loop: 'Loop',
+    CountIn: 'Count-in',
+    Regenerate: 'Generate',
   },
 }

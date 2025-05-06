@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo, useState } from 'react'
 import { PiGearBold } from 'react-icons/pi'
 import { useTranslation } from 'react-i18next'
-import { PagedModal, PagedModalButton } from '../PagedModal'
+import { PagedModal } from '../PagedModal'
 import { NumberSafeGeneratorConfig, SettingsPageProps } from './types'
 import { useValidationIssues } from './useValidationIssues'
 import { useSettingsPages } from './useSettingsPages'
@@ -12,6 +12,7 @@ import { AppDispatch } from '../../state/store'
 import { SettingsPageId } from './SettingsPageId'
 import { pagesSlice } from '../../state/pagesSlice'
 import { GeneratorConfig } from '../../state/types'
+import { PagedModalButton } from '../types'
 
 export type SettingsModalProps = {
   onClose: () => void

@@ -1,43 +1,82 @@
 import { TFunction } from 'i18next'
-import { SelectItem } from '../../types'
+import { SelectGroup } from '../../types'
 import { useMemoizedTranslation } from '../../../../common/useMemoizedTranslation'
+import { MessageKey } from '../../../../languages/types'
 import {
-  FIVE_STRING_BASS,
-  FIVE_STRING_BASS_UNFRETTED,
-  FOUR_STRING_BASS,
-  FOUR_STRING_BASS_UNFRETTED,
-  SEVEN_STRING_GUITAR,
-  SEVEN_STRING_GUITAR_UNFRETTED,
-  SIX_STRING_GUITAR,
-  SIX_STRING_GUITAR_UNFRETTED,
-} from './presets'
+  getNthFretOption,
+  getPositionPresetOption,
+  getUnfrettedPresetOption,
+} from './utils'
+import { Language } from '../../../../state/types'
 
-function getNotePresets(t: TFunction): SelectItem<string[]>[] {
+export const SIX_STRING_GUITAR_UNFRETTED = ['E2', 'A2', 'D3', 'G3', 'B3', 'E4']
+export const SEVEN_STRING_GUITAR_UNFRETTED = [
+  'B1',
+  'E2',
+  'A2',
+  'D3',
+  'G3',
+  'B3',
+  'E4',
+]
+export const FOUR_STRING_BASS_UNFRETTED = ['E1', 'A1', 'D2', 'G2']
+export const FIVE_STRING_BASS_UNFRETTED = ['B0', 'E1', 'A1', 'D2', 'G2']
+
+function getOptionGroupForInstrument(
+  instrument: MessageKey,
+  tuning: string[],
+  t: TFunction,
+  language: Language,
+): SelectGroup<string[]> {
+  return {
+    label: t(instrument),
+    options: [
+      getUnfrettedPresetOption(tuning, t, language),
+      getPositionPresetOption(tuning, 0, t, language),
+      getPositionPresetOption(tuning, 1, t, language),
+      getPositionPresetOption(tuning, 2, t, language),
+      getPositionPresetOption(tuning, 3, t, language),
+      getPositionPresetOption(tuning, 4, t, language),
+      getPositionPresetOption(tuning, 5, t, language),
+      getPositionPresetOption(tuning, 6, t, language),
+      getPositionPresetOption(tuning, 7, t, language),
+      getPositionPresetOption(tuning, 8, t, language),
+      getPositionPresetOption(tuning, 9, t, language),
+      getNthFretOption(tuning, 12, t, language),
+      getNthFretOption(tuning, 24, t, language),
+    ],
+  }
+}
+
+function getNotePresets(t: TFunction, lang: Language): SelectGroup<string[]>[] {
   return [
-    { label: t('NotePresets.SixStringGuitar'), value: SIX_STRING_GUITAR },
-    { label: t('NotePresets.SevenStringGuitar'), value: SEVEN_STRING_GUITAR },
-    { label: t('NotePresets.FourStringBass'), value: FOUR_STRING_BASS },
-    { label: t('NotePresets.FiveStringBass'), value: FIVE_STRING_BASS },
-
-    {
-      label: t('NotePresets.SixStringGuitarUnfretted'),
-      value: SIX_STRING_GUITAR_UNFRETTED,
-    },
-    {
-      label: t('NotePresets.SevenStringGuitarUnfretted'),
-      value: SEVEN_STRING_GUITAR_UNFRETTED,
-    },
-    {
-      label: t('NotePresets.FourStringBassUnfretted'),
-      value: FOUR_STRING_BASS_UNFRETTED,
-    },
-    {
-      label: t('NotePresets.FiveStringBassUnfretted'),
-      value: FIVE_STRING_BASS_UNFRETTED,
-    },
+    getOptionGroupForInstrument(
+      'Instruments.SixStringGuitar',
+      SIX_STRING_GUITAR_UNFRETTED,
+      t,
+      lang,
+    ),
+    getOptionGroupForInstrument(
+      'Instruments.SevenStringGuitar',
+      SEVEN_STRING_GUITAR_UNFRETTED,
+      t,
+      lang,
+    ),
+    getOptionGroupForInstrument(
+      'Instruments.FourStringBass',
+      FOUR_STRING_BASS_UNFRETTED,
+      t,
+      lang,
+    ),
+    getOptionGroupForInstrument(
+      'Instruments.FiveStringBass',
+      FIVE_STRING_BASS_UNFRETTED,
+      t,
+      lang,
+    ),
   ]
 }
 
-export function useNotePresets(): SelectItem<string[]>[] {
+export function useNotePresets(): SelectGroup<string[]>[] {
   return useMemoizedTranslation(getNotePresets)
 }

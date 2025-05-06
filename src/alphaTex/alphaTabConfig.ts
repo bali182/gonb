@@ -1,5 +1,5 @@
 import { json } from '@coderline/alphatab'
-import { isNil, isNotNil } from '../common/utils'
+import { isNil } from '../common/utils'
 
 const core: json.CoreSettingsJson = {
   tex: true,
@@ -9,16 +9,8 @@ const core: json.CoreSettingsJson = {
 
 const display: json.DisplaySettingsJson = {
   staveProfile: 'Default',
-  // justifyLastSystem: true,
-  // barsPerRow: 4,
-  // resources: {
-  //   staffLineColor: '#ffffff80',
-  //   barSeparatorColor: '#fff',
-  //   mainGlyphColor: '#fff',
-  //   secondaryGlyphColor: '#fff',
-  //   scoreInfoColor: '#fff',
-  //   barNumberColor: '#fff',
-  // },
+  padding: [10, 20],
+  scale: 1,
 }
 
 export const player = (

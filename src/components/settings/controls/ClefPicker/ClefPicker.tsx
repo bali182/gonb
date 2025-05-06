@@ -1,32 +1,37 @@
 import { FC } from 'react'
-import { ClefButton } from './ClefButton'
-import { css } from '@emotion/css'
 import { useClefModel } from './useClefModel'
 import { Clef } from '../../../../common/clef'
+import Select from 'react-select'
+import { ClefModel } from './types'
+import { clefPickerComponents } from './styling'
+import { SelectItem } from '../../types'
+import { defaultClassNames } from '../dropdownStyles'
 
-const wrapperStyle = css`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-`
 export type ClefPickerProps = {
   value: Clef
   onChange: (clef: Clef) => void
 }
 
 export const ClefPicker: FC<ClefPickerProps> = ({ value, onChange }) => {
-  const clefs = useClefModel()
+  const clefs = useClefModel().map(
+    (model): SelectItem<ClefModel> => ({ label: model.label, value: model }),
+  )
+  const selectedClef = clefs.find((item) => item.value.clef === value)!
+
+  const _onChange = (item: SelectItem<ClefModel> | null) => {
+    onChange(item?.value?.clef!)
+  }
 
   return (
-    <div className={wrapperStyle}>
-      {clefs.map((model) => (
-        <ClefButton
-          key={model.clef}
-          model={model}
-          isSelected={model.clef === value}
-          onClick={() => onChange(model.clef)}
-        />
-      ))}
-    </div>
+    <Select<SelectItem<ClefModel>>
+      inputId="duration-frequency-picker"
+      isSearchable={false}
+      menuPosition="fixed"
+      value={selectedClef}
+      options={clefs}
+      classNames={defaultClassNames}
+      components={clefPickerComponents}
+      onChange={_onChange}
+    />
   )
 }

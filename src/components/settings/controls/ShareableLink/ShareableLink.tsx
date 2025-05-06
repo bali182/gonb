@@ -1,8 +1,9 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { FC, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PiCheckBold, PiWarningCircleBold } from 'react-icons/pi'
 import { isNil } from '../../../../common/utils'
+import { smallTextStyle } from '../../../constants'
 
 const boxStyle = css`
   padding: 8px;
@@ -16,18 +17,22 @@ const boxStyle = css`
   }
 `
 
-const urlStyle = css`
-  font-size: 1em;
-  font-weight: bold;
-  word-break: break-all;
-`
+const urlStyle = cx(
+  smallTextStyle,
+  css`
+    font-weight: bold;
+    word-break: break-all;
+  `,
+)
 
-const descriptionStyle = css`
-  display: flex;
-  gap: 4px;
-  font-size: 0.7em;
-  color: #00000090;
-`
+const descriptionStyle = cx(
+  smallTextStyle,
+  css`
+    display: flex;
+    gap: 4px;
+    color: #00000090;
+  `,
+)
 
 type CopyDescriptionProps = {
   isCopied: boolean | undefined

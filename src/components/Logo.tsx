@@ -1,13 +1,18 @@
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { FC } from 'react'
 import gonb from './svg/gonb.svg?base64-data-uri'
 import { useTranslation } from 'react-i18next'
+import { IS_MOBILE_QUERY } from './useIsMobile'
+import {
+  extraSmallTextStyle,
+  headerStyle,
+  MOBILE_TOOLBAR_HEIGHT,
+} from './constants'
 
 const logoBlockStyle = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 8px;
   margin-right: 60px;
   flex-shrink: 0;
   &:hover,
@@ -16,6 +21,12 @@ const logoBlockStyle = css`
     text-decoration: none;
   }
   user-select: none;
+
+  gap: 8px;
+
+  @media ${IS_MOBILE_QUERY} {
+    gap: 8px;
+  }
 `
 
 const logoTextStyle = css`
@@ -26,24 +37,31 @@ const logoTextStyle = css`
 `
 
 const titleIconStyle = css`
+  @media ${IS_MOBILE_QUERY} {
+    max-width: 18vw;
+    max-height: ${MOBILE_TOOLBAR_HEIGHT - 10}px;
+    height: auto;
+  }
   width: 100px;
 `
 
-const titleStyle = css`
-  color: #000;
-  font-size: 2.3em;
-  font-weight: bold;
-  line-height: 90%;
-  margin: 0px;
-`
+const titleStyle = cx(
+  headerStyle,
+  css`
+    line-height: 90%;
+    margin: 0px;
+  `,
+)
 
-const sloganStyle = css`
-  color: #00000099;
-  font-size: 0.8em;
-  line-height: 90%;
-  font-weight: normal;
-  white-space: nowrap;
-`
+const sloganStyle = cx(
+  extraSmallTextStyle,
+  css`
+    color: #000000aa;
+    line-height: 90%;
+    font-weight: normal;
+    white-space: nowrap;
+  `,
+)
 
 export const Logo: FC = () => {
   const { t } = useTranslation()

@@ -12,4 +12,10 @@ export default defineConfig({
     emptyOutDir: true,
     chunkSizeWarningLimit: 99999,
   },
+  // For mobile testing:
+  // ngrok http http://localhost:5173
+  // server: {
+  //   allowedHosts: true,
+  //   host: true,
+  // },
 })

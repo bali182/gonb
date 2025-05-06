@@ -1,4 +1,5 @@
 import { css } from '@emotion/react'
+import { IS_MOBILE_QUERY } from './useIsMobile'
 
 export const globalStyles = css`
   @font-face {
@@ -6,6 +7,15 @@ export const globalStyles = css`
     src: url('font/Bravura.eot');
     src: url('font/Bravura.woff') format('woff'),
       url('font/Bravura.otf') format('opentype');
+  }
+
+  html {
+    // Base font size
+    font-size: 16px;
+
+    @media ${IS_MOBILE_QUERY} {
+      font-size: 24px;
+    }
   }
 
   #root {
@@ -45,8 +55,13 @@ export const globalStyles = css`
     background-color: #ebebeb;
     height: 100vh;
     width: 100vw;
+
     @supports (height: 100dvh) {
       height: min(100vh, 100dvh);
+    }
+
+    @media ${IS_MOBILE_QUERY} {
+      background-color: #f0f0f0;
     }
   }
 
@@ -83,35 +98,6 @@ export const globalStyles = css`
   a {
     text-decoration: none !important;
   }
-
-  // Custom scrollbar
-  /* * {
-    --sb-track-color: #ffffff20;
-    --sb-thumb-color: #ffffff60;
-    --sb-size: 8px;
-  }
-
-  *::-webkit-scrollbar {
-    width: var(--sb-size);
-    height: var(--sb-size);
-  }
-
-  *::-webkit-scrollbar-track {
-    background: var(--sb-track-color);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background: var(--sb-thumb-color);
-    border-radius: 4px;
-  }
-
-  @supports not selector(::-webkit-scrollbar) {
-    * {
-      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-    }
-  } */
 
   /** Alphatab stuff */
   .at-cursor-bar {

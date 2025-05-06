@@ -1,9 +1,10 @@
-import { enharmonic, fromMidi, midi, pitchClass } from '@tonaljs/note'
+import { enharmonic, fromMidi, get, midi, pitchClass } from '@tonaljs/note'
 import { get as getScale } from '@tonaljs/scale'
 import { KeySignature } from './keySignature'
 import { Duration } from './duration'
 import { Language } from '../state/types'
 import { get as getChord } from '@tonaljs/chord'
+import { Accidental } from '../components/settings/controls/KeySignaturePicker/types'
 
 export function isNil<T>(
   input: T | null | undefined,
@@ -222,9 +223,9 @@ export function matchesPitchClass(
   reference: string,
   pitchedNote: string,
 ): boolean {
-  const pc = pitchClass(pitchedNote)
-  const eh = enharmonic(pc)
-  return pc === reference || eh === reference
+  const { chroma: refChroma } = get(reference)
+  const { chroma: noteChroma } = get(pitchedNote)
+  return refChroma === noteChroma
 }
 
 export function negate<T>(predicate: (input: T) => boolean) {
@@ -274,4 +275,26 @@ export function beautifyChord(chordName: string, language: Language): string {
   const type = alias === 'M' ? '' : alias
   const root = beautifyNote(tonic, language)
   return `${root}${type}`
+}
+
+export function getAccidentalType(key: KeySignature): Accidental {
+  switch (key) {
+    case KeySignature.C_MAJOR_A_MINOR:
+    case KeySignature.G_MAJOR_E_MINOR_1_SHARP:
+    case KeySignature.D_MAJOR_B_MINOR_2_SHARPS:
+    case KeySignature.A_MAJOR_F_SHARP_MINOR_3_SHARPS:
+    case KeySignature.E_MAJOR_C_SHARP_MINOR_4_SHARPS:
+    case KeySignature.B_MAJOR_G_SHARP_MINOR_5_SHARPS:
+    case KeySignature.F_SHARP_MAJOR_D_SHARP_MINOR_6_SHARPS:
+    case KeySignature.C_SHARP_MAJOR_A_SHARP_MINOR_7_SHARPS:
+      return '#'
+    case KeySignature.F_MAJOR_D_MINOR_1_FLAT:
+    case KeySignature.Bb_MAJOR_G_MINOR_2_FLATS:
+    case KeySignature.Eb_MAJOR_C_MINOR_3_FLATS:
+    case KeySignature.Ab_MAJOR_F_MINOR_4_FLATS:
+    case KeySignature.Db_MAJOR_Bb_MINOR_5_FLATS:
+    case KeySignature.Gb_MAJOR_Eb_MINOR_6_FLATS:
+    case KeySignature.Cb_MAJOR_Ab_MINOR_7_FLATS:
+      return 'b'
+  }
 }

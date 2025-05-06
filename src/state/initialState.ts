@@ -33,10 +33,28 @@ export const initialState: AppState = {
     timeSignature: { upper: 4, lower: 4 },
     keySignature: KeySignature.C_MAJOR_A_MINOR,
     noteDurations: {
-      [Duration.HALF]: { cluster: 1, frequency: DurationFrequency.MODERATE },
+      [Duration.HALF]: {
+        cluster: 1,
+        frequency: DurationFrequency.INFREQUENT,
+      },
+      [Duration.QUARTER]: {
+        cluster: 1,
+        frequency: DurationFrequency.MODERATE,
+      },
+      [Duration.EIGHTH]: {
+        cluster: 2,
+        frequency: DurationFrequency.INFREQUENT,
+      },
     },
     restDurations: {
-      [Duration.HALF]: { cluster: 1, frequency: DurationFrequency.MODERATE },
+      [Duration.QUARTER]: {
+        cluster: 1,
+        frequency: DurationFrequency.INFREQUENT,
+      },
+      [Duration.HALF]: {
+        cluster: 1,
+        frequency: DurationFrequency.INFREQUENT,
+      },
     },
     notes: C_MAJOR_GUITAR,
   },

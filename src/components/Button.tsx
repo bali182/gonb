@@ -1,31 +1,34 @@
 import { css, cx } from '@emotion/css'
 import { FC, PropsWithChildren } from 'react'
+import { bodyTextStyle } from './constants'
 
-const buttonStyle = css`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  color: #ffffff;
-  padding: 5px 14px 5px 12px;
-  gap: 6px;
-  cursor: pointer;
-  height: 40px;
-  font-size: 1.2em;
-  border-radius: 20px;
-  background-color: transparent;
-  background-color: #444;
-  &:hover {
+const buttonStyle = cx(
+  bodyTextStyle,
+  css`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
     color: #ffffff;
-    background-color: #333;
-  }
-  &:disabled {
-    background-color: #888;
-    color: #ddd;
-    cursor: not-allowed;
-  }
-`
+    padding: 5px 14px 5px 12px;
+    gap: 6px;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 20px;
+    background-color: transparent;
+    background-color: #444;
+    &:hover {
+      color: #ffffff;
+      background-color: #333;
+    }
+    &:disabled {
+      background-color: #888;
+      color: #ddd;
+      cursor: not-allowed;
+    }
+  `,
+)
 
 export type ButtonProps = PropsWithChildren & {
   onClick: () => void

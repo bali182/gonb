@@ -5,8 +5,8 @@ import { useDurationFrequencies } from './getDurationFrequencies'
 import { isNil } from '../../../../common/utils'
 import { DurationFrequency } from '../../../../common/durationFrequency'
 import {
+  durationFrequencyPickerClassNames,
   durationFrequencyPickerComponents,
-  durationFrequencyPickerStyles,
 } from './styling'
 
 export type DurationFrequencyPickerProps = {
@@ -35,9 +35,10 @@ export const DurationFrequencyPicker: FC<DurationFrequencyPickerProps> = ({
     <Select<SelectItem<DurationFrequency>>
       inputId="duration-frequency-picker"
       menuPosition="fixed"
+      isSearchable={false}
       value={selectedFrequency}
       options={frequencies}
-      styles={durationFrequencyPickerStyles}
+      classNames={durationFrequencyPickerClassNames}
       components={durationFrequencyPickerComponents}
       onChange={onChange}
     />

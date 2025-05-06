@@ -2,6 +2,7 @@ import { css, cx } from '@emotion/css'
 import { FC, ReactNode, useMemo } from 'react'
 import { Range, getTrackBackground } from 'react-range'
 import { IMarkProps, IThumbProps, ITrackProps } from 'react-range/lib/types'
+import { extraSmallTextStyle } from '../../../constants'
 
 export type ClusterSizeSliderProps = {
   value: number
@@ -120,20 +121,22 @@ type ThumbProps = {
   isDragged: boolean
 }
 
-const thumbStlye = css`
-  height: 26px;
-  width: 26px;
-  border-radius: 50%;
-  background-color: #777;
-  color: #fff;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75em;
-  transition: outline 0.5s ease;
-  outline: 0px solid #00000020;
-`
+const thumbStlye = cx(
+  extraSmallTextStyle,
+  css`
+    height: 26px;
+    width: 26px;
+    border-radius: 50%;
+    background-color: #777;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    transition: outline 0.5s ease;
+    outline: 0px solid #00000020;
+  `,
+)
 
 const draggedThumbShadow = css`
   outline: 6px solid #00000020;

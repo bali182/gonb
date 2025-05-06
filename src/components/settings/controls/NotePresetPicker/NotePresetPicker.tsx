@@ -1,15 +1,16 @@
 import { FC, useMemo } from 'react'
-import Select, { CSSObjectWithLabel, StylesConfig } from 'react-select'
+import Select, { ClassNamesConfig } from 'react-select'
 import { SelectItem } from '../../types'
-import { defaultComponents, defaultStyles } from '../dropdownStyles'
+import { defaultComponents, defaultClassNames } from '../dropdownStyles'
 import { useNotePresets } from './useNotePresets'
 import { arraysEqual, isNil, matchesPitchClass } from '../../../../common/utils'
 import { useTranslation } from 'react-i18next'
-import { css } from '@emotion/css'
+import { css, cx } from '@emotion/css'
 import { Button } from '../../../Button'
 import { PiMusicNotesBold } from 'react-icons/pi'
 import { KeySignature } from '../../../../common/keySignature'
 import { get } from '@tonaljs/scale'
+import { bodyTextStyle } from '../../../constants'
 
 export type NotePresetPicker = {
   keySignature: KeySignature
@@ -22,32 +23,58 @@ const containerStyle = css`
   flex-direction: row;
 `
 
-const buttonStyle = css`
-  border-radius: 0px;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
-  height: auto;
-  background-color: #00000010;
-  color: #000;
-  font-size: 1em;
-  border-left: 1px solid #00000020;
-  &:hover {
-    color: #000;
-    background-color: #00000020;
+const buttonStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+      flex-shrink: 0;
+      border-radius: 0px 6px 6px 0px;
+      height: auto;
+      background-color: #00000010;
+      color: #000;
+      border-left: 1px solid #00000020;
+      &:hover {
+        color: #000;
+        background-color: #00000020;
+      }
+    }
+  `,
+)
+
+const placeholderStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+      white-space: nowrap;
+    }
+  `,
+)
+
+const controlStyle = css`
+  && {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
   }
 `
 
-export const notePresetStyles: StylesConfig<any, any, any> = {
-  ...defaultStyles,
-  control: (provided, props): CSSObjectWithLabel => ({
-    ...defaultStyles?.control?.(provided, props),
-    borderTopRightRadius: '0px',
-    borderBottomRightRadius: '0px',
-  }),
-  container: (provided): CSSObjectWithLabel => ({
-    ...provided,
-    flex: 1,
-  }),
+const singleValueStyle = css`
+  && {
+    overflow: hidden;
+  }
+`
+
+const contStyle = css`
+  && {
+    flex: 1;
+  }
+`
+const notePresetClassNames: ClassNamesConfig<any, any, any> = {
+  ...defaultClassNames,
+  control: (props) => cx(defaultClassNames?.control?.(props), controlStyle),
+  singleValue: (props) =>
+    cx(defaultClassNames?.singleValue?.(props), singleValueStyle),
+  container: () => contStyle,
+  placeholder: () => placeholderStyle,
 }
 
 export const NotePresetPicker: FC<NotePresetPicker> = ({
@@ -56,8 +83,11 @@ export const NotePresetPicker: FC<NotePresetPicker> = ({
   onChange: _onChange,
 }) => {
   const { t } = useTranslation()
-  const presets = useNotePresets()
-
+  const presetGroups = useNotePresets()
+  const presets = useMemo(
+    () => presetGroups.flatMap((group) => group.options),
+    [presetGroups],
+  )
   const selectedPreset = useMemo(
     () =>
       presets.find(({ value: preset }) => arraysEqual(preset, value)) ?? null,
@@ -83,8 +113,8 @@ export const NotePresetPicker: FC<NotePresetPicker> = ({
       <Select<SelectItem<string[]>>
         inputId="note-preset-picker"
         value={selectedPreset}
-        options={presets}
-        styles={notePresetStyles}
+        options={presetGroups}
+        classNames={notePresetClassNames}
         placeholder={t('NotePresets.Custom')}
         components={defaultComponents}
         onChange={onChange}

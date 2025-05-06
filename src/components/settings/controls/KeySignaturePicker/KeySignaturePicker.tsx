@@ -1,18 +1,18 @@
 import { FC, useMemo } from 'react'
 import Select, {
+  ClassNamesConfig,
   components,
-  CSSObjectWithLabel,
   OptionProps,
   SelectComponentsConfig,
   SingleValueProps,
-  StylesConfig,
 } from 'react-select'
 import { SelectItem } from '../../types'
-import { defaultStyles } from '../dropdownStyles'
 import { KeySignature } from '../../../../common/keySignature'
 import { useKeySignatures } from './useKeySignatures'
 import { isNil } from '../../../../common/utils'
 import { Accidentals } from './Accidentals'
+import { defaultClassNames } from '../dropdownStyles'
+import { css, cx } from '@emotion/css'
 
 export type KeySignaturePickerProps = {
   value: KeySignature
@@ -53,15 +53,18 @@ const Option: FC<OptionProps<SelectItem<KeySignature>>> = ({
   )
 }
 
-const modifiedStyles: StylesConfig<any, any, any> = {
-  ...defaultStyles,
-  menuList: (provided, props): CSSObjectWithLabel => ({
-    ...defaultStyles?.menuList?.(provided, props),
-    maxHeight: '250px',
-  }),
+const menuListStyle = css`
+  && {
+    max-height: 250px;
+  }
+`
+
+const keySignatureClassNames: ClassNamesConfig<any, any, any> = {
+  ...defaultClassNames,
+  menuList: (props) => cx(defaultClassNames?.menuList?.(props), menuListStyle),
 }
 
-export const modifiedComponents: SelectComponentsConfig<any, any, any> = {
+export const keySignatureComponents: SelectComponentsConfig<any, any, any> = {
   IndicatorSeparator: () => null,
   SingleValue,
   Option,
@@ -89,8 +92,8 @@ export const KeySignaturePicker: FC<KeySignaturePickerProps> = ({
       inputId="key-signature-picker"
       value={selectedKeySignature}
       options={keySignatures}
-      styles={modifiedStyles}
-      components={modifiedComponents}
+      classNames={keySignatureClassNames}
+      components={keySignatureComponents}
       onChange={onChange}
     />
   )

@@ -1,38 +1,44 @@
 import { cx } from '@emotion/css'
 import { FC } from 'react'
 import { DurationItem } from './types'
-import { Switch } from '../Switch'
 import { useDurationItems } from './useDurationItems'
 import { ClusterSizeSlider } from '../ClusterSizeSlider/ClusterSizeSlider'
 import { DurationFrequencyPicker } from '../DurationFrequencyPicker/DurationFrequencyPicker'
 import { DurationFrequency } from '../../../../common/durationFrequency'
 import {
+  checkedCheckIconStyle,
+  checkIconStyle,
+  clickableCellStyle,
   clusterTdStyle,
   clusterThStyle,
+  disabledCellStyle,
   disabledClusterStyle,
   disabledRowStyle,
   emptyThStyle,
-  enabledThStyle,
   frequencyPickerTdStyle,
+  hollowCheckIconStyle,
+  pointerCursorStyle,
   probabilityThStyle,
   rowStyle,
   tableStyle,
-  tdCenterAlignerStyle,
   tdStyle,
 } from './durationGridStyles'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, UseTranslationResponse } from 'react-i18next'
 import { Duration } from '../../../../common/duration'
 import { DurationConfig, TimeSignature } from '../../../../state/types'
 import { DurationType } from '../../../../common/durationType'
-import { t } from 'i18next'
-import { isNil } from '../../../../common/utils'
+import { capitalize, isNil } from '../../../../common/utils'
+import { PiCheckFatFill, PiCheckFatThin, PiXLight } from 'react-icons/pi'
 
 type InternalDurationGridProps = {
   value: DurationItem[]
   onChange: (items: DurationItem[]) => void
 }
 
-function getJoinedRowLabel(item: DurationItem): string {
+function getJoinedRowLabel(
+  item: DurationItem,
+  { t }: UseTranslationResponse<'en', any>,
+): string {
   const { isEnabled, isSelected, name, timeSignature } = item
   if (isEnabled && !isSelected) {
     return `${name} ${t('DurationGrid.IsNotActive')}`
@@ -41,9 +47,11 @@ function getJoinedRowLabel(item: DurationItem): string {
     if (isNil(timeSignature.lower) || isNil(timeSignature.upper)) {
       return t('Validation.DurationInvalidBecauseOfTimeSignature')
     }
-    return t('DurationGrid.DurationTooLong', {
-      duration: name.toLowerCase(),
-    })
+    return capitalize(
+      t('DurationGrid.DurationTooLong', {
+        duration: name.toLocaleLowerCase(),
+      }),
+    )
   }
   throw new Error(`Unknown situation with duration ${name}`)
 }
@@ -52,7 +60,8 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
   value,
   onChange,
 }) => {
-  const { t } = useTranslation()
+  const resp = useTranslation()
+  const { t } = resp
 
   const update = (duration: Duration, updates: Partial<DurationItem>) => {
     const newItems = value.map((i): DurationItem => {
@@ -61,8 +70,8 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
     onChange(newItems)
   }
 
-  const onItemToggled = (item: DurationItem) => (isEnabled: boolean) =>
-    update(item.duration, { isSelected: isEnabled })
+  const onItemToggled = (item: DurationItem) => () =>
+    update(item.duration, { isSelected: !item.isSelected })
 
   const onFrequencyChange =
     (item: DurationItem) => (frequency: DurationFrequency) =>
@@ -76,7 +85,6 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
       <thead>
         <tr>
           <th className={emptyThStyle}></th>
-          <th className={enabledThStyle}>{t('DurationGrid.Enabled')}</th>
           <th className={probabilityThStyle}>
             {t('DurationGrid.Probability')}
           </th>
@@ -86,23 +94,32 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
       <tbody>
         {value.map((item) => {
           const key = `${item.duration}-${item.type}`
-          const switchId = `${item.duration}-${item.type}-enabled`
-          const fullRowStyle = item.isEnabled ? rowStyle : disabledRowStyle
+          const fullRowStyle = cx({
+            [rowStyle]: item.isEnabled,
+            [disabledRowStyle]: !item.isEnabled,
+          })
+          const nameCellStyle = cx(tdStyle, clickableCellStyle, {
+            [disabledCellStyle]: !item.isEnabled && !item.isSelected,
+          })
+          const mergedCellStyle = cx(tdStyle, {
+            [pointerCursorStyle]: item.isEnabled,
+          })
+          const CheckBoxIcon = item.isSelected ? PiCheckFatFill : PiCheckFatThin
+          const NameCellIcon =
+            item.isEnabled || item.isSelected ? CheckBoxIcon : PiXLight
+          const checkIconFullStyle = cx(checkIconStyle, {
+            [hollowCheckIconStyle]: !item.isSelected,
+            [checkedCheckIconStyle]: item.isSelected,
+          })
+          const onItemToggledHandler =
+            item.isEnabled || item.isSelected ? onItemToggled(item) : undefined
+
           return (
             <tr className={fullRowStyle} key={key}>
-              <th className={tdStyle}>
+              <th className={nameCellStyle} onClick={onItemToggledHandler}>
                 <item.Component />
+                <NameCellIcon className={checkIconFullStyle} />
               </th>
-              <td className={tdStyle}>
-                <div className={tdCenterAlignerStyle}>
-                  <Switch
-                    value={item.isSelected}
-                    id={switchId}
-                    onChange={onItemToggled(item)}
-                    disabled={!item.isEnabled && !item.isSelected}
-                  />
-                </div>
-              </td>
               {item.isSelected && item.isEnabled ? (
                 <>
                   <td className={cx(tdStyle, frequencyPickerTdStyle)}>
@@ -120,9 +137,13 @@ const InternalDurationGrid: FC<InternalDurationGridProps> = ({
                   </td>
                 </>
               ) : (
-                <td className={tdStyle} colSpan={2}>
+                <td
+                  className={mergedCellStyle}
+                  colSpan={2}
+                  onClick={onItemToggledHandler}
+                >
                   <div className={disabledClusterStyle}>
-                    {getJoinedRowLabel(item)}
+                    {getJoinedRowLabel(item, resp)}
                   </div>
                 </td>
               )}

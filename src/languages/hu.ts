@@ -6,20 +6,12 @@ import { KeySignature } from '../common/keySignature'
 import { MelodyType } from '../legacy/melodies/types'
 import { Messages } from './types'
 
-const Clefs: Record<Clef, string> = {
+const ClefsPrimary: Record<Clef, string> = {
   [Clef.BASS]: 'Basszuskulcs',
   [Clef.TREBLE]: 'Violinkulcs',
   [Clef.PERCUSSION]: 'Ütőkulcs',
   [Clef.TENOR]: 'Tenorkulcs',
   [Clef.ALTO]: 'Altokulcs',
-}
-
-const ClefsPrimary: Record<Clef, string> = {
-  [Clef.BASS]: 'Basszus',
-  [Clef.TREBLE]: 'Violin',
-  [Clef.PERCUSSION]: 'Ütő',
-  [Clef.TENOR]: 'Tenor',
-  [Clef.ALTO]: 'Alto',
 }
 
 const ClefsAlternate: Record<Clef, string> = {
@@ -89,6 +81,7 @@ export const hu: Messages = {
     MelodyIn: `Egy dallam {{key}}-ben`,
     AlphaTabRenderedBy: 'Kottát rajzolta:',
     Issues: 'Hibák és ötletek:',
+    Loading: 'A kotta töltődik...',
   },
   Menu: {
     GenerateNew: 'Generálj újat',
@@ -157,7 +150,7 @@ export const hu: Messages = {
     ClickToCopy: 'Kattints a link vágólapra másolásához!',
     CopySuccess: 'Link sikeresen a vágólapra másolva!',
     CopyFailure: 'Vágólapra másolás sikertelen.',
-    ScaleOnly: 'Skálahangok',
+    ScaleOnly: 'Skála',
 
     ShowChordsStaff: 'Mutasd a kíséretet',
     ShowChordsStaffDescription:
@@ -169,10 +162,20 @@ export const hu: Messages = {
     SeventhChordsDescription:
       'Dúsabb akkordhangzásokat használ az alap hármashangzatok helyett.',
   },
-  Clefs,
   KeySignatures,
   MelodyTypes,
-
+  PresetNames: {
+    Custom: 'Egyedi hangok',
+    Unfretted: 'Üres húrok ({{notes}})',
+    Position: '{{position}}. fekvés ({{lowest}}-{{highest}})',
+    ToNthFret: 'A {{fret}}. bundig ({{lowest}}-{{highest}})',
+  },
+  Instruments: {
+    SixStringGuitar: '6 Húros Gitár',
+    SevenStringGuitar: '7 Húros Gitár',
+    FourStringBass: '4 Húros Basszusgitár',
+    FiveStringBass: '5 Húros Basszusgitár',
+  },
   NotePresets: {
     SixStringGuitar: '6 Húros Gitár',
     SevenStringGuitar: '7 Húros Gitár',
@@ -229,13 +232,13 @@ export const hu: Messages = {
     Title: 'Hiba történt!',
     Explanation:
       'Vagy régiek a mentett adataid, vagy programhibát találtál. Ha úgy gondolod hogy ez programhiba, kérlek jelentsd (az alábbiakat csatolva):',
-    Reset: 'Alkalmazás alaphelyzetbe állítása',
+    Reset: 'App alaphelyzetbe állítása',
   },
   DurationGrid: {
     IsNotActive: 'inaktív.',
     Enabled: 'Aktív',
     Probability: 'Gyakoriság',
-    ClusterSize: 'Preferált csoport méret',
+    ClusterSize: 'Csoport méret',
     DurationTooLong: 'Egy {{duration}} nem fér egy ütembe.',
   },
   PlayerTooltips: {
@@ -245,7 +248,8 @@ export const hu: Messages = {
     Play: 'Lejátszás',
     Pause: 'Szünet',
     Stop: 'Stop',
-    Loop: 'Kiválasztás ismétlése',
-    CountIn: 'Beszámolás a lejátszás előtt',
+    Loop: 'Ismétel',
+    CountIn: 'Beszámol',
+    Regenerate: 'Újat!',
   },
 }

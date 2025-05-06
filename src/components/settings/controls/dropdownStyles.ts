@@ -1,72 +1,127 @@
-import {
-  CSSObjectWithLabel,
-  SelectComponentsConfig,
-  StylesConfig,
-} from 'react-select'
+import { css, cx } from '@emotion/css'
+import { ClassNamesConfig, SelectComponentsConfig } from 'react-select'
+import { bodyTextStyle } from '../../constants'
 
-const fontChangeProps = (provided: CSSObjectWithLabel): CSSObjectWithLabel => ({
-  ...provided,
-  fontSize: '1em',
-  color: '#000000',
-})
-
-export const defaultStyles: StylesConfig<any, any, any> = {
-  input: fontChangeProps,
-  singleValue: (provided): CSSObjectWithLabel => ({
-    ...fontChangeProps(provided),
-    overflow: 'visible',
-  }),
-  menuList: (provided): CSSObjectWithLabel => ({
-    ...fontChangeProps(provided),
-    backgroundColor: '#00000010',
-  }),
-  valueContainer: (provided): CSSObjectWithLabel => ({
-    ...provided,
-    paddingRight: '0px',
-    marginRight: '0px',
-  }),
-  indicatorsContainer: (provided): CSSObjectWithLabel => ({
-    ...provided,
-    paddingLeft: '0px',
-    marginLeft: '0px',
-  }),
-  dropdownIndicator: (provided): CSSObjectWithLabel => ({
-    ...provided,
-    paddingLeft: '0px',
-    marginLeft: '0px',
-  }),
-  placeholder: fontChangeProps,
-  control: (provided): CSSObjectWithLabel => ({
-    ...provided,
-    borderWidth: '0px',
-    boxShadow: 'none',
-    padding: '3px 6px',
-    borderRadius: '6px',
-    backgroundColor: '#00000010',
-    ':hover': {
-      backgroundColor: '#00000015',
-    },
-    ':focus': {
-      backgroundColor: '#00000020',
-    },
-  }),
-  option: (provided, { isSelected, isFocused }) => ({
-    ...provided,
-    color: '#000000',
-    backgroundColor: isSelected
-      ? '#00000015'
-      : isFocused
-      ? '#00000020'
-      : 'transparent',
-    ':active': {
-      backgroundColor: '#00000030',
-    },
-  }),
-  menu: (provided): CSSObjectWithLabel => ({
-    ...provided,
-    minWidth: '60px',
-  }),
+export const defaultClassNames: ClassNamesConfig<any, any, any> = {
+  input: () => inputStyle,
+  singleValue: () => singleValueStyle,
+  menuList: () => menuListStyle,
+  valueContainer: () => valueContainerStyle,
+  indicatorsContainer: () => indicatorsContainerStyle,
+  dropdownIndicator: () => dropdownIndicatorStyle,
+  placeholder: () => placeholderStyle,
+  control: () => controlStyle,
+  menu: () => menuStyle,
+  option: ({ isSelected, isFocused }) =>
+    cx({
+      [optionStyle]: true,
+      [optionFocusedStyle]: isFocused,
+      [optionSelectedStyle]: isSelected,
+    }),
 }
+
+const inputStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+      padding: 0px;
+    }
+  `,
+)
+
+const singleValueStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+      overflow: visible;
+    }
+  `,
+)
+
+const menuListStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+      background-color: #00000010;
+    }
+  `,
+)
+
+const valueContainerStyle = css`
+  && {
+    padding-right: 0px;
+    margin-right: 0px;
+  }
+`
+
+const indicatorsContainerStyle = css`
+  && {
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+`
+
+const dropdownIndicatorStyle = css`
+  && {
+    padding-left: 0px;
+    margin-left: 0px;
+  }
+`
+
+const placeholderStyle = cx(
+  bodyTextStyle,
+  css`
+    && {
+    }
+  `,
+)
+
+const controlStyle = css`
+  && {
+    border-width: 0px;
+    box-shadow: none;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background-color: #00000010;
+
+    &:hover {
+      background-color: #00000015;
+    }
+
+    &:focus {
+      background-color: #00000020;
+    }
+  }
+`
+
+const optionStyle = css`
+  && {
+    color: #000000;
+    background-color: transparent;
+
+    &:active {
+      background-color: #00000030;
+    }
+  }
+`
+
+const optionSelectedStyle = css`
+  && {
+    background-color: #00000015;
+  }
+`
+
+const optionFocusedStyle = css`
+  && {
+    background-color: #00000020;
+  }
+`
+
+const menuStyle = css`
+  && {
+    min-width: 60px;
+  }
+`
 
 export const defaultComponents: SelectComponentsConfig<any, any, any> = {
   IndicatorSeparator: () => null,

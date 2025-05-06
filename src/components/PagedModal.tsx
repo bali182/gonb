@@ -1,26 +1,12 @@
 import { css, cx } from '@emotion/css'
-import { ComponentType, useMemo } from 'react'
+import { useMemo } from 'react'
 import { IconType } from 'react-icons'
 import { PiX } from 'react-icons/pi'
 import { Modal } from './Modal'
 import { Button } from './Button'
 import { isNil, noop } from '../common/utils'
 import { useScrollOverflowGradient } from './useScrollOverflowGradient'
-
-export type ModalPage<P extends string, T = any> = {
-  id: P
-  name: string
-  Icon: ComponentType
-  Badge?: ComponentType
-  Component: ComponentType<T>
-}
-
-export type PagedModalButton = {
-  id: string
-  label: string
-  enabled: boolean
-  icon: IconType
-}
+import { ModalPage, PagedModalButton } from './types'
 
 export type PagedModalProps<P extends string, T> = {
   activePageId: P
@@ -45,7 +31,7 @@ const menuHeaderStyle = css`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 1.4em;
+  font-size: 1.4rem;
   font-weight: bold;
   color: #000000;
   gap: 10px;
@@ -69,7 +55,7 @@ const menuItemStlye = css`
   flex-direction: row;
   align-items: center;
   color: #000000cc;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   gap: 10px;
   padding: 10px 18px;
   cursor: pointer;
@@ -116,14 +102,14 @@ const contentHeaderStyle = css`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.4em;
+  font-size: 1.4rem;
   font-weight: bold;
   color: #000000;
   padding: 14px;
 `
 
 const closeIconStyle = css`
-  font-size: 1.4em;
+  font-size: 1.4rem;
   color: #000000;
   cursor: pointer;
 `
