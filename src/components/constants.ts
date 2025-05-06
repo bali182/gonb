@@ -114,7 +114,7 @@ export const menuIconStyle = css`
 `
 
 export const volumeIconSizeStyle = css`
-  font-size: 2rem;
+  font-size: 2.3rem;
 
   @media ${TABLET_SELECTOR} {
     font-size: 0.9rem;
